@@ -308,12 +308,11 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
 .l-desc{font-size:.84rem;color:var(--muted);line-height:1.7}
 .lead-mosaic{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
 .lead-mosaic img{
-  width:100%;height:clamp(160px,22vw,210px);object-fit:cover;border:.5px solid var(--border);
+  width:100%;height:clamp(150px,20vw,200px);object-fit:cover;border:.5px solid var(--border);
   transition:border-color .3s,transform .55s var(--ease);
 }
-.lead-mosaic img:hover{border-color:var(--border-strong)}
-.lead-mosaic img:first-child{grid-column:1/-1;height:clamp(240px,32vw,340px);object-position:center 20%}
-.lead-mosaic img:not(:first-child){height:clamp(160px,22vw,210px)}
+.lead-mosaic img:hover{border-color:var(--border-strong);transform:scale(1.015)}
+.lead-mosaic img:first-child{grid-column:1/-1;height:clamp(220px,28vw,300px)}
 .corp-strip{
   display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
   max-width:var(--max);margin:clamp(2.4rem,5vw,3.8rem) auto 0;padding:0 var(--pad-x);
@@ -391,8 +390,8 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
 .tl-body ul{margin:0;padding-left:1.1rem}
 .tl-body li{margin-bottom:.25rem}
 
-/* GALLERY */
-#gallery{padding:var(--pad-y) 0;background:var(--bg2)}
+/* GALLERY / SELECTED WORK */
+#gallery,#selected{padding:var(--pad-y) 0;background:var(--bg2)}
 .gallery-track-wrap{overflow:hidden}
 .gallery-track{
   display:flex;gap:1rem;padding:0 var(--pad-x);
@@ -422,7 +421,7 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
 /* BEYOND + HOBBIES */
 #beyond{padding:var(--pad-y) 0;background:var(--bg)}
 .beyond-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;
   max-width:var(--max);margin:0 auto;padding:0 var(--pad-x);
 }
 .beyond-card{
@@ -433,8 +432,8 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
 .beyond-card .media{overflow:hidden;aspect-ratio:4/3}
 .beyond-card img{width:100%;height:100%;object-fit:cover;transition:transform .65s var(--ease)}
 .beyond-card:hover img{transform:scale(1.04)}
-.beyond-card:first-child{grid-column:1/3}
-.beyond-card:first-child .media{aspect-ratio:16/10;min-height:320px}
+.beyond-card.featured{grid-column:1/-1}
+.beyond-card.featured .media{aspect-ratio:21/9;min-height:280px}
 .beyond-caption{
   padding:1rem 1.15rem;font-family:'DM Mono',monospace;font-size:.58rem;
   letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
@@ -554,10 +553,11 @@ footer{
   .research-grid{grid-template-columns:1fr 1fr}
   .proj-lg{grid-column:span 12}.proj-sm{grid-column:span 6}.proj-md{grid-column:span 4}
   .beyond-grid{grid-template-columns:1fr 1fr}
-  .beyond-card:first-child{grid-column:1/-1}
-  .beyond-card:first-child .media{min-height:240px;aspect-ratio:21/9}
+  .beyond-card.featured{grid-column:1/-1}
+  .beyond-card.featured .media{min-height:240px;aspect-ratio:21/9}
 }
 @media (max-width:900px){
+  .corp-strip{grid-template-columns:1fr 1fr!important}
   .about-grid,.lead-layout,.roots-layout,.contact-layout,.research-feature{grid-template-columns:1fr;gap:2.4rem}
   .story-strip{grid-template-columns:1fr 1fr}
   .about-frame{max-width:480px;margin:0 auto}
@@ -589,7 +589,7 @@ footer{
 @media (max-width:520px){
   .beyond-grid,.lead-mosaic,.roots-photos,.story-strip{grid-template-columns:1fr}
   .lead-mosaic img:first-child,.lead-mosaic img:not(:first-child),.roots-photos img{height:230px;grid-column:auto}
-  .beyond-card:first-child .media{aspect-ratio:4/3;min-height:0}
+  .beyond-card.featured .media{aspect-ratio:4/3;min-height:0}
   .btn,.contact-links .btn{width:100%}
   .contact-links{flex-direction:column;align-items:stretch}
   .hero-name{font-size:clamp(3.4rem,17vw,4.8rem)}
@@ -607,7 +607,7 @@ body{
     radial-gradient(900px 500px at 90% 20%, rgba(201,168,76,.04), transparent 50%),
     var(--bg);
 }
-.inner, .about-grid, .bento, .lead-layout, .corp-strip, .research-grid, .story-strip, .research-feature, .beyond-grid, .roots-layout, .honors-grid, .contact-layout, .timeline, .archive-masonry, .video-grid{
+.inner, .about-grid, .bento, .lead-layout, .corp-strip, .research-grid, .story-strip, .research-feature, .beyond-grid, .roots-layout, .honors-grid, .contact-layout, .timeline{
   width:100%;
 }
 .section-header{margin-bottom:clamp(2.8rem,6vw,4.8rem)}
@@ -615,14 +615,14 @@ body{
 .section-subtitle{max-width:560px;line-height:1.85}
 
 /* Luxury cards */
-.r-card,.proj,.corp-card,.beyond-card,.honor-card,.story-cell,.tl-item,.archive-item,.video-card{
+.r-card,.proj,.corp-card,.beyond-card,.honor-card,.story-cell,.tl-item{
   background:linear-gradient(180deg, rgba(34,30,22,.92), rgba(22,19,14,.96));
   border:1px solid rgba(201,168,76,.18);
   box-shadow: var(--glow), inset 0 1px 0 rgba(255,255,255,.03);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
-.r-card:hover,.proj:hover,.corp-card:hover,.beyond-card:hover,.honor-card:hover,.story-cell:hover,.archive-item:hover,.video-card:hover{
+.r-card:hover,.proj:hover,.corp-card:hover,.beyond-card:hover,.honor-card:hover,.story-cell:hover{
   border-color:rgba(201,168,76,.42);
   box-shadow: var(--glow-strong), 0 24px 60px rgba(0,0,0,.45);
 }
@@ -651,50 +651,94 @@ body{
 /* About frame gold accent */
 .about-frame::before{border-color:rgba(201,168,76,.28);box-shadow:var(--glow)}
 
-/* Expanded visual archive */
-#archive{padding:var(--pad-y) 0;background:var(--bg2)}
-.archive-masonry{
-  columns:3;column-gap:1rem;
-  max-width:var(--max);margin:0 auto;padding:0 var(--pad-x);
-}
-.archive-item{
-  break-inside:avoid;margin-bottom:1rem;overflow:hidden;
-  transition:transform .4s var(--ease), border-color .35s, box-shadow .4s;
-}
-.archive-item img,.archive-item video{
-  width:100%;height:auto;display:block;object-fit:cover;
-}
-.archive-item figcaption{
-  padding:.75rem 1rem;font-family:'DM Mono',monospace;font-size:.55rem;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
-}
-.archive-cat{
-  font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.24em;
-  text-transform:uppercase;color:var(--gold);margin:2.5rem auto 1rem;
-  max-width:var(--max);padding:0 var(--pad-x);
-}
 
-#reels{padding:var(--pad-y) 0;background:var(--bg)}
-.video-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;
-  max-width:var(--max);margin:0 auto;padding:0 var(--pad-x);
-}
-.video-card{overflow:hidden}
-.video-card video{width:100%;aspect-ratio:16/10;object-fit:cover;background:#000}
-.video-card p{
-  padding:.9rem 1.1rem;font-family:'DM Mono',monospace;font-size:.55rem;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
-}
-
-@media (max-width:900px){
-  .archive-masonry{columns:2}
-  .video-grid{grid-template-columns:1fr 1fr}
-}
-@media (max-width:560px){
-  .archive-masonry{columns:1}
   .video-grid{grid-template-columns:1fr}
   .hero-media img{object-position:72% 26%}
 }
+
+
+/* ROBOTICS — curated platforms */
+#robotics{padding:var(--pad-y) 0;background:var(--bg2)}
+.robo-cats{max-width:var(--max);margin:0 auto;padding:0 var(--pad-x);display:flex;flex-direction:column;gap:clamp(2.4rem,5vw,3.8rem)}
+.robo-cat-label{
+  font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.85rem;
+}
+.robo-cat-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.robo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.robo-grid.duo{grid-template-columns:1.2fr 1fr}
+.robo-card{
+  background:rgba(28,24,18,.72);border:.5px solid var(--border);overflow:hidden;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:transform .4s var(--ease),border-color .35s,box-shadow .4s;
+}
+.robo-card:hover{
+  transform:translateY(-4px);border-color:var(--border-strong);
+  box-shadow:0 20px 48px rgba(0,0,0,.4),0 0 28px rgba(201,168,76,.08);
+}
+.robo-card .media{aspect-ratio:4/3;overflow:hidden}
+.robo-card.featured .media{aspect-ratio:16/10;min-height:280px}
+.robo-card img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.robo-card:hover img{transform:scale(1.04)}
+.robo-card-body{padding:1.15rem 1.25rem 1.35rem}
+.robo-card-title{font-size:.95rem;font-weight:500;margin-bottom:.3rem}
+.robo-card-desc{font-size:.84rem;color:var(--muted);line-height:1.7}
+.research-support{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;
+  max-width:var(--max);margin:clamp(1.8rem,4vw,2.8rem) auto 0;padding:0 var(--pad-x);
+}
+.research-support .media{aspect-ratio:4/3;overflow:hidden;border:.5px solid var(--border);background:var(--card)}
+.research-support img{width:100%;height:100%;object-fit:cover;transition:transform .65s var(--ease)}
+.research-support .media:hover img{transform:scale(1.04)}
+.research-mission{
+  max-width:var(--max);margin:clamp(2rem,4vw,3rem) auto 0;padding:0 var(--pad-x);
+  display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(1.5rem,4vw,3rem);align-items:center;
+}
+.research-mission h3{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.05;letter-spacing:.02em;
+}
+.research-mission h3 span{color:var(--gold)}
+.research-mission p{color:var(--muted);font-size:.95rem;line-height:1.85}
+.impact-line{
+  max-width:var(--max);margin:clamp(2rem,4vw,3rem) auto 0;padding:1.5rem 1.6rem;
+  margin-left:var(--pad-x);margin-right:var(--pad-x);
+  border:.5px solid var(--border-strong);background:rgba(201,168,76,.05);
+  box-shadow:0 0 40px rgba(201,168,76,.06);
+}
+.impact-line p{font-size:.95rem;color:var(--off);line-height:1.8;text-align:center}
+.impact-line strong{color:var(--gold);font-weight:500}
+#selected{padding:var(--pad-y) 0;background:var(--bg)}
+@media (max-width:900px){
+  .robo-grid,.robo-grid.duo,.research-support{grid-template-columns:1fr 1fr}
+  .research-mission{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .robo-grid,.robo-grid.duo,.research-support{grid-template-columns:1fr}
+  .robo-card.featured{grid-column:auto}
+}
+
+
+/* Premium ambient + glass polish */
+body{
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%,rgba(201,168,76,.07),transparent 55%),
+    radial-gradient(ellipse 60% 40% at 90% 20%,rgba(201,168,76,.04),transparent 50%),
+    var(--bg);
+}
+.btn-primary{box-shadow:0 0 24px rgba(201,168,76,.18)}
+.hero-stat-num{text-shadow:0 0 28px rgba(201,168,76,.25)}
+.r-card,.proj,.corp-card,.beyond-card,.honor-card,.story-cell,.robo-card{
+  background:rgba(28,24,18,.78);
+  box-shadow:inset 0 1px 0 rgba(232,201,122,.06);
+}
+.r-card:hover,.proj:hover,.corp-card:hover,.beyond-card:hover,.honor-card:hover,.robo-card:hover{
+  box-shadow:0 22px 50px rgba(0,0,0,.42),0 0 32px rgba(201,168,76,.1),inset 0 1px 0 rgba(232,201,122,.1);
+}
+.collab-bar,.pull-quote{
+  background:rgba(28,24,18,.85);
+  box-shadow:0 0 36px rgba(201,168,76,.05);
+}
+.tl-item::before{box-shadow:0 0 0 4px rgba(201,168,76,.18),0 0 16px rgba(201,168,76,.35)}
 
 </style>
 </head>
@@ -708,10 +752,10 @@ body{
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">About</a></li>
     <li><a href="#research">Research</a></li>
+    <li><a href="#robotics">Robotics</a></li>
     <li><a href="#projects">Projects</a></li>
-    <li><a href="#leadership">Leadership</a></li>
+    <li><a href="#leadership">Impact</a></li>
     <li><a href="#journey">Journey</a></li>
-    <li><a href="#archive">Archive</a></li>
     <li><a href="#beyond">Beyond</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
@@ -817,22 +861,23 @@ body{
   </div>
 </section>
 
+
 <section id="research">
   <div class="section-header reveal" style="padding:0 var(--pad-x)">
     <div class="section-eyebrow">AI Farms Initiative · Since Oct 2022</div>
-    <h2 class="section-title">Research &amp;<br><em>Innovation</em></h2>
-    <p class="section-subtitle">First-author research at the convergence of AI, autonomous robotics, and sustainable agriculture — in collaboration with Tuskegee, USDA, CROPPS, and Cornell.</p>
+    <h2 class="section-title">Field Research.<br><em>Real Systems.</em></h2>
+    <p class="section-subtitle">First-author work at the convergence of AI, autonomous robotics, and sustainable agriculture — with Tuskegee, USDA, CROPPS, and Cornell.</p>
   </div>
 
   <div class="reveal">
-    <img class="research-bleed" src="assets/images%20copy/03_Robotics/IMG_1936.JPG" alt="AI Farms multi-robot field deployment with drone, robot dog, and autonomous rovers" width="2400" height="1600" loading="lazy">
-    <p class="research-caption">"Integrating AI-Powered Robotic Systems for Precision Agriculture and Environmental Monitoring" — C. Jones et al. · Tuskegee · USDA · CROPPS · Cornell</p>
+    <img class="research-bleed" src="assets/images%20copy/02_AI_Farms_Research/10782.jpg" alt="AI Farms field research operations with agricultural drone systems" width="2400" height="1600" loading="lazy" style="object-position:center 40%">
+    <p class="research-caption">Hero Research — AI Farms field operations at Tuskegee University</p>
   </div>
 
-  <blockquote class="pull-quote reveal">
-    <p>"Drone overhead. Autonomous rover on the ground. Robot dog walking the field. All simultaneously — deployed for researchers, dignitaries, and students."</p>
-    <cite>AI Farms Field Demo — Tuskegee University</cite>
-  </blockquote>
+  <div class="research-mission reveal">
+    <h3>Research<br><span>Mission.</span></h3>
+    <p>Build and deploy AI-powered robotic systems that sense, decide, and act in real agricultural environments — turning field data into decisions that scale beyond a single plot.</p>
+  </div>
 
   <div class="story-strip reveal">
     <div class="story-cell">
@@ -853,40 +898,47 @@ body{
     </div>
   </div>
 
-  <div class="research-feature reveal">
-    <img src="assets/images%20copy/05_Industry_Corporate/10198.jpg" alt="Cameron Jones presenting first-author research poster on AI-powered robotic systems for precision agriculture" loading="lazy" style="object-position:center 20%">
-    <div>
-      <h3>First-Author<br><span>Research.</span></h3>
-      <p>"Integrating AI-Powered Robotic Systems for Precision Agriculture and Environmental Monitoring" — developed and presented in collaboration with Tuskegee University, USDA, CROPPS, and Cornell University.</p>
-      <p>The work bridges autonomous platforms with environmental sensing — showing how AI and robotics can inform agricultural decisions at scale.</p>
-    </div>
+  <div class="research-support reveal">
+    <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/274091622200731962.jpg" alt="Drone and field robotics during AI Farms research" loading="lazy" style="object-position:center 35%"></div>
+    <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/2104941407774967754.jpg" alt="Quadruped robot in the AI Farms research lab" loading="lazy"></div>
+    <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2029.JPEG" alt="Automated greenhouse gantry system for crop monitoring" loading="lazy"></div>
+    <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2497.JPEG" alt="Experimental crop beds in greenhouse research facility" loading="lazy"></div>
   </div>
 
-  <div class="research-grid reveal">
-    <article class="r-card">
-      <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/2104941407774967754.jpg" alt="Quadruped robot in the AI Farms research lab with researchers" loading="lazy"></div>
-      <div class="r-card-body">
-        <div class="r-card-num">01</div>
-        <div class="r-card-title">Autonomous Robotics</div>
-        <div class="r-card-desc">Deploying quadruped platforms and field robots for environmental monitoring, terrain traversal, and live research demonstrations.</div>
-      </div>
-    </article>
+  <div class="research-grid reveal" style="padding-top:clamp(1.8rem,4vw,2.8rem)">
     <article class="r-card">
       <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/10784.jpg" alt="Cameron Jones conducting leaf measurements during field research" loading="lazy" style="object-position:center 30%"></div>
       <div class="r-card-body">
-        <div class="r-card-num">02</div>
+        <div class="r-card-num">01</div>
         <div class="r-card-title">Precision Field Science</div>
-        <div class="r-card-desc">Collecting crop health data with sensor instrumentation — bridging AI systems with real agricultural decision-making.</div>
+        <div class="r-card-desc">Crop health measurements and sensor instrumentation that bridge AI systems with agricultural decision-making.</div>
       </div>
     </article>
     <article class="r-card">
-      <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2029.JPEG" alt="Automated greenhouse gantry system for AI-powered crop monitoring" loading="lazy"></div>
+      <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_3363.JPG" alt="Crop sensing and environmental monitoring research" loading="lazy" style="object-position:center 40%"></div>
       <div class="r-card-body">
-        <div class="r-card-num">03</div>
-        <div class="r-card-title">Greenhouse AI Monitoring</div>
-        <div class="r-card-desc">Integrating AI-powered sensor systems in controlled greenhouse environments for real-time environmental data and yield optimization.</div>
+        <div class="r-card-num">02</div>
+        <div class="r-card-title">Sensors &amp; Greenhouse AI</div>
+        <div class="r-card-desc">Controlled-environment monitoring for real-time environmental data and yield-oriented research.</div>
       </div>
     </article>
+    <article class="r-card">
+      <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2775.JPEG" alt="AI Farms greenhouse and research infrastructure" loading="lazy" style="object-position:center 45%"></div>
+      <div class="r-card-body">
+        <div class="r-card-num">03</div>
+        <div class="r-card-title">Research Infrastructure</div>
+        <div class="r-card-desc">Systems and facilities that make continuous experimentation possible — from beds to automation.</div>
+      </div>
+    </article>
+  </div>
+
+  <div class="research-feature reveal">
+    <img src="assets/images%20copy/05_Industry_Corporate/10198.jpg" alt="Cameron Jones presenting first-author research poster on AI-powered robotic systems" loading="lazy" style="object-position:center 18%">
+    <div>
+      <h3>First-Author<br><span>Research Poster.</span></h3>
+      <p>"Integrating AI-Powered Robotic Systems for Precision Agriculture and Environmental Monitoring" — developed and presented with Tuskegee University, USDA, CROPPS, and Cornell University.</p>
+      <p>The work bridges autonomous platforms with environmental sensing — showing how AI and robotics can inform agricultural decisions at scale.</p>
+    </div>
   </div>
 
   <div class="collab-bar reveal">
@@ -900,36 +952,99 @@ body{
     <div class="collab-div"></div>
     <span class="collab-name">Cornell University</span>
   </div>
+
+  <div class="impact-line reveal">
+    <p><strong>Impact.</strong> Drone overhead. Autonomous rover on the ground. Robot dog walking the field — deployed together for researchers, dignitaries, and students.</p>
+  </div>
+</section>
+
+<section id="robotics">
+  <div class="section-header reveal" style="padding:0 var(--pad-x)">
+    <div class="section-eyebrow">Autonomous Systems</div>
+    <h2 class="section-title">Machines That<br><em>Move.</em></h2>
+    <p class="section-subtitle">Robot dog. Drone. Rover. Clear platforms. Real deployments. Community demos that make autonomy tangible.</p>
+  </div>
+
+  <div class="robo-cats">
+    <div class="reveal">
+      <div class="robo-cat-label">Autonomous Robotics</div>
+      <div class="robo-grid duo">
+        <article class="robo-card featured">
+          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6667.JPG" alt="Silver LiDAR-equipped quadruped robot during field research" loading="lazy" style="object-position:center 45%"></div>
+          <div class="robo-card-body">
+            <div class="robo-card-title">Robot Dog — Field Platform</div>
+            <div class="robo-card-desc">Quadruped systems for terrain traversal, sensing, and live research demonstrations.</div>
+          </div>
+        </article>
+        <article class="robo-card">
+          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_0073.JPG" alt="Quadruped robot platform close detail" loading="lazy" style="object-position:center 40%"></div>
+          <div class="robo-card-body">
+            <div class="robo-card-title">Platform Detail</div>
+            <div class="robo-card-desc">Hardware built for outdoor autonomy — sensors, locomotion, and field readiness.</div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="robo-cat-label">Field Deployment</div>
+      <div class="robo-grid">
+        <article class="robo-card">
+          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_1936.JPG" alt="Multi-robot field deployment with drone, robot dog, and rovers" loading="lazy" style="object-position:center 45%"></div>
+          <div class="robo-card-body">
+            <div class="robo-card-title">Multi-Robot Ops</div>
+            <div class="robo-card-desc">Coordinated fleets — aerial and ground systems operating in the same session.</div>
+          </div>
+        </article>
+        <article class="robo-card">
+          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_1561.JPG" alt="Large agricultural research rover platform" loading="lazy" style="object-position:center 40%"></div>
+          <div class="robo-card-body">
+            <div class="robo-card-title">Agricultural Rover</div>
+            <div class="robo-card-desc">Ground platforms for crop-row navigation and field instrumentation.</div>
+          </div>
+        </article>
+        <article class="robo-card">
+          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_4364.JPG" alt="Autonomous rover systems prepared for deployment" loading="lazy" style="object-position:center 50%"></div>
+          <div class="robo-card-body">
+            <div class="robo-card-title">Rover Systems</div>
+            <div class="robo-card-desc">Deployment-ready autonomy for outdoor agricultural research.</div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="robo-cat-label">Community Demonstrations</div>
+      <div class="robo-grid duo">
+        <article class="robo-card">
+          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6659.JPG" alt="Robotics demonstration for community and stakeholders" loading="lazy" style="object-position:center 30%"></div>
+          <div class="robo-card-body">
+            <div class="robo-card-title">Live Demonstrations</div>
+            <div class="robo-card-desc">Bringing autonomous systems to conferences, campuses, and public audiences.</div>
+          </div>
+        </article>
+        <article class="robo-card">
+          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6658.JPG" alt="Robot dog operations during outreach demonstration" loading="lazy" style="object-position:center 35%"></div>
+          <div class="robo-card-body">
+            <div class="robo-card-title">Outreach Operations</div>
+            <div class="robo-card-desc">Hands-on robotics that make AI tangible for students and communities.</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section id="projects">
   <div class="section-header reveal" style="padding:0 var(--pad-x)">
-    <div class="section-eyebrow">Projects</div>
-    <h2 class="section-title">Built.<br><em>Shipped.</em> Won.</h2>
-    <p class="section-subtitle">From hackathon floors to custom hardware — projects that show end-to-end technical depth and creative problem solving.</p>
+    <div class="section-eyebrow">Engineering</div>
+    <h2 class="section-title">Systems Built.<br><em>Problems Solved.</em></h2>
+    <p class="section-subtitle">From hackathon floors to custom hardware — end-to-end technical depth and creative problem solving.</p>
   </div>
 
   <div class="bento">
     <article class="proj proj-lg reveal">
-      <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6667.JPG" alt="Silver LiDAR-equipped quadruped robot during Tuskegee field research" loading="lazy"></div>
-      <div class="proj-body">
-        <div class="proj-label">Robotics · Community Outreach</div>
-        <div class="proj-title">Robot Dog Deployment</div>
-        <p class="proj-desc">Deployed and demonstrated a quadruped robot platform for congressional dignitaries, MANRRS conferences, and elementary school outreach — bringing autonomous robotics to policymakers and 8-year-olds alike.</p>
-        <div class="proj-tech"><span>Quadruped Robotics</span><span>Field Ops</span><span>STEM Outreach</span></div>
-      </div>
-    </article>
-    <article class="proj proj-sm reveal reveal-d1">
-      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_0373.JPEG" alt="Cameron Jones coding with teammates at AuburnHacks" loading="lazy" style="object-position:center 25%"></div>
-      <div class="proj-body">
-        <div class="proj-label">Hackathon · AuburnHacks</div>
-        <div class="proj-title">AuburnHacks Champion</div>
-        <p class="proj-desc">First Place. "Project Tropical." Four teammates. One win.</p>
-        <div class="proj-tech"><span>Full-Stack</span><span>Hackathon</span><span>Team Lead</span></div>
-      </div>
-    </article>
-    <article class="proj proj-sm reveal reveal-d2">
-      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_0669.JPEG" alt="UIUC Precision Agriculture Hackathon first-place team with awards" loading="lazy" style="object-position:center 30%"></div>
+      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_0669.JPEG" alt="UIUC Precision Agriculture Hackathon first-place team with awards" loading="lazy" style="object-position:center 28%"></div>
       <div class="proj-body">
         <div class="proj-label">Hackathon · UIUC</div>
         <div class="proj-title">Precision Ag Hackathon</div>
@@ -937,40 +1052,40 @@ body{
         <div class="proj-tech"><span>Analytics</span><span>Decision Support</span><span>AgTech</span></div>
       </div>
     </article>
-    <article class="proj proj-md reveal">
-      <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_1936.JPG" alt="Full robotics fleet with robot dog, drone, and autonomous rovers on landing pads" loading="lazy"></div>
+    <article class="proj proj-sm reveal reveal-d1">
+      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_0362.JPEG" alt="AuburnHacks team collaboration and project work" loading="lazy" style="object-position:center 25%"></div>
       <div class="proj-body">
-        <div class="proj-label">Systems · Field Ops</div>
-        <div class="proj-title">Multi-Robot Deployment</div>
-        <p class="proj-desc">Coordinating drone flights, rover operations, and quadruped platforms in simultaneous field research sessions.</p>
-        <div class="proj-tech"><span>Drones</span><span>Rovers</span><span>Systems Integration</span></div>
+        <div class="proj-label">Hackathon · AuburnHacks</div>
+        <div class="proj-title">AuburnHacks Champion</div>
+        <p class="proj-desc">First Place. "Project Tropical." Four teammates. One win.</p>
+        <div class="proj-tech"><span>Full-Stack</span><span>Hackathon</span><span>Team Lead</span></div>
+      </div>
+    </article>
+    <article class="proj proj-md reveal">
+      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_2713.JPG" alt="Hardware and systems project development" loading="lazy" style="object-position:center 40%"></div>
+      <div class="proj-body">
+        <div class="proj-label">Hardware · Systems</div>
+        <div class="proj-title">Sensor &amp; Hardware Builds</div>
+        <p class="proj-desc">Hands-on systems work — instrumentation, assembly, and iteration for research workloads.</p>
+        <div class="proj-tech"><span>IoT</span><span>Hardware</span><span>Engineering</span></div>
       </div>
     </article>
     <article class="proj proj-md reveal reveal-d1">
-      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_2408.JPG" alt="Greenhouse monitoring interface and hardware project work" loading="lazy"></div>
-      <div class="proj-body">
-        <div class="proj-label">Research · Hardware</div>
-        <div class="proj-title">Greenhouse Sensor Systems</div>
-        <p class="proj-desc">Designed and deployed IoT sensor arrays for automated environmental monitoring in experimental greenhouse beds.</p>
-        <div class="proj-tech"><span>IoT</span><span>Sensors</span><span>Hardware</span></div>
-      </div>
-    </article>
-    <article class="proj proj-md reveal reveal-d2">
-      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/10198.jpg" alt="Cameron Jones presenting AI-powered robotic systems research poster" loading="lazy" style="object-position:center 20%"></div>
-      <div class="proj-body">
-        <div class="proj-label">Research · First Author</div>
-        <div class="proj-title">Research Poster</div>
-        <p class="proj-desc">Lead author on precision agriculture research presented to industry professionals, academics, and government stakeholders.</p>
-        <div class="proj-tech"><span>First Author</span><span>AI Systems</span><span>Precision Ag</span></div>
-      </div>
-    </article>
-    <article class="proj proj-md reveal">
       <div class="media"><img src="assets/images%20copy/06_Projects/IMG_8101.jpeg" alt="Custom PC hardware build engineered by Cameron Jones" loading="lazy" style="object-position:center 40%"></div>
       <div class="proj-body">
         <div class="proj-label">Hardware · Systems</div>
         <div class="proj-title">Custom PC Builds</div>
-        <p class="proj-desc">End-to-end custom computing hardware — assembling, tuning, and deploying high-performance systems for research and development workloads.</p>
-        <div class="proj-tech"><span>Hardware</span><span>Systems</span><span>Engineering</span></div>
+        <p class="proj-desc">End-to-end custom computing hardware for research and development workloads.</p>
+        <div class="proj-tech"><span>Hardware</span><span>Systems</span><span>Performance</span></div>
+      </div>
+    </article>
+    <article class="proj proj-md reveal reveal-d2">
+      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_2402.JPG" alt="Project development and technical build process" loading="lazy" style="object-position:center 35%"></div>
+      <div class="proj-body">
+        <div class="proj-label">Build · Process</div>
+        <div class="proj-title">Prototype to Product</div>
+        <p class="proj-desc">Iterating from concept to working systems — the craft behind shipped solutions.</p>
+        <div class="proj-tech"><span>Prototyping</span><span>Build</span><span>Iteration</span></div>
       </div>
     </article>
   </div>
@@ -978,8 +1093,8 @@ body{
 
 <section id="leadership">
   <div class="section-header reveal" style="padding:0 var(--pad-x)">
-    <div class="section-eyebrow">Leadership &amp; Impact</div>
-    <h2 class="section-title">Moving<br><em>Rooms.</em></h2>
+    <div class="section-eyebrow">Leadership &amp; Community</div>
+    <h2 class="section-title">Impact Beyond<br>the <em>Lab.</em></h2>
     <p class="section-subtitle">From Capitol Hill to elementary classrooms — building bridges between technology and the communities that need it most.</p>
   </div>
 
@@ -1028,86 +1143,55 @@ body{
     </ul>
 
     <div class="lead-mosaic reveal reveal-d1">
-      <img src="assets/images%20copy/04_Leadership_Community/IMG_6289.jpeg" alt="Cameron Jones volunteering with United Way Meals on Wheels" loading="lazy">
-      <img src="assets/images%20copy/04_Leadership_Community/IMG_5565.JPG" alt="Cameron Jones with leadership and community cohort" loading="lazy" style="object-position:center 25%">
-      <img src="assets/images%20copy/04_Leadership_Community/8900312655144300583.jpg" alt="Cameron Jones at a leadership and advocacy event" loading="lazy" style="object-position:center 20%">
+      <img src="assets/images%20copy/04_Leadership_Community/IMG_6289.jpeg" alt="Cameron Jones volunteering with United Way Meals on Wheels" loading="lazy" style="object-position:center 20%">
+      <img src="assets/images%20copy/04_Leadership_Community/IMG_0062.JPG" alt="STEM outreach and youth engagement" loading="lazy" style="object-position:center 25%">
+      <img src="assets/images%20copy/04_Leadership_Community/IMG_0055.JPG" alt="Workshop engagement and community education" loading="lazy" style="object-position:center 30%">
+      <img src="assets/images%20copy/04_Leadership_Community/8900312655144300583.jpg" alt="Leadership and advocacy event" loading="lazy" style="object-position:center 18%">
     </div>
   </div>
 
   <div class="industry-header reveal">
     <div class="section-eyebrow left">Industry &amp; Institutions</div>
     <h2 class="section-title">Professional<br><em>Exposure.</em></h2>
-    <p class="section-subtitle">From corporate campuses to research partnerships — building relationships across industry and academia.</p>
+    <p class="section-subtitle">From corporate campuses to research partnerships — relationships across industry and academia.</p>
   </div>
 
-  <div class="corp-strip reveal">
+  <div class="corp-strip reveal" style="grid-template-columns:repeat(4,1fr)">
     <article class="corp-card">
-      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/10196.jpg" alt="Cameron Jones at an industry leadership engagement" loading="lazy" style="object-position:center 25%"></div>
-      <div class="corp-card-label">Industry · Leadership Summit</div>
+      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/10196.jpg" alt="Industry leadership engagement" loading="lazy" style="object-position:center 25%"></div>
+      <div class="corp-card-label">Industry · Leadership</div>
     </article>
     <article class="corp-card">
-      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9800.jpeg" alt="CROPPS research collaboration visit at Tuskegee University farm" loading="lazy" style="object-position:center 30%"></div>
+      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9800.jpeg" alt="CROPPS research collaboration visit at Tuskegee" loading="lazy" style="object-position:center 30%"></div>
       <div class="corp-card-label">CROPPS · Cornell Network</div>
     </article>
     <article class="corp-card">
-      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/1915048171914742516.jpg" alt="Professional networking and research partnership engagement" loading="lazy" style="object-position:center 30%"></div>
-      <div class="corp-card-label">Syngenta · MANRRS Network</div>
+      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/1915048171914742516.jpg" alt="Professional networking and research partnership" loading="lazy" style="object-position:center 30%"></div>
+      <div class="corp-card-label">Syngenta · MANRRS</div>
     </article>
     <article class="corp-card">
-      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/1535327722005446767.jpg" alt="Corporate campus and industry visit experience" loading="lazy" style="object-position:center 30%"></div>
-      <div class="corp-card-label">Corporate · Campus Visits</div>
-    </article>
-    <article class="corp-card">
-      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/3027502746096312634.jpg" alt="Drone field research with precision agriculture team" loading="lazy"></div>
-      <div class="corp-card-label">Field Research · Partners</div>
-    </article>
-    <article class="corp-card">
-      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/1246882608925951347.jpg" alt="Industry and academic collaboration experience" loading="lazy" style="object-position:center 25%"></div>
-      <div class="corp-card-label">UIUC · Academic Partners</div>
+      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9796.jpeg" alt="Field research with institutional partners" loading="lazy" style="object-position:center 40%"></div>
+      <div class="corp-card-label">Field · Partners</div>
     </article>
   </div>
 </section>
 
-<section id="gallery">
-  <div class="section-header reveal" style="padding:0 var(--pad-x);text-align:left">
-    <div class="section-eyebrow left">Gallery</div>
-    <h2 class="section-title" style="text-align:left;font-size:clamp(2.4rem,5vw,3.4rem)">The Full <em>Story.</em></h2>
+<section id="selected">
+  <div class="section-header reveal" style="padding:0 var(--pad-x)">
+    <div class="section-eyebrow">Curated</div>
+    <h2 class="section-title">Selected<br><em>Work.</em></h2>
+    <p class="section-subtitle">A short visual edit — the frames that best represent the research, robotics, and impact story.</p>
   </div>
   <div class="gallery-track-wrap">
     <div class="gallery-track" id="carouselTrack">
-      <figure class="gallery-slide"><img src="assets/images%20copy/03_Robotics/IMG_1936.JPG" alt="AI Farms multi-robot field deployment" loading="lazy"><figcaption>AI Farms Multi-Robot Demo</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/03_Robotics/IMG_6667.JPG" alt="Quadruped robot in field research" loading="lazy"><figcaption>Robot Dog — Field Research</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/06_Projects/IMG_0669.JPEG" alt="UIUC hackathon first place" loading="lazy" style="object-position:center 25%"><figcaption>UIUC Precision Ag — First Place</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/06_Projects/IMG_0373.JPEG" alt="AuburnHacks coding session" loading="lazy" style="object-position:center 20%"><figcaption>AuburnHacks — Project Tropical</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/05_Industry_Corporate/10198.jpg" alt="Research poster presentation" loading="lazy" style="object-position:center 15%"><figcaption>Research Poster Presentation</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2029.JPEG" alt="Greenhouse research systems" loading="lazy"><figcaption>Greenhouse Experimental Systems</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2497.JPEG" alt="Experimental crop beds in greenhouse" loading="lazy"><figcaption>Crop Research Beds</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/05_Industry_Corporate/3027502746096312634.jpg" alt="Drone field operations with research team" loading="lazy"><figcaption>Drone Field Operations</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9796.jpeg" alt="CROPPS visit at Tuskegee" loading="lazy"><figcaption>CROPPS Visit — Tuskegee</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/04_Leadership_Community/IMG_6289.jpeg" alt="Community service with Meals on Wheels" loading="lazy"><figcaption>Community Service</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/03_Robotics/IMG_1561.JPG" alt="Large agricultural research rover" loading="lazy"><figcaption>Agricultural Rover Platform</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/10_Honors_Achievements/20260420_180837.jpg" alt="Formal academic honor recognition" loading="lazy" style="object-position:center 20%"><figcaption>Honors &amp; Recognition</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/03_Robotics/IMG_6658.JPG" alt="Robot Dog Operations" loading="lazy"><figcaption>Robot Dog Operations</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/03_Robotics/IMG_6659.JPG" alt="Robotics Demonstration" loading="lazy"><figcaption>Robotics Demonstration</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/03_Robotics/IMG_0073.JPG" alt="Quadruped Platform" loading="lazy"><figcaption>Quadruped Platform</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/03_Robotics/IMG_4364.JPG" alt="Autonomous Rovers" loading="lazy"><figcaption>Autonomous Rovers</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/03_Robotics/IMG_3171.JPG" alt="Team Hardware Systems" loading="lazy"><figcaption>Team Hardware Systems</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_3363.JPG" alt="Crop Sensing" loading="lazy"><figcaption>Crop Sensing</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/06_Projects/IMG_0362.JPEG" alt="AuburnHacks Team" loading="lazy"><figcaption>AuburnHacks Team</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/06_Projects/IMG_2574.JPEG" alt="UIUC Hackathon" loading="lazy"><figcaption>UIUC Hackathon</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/06_Projects/IMG_2725.JPEG" alt="Hardware Build Process" loading="lazy"><figcaption>Hardware Build Process</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/06_Projects/IMG_8100.jpeg" alt="Custom Systems" loading="lazy"><figcaption>Custom Systems</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/04_Leadership_Community/IMG_6284.jpeg" alt="Community Leadership" loading="lazy"><figcaption>Community Leadership</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/04_Leadership_Community/IMG_0062.JPG" alt="STEM Outreach" loading="lazy"><figcaption>STEM Outreach</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/04_Leadership_Community/IMG_0055.JPG" alt="Workshop Engagement" loading="lazy"><figcaption>Workshop Engagement</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/05_Industry_Corporate/6905568674245338.jpg" alt="Industry Engagement" loading="lazy"><figcaption>Industry Engagement</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9798.jpeg" alt="CROPPS Collaboration" loading="lazy"><figcaption>CROPPS Collaboration</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_0596.PNG" alt="Tuskegee Legacy" loading="lazy"><figcaption>Tuskegee Legacy</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_8958.JPEG" alt="Campus Pride" loading="lazy"><figcaption>Campus Pride</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_8504.JPG" alt="Beyond the Lab" loading="lazy"><figcaption>Beyond the Lab</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3250.JPG" alt="Cinematic Moment" loading="lazy"><figcaption>Cinematic Moment</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3635.JPG" alt="Personal Story" loading="lazy"><figcaption>Personal Story</figcaption></figure>
-      <figure class="gallery-slide"><img src="assets/images%20copy/10_Honors_Achievements/IMG_3207.JPEG" alt="Honor Recognition" loading="lazy"><figcaption>Honor Recognition</figcaption></figure>
+      <figure class="gallery-slide"><img src="assets/images%20copy/03_Robotics/IMG_1936.JPG" alt="Multi-robot field deployment" loading="lazy"><figcaption>Multi-Robot Field Ops</figcaption></figure>
+      <figure class="gallery-slide"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2029.JPEG" alt="Greenhouse research systems" loading="lazy"><figcaption>Greenhouse Systems</figcaption></figure>
+      <figure class="gallery-slide"><img src="assets/images%20copy/03_Robotics/IMG_6667.JPG" alt="Robot dog field research" loading="lazy"><figcaption>Robot Dog</figcaption></figure>
+      <figure class="gallery-slide"><img src="assets/images%20copy/05_Industry_Corporate/10198.jpg" alt="Research poster presentation" loading="lazy" style="object-position:center 15%"><figcaption>First-Author Poster</figcaption></figure>
+      <figure class="gallery-slide"><img src="assets/images%20copy/06_Projects/IMG_0669.JPEG" alt="UIUC hackathon first place" loading="lazy" style="object-position:center 25%"><figcaption>UIUC — First Place</figcaption></figure>
+      <figure class="gallery-slide"><img src="assets/images%20copy/04_Leadership_Community/IMG_5565.JPG" alt="Leadership cohort" loading="lazy" style="object-position:center 25%"><figcaption>Leadership</figcaption></figure>
+      <figure class="gallery-slide"><img src="assets/images%20copy/03_Robotics/IMG_1561.JPG" alt="Agricultural rover" loading="lazy"><figcaption>Agricultural Rover</figcaption></figure>
+      <figure class="gallery-slide"><img src="assets/images%20copy/10_Honors_Achievements/20260420_180837.jpg" alt="Academic honor recognition" loading="lazy" style="object-position:center 18%"><figcaption>Honors</figcaption></figure>
     </div>
   </div>
   <div class="gallery-controls">
@@ -1123,28 +1207,24 @@ body{
     <p class="section-subtitle">The outdoors grounds me. Kayaking, fishing, photography — finding signal in the natural world.</p>
   </div>
   <div class="beyond-grid reveal">
-    <article class="beyond-card">
+    <article class="beyond-card featured">
       <div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_6209.jpeg" alt="Cameron Jones holding a catch after fishing by the lake" loading="lazy" style="object-position:center 20%"></div>
       <div class="beyond-caption">On the Water — Fishing</div>
     </article>
     <article class="beyond-card">
-      <div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_2945.JPG" alt="Outdoor passion and lifestyle photography" loading="lazy" style="object-position:center 25%"></div>
+      <div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_2945.JPG" alt="Outdoor passion photography" loading="lazy" style="object-position:center 25%"></div>
       <div class="beyond-caption">Outdoors</div>
-    </article>
-    <article class="beyond-card">
-      <div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_6682.JPG" alt="Cinematic personal photography beyond the lab" loading="lazy" style="object-position:center 30%"></div>
-      <div class="beyond-caption">Moments Beyond Work</div>
     </article>
     <article class="beyond-card">
       <div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_9256.JPG" alt="Hobby and passion photography" loading="lazy" style="object-position:center 30%"></div>
       <div class="beyond-caption">Passions</div>
     </article>
     <article class="beyond-card">
-      <div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_5162.JPEG" alt="Personal storytelling photography" loading="lazy" style="object-position:center 25%"></div>
-      <div class="beyond-caption">Storytelling</div>
+      <div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_6682.JPG" alt="Cinematic personal photography" loading="lazy" style="object-position:center 28%"></div>
+      <div class="beyond-caption">Moments Beyond Work</div>
     </article>
   </div>
-  <p class="beyond-note">· Kayaking · Fishing · Photography · More coming soon ·</p>
+  <p class="beyond-note">· Kayaking · Fishing · Photography ·</p>
 </section>
 
 <section id="roots">
@@ -1157,10 +1237,10 @@ body{
       <p class="roots-text">I'm not just attending Tuskegee. I'm adding to its story.</p>
     </div>
     <div class="roots-photos reveal reveal-d1">
-      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5528.jpeg" alt="Cameron Jones with family on Tuskegee football field showing school pride" loading="lazy">
+      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5528.jpeg" alt="Cameron Jones with family on Tuskegee football field" loading="lazy" style="object-position:center 25%">
       <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5538.jpeg" alt="Tuskegee University pride and campus moment" loading="lazy" style="object-position:center 25%">
       <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4112.JPEG" alt="Family and Tuskegee legacy gathering" loading="lazy" style="object-position:center 20%">
-      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4831.JPG" alt="Tuskegee University tradition and community" loading="lazy" style="object-position:center 30%">
+      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_0596.PNG" alt="Tuskegee legacy and campus tradition" loading="lazy" style="object-position:center 30%">
     </div>
   </div>
 </section>
@@ -1168,7 +1248,7 @@ body{
 <section id="honors">
   <div class="section-header reveal" style="padding:0 var(--pad-x);margin-bottom:2rem">
     <div class="section-eyebrow">Recognition</div>
-    <h2 class="section-title" style="font-size:clamp(2.2rem,4vw,3.2rem)">Honors &amp; <em>Achievements</em></h2>
+    <h2 class="section-title" style="font-size:clamp(2.2rem,4vw,3.2rem)">Honors &amp; <em>Distinction</em></h2>
   </div>
   <div class="honors-grid reveal">
     <article class="honor-card">
@@ -1186,227 +1266,6 @@ body{
   </div>
 </section>
 
-
-<section id="archive">
-  <div class="section-header reveal" style="padding:0 var(--pad-x)">
-    <div class="section-eyebrow">Visual Archive</div>
-    <h2 class="section-title">Every Frame,<br><em>Intentional.</em></h2>
-    <p class="section-subtitle">A fuller look at the research, robotics, leadership, and life behind the work.</p>
-  </div>
-
-  <div class="archive-cat reveal">AI Farms Research</div>
-  <div class="archive-masonry">
-    <figure class="archive-item reveal"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_3363.JPG" alt="AI Farms Research: IMG 3363" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/02_AI_Farms_Research/10785.jpg" alt="AI Farms Research: 10785" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/02_AI_Farms_Research/10782.jpg" alt="AI Farms Research: 10782" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2497.JPEG" alt="AI Farms Research: IMG 2497" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2775.JPEG" alt="AI Farms Research: IMG 2775" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2029.JPEG" alt="AI Farms Research: IMG 2029" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2030.JPEG" alt="AI Farms Research: IMG 2030" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/02_AI_Farms_Research/10784.jpg" alt="AI Farms Research: 10784" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/02_AI_Farms_Research/274091622200731962.jpg" alt="AI Farms Research: 274091622200731962" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/02_AI_Farms_Research/2104941407774967754.jpg" alt="AI Farms Research: 2104941407774967754" loading="lazy"></figure>
-  </div>
-  <div class="archive-cat reveal">Robotics</div>
-  <div class="archive-masonry">
-    <figure class="archive-item reveal"><img src="assets/images%20copy/03_Robotics/IMG_1936.JPG" alt="Robotics: IMG 1936" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/03_Robotics/IMG_4364.JPG" alt="Robotics: IMG 4364" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/03_Robotics/IMG_1561.JPG" alt="Robotics: IMG 1561" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/03_Robotics/IMG_0073.JPG" alt="Robotics: IMG 0073" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/03_Robotics/IMG_6659.JPG" alt="Robotics: IMG 6659" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/03_Robotics/IMG_3171.JPG" alt="Robotics: IMG 3171" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/03_Robotics/IMG_2579.JPG" alt="Robotics: IMG 2579" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/03_Robotics/IMG_6667.JPG" alt="Robotics: IMG 6667" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/03_Robotics/IMG_6658.JPG" alt="Robotics: IMG 6658" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/03_Robotics/IMG_5653.JPG" alt="Robotics: IMG 5653" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/03_Robotics/IMG_0356.JPG" alt="Robotics: IMG 0356" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/03_Robotics/IMG_8593.JPEG" alt="Robotics: IMG 8593" loading="lazy"></figure>
-  </div>
-  <div class="archive-cat reveal">Leadership & Community</div>
-  <div class="archive-masonry">
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/IMG_6289.jpeg" alt="Leadership & Community: IMG 6289" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/IMG_0056.JPG" alt="Leadership & Community: IMG 0056" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/IMG_6284.jpeg" alt="Leadership & Community: IMG 6284" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/IMG_0062.JPG" alt="Leadership & Community: IMG 0062" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/IMG_5565.JPG" alt="Leadership & Community: IMG 5565" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/IMG_0055.JPG" alt="Leadership & Community: IMG 0055" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/8900312655144300583.jpg" alt="Leadership & Community: 8900312655144300583" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/IMG_6585.JPEG" alt="Leadership & Community: IMG 6585" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/IMG_6586.JPEG" alt="Leadership & Community: IMG 6586" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/3158220684081347621.jpg" alt="Leadership & Community: 3158220684081347621" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/5616856683256978705.jpg" alt="Leadership & Community: 5616856683256978705" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/1020263345475854474.jpg" alt="Leadership & Community: 1020263345475854474" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/1946186908660677015.jpg" alt="Leadership & Community: 1946186908660677015" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/612952321947611602.jpg" alt="Leadership & Community: 612952321947611602" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/IMG_3091.JPEG" alt="Leadership & Community: IMG 3091" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/04_Leadership_Community/IMG_6579.JPEG" alt="Leadership & Community: IMG 6579" loading="lazy"></figure>
-  </div>
-  <div class="archive-cat reveal">Industry & Corporate</div>
-  <div class="archive-masonry">
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9800.jpeg" alt="Industry & Corporate: 20250425 Tuskegee CROPPS visit-9800" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9796.jpeg" alt="Industry & Corporate: 20250425 Tuskegee CROPPS visit-9796" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9804.jpeg" alt="Industry & Corporate: 20250425 Tuskegee CROPPS visit-9804" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9798.jpeg" alt="Industry & Corporate: 20250425 Tuskegee CROPPS visit-9798" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/3027502746096312634.jpg" alt="Industry & Corporate: 3027502746096312634" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/1915048171914742516.jpg" alt="Industry & Corporate: 1915048171914742516" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/6905568674245338.jpg" alt="Industry & Corporate: 6905568674245338" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/1535327722005446767.jpg" alt="Industry & Corporate: 1535327722005446767" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/1246882608925951347.jpg" alt="Industry & Corporate: 1246882608925951347" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/IMG_2144.JPG" alt="Industry & Corporate: IMG 2144" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/10198.jpg" alt="Industry & Corporate: 10198" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/10197.jpg" alt="Industry & Corporate: 10197" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/10196.jpg" alt="Industry & Corporate: 10196" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/648829019400359107.jpg" alt="Industry & Corporate: 648829019400359107" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/10199.jpg" alt="Industry & Corporate: 10199" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/05_Industry_Corporate/10210.jpg" alt="Industry & Corporate: 10210" loading="lazy"></figure>
-  </div>
-  <div class="archive-cat reveal">Projects & Builds</div>
-  <div class="archive-masonry">
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/IMG_8101.jpeg" alt="Projects & Builds: IMG 8101" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/IMG_2408.JPG" alt="Projects & Builds: IMG 2408" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/IMG_8100.jpeg" alt="Projects & Builds: IMG 8100" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/IMG_2713.JPG" alt="Projects & Builds: IMG 2713" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/IMG_2402.JPG" alt="Projects & Builds: IMG 2402" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/IMG_0669.JPEG" alt="Projects & Builds: IMG 0669" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/IMG_2148.JPEG" alt="Projects & Builds: IMG 2148" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/IMG_9253.JPEG" alt="Projects & Builds: IMG 9253" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/IMG_7908.JPEG" alt="Projects & Builds: IMG 7908" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/IMG_0373.JPEG" alt="Projects & Builds: IMG 0373" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/IMG_0362.JPEG" alt="Projects & Builds: IMG 0362" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/6902.jpg" alt="Projects & Builds: 6902" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/IMG_2153.JPEG" alt="Projects & Builds: IMG 2153" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/6934.jpg" alt="Projects & Builds: 6934" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/6929.jpg" alt="Projects & Builds: 6929" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/IMG_2726.JPEG" alt="Projects & Builds: IMG 2726" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/IMG_2725.JPEG" alt="Projects & Builds: IMG 2725" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/06_Projects/IMG_2727.JPEG" alt="Projects & Builds: IMG 2727" loading="lazy"></figure>
-  </div>
-  <div class="archive-cat reveal">Hobbies & Passions</div>
-  <div class="archive-masonry">
-    <figure class="archive-item reveal"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_6209.jpeg" alt="Hobbies & Passions: IMG 6209" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_2945.JPG" alt="Hobbies & Passions: IMG 2945" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_9256.JPG" alt="Hobbies & Passions: IMG 9256" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_9905.jpg" alt="Hobbies & Passions: IMG 9905" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_8561.JPG" alt="Hobbies & Passions: IMG 8561" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_8504.JPG" alt="Hobbies & Passions: IMG 8504" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_9255.JPG" alt="Hobbies & Passions: IMG 9255" loading="lazy"></figure>
-  </div>
-  <div class="archive-cat reveal">Beyond the Lab</div>
-  <div class="archive-masonry">
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_6682.JPG" alt="Beyond the Lab: IMG 6682" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_5162.JPEG" alt="Beyond the Lab: IMG 5162" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3250.JPG" alt="Beyond the Lab: IMG 3250" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3635.JPG" alt="Beyond the Lab: IMG 3635" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_5300.PNG" alt="Beyond the Lab: IMG 5300" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2159.JPG" alt="Beyond the Lab: IMG 2159" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_5911.JPG" alt="Beyond the Lab: IMG 5911" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_7428.JPG" alt="Beyond the Lab: IMG 7428" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_7427.JPG" alt="Beyond the Lab: IMG 7427" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2848.JPG" alt="Beyond the Lab: IMG 2848" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2823.JPG" alt="Beyond the Lab: IMG 2823" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3599.JPG" alt="Beyond the Lab: IMG 3599" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3022.jpg" alt="Beyond the Lab: IMG 3022" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_7433.JPG" alt="Beyond the Lab: IMG 7433" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_5944.JPG" alt="Beyond the Lab: IMG 5944" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2852.JPG" alt="Beyond the Lab: IMG 2852" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2858.JPG" alt="Beyond the Lab: IMG 2858" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2824.JPG" alt="Beyond the Lab: IMG 2824" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_4563.JPG" alt="Beyond the Lab: IMG 4563" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_7440.JPG" alt="Beyond the Lab: IMG 7440" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_5386.JPG" alt="Beyond the Lab: IMG 5386" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_5288.JPG" alt="Beyond the Lab: IMG 5288" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_4636.JPG" alt="Beyond the Lab: IMG 4636" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_4576.JPG" alt="Beyond the Lab: IMG 4576" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2819.JPG" alt="Beyond the Lab: IMG 2819" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_5295.JPG" alt="Beyond the Lab: IMG 5295" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_4561.JPG" alt="Beyond the Lab: IMG 4561" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2137.JPEG" alt="Beyond the Lab: IMG 2137" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2279.JPEG" alt="Beyond the Lab: IMG 2279" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_4367.JPEG" alt="Beyond the Lab: IMG 4367" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_1798.JPEG" alt="Beyond the Lab: IMG 1798" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2329.JPG" alt="Beyond the Lab: IMG 2329" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2156.JPEG" alt="Beyond the Lab: IMG 2156" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3095.JPEG" alt="Beyond the Lab: IMG 3095" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3108.JPEG" alt="Beyond the Lab: IMG 3108" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2142.JPG" alt="Beyond the Lab: IMG 2142" loading="lazy"></figure>
-  </div>
-  <div class="archive-cat reveal">Tuskegee Legacy</div>
-  <div class="archive-masonry">
-    <figure class="archive-item reveal"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_0596.PNG" alt="Tuskegee Legacy: IMG 0596" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4831.JPG" alt="Tuskegee Legacy: IMG 4831" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5528.jpeg" alt="Tuskegee Legacy: IMG 5528" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5538.jpeg" alt="Tuskegee Legacy: IMG 5538" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4112.JPEG" alt="Tuskegee Legacy: IMG 4112" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5539.jpeg" alt="Tuskegee Legacy: IMG 5539" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5540.jpeg" alt="Tuskegee Legacy: IMG 5540" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4164.JPEG" alt="Tuskegee Legacy: IMG 4164" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_8958.JPEG" alt="Tuskegee Legacy: IMG 8958" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6069.JPEG" alt="Tuskegee Legacy: IMG 6069" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6096.JPEG" alt="Tuskegee Legacy: IMG 6096" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6078.JPEG" alt="Tuskegee Legacy: IMG 6078" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_3391.jpg" alt="Tuskegee Legacy: IMG 3391" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6081.JPEG" alt="Tuskegee Legacy: IMG 6081" loading="lazy"></figure>
-  </div>
-  <div class="archive-cat reveal">Honors & Achievements</div>
-  <div class="archive-masonry">
-    <figure class="archive-item reveal"><img src="assets/images%20copy/10_Honors_Achievements/IMG_3444.JPG" alt="Honors & Achievements: IMG 3444" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/10_Honors_Achievements/IMG_3233.JPG" alt="Honors & Achievements: IMG 3233" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/10_Honors_Achievements/20260420_180837.jpg" alt="Honors & Achievements: 20260420 180837" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/10_Honors_Achievements/9777.jpg" alt="Honors & Achievements: 9777" loading="lazy"></figure>
-    <figure class="archive-item reveal"><img src="assets/images%20copy/10_Honors_Achievements/IMG_3207.JPEG" alt="Honors & Achievements: IMG 3207" loading="lazy"></figure>
-  </div>
-</section>
-
-
-<section id="reels">
-  <div class="section-header reveal" style="padding:0 var(--pad-x)">
-    <div class="section-eyebrow">Motion</div>
-    <h2 class="section-title">In <em>Motion.</em></h2>
-    <p class="section-subtitle">Field deployments, demos, and moments that still photos can't fully hold.</p>
-  </div>
-  <div class="video-grid">
-    <article class="video-card reveal">
-      <video src="assets/images%20copy/02_AI_Farms_Research/IMG_1118.MP4" muted playsinline controls preload="metadata" poster=""></video>
-      <p>AI Farms Field Capture</p>
-    </article>
-    <article class="video-card reveal">
-      <video src="assets/images%20copy/02_AI_Farms_Research/IMG_3363.MOV" muted playsinline controls preload="metadata" poster=""></video>
-      <p>AI Farms Field Capture</p>
-    </article>
-    <article class="video-card reveal">
-      <video src="assets/images%20copy/03_Robotics/IMG_6031.MP4" muted playsinline controls preload="metadata" poster=""></video>
-      <p>Robotics in Motion</p>
-    </article>
-    <article class="video-card reveal">
-      <video src="assets/images%20copy/03_Robotics/6910477008579369835.mp4" muted playsinline controls preload="metadata" poster=""></video>
-      <p>Robotics in Motion</p>
-    </article>
-    <article class="video-card reveal">
-      <video src="assets/images%20copy/04_Leadership_Community/BD381E86-F4DF-4FF8-8C3D-E478B3FB6D36.mp4" muted playsinline controls preload="metadata" poster=""></video>
-      <p>Leadership Moments</p>
-    </article>
-    <article class="video-card reveal">
-      <video src="assets/images%20copy/04_Leadership_Community/32d87a76cf2640e4a88edf79416d1bb4.mov" muted playsinline controls preload="metadata" poster=""></video>
-      <p>Leadership Moments</p>
-    </article>
-    <article class="video-card reveal">
-      <video src="assets/images%20copy/06_Projects/IMG_0039.MP4" muted playsinline controls preload="metadata" poster=""></video>
-      <p>Projects & Builds</p>
-    </article>
-    <article class="video-card reveal">
-      <video src="assets/images%20copy/06_Projects/IMG_2408.MOV" muted playsinline controls preload="metadata" poster=""></video>
-      <p>Projects & Builds</p>
-    </article>
-    <article class="video-card reveal">
-      <video src="assets/images%20copy/08_Beyond_The_Lab/IMG_3114.MP4" muted playsinline controls preload="metadata" poster=""></video>
-      <p>Life Beyond the Lab</p>
-    </article>
-    <article class="video-card reveal">
-      <video src="assets/images%20copy/08_Beyond_The_Lab/IMG_3613.MOV" muted playsinline controls preload="metadata" poster=""></video>
-      <p>Life Beyond the Lab</p>
-    </article>
-  </div>
-</section>
 
 <section id="journey">
   <div class="section-header reveal" style="padding:0 var(--pad-x)">

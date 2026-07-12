@@ -81,17 +81,26 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
   position:relative;min-height:100vh;min-height:100dvh;
   display:grid;align-items:end;overflow:hidden;
 }
-.hero-media{position:absolute;inset:0;z-index:0}
+.hero-media{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 70% 65% at 78% 42%,rgba(201,168,76,.28),transparent 58%),
+    radial-gradient(ellipse 55% 50% at 20% 70%,rgba(201,168,76,.1),transparent 55%),
+    linear-gradient(125deg,#070605 0%,#14100a 38%,#1c160e 62%,#0c0a07 100%);
+}
 .hero-media img{
-  width:100%;height:100%;object-fit:cover;
-  transform:scale(1.05);animation:heroKen 22s var(--ease) forwards;
+  width:100%;height:100%;
+  object-fit:contain;object-position:85% center;
+  transform:scale(1.02);animation:heroKen 22s var(--ease) forwards;
+  filter:saturate(1.06) contrast(1.04);
 }
 @keyframes heroKen{to{transform:scale(1)}}
 .hero-media::after{
   content:'';position:absolute;inset:0;
   background:
-    linear-gradient(90deg,rgba(10,9,6,.95) 0%,rgba(10,9,6,.78) 32%,rgba(10,9,6,.28) 62%,rgba(10,9,6,.4) 100%),
-    linear-gradient(0deg,rgba(10,9,6,.94) 0%,rgba(10,9,6,.35) 35%,rgba(10,9,6,.1) 58%,transparent 78%);
+    linear-gradient(105deg,rgba(10,9,6,.96) 0%,rgba(10,9,6,.82) 30%,rgba(10,9,6,.28) 58%,rgba(10,9,6,.42) 100%),
+    linear-gradient(0deg,rgba(10,9,6,.94) 0%,rgba(10,9,6,.35) 34%,rgba(10,9,6,.08) 58%,transparent 76%),
+    radial-gradient(ellipse 55% 45% at 75% 40%,rgba(201,168,76,.12),transparent 65%);
 }
 .hero-identity{
   font-family:'DM Mono',monospace;font-size:clamp(.72rem,1.2vw,.85rem);
@@ -1201,16 +1210,19 @@ img[src*="IMG_6209"]{
 img{
   object-fit:cover;
 }
-/* Hero — vertical field ops; keep Cameron fully framed on the right */
+/* Hero — full drone field frame on gold ambient stage */
 .hero-media img{
-  object-fit:cover !important;
-  object-position:82% 27% !important;
+  object-fit:contain !important;
+  object-position:88% center !important;
+}
+@media (max-width:900px){
+  .hero-media img{object-position:center center !important}
 }
 @media (max-width:768px){
-  .hero-media img{object-position:88% 25% !important}
+  .hero-media img{object-fit:cover !important;object-position:78% 28% !important}
 }
 @media (max-width:520px){
-  .hero-media img{object-position:92% 24% !important}
+  .hero-media img{object-position:82% 26% !important}
 }
 
 /* About / Rooted in Legacy — Tuskegee portrait; face + torso + backdrop */
@@ -1238,6 +1250,7 @@ img[src*="IMG_6209"]{
 }
 
 /* Per-asset focal points (art-directed, not centered blindly) */
+img[src*="imagejpeg_0"]{object-position:88% center}
 img[src*="10785.jpg"]{object-position:82% 27%}
 img[src*="10782.jpg"]{object-position:52% 24%}
 img[src*="10784.jpg"]{object-position:48% 30%}
@@ -1600,6 +1613,66 @@ nav.scrolled{
   .btn-primary:hover,.btn-ghost:hover,.form-submit:hover{transform:none !important}
 }
 
+/* ===== EXTENDED ARCHIVE (museum gallery) ===== */
+#archive{padding:var(--pad-y) 0;background:var(--bg);border-top:1px solid rgba(201,168,76,.12)}
+.archive-tabs{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:.55rem;
+  max-width:var(--max);margin:0 auto 1.6rem;padding:0 var(--pad-x);
+}
+.archive-tab{
+  font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:.55rem .95rem;border:1px solid rgba(201,168,76,.22);background:transparent;color:var(--muted);
+  cursor:pointer;transition:color .3s,border-color .3s,background .3s,box-shadow .3s;
+}
+.archive-tab:hover{color:var(--gold);border-color:rgba(201,168,76,.4)}
+.archive-tab.active{
+  color:var(--bg);background:var(--gold);border-color:var(--gold);
+  box-shadow:0 0 24px rgba(201,168,76,.2);
+}
+.archive-stage{max-width:var(--max);margin:0 auto;padding:0 var(--pad-x)}
+.archive-panel{display:none}
+.archive-panel.active{display:block}
+.archive-rail-wrap{overflow:hidden;position:relative}
+.archive-rail{
+  display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;-webkit-overflow-scrolling:touch;
+  padding:.35rem .15rem 1rem;scrollbar-width:thin;scrollbar-color:rgba(201,168,76,.35) transparent;
+}
+.archive-rail::-webkit-scrollbar{height:4px}
+.archive-rail::-webkit-scrollbar-thumb{background:rgba(201,168,76,.35)}
+.archive-card{
+  flex:0 0 min(320px,78vw);scroll-snap-align:start;
+  border:1px solid rgba(201,168,76,.2);background:rgba(28,24,18,.85);
+  overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.28),0 0 28px rgba(201,168,76,.05);
+  transition:transform .4s var(--ease),border-color .35s,box-shadow .4s;
+}
+.archive-card:hover{
+  transform:translateY(-4px);border-color:rgba(201,168,76,.42);
+  box-shadow:0 22px 50px rgba(0,0,0,.4),0 0 36px rgba(201,168,76,.1);
+}
+.archive-card .media{aspect-ratio:4/3;overflow:hidden;background:#0D0B08}
+.archive-card img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.archive-card:hover img{transform:scale(1.04)}
+.archive-card figcaption{
+  padding:.95rem 1.05rem;font-family:'DM Mono',monospace;font-size:.58rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+.archive-controls{display:flex;justify-content:center;gap:.7rem;margin-top:.4rem}
+.archive-btn{
+  width:44px;height:44px;border:1px solid rgba(201,168,76,.35);background:transparent;
+  color:var(--gold);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .3s,color .3s,box-shadow .3s;
+}
+.archive-btn:hover{background:var(--gold);color:var(--bg);box-shadow:0 0 24px rgba(201,168,76,.2)}
+.archive-note{
+  text-align:center;margin-top:1.4rem;font-family:'DM Mono',monospace;font-size:.58rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dim);
+}
+@media (max-width:560px){
+  .archive-card{flex-basis:min(280px,86vw)}
+  .archive-tabs{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding-bottom:.4rem}
+}
+
 </style>
 
 </head>
@@ -1617,6 +1690,7 @@ nav.scrolled{
     <li><a href="#projects">Projects</a></li>
     <li><a href="#leadership">Impact</a></li>
     <li><a href="#journey">Journey</a></li>
+    <li><a href="#archive">Archive</a></li>
     <li><a href="#beyond">Beyond</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
@@ -1625,7 +1699,7 @@ nav.scrolled{
 
 <section id="hero">
   <div class="hero-media">
-    <img src="assets/images%20copy/02_AI_Farms_Research/10785.jpg" alt="Cameron Jones operating an autonomous agricultural drone during AI Farms field research at Tuskegee University" width="2000" height="2800" fetchpriority="high">
+    <img src="assets/images%20copy/01_Hero/imagejpeg_0.jpg" alt="Cameron Jones in the field with a hovering research drone and landing pad" width="1600" height="2000" fetchpriority="high">
   </div>
   <div class="hero-content">
     <div class="hero-eyebrow">Tuskegee University · AI Farms Initiative</div>
@@ -2183,6 +2257,97 @@ nav.scrolled{
   </div>
 </section>
 
+<section id="archive">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Optional Collection</div>
+    <h2 class="section-title">More From<br>the <em>Journey.</em></h2>
+    <p class="section-subtitle">A curated museum archive of unused frames — browse by chapter. The main story above stays concise.</p>
+  </div>
+
+  <div class="archive-tabs reveal" role="tablist" aria-label="Archive categories">
+    <button class="archive-tab active" type="button" data-archive="research" role="tab" aria-selected="true">Research</button>
+    <button class="archive-tab" type="button" data-archive="robotics" role="tab" aria-selected="false">Robotics</button>
+    <button class="archive-tab" type="button" data-archive="leadership" role="tab" aria-selected="false">Leadership</button>
+    <button class="archive-tab" type="button" data-archive="industry" role="tab" aria-selected="false">Industry</button>
+    <button class="archive-tab" type="button" data-archive="legacy" role="tab" aria-selected="false">Legacy</button>
+    <button class="archive-tab" type="button" data-archive="life" role="tab" aria-selected="false">Life</button>
+  </div>
+
+  <div class="archive-stage reveal">
+    <div class="archive-panel active" data-panel="research" role="tabpanel">
+      <div class="archive-rail-wrap">
+        <div class="archive-rail">
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2030.JPEG" alt="Greenhouse research systems detail" loading="lazy"></div><figcaption>Greenhouse Detail</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/10785.jpg" alt="Field drone operations with research vehicle" loading="lazy" style="object-position:75% 30%"></div><figcaption>Field Ops Archive</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/01_Hero/9B603348-F494-48EE-8776-CF7D4C737556.jpg" alt="Portrait from the research archive" loading="lazy" style="object-position:center 20%"></div><figcaption>Archive Portrait</figcaption></figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="archive-panel" data-panel="robotics" role="tabpanel" hidden>
+      <div class="archive-rail-wrap">
+        <div class="archive-rail">
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_3171.JPG" alt="Robotics team hardware systems" loading="lazy"></div><figcaption>Team Hardware</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_5653.JPG" alt="Field robotics deployment detail" loading="lazy"></div><figcaption>Field Deployment</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_2579.JPG" alt="Autonomous platform in research setting" loading="lazy"></div><figcaption>Platform Ops</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_0356.JPG" alt="Robotics systems preparation" loading="lazy"></div><figcaption>Systems Prep</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_8593.JPEG" alt="Robotics demonstration moment" loading="lazy"></div><figcaption>Demo Moment</figcaption></figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="archive-panel" data-panel="leadership" role="tabpanel" hidden>
+      <div class="archive-rail-wrap">
+        <div class="archive-rail">
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/IMG_6284.jpeg" alt="Community leadership service" loading="lazy"></div><figcaption>Community Service</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/IMG_0056.JPG" alt="STEM outreach workshop" loading="lazy"></div><figcaption>STEM Outreach</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/3158220684081347621.jpg" alt="Leadership cohort engagement" loading="lazy" style="object-position:center 25%"></div><figcaption>Leadership Cohort</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/IMG_6585.JPEG" alt="Advocacy and community impact" loading="lazy" style="object-position:center 22%"></div><figcaption>Advocacy</figcaption></figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="archive-panel" data-panel="industry" role="tabpanel" hidden>
+      <div class="archive-rail-wrap">
+        <div class="archive-rail">
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9798.jpeg" alt="CROPPS collaboration visit" loading="lazy"></div><figcaption>CROPPS Visit</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9804.jpeg" alt="Institutional research partnership" loading="lazy"></div><figcaption>Partner Field Day</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/10197.jpg" alt="Industry engagement moment" loading="lazy" style="object-position:center 25%"></div><figcaption>Industry Engagement</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/6905568674245338.jpg" alt="Corporate and academic network" loading="lazy" style="object-position:center 28%"></div><figcaption>Network</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/IMG_2144.JPG" alt="Professional campus experience" loading="lazy"></div><figcaption>Campus Visit</figcaption></figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="archive-panel" data-panel="legacy" role="tabpanel" hidden>
+      <div class="archive-rail-wrap">
+        <div class="archive-rail">
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4831.JPG" alt="Tuskegee tradition and community" loading="lazy"></div><figcaption>Tradition</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5539.jpeg" alt="Tuskegee pride moment" loading="lazy" style="object-position:center 22%"></div><figcaption>Campus Pride</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_8958.JPEG" alt="Legacy and family connection" loading="lazy" style="object-position:center 25%"></div><figcaption>Legacy</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4164.JPEG" alt="Family and Tuskegee gathering" loading="lazy" style="object-position:center 20%"></div><figcaption>Family</figcaption></figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="archive-panel" data-panel="life" role="tabpanel" hidden>
+      <div class="archive-rail-wrap">
+        <div class="archive-rail">
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_9255.JPG" alt="Outdoor passion photography" loading="lazy" style="object-position:center 40%"></div><figcaption>Outdoors</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_9905.jpg" alt="Personal passion moment" loading="lazy" style="object-position:center 35%"></div><figcaption>Passions</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_2924.JPG" alt="Life beyond research" loading="lazy" style="object-position:center 38%"></div><figcaption>Beyond Work</figcaption></figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="archive-controls">
+      <button class="archive-btn" id="archivePrev" type="button" aria-label="Previous archive images">&#8592;</button>
+      <button class="archive-btn" id="archiveNext" type="button" aria-label="Next archive images">&#8594;</button>
+    </div>
+    <p class="archive-note">Select a category · Scroll to explore · Main story stays above</p>
+  </div>
+</section>
+
 <section id="contact">
   <div class="reveal" style="padding:0 var(--pad-x)">
     <div class="section-eyebrow" style="margin-bottom:1.3rem">Let's Connect</div>
@@ -2348,6 +2513,49 @@ async function submitContactForm() {
 }
 window.submitContactForm = submitContactForm;
 
+/* Extended Archive — category museum rails */
+(function(){
+  const tabs = document.querySelectorAll('.archive-tab');
+  const panels = document.querySelectorAll('.archive-panel');
+  const prev = document.getElementById('archivePrev');
+  const next = document.getElementById('archiveNext');
+  function activeRail(){
+    const panel = document.querySelector('.archive-panel.active');
+    return panel ? panel.querySelector('.archive-rail') : null;
+  }
+  function activate(id){
+    tabs.forEach(t => {
+      const on = t.dataset.archive === id;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach(p => {
+      const on = p.dataset.panel === id;
+      p.classList.toggle('active', on);
+      if (on) p.removeAttribute('hidden'); else p.setAttribute('hidden', '');
+    });
+    const rail = activeRail();
+    if (rail) rail.scrollTo({ left: 0, behavior: 'smooth' });
+  }
+  tabs.forEach(tab => tab.addEventListener('click', () => activate(tab.dataset.archive)));
+  const step = () => {
+    const rail = activeRail();
+    if (!rail) return 340;
+    const card = rail.querySelector('.archive-card');
+    if (!card) return 340;
+    const gap = parseFloat(getComputedStyle(rail).gap) || 16;
+    return card.getBoundingClientRect().width + gap;
+  };
+  prev && prev.addEventListener('click', () => {
+    const rail = activeRail();
+    if (rail) rail.scrollBy({ left: -step(), behavior: 'smooth' });
+  });
+  next && next.addEventListener('click', () => {
+    const rail = activeRail();
+    if (rail) rail.scrollBy({ left: step(), behavior: 'smooth' });
+  });
+})();
+
 // Subtle hero parallax
 const heroImg = document.querySelector('.hero-media img');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2358,7 +2566,7 @@ if (heroImg && !reduceMotion) {
     ticking = true;
     requestAnimationFrame(() => {
       const y = Math.min(window.scrollY, 480);
-      heroImg.style.transform = `scale(1.05) translateY(${y * 0.1}px)`;
+      heroImg.style.transform = `scale(1.04) translateY(${y * 0.1}px)`;
       ticking = false;
     });
   }, { passive: true });

@@ -83,24 +83,27 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
 }
 .hero-media{
   position:absolute;inset:0;z-index:0;
+  box-sizing:border-box;
+  padding:4.75rem 2.5vw 1.75rem 0;
+  display:flex;align-items:center;justify-content:flex-end;
   background:
-    radial-gradient(ellipse 75% 70% at 72% 40%,rgba(201,168,76,.32),transparent 55%),
-    radial-gradient(ellipse 50% 45% at 15% 80%,rgba(201,168,76,.12),transparent 50%),
+    radial-gradient(ellipse 75% 70% at 78% 42%,rgba(201,168,76,.34),transparent 55%),
+    radial-gradient(ellipse 50% 45% at 18% 78%,rgba(201,168,76,.12),transparent 50%),
     linear-gradient(125deg,#070605 0%,#16110a 40%,#1e1810 65%,#0a0906 100%);
 }
 .hero-media img{
-  width:100%;height:100%;
-  object-fit:cover;object-position:72% 28%;
-  transform:scale(1.04);animation:heroKen 22s var(--ease) forwards;
+  width:auto;height:auto;
+  max-height:100%;max-width:min(48vw,560px);
+  object-fit:contain;object-position:center center;
+  transform:none;animation:none;
   filter:saturate(1.08) contrast(1.05);
 }
-@keyframes heroKen{to{transform:scale(1)}}
 .hero-media::after{
   content:'';position:absolute;inset:0;
   background:
-    linear-gradient(105deg,rgba(10,9,6,.97) 0%,rgba(10,9,6,.84) 28%,rgba(10,9,6,.3) 56%,rgba(10,9,6,.45) 100%),
-    linear-gradient(0deg,rgba(10,9,6,.92) 0%,rgba(10,9,6,.32) 34%,rgba(10,9,6,.06) 58%,transparent 76%),
-    radial-gradient(ellipse 55% 45% at 70% 38%,rgba(201,168,76,.14),transparent 65%);
+    linear-gradient(105deg,rgba(10,9,6,.97) 0%,rgba(10,9,6,.88) 26%,rgba(10,9,6,.35) 52%,rgba(10,9,6,.18) 72%,rgba(10,9,6,.42) 100%),
+    linear-gradient(0deg,rgba(10,9,6,.9) 0%,rgba(10,9,6,.25) 34%,transparent 62%),
+    radial-gradient(ellipse 55% 45% at 78% 40%,rgba(201,168,76,.12),transparent 65%);
 }
 .hero-identity{
   font-family:'DM Mono',monospace;font-size:clamp(.72rem,1.2vw,.85rem);
@@ -795,9 +798,9 @@ body{
 }
 .hero-media::after{
   background:
-    linear-gradient(105deg,rgba(10,9,6,.97) 0%,rgba(10,9,6,.82) 28%,rgba(10,9,6,.35) 55%,rgba(10,9,6,.45) 100%),
-    linear-gradient(0deg,rgba(10,9,6,.96) 0%,rgba(10,9,6,.4) 32%,rgba(10,9,6,.08) 58%,transparent 76%),
-    radial-gradient(ellipse 60% 50% at 70% 40%,rgba(201,168,76,.08),transparent 65%) !important;
+    linear-gradient(105deg,rgba(10,9,6,.97) 0%,rgba(10,9,6,.86) 26%,rgba(10,9,6,.32) 52%,rgba(10,9,6,.16) 72%,rgba(10,9,6,.4) 100%),
+    linear-gradient(0deg,rgba(10,9,6,.92) 0%,rgba(10,9,6,.28) 34%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 78% 42%,rgba(201,168,76,.1),transparent 65%) !important;
 }
 .hero-name{letter-spacing:.03em;text-shadow:0 2px 40px rgba(0,0,0,.45)}
 .hero-name span{text-shadow:0 0 40px rgba(201,168,76,.25)}
@@ -1145,7 +1148,7 @@ body{
 img[src*="IMG_6667"]{object-fit:cover !important;object-position:68% 42% !important;background:#0D0B08}
 img[src*="IMG_6659"]{object-fit:cover !important;object-position:82% 28% !important;background:#0D0B08}
 img[src*="IMG_6658"]{object-fit:cover !important;object-position:center 42% !important;background:#0D0B08}
-img[src*="hero-drone-field"]{object-fit:cover !important}
+.robo-card img[src*="hero-drone-field"]{object-fit:cover !important;object-position:72% 28% !important}
 
 /* Impact Beyond the Lab — top mosaic photo: full subjects in frame */
 .lead-mosaic img[src*="IMG_6289"],
@@ -1237,19 +1240,30 @@ img[src*="IMG_6209"]{
 img{
   object-fit:cover;
 }
-/* Hero — drone field banner (Cameron + drone + pad) */
+/* Hero — full portrait below nav; no clipped drone/head */
 .hero-media img{
-  object-fit:cover !important;
-  object-position:72% 28% !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+  width:auto !important;
+  height:auto !important;
+  max-height:100% !important;
+  max-width:min(48vw,560px) !important;
 }
 @media (max-width:900px){
-  .hero-media img{object-position:78% 26% !important}
+  .hero-media{padding:4.5rem 4vw 1.5rem;justify-content:center}
+  .hero-media img{max-width:min(72vw,440px) !important}
 }
 @media (max-width:768px){
-  .hero-media img{object-position:82% 24% !important}
+  .hero-media{padding:4.25rem 0 0;justify-content:flex-end}
+  .hero-media img{
+    width:100% !important;height:100% !important;
+    max-width:none !important;max-height:none !important;
+    object-fit:cover !important;
+    object-position:78% 18% !important;
+  }
 }
 @media (max-width:520px){
-  .hero-media img{object-position:86% 22% !important}
+  .hero-media img{object-position:82% 14% !important}
 }
 
 /* About / Rooted in Legacy — Tuskegee portrait; face + torso + backdrop */
@@ -1277,7 +1291,7 @@ img[src*="IMG_6209"]{
 }
 
 /* Per-asset focal points (art-directed, not centered blindly) */
-img[src*="hero-drone-field"],img[src*="imagejpeg_0"]{object-position:72% 28%}
+img[src*="hero-drone-field"],img[src*="imagejpeg_0"]{object-position:center center}
 img[src*="10785.jpg"]{object-position:82% 27%}
 img[src*="10782.jpg"]{object-position:52% 24%}
 img[src*="10784.jpg"]{object-position:48% 30%}
@@ -1726,7 +1740,7 @@ nav.scrolled{
 
 <section id="hero">
   <div class="hero-media">
-    <img src="assets/images%20copy/01_Hero/hero-drone-field.jpg?v=3" alt="Cameron Jones in the field with a hovering research drone and landing pad" width="1600" height="2000" fetchpriority="high">
+    <img src="assets/images%20copy/01_Hero/hero-drone-field.jpg?v=9" alt="Cameron Jones in the field with a hovering research drone and landing pad" width="1600" height="2000" fetchpriority="high">
   </div>
   <div class="hero-content">
     <div class="hero-eyebrow">Tuskegee University · AI Farms Initiative</div>
@@ -2587,14 +2601,14 @@ window.submitContactForm = submitContactForm;
 // Subtle hero parallax
 const heroImg = document.querySelector('.hero-media img');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-if (heroImg && !reduceMotion) {
+if (heroImg && !reduceMotion && window.matchMedia('(min-width:769px)').matches) {
   let ticking = false;
   window.addEventListener('scroll', () => {
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
-      const y = Math.min(window.scrollY, 480);
-      heroImg.style.transform = `scale(1.04) translateY(${y * 0.1}px)`;
+      const y = Math.min(window.scrollY, 400);
+      heroImg.style.transform = `translateY(${y * 0.04}px)`;
       ticking = false;
     });
   }, { passive: true });

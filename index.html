@@ -84,23 +84,23 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
 .hero-media{
   position:absolute;inset:0;z-index:0;
   background:
-    radial-gradient(ellipse 70% 65% at 78% 42%,rgba(201,168,76,.28),transparent 58%),
-    radial-gradient(ellipse 55% 50% at 20% 70%,rgba(201,168,76,.1),transparent 55%),
-    linear-gradient(125deg,#070605 0%,#14100a 38%,#1c160e 62%,#0c0a07 100%);
+    radial-gradient(ellipse 75% 70% at 72% 40%,rgba(201,168,76,.32),transparent 55%),
+    radial-gradient(ellipse 50% 45% at 15% 80%,rgba(201,168,76,.12),transparent 50%),
+    linear-gradient(125deg,#070605 0%,#16110a 40%,#1e1810 65%,#0a0906 100%);
 }
 .hero-media img{
   width:100%;height:100%;
-  object-fit:contain;object-position:85% center;
-  transform:scale(1.02);animation:heroKen 22s var(--ease) forwards;
-  filter:saturate(1.06) contrast(1.04);
+  object-fit:cover;object-position:72% 28%;
+  transform:scale(1.04);animation:heroKen 22s var(--ease) forwards;
+  filter:saturate(1.08) contrast(1.05);
 }
 @keyframes heroKen{to{transform:scale(1)}}
 .hero-media::after{
   content:'';position:absolute;inset:0;
   background:
-    linear-gradient(105deg,rgba(10,9,6,.96) 0%,rgba(10,9,6,.82) 30%,rgba(10,9,6,.28) 58%,rgba(10,9,6,.42) 100%),
-    linear-gradient(0deg,rgba(10,9,6,.94) 0%,rgba(10,9,6,.35) 34%,rgba(10,9,6,.08) 58%,transparent 76%),
-    radial-gradient(ellipse 55% 45% at 75% 40%,rgba(201,168,76,.12),transparent 65%);
+    linear-gradient(105deg,rgba(10,9,6,.97) 0%,rgba(10,9,6,.84) 28%,rgba(10,9,6,.3) 56%,rgba(10,9,6,.45) 100%),
+    linear-gradient(0deg,rgba(10,9,6,.92) 0%,rgba(10,9,6,.32) 34%,rgba(10,9,6,.06) 58%,transparent 76%),
+    radial-gradient(ellipse 55% 45% at 70% 38%,rgba(201,168,76,.14),transparent 65%);
 }
 .hero-identity{
   font-family:'DM Mono',monospace;font-size:clamp(.72rem,1.2vw,.85rem);
@@ -669,22 +669,23 @@ body{
   color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.85rem;
 }
 .robo-cat-label::after{content:'';flex:1;height:1px;background:var(--border)}
-.robo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-.robo-grid.duo{grid-template-columns:1.2fr 1fr}
+.robo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;align-items:stretch}
+.robo-grid.duo{grid-template-columns:1.15fr 1fr;align-items:stretch}
 .robo-card{
   background:rgba(28,24,18,.72);border:.5px solid var(--border);overflow:hidden;
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   transition:transform .4s var(--ease),border-color .35s,box-shadow .4s;
+  display:flex;flex-direction:column;height:100%;
 }
 .robo-card:hover{
   transform:translateY(-4px);border-color:var(--border-strong);
   box-shadow:0 20px 48px rgba(0,0,0,.4),0 0 28px rgba(201,168,76,.08);
 }
-.robo-card .media{aspect-ratio:4/3;overflow:hidden}
-.robo-card.featured .media{aspect-ratio:16/10;min-height:280px}
+.robo-card .media{aspect-ratio:4/3;overflow:hidden;flex:1 1 auto;min-height:220px}
+.robo-card.featured .media{aspect-ratio:4/3;min-height:240px}
 .robo-card img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
 .robo-card:hover img{transform:scale(1.04)}
-.robo-card-body{padding:1.15rem 1.25rem 1.35rem}
+.robo-card-body{padding:1.15rem 1.25rem 1.35rem;margin-top:auto}
 .robo-card-title{font-size:.95rem;font-weight:500;margin-bottom:.3rem}
 .robo-card-desc{font-size:.84rem;color:var(--muted);line-height:1.7}
 .research-support{
@@ -1097,28 +1098,54 @@ body{
 }
 
 /* ===== TARGETED CROP / CONTAIN FIXES ===== */
-/* Robot dog field platform + community demos — show full vertical frames */
-.robo-card:has(img[src*="IMG_6667"]) .media,
-.robo-card:has(img[src*="IMG_6659"]) .media,
-.robo-card:has(img[src*="IMG_6658"]) .media{
-  aspect-ratio:3/4 !important;
-  min-height:280px !important;
+/* Robotics fill cards — edge-to-edge, aligned duo heights */
+.robo-grid.duo .robo-card.robo-fill{
+  display:flex !important;
+  flex-direction:column !important;
+  height:100% !important;
+}
+.robo-card.robo-fill .media{
+  aspect-ratio:4/3 !important;
+  min-height:260px !important;
+  background:#0D0B08;
+  overflow:hidden !important;
+  position:relative !important;
+  flex:1 1 auto !important;
+}
+.robo-card.robo-fill.featured .media{
+  aspect-ratio:4/3 !important;
+  min-height:260px !important;
+}
+.robo-card.robo-fill .media img{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  max-height:none !important;
+  object-fit:cover !important;
+  display:block !important;
   background:#0D0B08;
 }
-.robo-card.featured:has(img[src*="IMG_6667"]) .media{
-  aspect-ratio:4/5 !important;
-  min-height:340px !important;
+/* Drone field featured — Cameron + drone */
+.robo-card.robo-fill img[src*="hero-drone-field"]{object-position:72% 28% !important}
+/* Live Demonstrations — professor/team + robot dog; crop Jeep hard left */
+.robo-card.robo-fill img[src*="IMG_6659"]{object-position:82% 28% !important}
+/* Outreach Operations — indoor demo; crop baked-in white letterbox */
+.robo-card.robo-fill img[src*="IMG_6658"]{
+  object-position:center 42% !important;
+  transform:scale(1.18) !important;
+  transform-origin:center center !important;
 }
-.robo-card img[src*="IMG_6667"],
-.robo-card img[src*="IMG_6659"],
-.robo-card img[src*="IMG_6658"],
-img[src*="IMG_6667"],
-img[src*="IMG_6659"],
-img[src*="IMG_6658"]{
-  object-fit:contain !important;
-  object-position:center center !important;
-  background:#0D0B08;
+.robo-card.robo-fill:hover img[src*="IMG_6658"]{
+  transform:scale(1.22) !important;
 }
+
+/* Selected Work / shared assets */
+img[src*="IMG_6667"]{object-fit:cover !important;object-position:68% 42% !important;background:#0D0B08}
+img[src*="IMG_6659"]{object-fit:cover !important;object-position:82% 28% !important;background:#0D0B08}
+img[src*="IMG_6658"]{object-fit:cover !important;object-position:center 42% !important;background:#0D0B08}
+img[src*="hero-drone-field"]{object-fit:cover !important}
 
 /* Impact Beyond the Lab — top mosaic photo: full subjects in frame */
 .lead-mosaic img[src*="IMG_6289"],
@@ -1210,19 +1237,19 @@ img[src*="IMG_6209"]{
 img{
   object-fit:cover;
 }
-/* Hero — full drone field frame on gold ambient stage */
+/* Hero — drone field banner (Cameron + drone + pad) */
 .hero-media img{
-  object-fit:contain !important;
-  object-position:88% center !important;
+  object-fit:cover !important;
+  object-position:72% 28% !important;
 }
 @media (max-width:900px){
-  .hero-media img{object-position:center center !important}
+  .hero-media img{object-position:78% 26% !important}
 }
 @media (max-width:768px){
-  .hero-media img{object-fit:cover !important;object-position:78% 28% !important}
+  .hero-media img{object-position:82% 24% !important}
 }
 @media (max-width:520px){
-  .hero-media img{object-position:82% 26% !important}
+  .hero-media img{object-position:86% 22% !important}
 }
 
 /* About / Rooted in Legacy — Tuskegee portrait; face + torso + backdrop */
@@ -1250,7 +1277,7 @@ img[src*="IMG_6209"]{
 }
 
 /* Per-asset focal points (art-directed, not centered blindly) */
-img[src*="imagejpeg_0"]{object-position:88% center}
+img[src*="hero-drone-field"],img[src*="imagejpeg_0"]{object-position:72% 28%}
 img[src*="10785.jpg"]{object-position:82% 27%}
 img[src*="10782.jpg"]{object-position:52% 24%}
 img[src*="10784.jpg"]{object-position:48% 30%}
@@ -1267,13 +1294,13 @@ img[src*="1915048171914742516"]{object-position:50% 32%}
 img[src*="CROPPS%20visit-9800"],img[src*="CROPPS visit-9800"]{object-position:45% 35%}
 img[src*="CROPPS%20visit-9796"],img[src*="CROPPS visit-9796"]{object-position:50% 42%}
 
-img[src*="IMG_6667"]{object-fit:contain !important;object-position:center center !important;background:#0D0B08}
+img[src*="IMG_6667"]{object-fit:cover !important;object-position:68% 42% !important;background:#0D0B08}
 img[src*="IMG_0073"]{object-position:50% 42%}
 img[src*="IMG_1936"]{object-position:50% 62%}
 img[src*="IMG_1561"]{object-position:50% 48%}
 img[src*="IMG_4364"]{object-position:50% 52%}
-img[src*="IMG_6659"]{object-fit:contain !important;object-position:center center !important;background:#0D0B08}
-img[src*="IMG_6658"]{object-fit:contain !important;object-position:center center !important;background:#0D0B08}
+img[src*="IMG_6659"]{object-fit:cover !important;object-position:82% 28% !important;background:#0D0B08}
+img[src*="IMG_6658"]{object-fit:cover !important;object-position:center 42% !important;background:#0D0B08}
 
 img[src*="IMG_0669"]{object-fit:contain !important;object-position:center center !important;background:#0D0B08}
 img[src*="IMG_0362"]{object-position:50% 28%}
@@ -1699,7 +1726,7 @@ nav.scrolled{
 
 <section id="hero">
   <div class="hero-media">
-    <img src="assets/images%20copy/01_Hero/imagejpeg_0.jpg" alt="Cameron Jones in the field with a hovering research drone and landing pad" width="1600" height="2000" fetchpriority="high">
+    <img src="assets/images%20copy/01_Hero/hero-drone-field.jpg?v=3" alt="Cameron Jones in the field with a hovering research drone and landing pad" width="1600" height="2000" fetchpriority="high">
   </div>
   <div class="hero-content">
     <div class="hero-eyebrow">Tuskegee University · AI Farms Initiative</div>
@@ -1904,14 +1931,14 @@ nav.scrolled{
     <div class="reveal">
       <div class="robo-cat-label">Autonomous Robotics</div>
       <div class="robo-grid duo">
-        <article class="robo-card featured">
-          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6667.JPG" alt="Silver LiDAR-equipped quadruped robot during field research" loading="lazy"></div>
+        <article class="robo-card featured robo-fill">
+          <div class="media"><img src="assets/images%20copy/01_Hero/hero-drone-field.jpg?v=3" alt="Cameron Jones in the field with a hovering research drone and landing pad" loading="lazy"></div>
           <div class="robo-card-body">
-            <div class="robo-card-title">Robot Dog — Field Platform</div>
-            <div class="robo-card-desc">Quadruped systems for terrain traversal, sensing, and live research demonstrations.</div>
+            <div class="robo-card-title">Drone Field Ops</div>
+            <div class="robo-card-desc">Aerial systems for field sensing, monitoring, and live research demonstrations.</div>
           </div>
         </article>
-        <article class="robo-card">
+        <article class="robo-card robo-fill">
           <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_0073.JPG" alt="Quadruped robot platform close detail" loading="lazy"></div>
           <div class="robo-card-body">
             <div class="robo-card-title">Platform Detail</div>
@@ -1951,14 +1978,14 @@ nav.scrolled{
     <div class="reveal">
       <div class="robo-cat-label">Community Demonstrations</div>
       <div class="robo-grid duo">
-        <article class="robo-card">
+        <article class="robo-card robo-fill">
           <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6659.JPG" alt="Robotics demonstration for community and stakeholders" loading="lazy"></div>
           <div class="robo-card-body">
             <div class="robo-card-title">Live Demonstrations</div>
             <div class="robo-card-desc">Bringing autonomous systems to conferences, campuses, and public audiences.</div>
           </div>
         </article>
-        <article class="robo-card">
+        <article class="robo-card robo-fill">
           <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6658.JPG" alt="Robot dog operations during outreach demonstration" loading="lazy"></div>
           <div class="robo-card-body">
             <div class="robo-card-title">Outreach Operations</div>
@@ -2288,6 +2315,7 @@ nav.scrolled{
       <div class="archive-rail-wrap">
         <div class="archive-rail">
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_3171.JPG" alt="Robotics team hardware systems" loading="lazy"></div><figcaption>Team Hardware</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6667.JPG" alt="Robot dog field demonstration with research team" loading="lazy" style="object-position:68% 42%"></div><figcaption>Robot Dog Archive</figcaption></figure>
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_5653.JPG" alt="Field robotics deployment detail" loading="lazy"></div><figcaption>Field Deployment</figcaption></figure>
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_2579.JPG" alt="Autonomous platform in research setting" loading="lazy"></div><figcaption>Platform Ops</figcaption></figure>
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_0356.JPG" alt="Robotics systems preparation" loading="lazy"></div><figcaption>Systems Prep</figcaption></figure>

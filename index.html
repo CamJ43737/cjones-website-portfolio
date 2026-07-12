@@ -94,26 +94,22 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
 }
 .hero-media{
   position:relative;z-index:1;
-  flex:0 0 auto;width:min(40vw,480px);max-width:480px;
-  margin:0 0 .15rem;
+  flex:0 0 auto;width:fit-content;max-width:min(40vw,480px);
+  margin:0;padding:0;border:0;
+  line-height:0;
 }
-.hero-media::before{
-  content:'';position:absolute;inset:-.65rem -.65rem .85rem .85rem;
-  border:1px solid rgba(201,168,76,.4);
-  pointer-events:none;z-index:0;
-}
-.hero-media::after{
-  content:'';position:absolute;left:-.15rem;top:10%;bottom:16%;width:2px;
-  background:linear-gradient(180deg,transparent,var(--gold),transparent);
-  z-index:2;pointer-events:none;
-}
+.hero-media::before,
+.hero-media::after{content:none}
 .hero-media img{
   position:relative;z-index:1;
-  display:block;width:100%;height:auto;
-  max-height:min(72vh,720px);
+  display:block;
+  width:auto;height:auto;
+  max-width:min(38vw,460px);
+  max-height:min(70vh,700px);
   object-fit:contain;object-position:center center;
   filter:saturate(1.08) contrast(1.05);
-  box-shadow:0 28px 64px rgba(0,0,0,.45),0 0 40px rgba(201,168,76,.08);
+  border:1px solid rgba(201,168,76,.55);
+  box-sizing:border-box;
 }
 .hero-identity{
   font-family:'DM Mono',monospace;font-size:clamp(.68rem,1.1vw,.8rem);
@@ -1261,10 +1257,10 @@ img{
 .hero-media img{
   object-fit:contain !important;
   object-position:center center !important;
-  width:100% !important;
+  width:auto !important;
   height:auto !important;
-  max-height:min(72vh,720px) !important;
-  max-width:100% !important;
+  max-height:min(70vh,700px) !important;
+  max-width:min(38vw,460px) !important;
 }
 @media (max-width:980px){
   .hero-stage{
@@ -1273,20 +1269,19 @@ img{
     gap:1.5rem;
   }
   .hero-content{max-width:36rem;width:100%}
-  .hero-media{width:min(100%,340px);max-width:340px}
-  .hero-media img{max-height:min(48vh,420px) !important}
+  .hero-media{max-width:min(100%,340px)}
+  .hero-media img{max-width:min(100%,320px) !important;max-height:min(48vh,420px) !important}
 }
 @media (max-width:768px){
   #hero{padding-top:5.2rem;align-items:flex-start}
   .hero-media{max-width:100%}
   .hero-media img{
+    max-width:min(100%,100%) !important;
     max-height:min(48vh,420px) !important;
-    width:100% !important;
   }
   .hero-name{font-size:clamp(3.4rem,16vw,4.8rem)}
 }
 @media (max-width:520px){
-  .hero-media::before{inset:-.45rem -.45rem .55rem .55rem}
   .hero-cta-row .btn{flex:1 1 auto}
 }
 

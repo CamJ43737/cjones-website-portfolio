@@ -1000,6 +1000,202 @@ body{
   .reveal img,.reveal .media{clip-path:none;transition:none}
 }
 
+/* ===== LAYOUT ALIGNMENT AUDIT ===== */
+:root{
+  --max:1180px !important;
+  --pad-x:clamp(1.4rem,5vw,4.5rem) !important;
+  --pad-y:clamp(4.75rem,10vw,9.5rem) !important;
+  --section-gap:clamp(2.4rem,5vw,3.75rem);
+}
+/* Shared content rail — same horizontal edges everywhere */
+.section-header,
+.industry-header,
+.about-grid,
+.bento,
+.lead-layout,
+.corp-strip,
+.research-grid,
+.story-strip,
+.research-feature,
+.beyond-grid,
+.roots-layout,
+.honors-grid,
+.contact-layout,
+.timeline,
+.robo-cats,
+.research-support,
+.research-mission,
+.exhibit-grid,
+.collab-bar,
+.impact-line,
+.pull-quote,
+.inner{
+  max-width:var(--max) !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  padding-left:var(--pad-x) !important;
+  padding-right:var(--pad-x) !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+}
+.collab-bar,
+.impact-line,
+.pull-quote{
+  width:100% !important;
+  max-width:var(--max) !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  padding:1.45rem var(--pad-x) !important;
+}
+.pull-quote{padding:clamp(1.4rem,3vw,2.2rem) var(--pad-x) !important}
+.section-header{
+  margin-bottom:var(--section-gap) !important;
+  text-align:center;
+}
+.section-title{text-align:center}
+.section-subtitle{
+  margin-left:auto !important;
+  margin-right:auto !important;
+  max-width:34rem !important;
+  text-align:center;
+}
+.industry-header{text-align:left;margin-top:var(--section-gap) !important;margin-bottom:1.4rem !important}
+.industry-header .section-title,
+.industry-header .section-subtitle{text-align:left !important;margin-left:0 !important}
+.research-caption{
+  max-width:var(--max);
+  margin-left:auto;
+  margin-right:auto;
+  padding-left:var(--pad-x);
+  padding-right:var(--pad-x);
+  box-sizing:border-box;
+}
+.hero-cta-row{align-items:center}
+.contact-layout{max-width:var(--max) !important}
+#contact > .reveal{max-width:var(--max);margin-left:auto;margin-right:auto;padding-left:var(--pad-x);padding-right:var(--pad-x);box-sizing:border-box}
+@media (max-width:768px){
+  .section-header,
+  .section-title,
+  .section-subtitle,
+  .section-eyebrow{text-align:left !important;justify-content:flex-start}
+  .section-subtitle{margin-left:0 !important;margin-right:0 !important}
+  .section-eyebrow{justify-content:flex-start}
+  .section-eyebrow::before{display:none}
+  #about,#research,#robotics,#projects,#leadership,#selected,#beyond,#roots,#honors,#journey,#contact{
+    padding-top:clamp(3.5rem,10vw,5.5rem);
+    padding-bottom:clamp(3.5rem,10vw,5.5rem);
+  }
+}
+
+/* ===== TARGETED CROP / CONTAIN FIXES ===== */
+/* Robot dog field platform + community demos — show full vertical frames */
+.robo-card:has(img[src*="IMG_6667"]) .media,
+.robo-card:has(img[src*="IMG_6659"]) .media,
+.robo-card:has(img[src*="IMG_6658"]) .media{
+  aspect-ratio:3/4 !important;
+  min-height:280px !important;
+  background:#0D0B08;
+}
+.robo-card.featured:has(img[src*="IMG_6667"]) .media{
+  aspect-ratio:4/5 !important;
+  min-height:340px !important;
+}
+.robo-card img[src*="IMG_6667"],
+.robo-card img[src*="IMG_6659"],
+.robo-card img[src*="IMG_6658"],
+img[src*="IMG_6667"],
+img[src*="IMG_6659"],
+img[src*="IMG_6658"]{
+  object-fit:contain !important;
+  object-position:center center !important;
+  background:#0D0B08;
+}
+
+/* Impact Beyond the Lab — top mosaic photo: full subjects in frame */
+.lead-mosaic img[src*="IMG_6289"],
+img[src*="IMG_6289"]{
+  object-fit:contain !important;
+  object-position:center center !important;
+  background:#111009;
+}
+.lead-mosaic img:first-child{
+  background:#111009;
+}
+
+/* Selected Work + Projects — UIUC team: keep all four people */
+.proj:has(img[src*="IMG_0669"]) .media,
+.exhibit-item:has(img[src*="IMG_0669"]){
+  background:#0D0B08;
+}
+img[src*="IMG_0669"]{
+  object-fit:contain !important;
+  object-position:center center !important;
+  background:#0D0B08;
+}
+.exhibit-item:has(img[src*="IMG_0669"]){
+  min-height:280px;
+}
+
+/* Sensor / Hardware GPU — show full card when possible */
+.proj:has(img[src*="IMG_2713"]) .media{
+  aspect-ratio:3/4 !important;
+  background:#0D0B08;
+}
+img[src*="IMG_2713"]{
+  object-fit:contain !important;
+  object-position:center center !important;
+  background:#0D0B08;
+}
+
+/* Beyond the Lab — fishing must sit inside the card box */
+.beyond-card.featured{
+  overflow:hidden !important;
+  max-width:480px !important;
+  width:100% !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-self:center;
+  border:1px solid rgba(201,168,76,.2);
+  background:var(--glass, #1C1812);
+}
+.beyond-card.featured .media{
+  position:relative !important;
+  width:100% !important;
+  aspect-ratio:3/4 !important;
+  max-height:none !important;
+  min-height:0 !important;
+  height:auto !important;
+  overflow:hidden !important;
+  flex:0 0 auto;
+}
+.beyond-card.featured img,
+.beyond-card.featured img[src*="IMG_6209"],
+img[src*="IMG_6209"]{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  object-fit:cover !important;
+  object-position:center 48% !important;
+  display:block !important;
+}
+.beyond-card.featured .media,
+.beyond-card.featured img{
+  clip-path:none !important;
+}
+.beyond-card.featured .beyond-caption{
+  flex:0 0 auto;
+  width:100%;
+  box-sizing:border-box;
+}
+@media (max-width:560px){
+  .beyond-card.featured{max-width:100% !important}
+  .beyond-card.featured img,
+  img[src*="IMG_6209"]{object-position:center 50% !important}
+}
 
 /* ===== IMAGE QUALITY AUDIT (presentation only) ===== */
 img{
@@ -1058,21 +1254,21 @@ img[src*="1915048171914742516"]{object-position:50% 32%}
 img[src*="CROPPS%20visit-9800"],img[src*="CROPPS visit-9800"]{object-position:45% 35%}
 img[src*="CROPPS%20visit-9796"],img[src*="CROPPS visit-9796"]{object-position:50% 42%}
 
-img[src*="IMG_6667"]{object-position:48% 36%}
+img[src*="IMG_6667"]{object-fit:contain !important;object-position:center center !important;background:#0D0B08}
 img[src*="IMG_0073"]{object-position:50% 42%}
 img[src*="IMG_1936"]{object-position:50% 62%}
 img[src*="IMG_1561"]{object-position:50% 48%}
 img[src*="IMG_4364"]{object-position:50% 52%}
-img[src*="IMG_6659"]{object-position:50% 40%}
-img[src*="IMG_6658"]{object-position:48% 38%}
+img[src*="IMG_6659"]{object-fit:contain !important;object-position:center center !important;background:#0D0B08}
+img[src*="IMG_6658"]{object-fit:contain !important;object-position:center center !important;background:#0D0B08}
 
-img[src*="IMG_0669"]{object-position:50% 30%}
+img[src*="IMG_0669"]{object-fit:contain !important;object-position:center center !important;background:#0D0B08}
 img[src*="IMG_0362"]{object-position:50% 28%}
-img[src*="IMG_2713"]{object-position:50% 42%}
+img[src*="IMG_2713"]{object-fit:contain !important;object-position:center center !important;background:#0D0B08}
 img[src*="IMG_8101"]{object-position:50% 48%}
 img[src*="IMG_2402"]{object-position:50% 40%}
 
-img[src*="IMG_6289"]{object-position:48% 18%}
+img[src*="IMG_6289"]{object-fit:contain !important;object-position:center center !important;background:#111009}
 img[src*="IMG_0062"]{object-position:50% 26%}
 img[src*="IMG_0055"]{object-position:50% 28%}
 img[src*="8900312655144300583"]{object-position:50% 20%}

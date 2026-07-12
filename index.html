@@ -83,7 +83,7 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
 }
 .hero-media{position:absolute;inset:0;z-index:0}
 .hero-media img{
-  width:100%;height:100%;object-fit:cover;object-position:68% 28%;
+  width:100%;height:100%;object-fit:cover;
   transform:scale(1.05);animation:heroKen 22s var(--ease) forwards;
 }
 @keyframes heroKen{to{transform:scale(1)}}
@@ -182,7 +182,7 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
   border:1px solid var(--border);pointer-events:none;
 }
 .about-frame img{
-  width:100%;height:clamp(420px,54vw,640px);object-fit:cover;object-position:center 15%;
+  width:100%;height:clamp(420px,54vw,640px);object-fit:cover;
   position:relative;z-index:1;
 }
 .about-text h2{
@@ -217,7 +217,7 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
 /* RESEARCH */
 #research{padding:var(--pad-y) 0;background:var(--bg)}
 .research-bleed{
-  width:100%;height:clamp(280px,48vw,560px);object-fit:cover;object-position:center 45%;
+  width:100%;height:clamp(280px,48vw,560px);object-fit:cover;
   border-block:.5px solid var(--border);
 }
 .research-caption{
@@ -781,7 +781,6 @@ body{
 
 /* Hero cinematic */
 .hero-media img{
-  object-position:80% 30% !important;
   filter:saturate(1.05) contrast(1.04);
 }
 .hero-media::after{
@@ -844,7 +843,6 @@ body{
 /* Research showcase */
 .research-bleed{
   height:clamp(300px,46vw,520px) !important;
-  object-position:center 38% !important;
   filter:saturate(1.04) contrast(1.03);
   box-shadow:0 0 0 1px rgba(201,168,76,.12);
 }
@@ -861,7 +859,7 @@ body{
 .r-card-num{color:rgba(201,168,76,.35) !important;font-size:2.7rem}
 
 /* About portrait */
-.about-frame img{object-position:center 12% !important}
+/* about position in audit */
 .about-frame::after{
   content:'';position:absolute;inset:auto -8% -8% auto;width:42%;height:42%;
   background:radial-gradient(circle,rgba(201,168,76,.14),transparent 70%);
@@ -887,11 +885,7 @@ body{
   max-height:640px !important;
   height:auto !important;
 }
-.beyond-card.featured img{
-  object-fit:cover !important;
-  object-position:center 55% !important;
-}
-.beyond-card:not(.featured) img{object-position:center 40% !important}
+.beyond-card:not(.featured) img{/* per-asset in audit */}
 @media (max-width:900px){
   .beyond-grid{grid-template-columns:1fr 1fr !important}
   .beyond-card.featured{grid-column:1/-1 !important;max-width:420px}
@@ -899,7 +893,7 @@ body{
 @media (max-width:560px){
   .beyond-grid{grid-template-columns:1fr !important}
   .beyond-card.featured{max-width:100%}
-  .beyond-card.featured img{object-position:center 52% !important}
+  /* fishing in audit */
 }
 
 /* Selected Work — curated exhibition (not slideshow) */
@@ -981,7 +975,7 @@ body{
 .corp-strip{grid-template-columns:repeat(4,1fr) !important;gap:1.1rem}
 
 /* Robotics featured framing */
-.robo-card.featured img{object-position:center 42% !important}
+/* robotics in audit */
 .robo-cat-label{letter-spacing:.3em}
 
 /* Mobile designed, not compressed */
@@ -993,19 +987,126 @@ body{
   .beyond-card.featured .media{aspect-ratio:4/5 !important;max-height:480px;height:auto;min-height:0}
 }
 @media (max-width:768px){
-  .hero-media img{object-position:86% 28% !important}
+  /* hero position in audit */
   .section-title{font-size:clamp(2.5rem,11vw,3.6rem)}
   .exhibit-item.e-lg,.exhibit-item.e-md,.exhibit-item.e-sm{grid-column:span 12;min-height:220px}
   .exhibit-item figcaption{opacity:1;transform:none}
   .btn{min-height:50px}
 }
 @media (max-width:520px){
-  .hero-media img{object-position:90% 26% !important}
-  .beyond-card.featured img{object-position:center 45% !important}
+  /* hero + fishing positions owned by IMAGE QUALITY AUDIT */
 }
 @media (prefers-reduced-motion:reduce){
   .reveal img,.reveal .media{clip-path:none;transition:none}
 }
+
+
+/* ===== IMAGE QUALITY AUDIT (presentation only) ===== */
+img{
+  object-fit:cover;
+}
+/* Hero — vertical field ops; keep Cameron fully framed on the right */
+.hero-media img{
+  object-fit:cover !important;
+  object-position:82% 27% !important;
+}
+@media (max-width:768px){
+  .hero-media img{object-position:88% 25% !important}
+}
+@media (max-width:520px){
+  .hero-media img{object-position:92% 24% !important}
+}
+
+/* About / Rooted in Legacy — Tuskegee portrait; face + torso + backdrop */
+.about-frame img{
+  object-fit:cover !important;
+  object-position:center 18% !important;
+}
+
+/* Research bleed — 10782 is vertical spectrometer shot in a wide frame */
+.research-bleed,
+img.research-bleed{
+  object-fit:cover !important;
+  object-position:52% 24% !important;
+}
+
+/* Fishing — full person + lake environment (not face zoom) */
+.beyond-card.featured img,
+img[src*="IMG_6209"]{
+  object-fit:cover !important;
+  object-position:center 48% !important;
+}
+@media (max-width:560px){
+  .beyond-card.featured img,
+  img[src*="IMG_6209"]{object-position:center 50% !important}
+}
+
+/* Per-asset focal points (art-directed, not centered blindly) */
+img[src*="10785.jpg"]{object-position:82% 27%}
+img[src*="10782.jpg"]{object-position:52% 24%}
+img[src*="10784.jpg"]{object-position:48% 30%}
+img[src*="274091622200731962"]{object-position:50% 40%}
+img[src*="2104941407774967754"]{object-position:45% 42%}
+img[src*="IMG_2029"]{object-position:40% 38%}
+img[src*="IMG_2497"]{object-position:50% 45%}
+img[src*="IMG_3363"]{object-position:50% 42%}
+img[src*="IMG_2775"]{object-position:50% 40%}
+
+img[src*="10198.jpg"]{object-position:50% 26%}
+img[src*="10196.jpg"]{object-position:50% 28%}
+img[src*="1915048171914742516"]{object-position:50% 32%}
+img[src*="CROPPS%20visit-9800"],img[src*="CROPPS visit-9800"]{object-position:45% 35%}
+img[src*="CROPPS%20visit-9796"],img[src*="CROPPS visit-9796"]{object-position:50% 42%}
+
+img[src*="IMG_6667"]{object-position:48% 36%}
+img[src*="IMG_0073"]{object-position:50% 42%}
+img[src*="IMG_1936"]{object-position:50% 62%}
+img[src*="IMG_1561"]{object-position:50% 48%}
+img[src*="IMG_4364"]{object-position:50% 52%}
+img[src*="IMG_6659"]{object-position:50% 40%}
+img[src*="IMG_6658"]{object-position:48% 38%}
+
+img[src*="IMG_0669"]{object-position:50% 30%}
+img[src*="IMG_0362"]{object-position:50% 28%}
+img[src*="IMG_2713"]{object-position:50% 42%}
+img[src*="IMG_8101"]{object-position:50% 48%}
+img[src*="IMG_2402"]{object-position:50% 40%}
+
+img[src*="IMG_6289"]{object-position:48% 18%}
+img[src*="IMG_0062"]{object-position:50% 26%}
+img[src*="IMG_0055"]{object-position:50% 28%}
+img[src*="8900312655144300583"]{object-position:50% 20%}
+img[src*="IMG_5565"]{object-position:50% 26%}
+
+img[src*="IMG_2945"]{object-position:50% 45%}
+img[src*="IMG_9256"]{object-position:50% 42%}
+img[src*="IMG_6682"]{object-position:50% 38%}
+
+img[src*="IMG_5528"]{object-position:50% 20%}
+img[src*="IMG_5538"]{object-position:50% 22%}
+img[src*="IMG_4112"]{object-position:50% 22%}
+img[src*="IMG_0596"]{object-position:50% 28%}
+
+img[src*="20260420_180837"]{object-position:50% 20%}
+img[src*="9777.jpg"]{object-position:50% 32%}
+img[src*="IMG_3233"]{object-position:50% 28%}
+
+img[src*="Screenshot%202025-09-11"],img[src*="Screenshot 2025-09-11"]{object-position:center 18%}
+
+/* Section containers — ensure cover + overflow clip */
+.about-frame,.r-card .media,.proj .media,.corp-card .media,.beyond-card .media,
+.honor-card .media,.robo-card .media,.research-support .media,.exhibit-item,
+.lead-mosaic,.roots-photos,.research-feature{
+  overflow:hidden;
+}
+.about-frame img,.r-card img,.proj img,.corp-card img,.beyond-card img,
+.honor-card img,.robo-card img,.research-support img,.exhibit-item img,
+.lead-mosaic img,.roots-photos img,.research-feature img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.research-feature img{height:clamp(260px,40vw,420px)}
 
 </style>
 </head>
@@ -1137,7 +1238,7 @@ body{
   </div>
 
   <div class="reveal">
-    <img class="research-bleed" src="assets/images%20copy/02_AI_Farms_Research/10782.jpg" alt="AI Farms field research operations with agricultural drone systems" width="2400" height="1600" loading="lazy" style="object-position:center 40%">
+    <img class="research-bleed" src="assets/images%20copy/02_AI_Farms_Research/10782.jpg" alt="AI Farms field research operations with agricultural drone systems" width="2400" height="1600" loading="lazy">
     <p class="research-caption">Hero Research — AI Farms field operations at Tuskegee University</p>
   </div>
 
@@ -1166,7 +1267,7 @@ body{
   </div>
 
   <div class="research-support reveal">
-    <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/274091622200731962.jpg" alt="Drone and field robotics during AI Farms research" loading="lazy" style="object-position:center 35%"></div>
+    <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/274091622200731962.jpg" alt="Drone and field robotics during AI Farms research" loading="lazy"></div>
     <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/2104941407774967754.jpg" alt="Quadruped robot in the AI Farms research lab" loading="lazy"></div>
     <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2029.JPEG" alt="Automated greenhouse gantry system for crop monitoring" loading="lazy"></div>
     <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2497.JPEG" alt="Experimental crop beds in greenhouse research facility" loading="lazy"></div>
@@ -1174,7 +1275,7 @@ body{
 
   <div class="research-grid reveal" style="padding-top:clamp(1.8rem,4vw,2.8rem)">
     <article class="r-card">
-      <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/10784.jpg" alt="Cameron Jones conducting leaf measurements during field research" loading="lazy" style="object-position:center 35%"></div>
+      <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/10784.jpg" alt="Cameron Jones conducting leaf measurements during field research" loading="lazy"></div>
       <div class="r-card-body">
         <div class="r-card-num">01</div>
         <div class="r-card-title">Precision Field Science</div>
@@ -1182,7 +1283,7 @@ body{
       </div>
     </article>
     <article class="r-card">
-      <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_3363.JPG" alt="Crop sensing and environmental monitoring research" loading="lazy" style="object-position:center 40%"></div>
+      <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_3363.JPG" alt="Crop sensing and environmental monitoring research" loading="lazy"></div>
       <div class="r-card-body">
         <div class="r-card-num">02</div>
         <div class="r-card-title">Sensors &amp; Greenhouse AI</div>
@@ -1190,7 +1291,7 @@ body{
       </div>
     </article>
     <article class="r-card">
-      <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2775.JPEG" alt="AI Farms greenhouse and research infrastructure" loading="lazy" style="object-position:center 45%"></div>
+      <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2775.JPEG" alt="AI Farms greenhouse and research infrastructure" loading="lazy"></div>
       <div class="r-card-body">
         <div class="r-card-num">03</div>
         <div class="r-card-title">Research Infrastructure</div>
@@ -1200,7 +1301,7 @@ body{
   </div>
 
   <div class="research-feature reveal">
-    <img src="assets/images%20copy/05_Industry_Corporate/10198.jpg" alt="Cameron Jones presenting first-author research poster on AI-powered robotic systems" loading="lazy" style="object-position:center 22%">
+    <img src="assets/images%20copy/05_Industry_Corporate/10198.jpg" alt="Cameron Jones presenting first-author research poster on AI-powered robotic systems" loading="lazy">
     <div>
       <h3>First-Author<br><span>Research Poster.</span></h3>
       <p>"Integrating AI-Powered Robotic Systems for Precision Agriculture and Environmental Monitoring" — developed and presented with Tuskegee University, USDA, CROPPS, and Cornell University.</p>
@@ -1237,14 +1338,14 @@ body{
       <div class="robo-cat-label">Autonomous Robotics</div>
       <div class="robo-grid duo">
         <article class="robo-card featured">
-          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6667.JPG" alt="Silver LiDAR-equipped quadruped robot during field research" loading="lazy" style="object-position:center 45%"></div>
+          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6667.JPG" alt="Silver LiDAR-equipped quadruped robot during field research" loading="lazy"></div>
           <div class="robo-card-body">
             <div class="robo-card-title">Robot Dog — Field Platform</div>
             <div class="robo-card-desc">Quadruped systems for terrain traversal, sensing, and live research demonstrations.</div>
           </div>
         </article>
         <article class="robo-card">
-          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_0073.JPG" alt="Quadruped robot platform close detail" loading="lazy" style="object-position:center 40%"></div>
+          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_0073.JPG" alt="Quadruped robot platform close detail" loading="lazy"></div>
           <div class="robo-card-body">
             <div class="robo-card-title">Platform Detail</div>
             <div class="robo-card-desc">Hardware built for outdoor autonomy — sensors, locomotion, and field readiness.</div>
@@ -1257,21 +1358,21 @@ body{
       <div class="robo-cat-label">Field Deployment</div>
       <div class="robo-grid">
         <article class="robo-card">
-          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_1936.JPG" alt="Multi-robot field deployment with drone, robot dog, and rovers" loading="lazy" style="object-position:center 45%"></div>
+          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_1936.JPG" alt="Multi-robot field deployment with drone, robot dog, and rovers" loading="lazy"></div>
           <div class="robo-card-body">
             <div class="robo-card-title">Multi-Robot Ops</div>
             <div class="robo-card-desc">Coordinated fleets — aerial and ground systems operating in the same session.</div>
           </div>
         </article>
         <article class="robo-card">
-          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_1561.JPG" alt="Large agricultural research rover platform" loading="lazy" style="object-position:center 40%"></div>
+          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_1561.JPG" alt="Large agricultural research rover platform" loading="lazy"></div>
           <div class="robo-card-body">
             <div class="robo-card-title">Agricultural Rover</div>
             <div class="robo-card-desc">Ground platforms for crop-row navigation and field instrumentation.</div>
           </div>
         </article>
         <article class="robo-card">
-          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_4364.JPG" alt="Autonomous rover systems prepared for deployment" loading="lazy" style="object-position:center 50%"></div>
+          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_4364.JPG" alt="Autonomous rover systems prepared for deployment" loading="lazy"></div>
           <div class="robo-card-body">
             <div class="robo-card-title">Rover Systems</div>
             <div class="robo-card-desc">Deployment-ready autonomy for outdoor agricultural research.</div>
@@ -1284,14 +1385,14 @@ body{
       <div class="robo-cat-label">Community Demonstrations</div>
       <div class="robo-grid duo">
         <article class="robo-card">
-          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6659.JPG" alt="Robotics demonstration for community and stakeholders" loading="lazy" style="object-position:center 38%"></div>
+          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6659.JPG" alt="Robotics demonstration for community and stakeholders" loading="lazy"></div>
           <div class="robo-card-body">
             <div class="robo-card-title">Live Demonstrations</div>
             <div class="robo-card-desc">Bringing autonomous systems to conferences, campuses, and public audiences.</div>
           </div>
         </article>
         <article class="robo-card">
-          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6658.JPG" alt="Robot dog operations during outreach demonstration" loading="lazy" style="object-position:center 35%"></div>
+          <div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6658.JPG" alt="Robot dog operations during outreach demonstration" loading="lazy"></div>
           <div class="robo-card-body">
             <div class="robo-card-title">Outreach Operations</div>
             <div class="robo-card-desc">Hands-on robotics that make AI tangible for students and communities.</div>
@@ -1311,7 +1412,7 @@ body{
 
   <div class="bento">
     <article class="proj proj-lg reveal">
-      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_0669.JPEG" alt="UIUC Precision Agriculture Hackathon first-place team with awards" loading="lazy" style="object-position:center 28%"></div>
+      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_0669.JPEG" alt="UIUC Precision Agriculture Hackathon first-place team with awards" loading="lazy"></div>
       <div class="proj-body">
         <div class="proj-label">Hackathon · UIUC</div>
         <div class="proj-title">Precision Ag Hackathon</div>
@@ -1320,7 +1421,7 @@ body{
       </div>
     </article>
     <article class="proj proj-sm reveal reveal-d1">
-      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_0362.JPEG" alt="AuburnHacks team collaboration and project work" loading="lazy" style="object-position:center 25%"></div>
+      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_0362.JPEG" alt="AuburnHacks team collaboration and project work" loading="lazy"></div>
       <div class="proj-body">
         <div class="proj-label">Hackathon · AuburnHacks</div>
         <div class="proj-title">AuburnHacks Champion</div>
@@ -1329,7 +1430,7 @@ body{
       </div>
     </article>
     <article class="proj proj-md reveal">
-      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_2713.JPG" alt="Hardware and systems project development" loading="lazy" style="object-position:center 40%"></div>
+      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_2713.JPG" alt="Hardware and systems project development" loading="lazy"></div>
       <div class="proj-body">
         <div class="proj-label">Hardware · Systems</div>
         <div class="proj-title">Sensor &amp; Hardware Builds</div>
@@ -1338,7 +1439,7 @@ body{
       </div>
     </article>
     <article class="proj proj-md reveal reveal-d1">
-      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_8101.jpeg" alt="Custom PC hardware build engineered by Cameron Jones" loading="lazy" style="object-position:center 40%"></div>
+      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_8101.jpeg" alt="Custom PC hardware build engineered by Cameron Jones" loading="lazy"></div>
       <div class="proj-body">
         <div class="proj-label">Hardware · Systems</div>
         <div class="proj-title">Custom PC Builds</div>
@@ -1347,7 +1448,7 @@ body{
       </div>
     </article>
     <article class="proj proj-md reveal reveal-d2">
-      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_2402.JPG" alt="Project development and technical build process" loading="lazy" style="object-position:center 35%"></div>
+      <div class="media"><img src="assets/images%20copy/06_Projects/IMG_2402.JPG" alt="Project development and technical build process" loading="lazy"></div>
       <div class="proj-body">
         <div class="proj-label">Build · Process</div>
         <div class="proj-title">Prototype to Product</div>
@@ -1410,10 +1511,10 @@ body{
     </ul>
 
     <div class="lead-mosaic reveal reveal-d1">
-      <img src="assets/images%20copy/04_Leadership_Community/IMG_6289.jpeg" alt="Cameron Jones volunteering with United Way Meals on Wheels" loading="lazy" style="object-position:center 20%">
-      <img src="assets/images%20copy/04_Leadership_Community/IMG_0062.JPG" alt="STEM outreach and youth engagement" loading="lazy" style="object-position:center 25%">
-      <img src="assets/images%20copy/04_Leadership_Community/IMG_0055.JPG" alt="Workshop engagement and community education" loading="lazy" style="object-position:center 30%">
-      <img src="assets/images%20copy/04_Leadership_Community/8900312655144300583.jpg" alt="Leadership and advocacy event" loading="lazy" style="object-position:center 18%">
+      <img src="assets/images%20copy/04_Leadership_Community/IMG_6289.jpeg" alt="Cameron Jones volunteering with United Way Meals on Wheels" loading="lazy">
+      <img src="assets/images%20copy/04_Leadership_Community/IMG_0062.JPG" alt="STEM outreach and youth engagement" loading="lazy">
+      <img src="assets/images%20copy/04_Leadership_Community/IMG_0055.JPG" alt="Workshop engagement and community education" loading="lazy">
+      <img src="assets/images%20copy/04_Leadership_Community/8900312655144300583.jpg" alt="Leadership and advocacy event" loading="lazy">
     </div>
   </div>
 
@@ -1425,19 +1526,19 @@ body{
 
   <div class="corp-strip reveal">
     <article class="corp-card">
-      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/10196.jpg" alt="Industry leadership engagement" loading="lazy" style="object-position:center 25%"></div>
+      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/10196.jpg" alt="Industry leadership engagement" loading="lazy"></div>
       <div class="corp-card-label">Industry · Leadership</div>
     </article>
     <article class="corp-card">
-      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9800.jpeg" alt="CROPPS research collaboration visit at Tuskegee" loading="lazy" style="object-position:center 30%"></div>
+      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9800.jpeg" alt="CROPPS research collaboration visit at Tuskegee" loading="lazy"></div>
       <div class="corp-card-label">CROPPS · Cornell Network</div>
     </article>
     <article class="corp-card">
-      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/1915048171914742516.jpg" alt="Professional networking and research partnership" loading="lazy" style="object-position:center 30%"></div>
+      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/1915048171914742516.jpg" alt="Professional networking and research partnership" loading="lazy"></div>
       <div class="corp-card-label">Syngenta · MANRRS</div>
     </article>
     <article class="corp-card">
-      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9796.jpeg" alt="Field research with institutional partners" loading="lazy" style="object-position:center 40%"></div>
+      <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9796.jpeg" alt="Field research with institutional partners" loading="lazy"></div>
       <div class="corp-card-label">Field · Partners</div>
     </article>
   </div>
@@ -1450,14 +1551,14 @@ body{
     <p class="section-subtitle">Eight frames. One story — research, robotics, and impact at industry caliber.</p>
   </div>
   <div class="exhibit-grid reveal">
-    <figure class="exhibit-item e-lg"><img src="assets/images%20copy/03_Robotics/IMG_1936.JPG" alt="Multi-robot field deployment" loading="lazy" style="object-position:center 48%"><figcaption>Multi-Robot Field Ops</figcaption></figure>
+    <figure class="exhibit-item e-lg"><img src="assets/images%20copy/03_Robotics/IMG_1936.JPG" alt="Multi-robot field deployment" loading="lazy"><figcaption>Multi-Robot Field Ops</figcaption></figure>
     <figure class="exhibit-item e-md"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2029.JPEG" alt="Greenhouse research systems" loading="lazy"><figcaption>Greenhouse Systems</figcaption></figure>
-    <figure class="exhibit-item e-sm"><img src="assets/images%20copy/03_Robotics/IMG_6667.JPG" alt="Robot dog field research" loading="lazy" style="object-position:center 42%"><figcaption>Robot Dog</figcaption></figure>
-    <figure class="exhibit-item e-sm"><img src="assets/images%20copy/05_Industry_Corporate/10198.jpg" alt="Research poster presentation" loading="lazy" style="object-position:center 18%"><figcaption>First-Author Poster</figcaption></figure>
-    <figure class="exhibit-item e-sm"><img src="assets/images%20copy/06_Projects/IMG_0669.JPEG" alt="UIUC hackathon first place" loading="lazy" style="object-position:center 28%"><figcaption>UIUC — First Place</figcaption></figure>
-    <figure class="exhibit-item e-sm"><img src="assets/images%20copy/04_Leadership_Community/IMG_5565.JPG" alt="Leadership cohort" loading="lazy" style="object-position:center 28%"><figcaption>Leadership</figcaption></figure>
-    <figure class="exhibit-item e-sm"><img src="assets/images%20copy/03_Robotics/IMG_1561.JPG" alt="Agricultural rover" loading="lazy" style="object-position:center 42%"><figcaption>Agricultural Rover</figcaption></figure>
-    <figure class="exhibit-item e-sm"><img src="assets/images%20copy/10_Honors_Achievements/20260420_180837.jpg" alt="Academic honor recognition" loading="lazy" style="object-position:center 20%"><figcaption>Honors</figcaption></figure>
+    <figure class="exhibit-item e-sm"><img src="assets/images%20copy/03_Robotics/IMG_6667.JPG" alt="Robot dog field research" loading="lazy"><figcaption>Robot Dog</figcaption></figure>
+    <figure class="exhibit-item e-sm"><img src="assets/images%20copy/05_Industry_Corporate/10198.jpg" alt="Research poster presentation" loading="lazy"><figcaption>First-Author Poster</figcaption></figure>
+    <figure class="exhibit-item e-sm"><img src="assets/images%20copy/06_Projects/IMG_0669.JPEG" alt="UIUC hackathon first place" loading="lazy"><figcaption>UIUC — First Place</figcaption></figure>
+    <figure class="exhibit-item e-sm"><img src="assets/images%20copy/04_Leadership_Community/IMG_5565.JPG" alt="Leadership cohort" loading="lazy"><figcaption>Leadership</figcaption></figure>
+    <figure class="exhibit-item e-sm"><img src="assets/images%20copy/03_Robotics/IMG_1561.JPG" alt="Agricultural rover" loading="lazy"><figcaption>Agricultural Rover</figcaption></figure>
+    <figure class="exhibit-item e-sm"><img src="assets/images%20copy/10_Honors_Achievements/20260420_180837.jpg" alt="Academic honor recognition" loading="lazy"><figcaption>Honors</figcaption></figure>
   </div>
 </section>
 
@@ -1469,19 +1570,19 @@ body{
   </div>
   <div class="beyond-grid reveal">
     <article class="beyond-card featured">
-      <div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_6209.jpeg" alt="Cameron Jones holding a catch after fishing by the lake" loading="lazy" style="object-position:center 55%"></div>
+      <div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_6209.jpeg" alt="Cameron Jones holding a catch after fishing by the lake" loading="lazy"></div>
       <div class="beyond-caption">On the Water — Fishing</div>
     </article>
     <article class="beyond-card">
-      <div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_2945.JPG" alt="Outdoor passion photography" loading="lazy" style="object-position:center 42%"></div>
+      <div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_2945.JPG" alt="Outdoor passion photography" loading="lazy"></div>
       <div class="beyond-caption">Outdoors</div>
     </article>
     <article class="beyond-card">
-      <div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_9256.JPG" alt="Hobby and passion photography" loading="lazy" style="object-position:center 40%"></div>
+      <div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_9256.JPG" alt="Hobby and passion photography" loading="lazy"></div>
       <div class="beyond-caption">Passions</div>
     </article>
     <article class="beyond-card">
-      <div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_6682.JPG" alt="Cinematic personal photography" loading="lazy" style="object-position:center 40%"></div>
+      <div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_6682.JPG" alt="Cinematic personal photography" loading="lazy"></div>
       <div class="beyond-caption">Moments Beyond Work</div>
     </article>
   </div>
@@ -1498,10 +1599,10 @@ body{
       <p class="roots-text">I'm not just attending Tuskegee. I'm adding to its story.</p>
     </div>
     <div class="roots-photos reveal reveal-d1">
-      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5528.jpeg" alt="Cameron Jones with family on Tuskegee football field" loading="lazy" style="object-position:center 25%">
-      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5538.jpeg" alt="Tuskegee University pride and campus moment" loading="lazy" style="object-position:center 25%">
-      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4112.JPEG" alt="Family and Tuskegee legacy gathering" loading="lazy" style="object-position:center 20%">
-      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_0596.PNG" alt="Tuskegee legacy and campus tradition" loading="lazy" style="object-position:center 30%">
+      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5528.jpeg" alt="Cameron Jones with family on Tuskegee football field" loading="lazy">
+      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5538.jpeg" alt="Tuskegee University pride and campus moment" loading="lazy">
+      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4112.JPEG" alt="Family and Tuskegee legacy gathering" loading="lazy">
+      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_0596.PNG" alt="Tuskegee legacy and campus tradition" loading="lazy">
     </div>
   </div>
 </section>
@@ -1513,15 +1614,15 @@ body{
   </div>
   <div class="honors-grid reveal">
     <article class="honor-card">
-      <div class="media"><img src="assets/images%20copy/10_Honors_Achievements/20260420_180837.jpg" alt="Formal academic honor society recognition" loading="lazy" style="object-position:center 22%"></div>
+      <div class="media"><img src="assets/images%20copy/10_Honors_Achievements/20260420_180837.jpg" alt="Formal academic honor society recognition" loading="lazy"></div>
       <p>Academic Honor Recognition</p>
     </article>
     <article class="honor-card">
-      <div class="media"><img src="assets/images%20copy/10_Honors_Achievements/9777.jpg" alt="Honor cords and academic achievement attire" loading="lazy" style="object-position:center 30%"></div>
+      <div class="media"><img src="assets/images%20copy/10_Honors_Achievements/9777.jpg" alt="Honor cords and academic achievement attire" loading="lazy"></div>
       <p>Honor Cords &amp; Distinction</p>
     </article>
     <article class="honor-card">
-      <div class="media"><img src="assets/images%20copy/10_Honors_Achievements/IMG_3233.JPG" alt="Achievement ceremony and recognition moment" loading="lazy" style="object-position:center 25%"></div>
+      <div class="media"><img src="assets/images%20copy/10_Honors_Achievements/IMG_3233.JPG" alt="Achievement ceremony and recognition moment" loading="lazy"></div>
       <p>Ceremony &amp; Achievement</p>
     </article>
   </div>

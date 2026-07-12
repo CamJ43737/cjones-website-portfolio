@@ -1,0 +1,1172 @@
+﻿#!/usr/bin/env python3
+"""Build premium portfolio index.html using real media from images copy."""
+from pathlib import Path
+from urllib.parse import quote
+
+def media(*parts: str) -> str:
+    return "/".join(quote(p, safe=".-_~") for p in ("assets", "images copy", *parts))
+
+# Shorthand aliases
+H = "01_Hero"
+R = "02_AI_Farms_Research"
+RO = "03_Robotics"
+L = "04_Leadership_Community"
+I = "05_Industry_Corporate"
+P = "06_Projects"
+HO = "07_Hobbies_and_Passions"
+B = "08_Beyond_The_Lab"
+T = "09_Tuskegee_Legacy"
+A = "10_Honors_Achievements"
+
+html = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Cameron Jones â€” AI Researcher, Roboticist, and Precision Agriculture Innovator at Tuskegee University. Portfolio of research, robotics, leadership, and engineering.">
+<meta name="theme-color" content="#0A0906">
+<title>Cameron Jones â€” AI Researcher &amp; Technologist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{{box-sizing:border-box;margin:0;padding:0}}
+:root{{
+  --gold:#C9A84C;--gold-light:#E8C97A;--gold-dim:#7A6230;
+  --white:#F5F2EC;--off:#D9D4C8;--muted:#8A8070;
+  --bg:#0A0906;--bg2:#111009;--bg3:#181510;--card:#1C1812;
+  --border:rgba(201,168,76,.14);--border-strong:rgba(201,168,76,.34);
+  --pad-x:clamp(1.25rem,5vw,4.5rem);
+  --pad-y:clamp(4.5rem,11vw,9.5rem);
+  --max:1240px;
+  --ease:cubic-bezier(.16,1,.3,1);
+}}
+html{{scroll-behavior:smooth}}
+body{{
+  background:var(--bg);color:var(--white);
+  font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}}
+img,video{{max-width:100%;display:block}}
+a{{color:inherit}}
+::selection{{background:rgba(201,168,76,.35);color:var(--white)}}
+
+/* Grain */
+body::before{{
+  content:'';position:fixed;inset:0;z-index:300;pointer-events:none;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px;
+}}
+
+/* NAV */
+nav{{
+  position:fixed;inset:0 0 auto;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.95rem var(--pad-x);
+  background:rgba(10,9,6,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:.5px solid transparent;transition:background .35s,border-color .35s,padding .35s;
+}}
+nav.scrolled{{background:rgba(10,9,6,.94);border-bottom-color:var(--border);padding:.75rem var(--pad-x)}}
+.nav-logo{{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:.14em;color:var(--gold);text-decoration:none;z-index:102;transition:color .3s}}
+.nav-logo:hover{{color:var(--gold-light)}}
+.nav-links{{display:flex;gap:2.1rem;list-style:none;align-items:center}}
+.nav-links a{{
+  font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color .3s;position:relative;
+}}
+.nav-links a::after{{content:'';position:absolute;left:0;bottom:-5px;width:0;height:1px;background:var(--gold);transition:width .35s var(--ease)}}
+.nav-links a:hover,.nav-links a.active{{color:var(--gold)}}
+.nav-links a:hover::after,.nav-links a.active::after{{width:100%}}
+.nav-cta{{
+  display:inline-flex;align-items:center;padding:.55rem 1rem;
+  border:1px solid var(--border-strong);color:var(--gold)!important;
+  font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+  text-decoration:none;transition:background .3s,color .3s,transform .3s var(--ease);
+}}
+.nav-cta:hover{{background:var(--gold);color:var(--bg)!important;transform:translateY(-1px)}}
+.nav-cta::after{{display:none!important}}
+.nav-toggle{{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  width:44px;height:44px;padding:10px;background:transparent;border:.5px solid var(--border);cursor:pointer;z-index:102;
+}}
+.nav-toggle span{{display:block;width:100%;height:1.5px;background:var(--gold);transition:transform .3s var(--ease),opacity .3s}}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){{transform:translateY(6.5px) rotate(45deg)}}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){{opacity:0}}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){{transform:translateY(-6.5px) rotate(-45deg)}}
+.nav-backdrop{{display:none;position:fixed;inset:0;z-index:99;background:rgba(10,9,6,.6)}}
+.nav-backdrop.open{{display:block}}
+
+/* HERO â€” cinematic full-bleed */
+#hero{{
+  position:relative;min-height:100vh;min-height:100dvh;
+  display:grid;align-items:end;overflow:hidden;
+}}
+.hero-media{{position:absolute;inset:0;z-index:0}}
+.hero-media img{{
+  width:100%;height:100%;object-fit:cover;object-position:center 18%;
+  transform:scale(1.04);animation:hero ken 18s var(--ease) forwards;
+}}
+@keyframes heroKen{{to{{transform:scale(1)}}}}
+.hero-media::after{{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(90deg,rgba(10,9,6,.92) 0%,rgba(10,9,6,.55) 42%,rgba(10,9,6,.25) 70%,rgba(10,9,6,.45) 100%),
+    linear-gradient(0deg,rgba(10,9,6,.95) 0%,rgba(10,9,6,.2) 42%,transparent 70%);
+}}
+.hero-content{{
+  position:relative;z-index:1;
+  padding:calc(5.5rem + 2vw) var(--pad-x) clamp(3rem,8vw,5.5rem);
+  max-width:920px;
+}}
+.hero-eyebrow{{
+  font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--gold);display:flex;align-items:center;gap:.75rem;margin-bottom:1.4rem;flex-wrap:wrap;
+}}
+.hero-eyebrow::before{{content:'';width:2.2rem;height:1px;background:var(--gold);flex-shrink:0}}
+.hero-name{{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(4.2rem,12vw,9.5rem);line-height:.9;letter-spacing:.02em;
+  margin-bottom:1.35rem;
+}}
+.hero-name span{{color:var(--gold)}}
+.hero-tagline{{
+  font-size:clamp(.95rem,1.6vw,1.12rem);color:var(--off);max-width:540px;
+  margin-bottom:2.2rem;line-height:1.85;
+}}
+.hero-cta-row{{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:2.8rem}}
+.btn{{
+  display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
+  padding:.95rem 1.7rem;font-family:'DM Mono',monospace;font-size:.7rem;
+  letter-spacing:.2em;text-transform:uppercase;text-decoration:none;
+  transition:transform .35s var(--ease),background .3s,color .3s,border-color .3s,box-shadow .35s;
+}}
+.btn-primary{{background:var(--gold);color:var(--bg);border:1px solid var(--gold)}}
+.btn-primary:hover{{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 14px 36px rgba(201,168,76,.22)}}
+.btn-ghost{{border:1px solid rgba(201,168,76,.35);color:var(--off)}}
+.btn-ghost:hover{{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}}
+.hero-stats{{
+  display:flex;flex-wrap:wrap;gap:clamp(1.4rem,4vw,3rem);
+  padding-top:2rem;border-top:.5px solid var(--border);max-width:560px;
+}}
+.hero-stat-num{{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.9rem,3vw,2.6rem);color:var(--gold);line-height:1}}
+.hero-stat-label{{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.25rem}}
+
+/* MARQUEE */
+.marquee-wrap{{
+  overflow:hidden;border-top:.5px solid var(--border);border-bottom:.5px solid var(--border);
+  padding:1.05rem 0;background:var(--card);
+}}
+.marquee-inner{{display:flex;width:max-content;animation:marquee 38s linear infinite}}
+@keyframes marquee{{to{{transform:translateX(-50%)}}}}
+.marquee-item{{
+  font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--muted);padding:0 2rem;flex-shrink:0;
+}}
+.marquee-item span{{color:var(--gold);margin-left:2rem}}
+
+/* SHARED */
+.section-eyebrow{{
+  font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1rem;
+}}
+.section-eyebrow::before,.section-eyebrow::after{{content:'';width:2.4rem;height:1px;background:var(--gold-dim);flex-shrink:0}}
+.section-eyebrow.left{{justify-content:flex-start}}
+.section-eyebrow.left::before{{display:none}}
+.section-title{{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(2.7rem,5.5vw,5.6rem);
+  line-height:.95;letter-spacing:.03em;text-align:center;
+}}
+.section-title em{{color:var(--gold);font-style:normal}}
+.section-subtitle{{
+  margin:1.2rem auto 0;max-width:540px;text-align:center;color:var(--muted);
+  font-size:clamp(.9rem,1.4vw,1rem);line-height:1.8;
+}}
+.section-header{{margin-bottom:clamp(2.4rem,5vw,4.2rem)}}
+.inner{{max-width:var(--max);margin:0 auto;padding:0 var(--pad-x)}}
+
+/* ABOUT */
+#about{{padding:var(--pad-y) 0;background:var(--bg2)}}
+.about-grid{{
+  display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+  gap:clamp(2.2rem,5vw,5rem);align-items:center;max-width:var(--max);margin:0 auto;padding:0 var(--pad-x);
+}}
+.about-frame{{position:relative}}
+.about-frame::before{{
+  content:'';position:absolute;inset:-1.1rem 1.1rem 1.1rem -1.1rem;
+  border:1px solid var(--border);pointer-events:none;
+}}
+.about-frame img{{
+  width:100%;height:clamp(380px,52vw,620px);object-fit:cover;object-position:center 12%;
+  position:relative;z-index:1;
+}}
+.about-text h2{{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,4.5vw,3.9rem);
+  line-height:.95;margin-bottom:1.4rem;
+}}
+.about-text h2 span{{color:var(--gold)}}
+.about-text p{{color:var(--off);margin-bottom:1.15rem;font-size:.97rem;line-height:1.85}}
+.tags,.award-chips,.inst-pills{{display:flex;flex-wrap:wrap;gap:.45rem}}
+.tags{{margin-top:1.8rem}}
+.tag{{
+  font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:.38rem .85rem;border:.5px solid var(--border-strong);color:var(--gold);
+  background:rgba(201,168,76,.06);transition:background .3s,border-color .3s;
+}}
+.tag:hover{{background:rgba(201,168,76,.12);border-color:var(--gold)}}
+.award-chips{{margin-top:1.2rem}}
+.award-chip{{
+  font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.38rem .85rem;border:.5px solid var(--gold-dim);color:var(--gold);
+  background:rgba(201,168,76,.08);display:inline-flex;align-items:center;gap:.35rem;
+}}
+.award-chip::before{{content:'â˜…';font-size:.55rem}}
+.inst-block{{margin-top:2.2rem;padding-top:1.7rem;border-top:.5px solid var(--border)}}
+.inst-label{{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem}}
+.inst-pill{{
+  font-size:.78rem;color:var(--off);background:var(--card);border:.5px solid var(--border);
+  padding:.28rem .75rem;transition:border-color .3s,color .3s;
+}}
+.inst-pill:hover{{border-color:var(--border-strong);color:var(--white)}}
+
+/* RESEARCH */
+#research{{padding:var(--pad-y) 0;background:var(--bg)}}
+.research-bleed{{
+  width:100%;height:clamp(280px,48vw,560px);object-fit:cover;object-position:center 35%;
+  border-block:.5px solid var(--border);
+}}
+.research-caption{{
+  font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold-dim);text-align:center;padding:1rem var(--pad-x) 0;line-height:1.65;
+}}
+.pull-quote{{
+  max-width:var(--max);margin:clamp(2.2rem,5vw,3.8rem) auto;
+  padding:clamp(1.4rem,3vw,2.4rem);border-left:2px solid var(--gold);background:var(--card);
+  margin-left:var(--pad-x);margin-right:var(--pad-x);
+}}
+.pull-quote p{{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.35rem,2.6vw,2rem);line-height:1.22}}
+.pull-quote cite{{
+  display:block;margin-top:.7rem;font-family:'DM Mono',monospace;font-size:.6rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-style:normal;
+}}
+.research-grid{{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.15rem;
+  max-width:var(--max);margin:0 auto;padding:0 var(--pad-x) clamp(2.2rem,5vw,3.8rem);
+}}
+.r-card{{
+  background:var(--card);border:.5px solid var(--border);overflow:hidden;
+  transition:transform .4s var(--ease),border-color .35s,box-shadow .4s;
+}}
+.r-card:hover{{transform:translateY(-5px);border-color:var(--border-strong);box-shadow:0 22px 50px rgba(0,0,0,.4)}}
+.r-card .media{{aspect-ratio:4/3;overflow:hidden}}
+.r-card img{{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}}
+.r-card:hover img{{transform:scale(1.05)}}
+.r-card-body{{padding:1.3rem 1.35rem 1.5rem}}
+.r-card-num{{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--border-strong);line-height:1;margin-bottom:.25rem}}
+.r-card-title{{font-size:.95rem;font-weight:500;margin-bottom:.35rem}}
+.r-card-desc{{font-size:.84rem;color:var(--muted);line-height:1.7}}
+.collab-bar{{
+  max-width:var(--max);margin:0 auto;padding:1.4rem 1.6rem;
+  margin-left:var(--pad-x);margin-right:var(--pad-x);
+  border:.5px solid var(--border);background:var(--card);
+  display:flex;align-items:center;flex-wrap:wrap;gap:.9rem 1.4rem;
+}}
+.collab-label{{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}}
+.collab-div{{width:1px;height:1.3rem;background:var(--border)}}
+.collab-name{{font-size:.85rem;color:var(--off)}}
+
+/* PROJECTS â€” bento */
+#projects{{padding:var(--pad-y) 0;background:var(--bg2)}}
+.bento{{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:1.1rem;
+  max-width:var(--max);margin:0 auto;padding:0 var(--pad-x);
+}}
+.proj{{
+  background:var(--card);border:.5px solid var(--border);overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:transform .4s var(--ease),border-color .35s,box-shadow .4s;
+}}
+.proj:hover{{transform:translateY(-4px);border-color:var(--border-strong);box-shadow:0 20px 48px rgba(0,0,0,.38)}}
+.proj .media{{overflow:hidden;position:relative}}
+.proj img{{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}}
+.proj:hover img{{transform:scale(1.045)}}
+.proj-body{{padding:1.25rem 1.35rem 1.45rem;flex:1}}
+.proj-label{{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.35rem}}
+.proj-title{{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.45rem,2.2vw,2rem);line-height:1.05;margin-bottom:.45rem;letter-spacing:.02em}}
+.proj-desc{{font-size:.84rem;color:var(--muted);line-height:1.7}}
+.proj-lg{{grid-column:span 7}}
+.proj-lg .media{{aspect-ratio:16/11;min-height:280px}}
+.proj-sm{{grid-column:span 5}}
+.proj-sm .media{{aspect-ratio:16/9;min-height:160px}}
+.proj-md{{grid-column:span 4}}
+.proj-md .media{{aspect-ratio:4/3;min-height:180px}}
+
+/* LEADERSHIP */
+#leadership{{padding:var(--pad-y) 0;background:var(--bg)}}
+.lead-layout{{
+  display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(2rem,5vw,4.5rem);
+  max-width:var(--max);margin:0 auto;padding:0 var(--pad-x);align-items:start;
+}}
+.lead-list{{list-style:none}}
+.l-item{{
+  display:flex;gap:1.15rem;padding:1.55rem 0;border-bottom:.5px solid var(--border);
+  transition:background .3s;
+}}
+.l-item:first-child{{padding-top:0}}
+.l-num{{
+  font-family:'Bebas Neue',sans-serif;font-size:1.85rem;color:var(--gold-dim);
+  line-height:1;min-width:2.3rem;transition:color .3s;
+}}
+.l-item:hover .l-num{{color:var(--gold)}}
+.l-org{{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.25rem}}
+.l-role{{font-size:.95rem;font-weight:500;margin-bottom:.3rem}}
+.l-desc{{font-size:.84rem;color:var(--muted);line-height:1.7}}
+.lead-mosaic{{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}}
+.lead-mosaic img{{
+  width:100%;object-fit:cover;border:.5px solid var(--border);
+  transition:border-color .3s,transform .55s var(--ease);
+}}
+.lead-mosaic img:hover{{border-color:var(--border-strong)}}
+.lead-mosaic img:first-child{{grid-column:1/-1;height:clamp(240px,32vw,340px);object-position:center 20%}}
+.lead-mosaic img:not(:first-child){{height:clamp(170px,24vw,230px)}}
+.corp-strip{{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
+  max-width:var(--max);margin:clamp(2.4rem,5vw,3.8rem) auto 0;padding:0 var(--pad-x);
+}}
+.corp-card{{
+  background:var(--card);border:.5px solid var(--border);overflow:hidden;
+  transition:transform .4s var(--ease),border-color .35s;
+}}
+.corp-card:hover{{transform:translateY(-3px);border-color:var(--border-strong)}}
+.corp-card .media{{aspect-ratio:16/11;overflow:hidden}}
+.corp-card img{{width:100%;height:100%;object-fit:cover;transition:transform .65s var(--ease)}}
+.corp-card:hover img{{transform:scale(1.05)}}
+.corp-card-label{{
+  padding:.95rem 1.15rem;font-family:'DM Mono',monospace;font-size:.58rem;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--muted);
+}}
+
+/* GALLERY */
+#gallery{{padding:var(--pad-y) 0;background:var(--bg2)}}
+.gallery-track-wrap{{overflow:hidden}}
+.gallery-track{{
+  display:flex;gap:1rem;padding:0 var(--pad-x);
+  transition:transform .65s var(--ease);will-change:transform;
+}}
+.gallery-slide{{
+  flex:0 0 min(400px,78vw);height:clamp(240px,38vw,320px);
+  overflow:hidden;border:.5px solid var(--border);position:relative;cursor:grab;
+}}
+.gallery-slide img{{width:100%;height:100%;object-fit:cover;transition:transform .55s var(--ease)}}
+.gallery-slide:hover img{{transform:scale(1.04)}}
+.gallery-slide figcaption{{
+  position:absolute;inset:auto 0 0;padding:1rem 1.15rem;
+  background:linear-gradient(transparent,rgba(10,9,6,.92));
+  font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--off);opacity:0;transition:opacity .3s;
+}}
+.gallery-slide:hover figcaption{{opacity:1}}
+.gallery-controls{{display:flex;gap:.7rem;margin-top:1.8rem;padding:0 var(--pad-x)}}
+.gallery-btn{{
+  width:46px;height:46px;border:1px solid var(--border-strong);background:transparent;
+  color:var(--gold);font-size:1.15rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .3s;
+}}
+.gallery-btn:hover{{background:var(--gold);color:var(--bg)}}
+
+/* BEYOND + HOBBIES */
+#beyond{{padding:var(--pad-y) 0;background:var(--bg)}}
+.beyond-grid{{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:auto auto;gap:1rem;
+  max-width:var(--max);margin:0 auto;padding:0 var(--pad-x);
+}}
+.beyond-card{{
+  background:var(--card);border:.5px solid var(--border);overflow:hidden;
+  transition:transform .4s var(--ease),border-color .35s;
+}}
+.beyond-card:hover{{transform:translateY(-3px);border-color:var(--border-strong)}}
+.beyond-card .media{{overflow:hidden}}
+.beyond-card img{{width:100%;height:100%;object-fit:cover;transition:transform .65s var(--ease)}}
+.beyond-card:hover img{{transform:scale(1.04)}}
+.beyond-card:first-child{{grid-row:1/3}}
+.beyond-card:first-child .media{{height:100%;min-height:420px}}
+.beyond-card:not(:first-child) .media{{aspect-ratio:4/3}}
+.beyond-caption{{
+  padding:1rem 1.15rem;font-family:'DM Mono',monospace;font-size:.58rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}}
+.beyond-note{{
+  text-align:center;margin-top:2rem;font-family:'DM Mono',monospace;font-size:.6rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dim);
+}}
+
+/* ROOTS / LEGACY */
+#roots{{padding:var(--pad-y) 0;background:var(--bg2)}}
+.roots-layout{{
+  display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(2rem,5vw,4.5rem);
+  max-width:var(--max);margin:0 auto;padding:0 var(--pad-x);align-items:center;
+}}
+.roots-quote{{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,4.2vw,4.6rem);
+  line-height:1.02;margin-bottom:1.4rem;
+}}
+.roots-quote span{{color:var(--gold)}}
+.roots-text{{color:var(--off);font-size:.97rem;line-height:1.85;margin-bottom:1.1rem}}
+.roots-photos{{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}}
+.roots-photos img{{
+  width:100%;height:clamp(170px,24vw,230px);object-fit:cover;border:.5px solid var(--border);
+  transition:transform .5s var(--ease),border-color .3s;
+}}
+.roots-photos img:hover{{transform:scale(1.02);border-color:var(--border-strong)}}
+
+/* HONORS strip */
+#honors{{padding:clamp(3rem,7vw,5rem) 0;background:var(--bg);border-top:.5px solid var(--border)}}
+.honors-grid{{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
+  max-width:var(--max);margin:0 auto;padding:0 var(--pad-x);
+}}
+.honor-card{{
+  border:.5px solid var(--border);background:var(--card);overflow:hidden;
+  transition:border-color .3s,transform .35s var(--ease);
+}}
+.honor-card:hover{{border-color:var(--border-strong);transform:translateY(-3px)}}
+.honor-card .media{{aspect-ratio:4/3;overflow:hidden}}
+.honor-card img{{width:100%;height:100%;object-fit:cover}}
+.honor-card p{{
+  padding:1rem 1.15rem;font-family:'DM Mono',monospace;font-size:.58rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}}
+
+/* CONTACT */
+#contact{{padding:var(--pad-y) 0;background:var(--bg2);text-align:center}}
+.contact-big{{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(3.4rem,9vw,9rem);
+  line-height:.9;margin-bottom:1.3rem;
+}}
+.contact-big span{{color:var(--gold)}}
+.contact-sub{{color:var(--muted);max-width:480px;margin:0 auto 2.4rem;font-size:.97rem;line-height:1.8}}
+.contact-links{{display:flex;justify-content:center;flex-wrap:wrap;gap:.8rem}}
+.contact-layout{{
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);
+  max-width:1100px;margin:clamp(2.8rem,6vw,4.5rem) auto 0;padding:0 var(--pad-x);text-align:left;
+}}
+.contact-form-title,.contact-info-title{{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,2.4vw,2rem);margin-bottom:.5rem}}
+.contact-form-sub{{font-size:.88rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.7}}
+.form-group{{margin-bottom:1.15rem}}
+.form-group label{{
+  display:block;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:.45rem;
+}}
+.form-group input,.form-group textarea,.form-group select{{
+  width:100%;background:var(--card);border:.5px solid var(--border-strong);color:var(--white);
+  font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:300;padding:.85rem 1rem;
+  outline:none;transition:border-color .3s,box-shadow .3s;resize:vertical;border-radius:0;
+  -webkit-appearance:none;appearance:none;
+}}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{{
+  border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.12);
+}}
+.form-group input::placeholder,.form-group textarea::placeholder{{color:var(--muted)}}
+.form-group select option{{background:var(--card)}}
+.form-submit{{
+  width:100%;padding:1rem;margin-top:.4rem;background:var(--gold);border:none;color:var(--bg);
+  font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;
+  cursor:pointer;transition:background .3s,transform .3s var(--ease),box-shadow .3s;
+}}
+.form-submit:hover{{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 10px 28px rgba(201,168,76,.2)}}
+.form-submit:disabled{{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}}
+.form-success{{display:none;padding:1.4rem;border:1px solid var(--gold-dim);background:rgba(201,168,76,.06);text-align:center}}
+.form-success p{{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}}
+.contact-info-item{{display:flex;gap:1rem;align-items:flex-start;padding:1.25rem 0;border-bottom:.5px solid var(--border)}}
+.contact-info-item:first-of-type{{padding-top:0}}
+.contact-info-icon{{flex-shrink:0;margin-top:.1rem;color:var(--gold)}}
+.contact-info-label{{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.25rem}}
+.contact-info-value{{font-size:.9rem;color:var(--off);word-break:break-word}}
+.contact-info-value a{{color:var(--off);text-decoration:none;transition:color .3s}}
+.contact-info-value a:hover{{color:var(--gold)}}
+
+footer{{
+  padding:1.7rem var(--pad-x);border-top:.5px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;background:var(--bg);
+}}
+.footer-name{{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.1em;color:var(--gold-dim)}}
+.footer-credit{{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}}
+
+/* REVEAL */
+.reveal{{opacity:0;transform:translateY(32px);transition:opacity .95s var(--ease),transform .95s var(--ease)}}
+.reveal.visible{{opacity:1;transform:none}}
+.reveal-d1{{transition-delay:.1s}}.reveal-d2{{transition-delay:.2s}}.reveal-d3{{transition-delay:.32s}}
+
+@media (prefers-reduced-motion:reduce){{
+  html{{scroll-behavior:auto}}
+  .marquee-inner,.hero-media img{{animation:none}}
+  .reveal{{opacity:1;transform:none;transition:none}}
+  .proj:hover,.r-card:hover,.corp-card:hover,.beyond-card:hover,.honor-card:hover{{transform:none}}
+  .proj:hover img,.r-card:hover img,.corp-card:hover img,.beyond-card:hover img,.gallery-slide:hover img{{transform:none}}
+}}
+
+/* RESPONSIVE */
+@media (max-width:1100px){{
+  .research-grid{{grid-template-columns:1fr 1fr}}
+  .proj-lg{{grid-column:span 12}}.proj-sm{{grid-column:span 6}}.proj-md{{grid-column:span 4}}
+  .beyond-grid{{grid-template-columns:1fr 1fr}}
+  .beyond-card:first-child{{grid-row:auto;grid-column:1/-1}}
+  .beyond-card:first-child .media{{min-height:280px;aspect-ratio:21/9}}
+}}
+@media (max-width:900px){{
+  .about-grid,.lead-layout,.roots-layout,.contact-layout{{grid-template-columns:1fr;gap:2.4rem}}
+  .about-frame{{max-width:480px;margin:0 auto}}
+  .about-frame::before{{inset:-.75rem .75rem .75rem -.75rem}}
+  .nav-links .nav-cta{{display:none}}
+  .collab-div{{display:none}}
+}}
+@media (max-width:768px){{
+  .nav-toggle{{display:flex}}
+  .nav-links{{
+    position:fixed;top:0;right:0;width:min(320px,88vw);height:100dvh;
+    flex-direction:column;align-items:flex-start;gap:0;
+    padding:5.5rem 1.6rem 2rem;background:rgba(17,16,9,.985);
+    border-left:.5px solid var(--border);transform:translateX(105%);
+    transition:transform .4s var(--ease);z-index:101;
+  }}
+  .nav-links.open{{transform:none}}
+  .nav-links li{{width:100%;border-bottom:.5px solid var(--border)}}
+  .nav-links a{{display:block;padding:1.05rem 0;font-size:.76rem}}
+  .nav-links a::after{{display:none}}
+  .nav-links .nav-cta{{display:inline-flex;margin-top:1.2rem;width:100%;justify-content:center}}
+  .research-grid,.corp-strip,.honors-grid{{grid-template-columns:1fr}}
+  .proj-sm,.proj-md{{grid-column:span 12}}
+  .section-title,.section-subtitle,.section-eyebrow{{text-align:left;justify-content:flex-start;margin-left:0;margin-right:0}}
+  .section-eyebrow::before{{display:none}}
+  .gallery-slide figcaption{{opacity:1}}
+  footer{{flex-direction:column;align-items:flex-start}}
+}}
+@media (max-width:520px){{
+  .beyond-grid,.lead-mosaic,.roots-photos{{grid-template-columns:1fr}}
+  .lead-mosaic img:first-child,.lead-mosaic img:not(:first-child),.roots-photos img{{height:230px;grid-column:auto}}
+  .beyond-card:first-child .media{{aspect-ratio:4/3;min-height:0}}
+  .btn,.contact-links .btn{{width:100%}}
+  .contact-links{{flex-direction:column;align-items:stretch}}
+  .hero-name{{font-size:clamp(3.4rem,17vw,4.8rem)}}
+}}
+</style>
+</head>
+<body>
+
+<nav id="siteNav">
+  <a href="#hero" class="nav-logo">CJ</a>
+  <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#leadership">Leadership</a></li>
+    <li><a href="#beyond">Beyond</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+<div class="nav-backdrop" id="navBackdrop" hidden></div>
+
+<section id="hero">
+  <div class="hero-media">
+    <img src="{media(H, 'Screenshot 2025-09-11 at 13.40.26.jpeg')}" alt="Cameron Jones, AI researcher at Tuskegee University, professional portrait" width="1600" height="2000" fetchpriority="high">
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Tuskegee University Â· AI Farms Initiative</div>
+    <h1 class="hero-name">Cameron<br><span>Jones</span></h1>
+    <p class="hero-tagline">AI Researcher. Roboticist. Precision Agriculture Innovator. Building technology at the intersection of artificial intelligence, autonomous systems, and the future of food.</p>
+    <div class="hero-cta-row">
+      <a href="#research" class="btn btn-primary">View Research</a>
+      <a href="resume.pdf" class="btn btn-ghost" download="Cameron_Jones_Resume.pdf">Download Resume</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">3+</div>
+        <div class="hero-stat-label">Years AI Research</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">4</div>
+        <div class="hero-stat-label">Institutions</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">1st</div>
+        <div class="hero-stat-label">Author, Research Poster</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-inner">
+    <span class="marquee-item">Tuskegee University<span>âœ¦</span></span>
+    <span class="marquee-item">USDA Collaboration<span>âœ¦</span></span>
+    <span class="marquee-item">Cornell University CROPPS<span>âœ¦</span></span>
+    <span class="marquee-item">UNCF Ambassador<span>âœ¦</span></span>
+    <span class="marquee-item">MANRRS SMART Ag Tech<span>âœ¦</span></span>
+    <span class="marquee-item">Precision Agriculture<span>âœ¦</span></span>
+    <span class="marquee-item">Autonomous Robotics<span>âœ¦</span></span>
+    <span class="marquee-item">FFA Honor Society<span>âœ¦</span></span>
+    <span class="marquee-item">AI Farms Initiative<span>âœ¦</span></span>
+    <span class="marquee-item">Tuskegee University<span>âœ¦</span></span>
+    <span class="marquee-item">USDA Collaboration<span>âœ¦</span></span>
+    <span class="marquee-item">Cornell University CROPPS<span>âœ¦</span></span>
+    <span class="marquee-item">UNCF Ambassador<span>âœ¦</span></span>
+    <span class="marquee-item">MANRRS SMART Ag Tech<span>âœ¦</span></span>
+    <span class="marquee-item">Precision Agriculture<span>âœ¦</span></span>
+    <span class="marquee-item">Autonomous Robotics<span>âœ¦</span></span>
+    <span class="marquee-item">FFA Honor Society<span>âœ¦</span></span>
+    <span class="marquee-item">AI Farms Initiative<span>âœ¦</span></span>
+  </div>
+</div>
+
+<section id="about">
+  <div class="about-grid">
+    <div class="about-frame reveal">
+      <img src="{media(H, 'IMG_3211.JPG')}" alt="Cameron Jones professional headshot in navy polo" width="1200" height="1500" loading="lazy">
+    </div>
+    <div class="about-text reveal reveal-d1">
+      <div class="section-eyebrow left" style="margin-bottom:1rem">About</div>
+      <h2>Rooted in<br><span>Legacy.</span><br>Building the<br>Future.</h2>
+      <p>I'm a Computer Science student at Tuskegee University â€” an institution my family has called home for generations. My parents are alumni. My siblings walked these grounds. This place is in my DNA.</p>
+      <p>Since October 2022, I've served as a Research Assistant on the AI Farms initiative, developing autonomous systems that merge artificial intelligence with precision agriculture. My work spans drone telemetry, robotic rover deployment, computer vision, and environmental monitoring.</p>
+      <p>I've presented to congressional dignitaries, demonstrated autonomous systems to hundreds of students, and collaborated with researchers across Tuskegee, Cornell, USDA, and the CROPPS program. I don't just study the future â€” I'm building it.</p>
+      <div class="tags">
+        <span class="tag">Artificial Intelligence</span>
+        <span class="tag">Autonomous Robotics</span>
+        <span class="tag">Precision Agriculture</span>
+        <span class="tag">Healthcare AI</span>
+        <span class="tag">Computer Vision</span>
+        <span class="tag">Drone Systems</span>
+        <span class="tag">IoT Sensors</span>
+        <span class="tag">Custom PC Builds</span>
+      </div>
+      <div class="award-chips">
+        <span class="award-chip">FFA Honor Society</span>
+        <span class="award-chip">UNCF Ambassador</span>
+        <span class="award-chip">MANRRS SMART Ag</span>
+        <span class="award-chip">2Ã— Hackathon Champion</span>
+      </div>
+      <div class="inst-block">
+        <div class="inst-label">Institutions &amp; Companies</div>
+        <div class="inst-pills">
+          <span class="inst-pill">Syngenta</span>
+          <span class="inst-pill">BASF</span>
+          <span class="inst-pill">Coca-Cola HQ</span>
+          <span class="inst-pill">Equinix</span>
+          <span class="inst-pill">Plug &amp; Play</span>
+          <span class="inst-pill">FIU Energy Lab</span>
+          <span class="inst-pill">UIUC</span>
+          <span class="inst-pill">Cornell</span>
+          <span class="inst-pill">Auburn</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="section-header reveal" style="padding:0 var(--pad-x)">
+    <div class="section-eyebrow">AI Farms Initiative Â· Since Oct 2022</div>
+    <h2 class="section-title">Research &amp;<br><em>Innovation</em></h2>
+    <p class="section-subtitle">First-author research at the convergence of AI, autonomous robotics, and sustainable agriculture â€” in collaboration with Tuskegee, USDA, CROPPS, and Cornell.</p>
+  </div>
+
+  <div class="reveal">
+    <img class="research-bleed" src="{media(R, '10785.jpg')}" alt="Cameron Jones operating a research drone in the field with landing pad and sensor equipment" width="2000" height="1333" loading="lazy">
+    <p class="research-caption">"Integrating AI-Powered Robotic Systems for Precision Agriculture and Environmental Monitoring" â€” C. Jones et al. Â· Tuskegee Â· USDA Â· CROPPS Â· Cornell</p>
+  </div>
+
+  <blockquote class="pull-quote reveal">
+    <p>"Drone overhead. Autonomous rover on the ground. Robot dog walking the field. All simultaneously â€” deployed for researchers, dignitaries, and students."</p>
+    <cite>AI Farms Field Demo â€” Tuskegee University</cite>
+  </blockquote>
+
+  <div class="research-grid reveal">
+    <article class="r-card">
+      <div class="media"><img src="{media(R, '2104941407774967754.jpg')}" alt="Quadruped robot in the AI Farms research lab with researchers" loading="lazy"></div>
+      <div class="r-card-body">
+        <div class="r-card-num">01</div>
+        <div class="r-card-title">Autonomous Robotics</div>
+        <div class="r-card-desc">Deploying quadruped platforms and field robots for environmental monitoring, terrain traversal, and live research demonstrations.</div>
+      </div>
+    </article>
+    <article class="r-card">
+      <div class="media"><img src="{media(R, '10784.jpg')}" alt="Cameron Jones conducting leaf measurements during field research" loading="lazy" style="object-position:center 30%"></div>
+      <div class="r-card-body">
+        <div class="r-card-num">02</div>
+        <div class="r-card-title">Precision Field Science</div>
+        <div class="r-card-desc">Collecting crop health data with sensor instrumentation â€” bridging AI systems with real agricultural decision-making.</div>
+      </div>
+    </article>
+    <article class="r-card">
+      <div class="media"><img src="{media(R, 'IMG_2029.JPEG')}" alt="Automated greenhouse gantry system for AI-powered crop monitoring" loading="lazy"></div>
+      <div class="r-card-body">
+        <div class="r-card-num">03</div>
+        <div class="r-card-title">Greenhouse AI Monitoring</div>
+        <div class="r-card-desc">Integrating AI-powered sensor systems in controlled greenhouse environments for real-time environmental data and yield optimization.</div>
+      </div>
+    </article>
+  </div>
+
+  <div class="collab-bar reveal">
+    <span class="collab-label">Collaborators</span>
+    <div class="collab-div"></div>
+    <span class="collab-name">Tuskegee University</span>
+    <div class="collab-div"></div>
+    <span class="collab-name">USDA</span>
+    <div class="collab-div"></div>
+    <span class="collab-name">CROPPS</span>
+    <div class="collab-div"></div>
+    <span class="collab-name">Cornell University</span>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-header reveal" style="padding:0 var(--pad-x)">
+    <div class="section-eyebrow">Projects</div>
+    <h2 class="section-title">Built.<br><em>Shipped.</em> Won.</h2>
+    <p class="section-subtitle">From hackathon floors to custom hardware â€” projects that show end-to-end technical depth and creative problem solving.</p>
+  </div>
+
+  <div class="bento">
+    <article class="proj proj-lg reveal">
+      <div class="media"><img src="{media(RO, 'IMG_6667.JPG')}" alt="Silver LiDAR-equipped quadruped robot during Tuskegee field research" loading="lazy"></div>
+      <div class="proj-body">
+        <div class="proj-label">Robotics Â· Community Outreach</div>
+        <div class="proj-title">Robot Dog Deployment</div>
+        <p class="proj-desc">Deployed and demonstrated a quadruped robot platform for congressional dignitaries, MANRRS conferences, and elementary school outreach â€” bringing autonomous robotics to policymakers and 8-year-olds alike.</p>
+      </div>
+    </article>
+    <article class="proj proj-sm reveal reveal-d1">
+      <div class="media"><img src="{media(P, 'IMG_0373.JPEG')}" alt="Cameron Jones coding with teammates at AuburnHacks" loading="lazy" style="object-position:center 25%"></div>
+      <div class="proj-body">
+        <div class="proj-label">Hackathon Â· AuburnHacks</div>
+        <div class="proj-title">AuburnHacks Champion</div>
+        <p class="proj-desc">First Place. "Project Tropical." Four teammates. One win.</p>
+      </div>
+    </article>
+    <article class="proj proj-sm reveal reveal-d2">
+      <div class="media"><img src="{media(P, 'IMG_0669.JPEG')}" alt="UIUC Precision Agriculture Hackathon first-place team with awards" loading="lazy" style="object-position:center 30%"></div>
+      <div class="proj-body">
+        <div class="proj-label">Hackathon Â· UIUC</div>
+        <div class="proj-title">Precision Ag Hackathon</div>
+        <p class="proj-desc">First Place â€” Analytics &amp; Decision Support Track. 2026 Precision &amp; Digital Agriculture Hackathon.</p>
+      </div>
+    </article>
+    <article class="proj proj-md reveal">
+      <div class="media"><img src="{media(RO, 'IMG_1936.JPG')}" alt="Full robotics fleet with robot dog, drone, and autonomous rovers on landing pads" loading="lazy"></div>
+      <div class="proj-body">
+        <div class="proj-label">Systems Â· Field Ops</div>
+        <div class="proj-title">Multi-Robot Deployment</div>
+        <p class="proj-desc">Coordinating drone flights, rover operations, and quadruped platforms in simultaneous field research sessions.</p>
+      </div>
+    </article>
+    <article class="proj proj-md reveal reveal-d1">
+      <div class="media"><img src="{media(P, 'IMG_2408.JPG')}" alt="Greenhouse monitoring interface and hardware project work" loading="lazy"></div>
+      <div class="proj-body">
+        <div class="proj-label">Research Â· Hardware</div>
+        <div class="proj-title">Greenhouse Sensor Systems</div>
+        <p class="proj-desc">Designed and deployed IoT sensor arrays for automated environmental monitoring in experimental greenhouse beds.</p>
+      </div>
+    </article>
+    <article class="proj proj-md reveal reveal-d2">
+      <div class="media"><img src="{media(I, '10198.jpg')}" alt="Cameron Jones presenting AI-powered robotic systems research poster" loading="lazy" style="object-position:center 20%"></div>
+      <div class="proj-body">
+        <div class="proj-label">Research Â· First Author</div>
+        <div class="proj-title">Research Poster</div>
+        <p class="proj-desc">Lead author on precision agriculture research presented to industry professionals, academics, and government stakeholders.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="leadership">
+  <div class="section-header reveal" style="padding:0 var(--pad-x)">
+    <div class="section-eyebrow">Leadership &amp; Impact</div>
+    <h2 class="section-title">Moving<br><em>Rooms.</em></h2>
+    <p class="section-subtitle">From Capitol Hill to elementary classrooms â€” building bridges between technology and the communities that need it most.</p>
+  </div>
+
+  <div class="lead-layout">
+    <ul class="lead-list reveal">
+      <li class="l-item">
+        <div class="l-num">01</div>
+        <div>
+          <div class="l-org">UNCF</div>
+          <div class="l-role">UNCF Ambassador</div>
+          <div class="l-desc">Representing the United Negro College Fund at corporate summits and the HBCU Tech-E Summit â€” advocating for HBCU students and STEM access at the highest levels.</div>
+        </div>
+      </li>
+      <li class="l-item">
+        <div class="l-num">02</div>
+        <div>
+          <div class="l-org">MANRRS Â· Syngenta</div>
+          <div class="l-role">SMART Ag Tech Cohort</div>
+          <div class="l-desc">Selected for the MANRRS SÂ²MART Academy Technology Track â€” deploying robotics at national conferences and visiting Syngenta HQ.</div>
+        </div>
+      </li>
+      <li class="l-item">
+        <div class="l-num">03</div>
+        <div>
+          <div class="l-org">Community Outreach</div>
+          <div class="l-role">Elementary STEM Educator</div>
+          <div class="l-desc">Bringing robot dogs, drones, and coding workshops into elementary schools â€” sparking curiosity in the next generation of technologists.</div>
+        </div>
+      </li>
+      <li class="l-item">
+        <div class="l-num">04</div>
+        <div>
+          <div class="l-org">FFA</div>
+          <div class="l-role">Honor Society of Agriculture</div>
+          <div class="l-desc">Inducted member of the FFA Honor Society â€” recognized for excellence in agricultural education and leadership.</div>
+        </div>
+      </li>
+      <li class="l-item">
+        <div class="l-num">05</div>
+        <div>
+          <div class="l-org">Tuskegee University</div>
+          <div class="l-role">AI Farms Research Assistant</div>
+          <div class="l-desc">Since October 2022 â€” leading field research, drone operations, and robot demonstrations for university, government, and industry stakeholders.</div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="lead-mosaic reveal reveal-d1">
+      <img src="{media(L, 'IMG_6289.jpeg')}" alt="Cameron Jones volunteering with United Way Meals on Wheels" loading="lazy">
+      <img src="{media(L, 'IMG_5565.JPG')}" alt="Cameron Jones with leadership and community cohort" loading="lazy" style="object-position:center 25%">
+      <img src="{media(L, '8900312655144300583.jpg')}" alt="Cameron Jones at a leadership and advocacy event" loading="lazy" style="object-position:center 20%">
+    </div>
+  </div>
+
+  <div class="corp-strip reveal">
+    <article class="corp-card">
+      <div class="media"><img src="{media(I, '10196.jpg')}" alt="Industry visit and professional engagement" loading="lazy" style="object-position:center 25%"></div>
+      <div class="corp-card-label">Industry Â· Leadership Summit</div>
+    </article>
+    <article class="corp-card">
+      <div class="media"><img src="{media(I, '20250425_Tuskegee CROPPS visit-9800.jpeg')}" alt="CROPPS research visit at Tuskegee University farm" loading="lazy" style="object-position:center 30%"></div>
+      <div class="corp-card-label">CROPPS Â· Tuskegee Field Visit</div>
+    </article>
+    <article class="corp-card">
+      <div class="media"><img src="{media(I, '1915048171914742516.jpg')}" alt="Corporate and research partnership engagement" loading="lazy" style="object-position:center 30%"></div>
+      <div class="corp-card-label">Partnerships Â· Research Network</div>
+    </article>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="section-header reveal" style="padding:0 var(--pad-x);text-align:left">
+    <div class="section-eyebrow left">Gallery</div>
+    <h2 class="section-title" style="text-align:left;font-size:clamp(2.4rem,5vw,3.4rem)">The Full <em>Story.</em></h2>
+  </div>
+  <div class="gallery-track-wrap">
+    <div class="gallery-track" id="carouselTrack">
+      <figure class="gallery-slide"><img src="{media(RO, 'IMG_1936.JPG')}" alt="AI Farms multi-robot field deployment" loading="lazy"><figcaption>AI Farms Multi-Robot Demo</figcaption></figure>
+      <figure class="gallery-slide"><img src="{media(RO, 'IMG_6667.JPG')}" alt="Quadruped robot in field research" loading="lazy"><figcaption>Robot Dog â€” Field Research</figcaption></figure>
+      <figure class="gallery-slide"><img src="{media(P, 'IMG_0669.JPEG')}" alt="UIUC hackathon first place" loading="lazy" style="object-position:center 25%"><figcaption>UIUC Precision Ag â€” First Place</figcaption></figure>
+      <figure class="gallery-slide"><img src="{media(P, 'IMG_0373.JPEG')}" alt="AuburnHacks coding session" loading="lazy" style="object-position:center 20%"><figcaption>AuburnHacks â€” Project Tropical</figcaption></figure>
+      <figure class="gallery-slide"><img src="{media(I, '10198.jpg')}" alt="Research poster presentation" loading="lazy" style="object-position:center 15%"><figcaption>Research Poster Presentation</figcaption></figure>
+      <figure class="gallery-slide"><img src="{media(R, 'IMG_2029.JPEG')}" alt="Greenhouse research systems" loading="lazy"><figcaption>Greenhouse Experimental Systems</figcaption></figure>
+      <figure class="gallery-slide"><img src="{media(R, 'IMG_2497.JPEG')}" alt="Experimental crop beds in greenhouse" loading="lazy"><figcaption>Crop Research Beds</figcaption></figure>
+      <figure class="gallery-slide"><img src="{media(I, '3027502746096312634.jpg')}" alt="Drone field operations with research team" loading="lazy"><figcaption>Drone Field Operations</figcaption></figure>
+      <figure class="gallery-slide"><img src="{media(I, '20250425_Tuskegee CROPPS visit-9796.jpeg')}" alt="CROPPS visit at Tuskegee" loading="lazy"><figcaption>CROPPS Visit â€” Tuskegee</figcaption></figure>
+      <figure class="gallery-slide"><img src="{media(L, 'IMG_6289.jpeg')}" alt="Community service with Meals on Wheels" loading="lazy"><figcaption>Community Service</figcaption></figure>
+      <figure class="gallery-slide"><img src="{media(RO, 'IMG_1561.JPG')}" alt="Large agricultural research rover" loading="lazy"><figcaption>Agricultural Rover Platform</figcaption></figure>
+      <figure class="gallery-slide"><img src="{media(A, '20260420_180837.jpg')}" alt="Formal academic honor recognition" loading="lazy" style="object-position:center 20%"><figcaption>Honors &amp; Recognition</figcaption></figure>
+    </div>
+  </div>
+  <div class="gallery-controls">
+    <button class="gallery-btn" id="prevBtn" type="button" aria-label="Previous">&#8592;</button>
+    <button class="gallery-btn" id="nextBtn" type="button" aria-label="Next">&#8594;</button>
+  </div>
+</section>
+
+<section id="beyond">
+  <div class="section-header reveal" style="padding:0 var(--pad-x)">
+    <div class="section-eyebrow">Life Outside Tech</div>
+    <h2 class="section-title">Beyond<br>the <em>Lab.</em></h2>
+    <p class="section-subtitle">The outdoors grounds me. Kayaking, fishing, photography â€” finding signal in the natural world.</p>
+  </div>
+  <div class="beyond-grid reveal">
+    <article class="beyond-card">
+      <div class="media"><img src="{media(HO, 'IMG_6209.jpeg')}" alt="Cameron Jones holding a catch after fishing by the lake" loading="lazy" style="object-position:center 20%"></div>
+      <div class="beyond-caption">On the Water â€” Fishing</div>
+    </article>
+    <article class="beyond-card">
+      <div class="media"><img src="{media(HO, 'IMG_2945.JPG')}" alt="Outdoor passion and lifestyle photography" loading="lazy" style="object-position:center 25%"></div>
+      <div class="beyond-caption">Outdoors</div>
+    </article>
+    <article class="beyond-card">
+      <div class="media"><img src="{media(B, 'IMG_6682.JPG')}" alt="Cinematic personal photography beyond the lab" loading="lazy" style="object-position:center 30%"></div>
+      <div class="beyond-caption">Moments Beyond Work</div>
+    </article>
+    <article class="beyond-card">
+      <div class="media"><img src="{media(HO, 'IMG_9256.JPG')}" alt="Hobby and passion photography" loading="lazy" style="object-position:center 30%"></div>
+      <div class="beyond-caption">Passions</div>
+    </article>
+    <article class="beyond-card">
+      <div class="media"><img src="{media(B, 'IMG_5162.JPEG')}" alt="Personal storytelling photography" loading="lazy" style="object-position:center 25%"></div>
+      <div class="beyond-caption">Storytelling</div>
+    </article>
+  </div>
+  <p class="beyond-note">Â· Kayaking Â· Fishing Â· Photography Â· More coming soon Â·</p>
+</section>
+
+<section id="roots">
+  <div class="roots-layout">
+    <div class="reveal">
+      <div class="section-eyebrow left" style="margin-bottom:1.6rem">Family &amp; Legacy</div>
+      <h2 class="roots-quote">Tuskegee<br><span>Runs</span><br>Deep.</h2>
+      <p class="roots-text">My connection to Tuskegee University isn't just academic â€” it's generational. My parents are alumni. My siblings attended. This institution, founded in 1881 by Booker T. Washington, shaped my family across decades and continues to shape me.</p>
+      <p class="roots-text">When I walk across that campus, I carry the weight and the pride of everyone who came before me. That legacy fuels every research paper, every robot deployment, every presentation I give.</p>
+      <p class="roots-text">I'm not just attending Tuskegee. I'm adding to its story.</p>
+    </div>
+    <div class="roots-photos reveal reveal-d1">
+      <img src="{media(T, 'IMG_5528.jpeg')}" alt="Cameron Jones with family on Tuskegee football field showing school pride" loading="lazy">
+      <img src="{media(T, 'IMG_5538.jpeg')}" alt="Tuskegee University pride and campus moment" loading="lazy" style="object-position:center 25%">
+      <img src="{media(T, 'IMG_4112.JPEG')}" alt="Family and Tuskegee legacy gathering" loading="lazy" style="object-position:center 20%">
+      <img src="{media(T, 'IMG_4831.JPG')}" alt="Tuskegee University tradition and community" loading="lazy" style="object-position:center 30%">
+    </div>
+  </div>
+</section>
+
+<section id="honors">
+  <div class="section-header reveal" style="padding:0 var(--pad-x);margin-bottom:2rem">
+    <div class="section-eyebrow">Recognition</div>
+    <h2 class="section-title" style="font-size:clamp(2.2rem,4vw,3.2rem)">Honors &amp; <em>Achievements</em></h2>
+  </div>
+  <div class="honors-grid reveal">
+    <article class="honor-card">
+      <div class="media"><img src="{media(A, '20260420_180837.jpg')}" alt="Formal academic honor society recognition" loading="lazy" style="object-position:center 15%"></div>
+      <p>Academic Honor Recognition</p>
+    </article>
+    <article class="honor-card">
+      <div class="media"><img src="{media(A, '9777.jpg')}" alt="Honor cords and academic achievement attire" loading="lazy" style="object-position:center 30%"></div>
+      <p>Honor Cords &amp; Distinction</p>
+    </article>
+    <article class="honor-card">
+      <div class="media"><img src="{media(A, 'IMG_3233.JPG')}" alt="Achievement ceremony and recognition moment" loading="lazy" style="object-position:center 25%"></div>
+      <p>Ceremony &amp; Achievement</p>
+    </article>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="reveal" style="padding:0 var(--pad-x)">
+    <div class="section-eyebrow" style="margin-bottom:1.3rem">Let's Connect</div>
+    <h2 class="contact-big">Let's<br><span>Talk.</span></h2>
+    <p class="contact-sub">Whether you're a researcher, recruiter, or someone building something meaningful at the edge of AI and agriculture â€” I want to hear from you.</p>
+    <div class="contact-links">
+      <a href="mailto:Cameron.kalon@gmail.com" class="btn btn-primary">Email Me</a>
+      <a href="resume.pdf" class="btn btn-ghost" download="Cameron_Jones_Resume.pdf">Download Resume</a>
+      <a href="https://www.linkedin.com/in/cameron-jones-5855311b9/" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://github.com/CamJ43737" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+  </div>
+
+  <div class="contact-layout">
+    <div class="reveal reveal-d1">
+      <div class="contact-form-title">Send a Message</div>
+      <p class="contact-form-sub">Fill out the form and I'll get back to you. Whether it's research, collaboration, or just a conversation â€” I'm listening.</p>
+      <div id="contactForm">
+        <div class="form-group">
+          <label for="cf-name">Your Name</label>
+          <input type="text" id="cf-name" placeholder="Jane Smith" required>
+        </div>
+        <div class="form-group">
+          <label for="cf-email">Your Email</label>
+          <input type="email" id="cf-email" placeholder="jane@company.com" required>
+        </div>
+        <div class="form-group">
+          <label for="cf-reason">Reason for Reaching Out</label>
+          <select id="cf-reason">
+            <option value="" disabled selected>Select oneâ€¦</option>
+            <option value="Research Collaboration">Research Collaboration</option>
+            <option value="Job / Internship Opportunity">Job / Internship Opportunity</option>
+            <option value="Speaking Engagement">Speaking Engagement</option>
+            <option value="Media / Press">Media / Press</option>
+            <option value="General Inquiry">General Inquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" rows="5" placeholder="Tell me what's on your mindâ€¦" required></textarea>
+        </div>
+        <button class="form-submit" id="cf-submit" type="button" onclick="submitContactForm()">Send Message</button>
+      </div>
+      <div class="form-success" id="formSuccess">
+        <p>âœ¦ Message sent â€” I'll be in touch soon. âœ¦</p>
+      </div>
+    </div>
+
+    <div class="reveal reveal-d2">
+      <div class="contact-info-title">Direct Links</div>
+      <div class="contact-info-item">
+        <div class="contact-info-icon">âœ‰</div>
+        <div>
+          <div class="contact-info-label">Email</div>
+          <div class="contact-info-value"><a href="mailto:Cameron.kalon@gmail.com">Cameron.kalon@gmail.com</a></div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-info-icon">â†—</div>
+        <div>
+          <div class="contact-info-label">LinkedIn</div>
+          <div class="contact-info-value"><a href="https://www.linkedin.com/in/cameron-jones-5855311b9/" target="_blank" rel="noopener noreferrer">linkedin.com/in/cameron-jones-5855311b9</a></div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-info-icon">âŒ¥</div>
+        <div>
+          <div class="contact-info-label">GitHub</div>
+          <div class="contact-info-value"><a href="https://github.com/CamJ43737" target="_blank" rel="noopener noreferrer">github.com/CamJ43737</a></div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-info-icon">â¬‡</div>
+        <div>
+          <div class="contact-info-label">Resume</div>
+          <div class="contact-info-value"><a href="resume.pdf" download="Cameron_Jones_Resume.pdf">Download PDF</a></div>
+        </div>
+      </div>
+      <div class="contact-info-item" style="border-bottom:none">
+        <div class="contact-info-icon">ðŸ“</div>
+        <div>
+          <div class="contact-info-label">Based At</div>
+          <div class="contact-info-value">Tuskegee University Â· Tuskegee, Alabama</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Cameron Jones Â· Tuskegee 1881</div>
+  <div class="footer-credit">CS Student Â· AI Researcher Â· Technologist</div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {{
+  entries.forEach(e => {{ if (e.isIntersecting) e.target.classList.add('visible'); }});
+}}, {{ threshold: 0.08 }});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const siteNav = document.getElementById('siteNav');
+const onScrollNav = () => siteNav && siteNav.classList.toggle('scrolled', window.scrollY > 24);
+window.addEventListener('scroll', onScrollNav, {{ passive: true }});
+onScrollNav();
+
+const navToggle = document.getElementById('navToggle');
+const navLinksEl = document.getElementById('navLinks');
+const navBackdrop = document.getElementById('navBackdrop');
+function setNavOpen(open) {{
+  if (!navLinksEl || !navToggle) return;
+  navLinksEl.classList.toggle('open', open);
+  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  if (navBackdrop) {{ navBackdrop.hidden = !open; navBackdrop.classList.toggle('open', open); }}
+  document.body.style.overflow = open ? 'hidden' : '';
+}}
+navToggle && navToggle.addEventListener('click', () => setNavOpen(!navLinksEl.classList.contains('open')));
+navBackdrop && navBackdrop.addEventListener('click', () => setNavOpen(false));
+navLinksEl && navLinksEl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setNavOpen(false)));
+window.addEventListener('keydown', e => {{ if (e.key === 'Escape') setNavOpen(false); }});
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const navObs = new IntersectionObserver(entries => {{
+  entries.forEach(e => {{
+    if (e.isIntersecting) {{
+      const id = e.target.getAttribute('id');
+      navLinks.forEach(a => {{
+        const active = a.getAttribute('href') === '#' + id;
+        a.classList.toggle('active', active);
+      }});
+    }}
+  }});
+}}, {{ threshold: 0.28 }});
+sections.forEach(s => navObs.observe(s));
+
+async function submitContactForm() {{
+  const name = document.getElementById('cf-name').value.trim();
+  const email = document.getElementById('cf-email').value.trim();
+  const reason = document.getElementById('cf-reason').value;
+  const message = document.getElementById('cf-message').value.trim();
+  if (!name || !email || !message) {{ alert('Please fill in your name, email, and message.'); return; }}
+  const btn = document.getElementById('cf-submit');
+  btn.disabled = true; btn.textContent = 'Sendingâ€¦';
+  const FORMSPREE_ID = 'xvzyvyao';
+  try {{
+    const res = await fetch(`https://formspree.io/f/${{FORMSPREE_ID}}`, {{
+      method: 'POST',
+      headers: {{ 'Content-Type': 'application/json', 'Accept': 'application/json' }},
+      body: JSON.stringify({{ name, email, reason, message }})
+    }});
+    if (res.ok) {{
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    }} else {{
+      btn.disabled = false; btn.textContent = 'Send Message';
+      alert('Something went wrong. Please email me directly at Cameron.kalon@gmail.com');
+    }}
+  }} catch {{
+    btn.disabled = false; btn.textContent = 'Send Message';
+    alert('Network error. Please email me directly at Cameron.kalon@gmail.com');
+  }}
+}}
+window.submitContactForm = submitContactForm;
+
+const track = document.getElementById('carouselTrack');
+const nextBtn = document.getElementById('nextBtn');
+const prevBtn = document.getElementById('prevBtn');
+let current = 0;
+function getSlideStep() {{
+  if (!track) return 416;
+  const slide = track.querySelector('.gallery-slide');
+  if (!slide) return 416;
+  const gap = parseFloat(getComputedStyle(track).gap) || 16;
+  return slide.getBoundingClientRect().width + gap;
+}}
+function getMaxSlide() {{
+  if (!track) return 0;
+  const slides = track.querySelectorAll('.gallery-slide');
+  const step = getSlideStep();
+  const visible = Math.max(1, Math.floor(track.parentElement.clientWidth / step));
+  return Math.max(0, slides.length - visible);
+}}
+function updateCarousel() {{
+  if (!track) return;
+  current = Math.min(current, getMaxSlide());
+  track.style.transform = `translateX(-${{current * getSlideStep()}}px)`;
+}}
+if (nextBtn && prevBtn && track) {{
+  nextBtn.addEventListener('click', () => {{ current = Math.min(current + 1, getMaxSlide()); updateCarousel(); }});
+  prevBtn.addEventListener('click', () => {{ current = Math.max(current - 1, 0); updateCarousel(); }});
+  window.addEventListener('resize', updateCarousel, {{ passive: true }});
+}}
+</script>
+</body>
+</html>
+'''
+
+# Verify referenced media exists
+import re
+missing = []
+for m in re.findall(r'src="([^"]+)"', html):
+    if m.startswith('assets/'):
+        # decode for filesystem check
+        from urllib.parse import unquote
+        path = Path(unquote(m))
+        if not path.exists():
+            missing.append(m)
+
+out = Path('index.html')
+out.write_text(html, encoding='utf-8')
+print(f'Wrote {out} ({out.stat().st_size:,} bytes)')
+print(f'Missing media: {len(missing)}')
+for m in missing:
+    print(' ', m)
+print(f'resume.pdf links: {html.count("resume.pdf")}')
+print(f'img tags: {html.count("<img")}')
+

@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cameron Jones — AI Researcher & Technologist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: #7A6230;
+    --white: #F5F2EC;
+    --off-white: #D9D4C8;
+    --muted: #8A8070;
+    --bg: #0A0906;
+    --bg-2: #111009;
+    --bg-3: #181510;
+    --bg-card: #1C1812;
+    --border: rgba(201,168,76,0.15);
+    --border-strong: rgba(201,168,76,0.35);
+    --section-pad-y: clamp(4.5rem, 10vw, 9rem);
+    --section-pad-x: clamp(1.25rem, 5vw, 4rem);
+    --content-max: 1200px;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --img-card: 220px;
+    --img-card-sm: 200px;
+    --img-featured: 340px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  /* Consistent media framing for cards / future photos & videos */
+  .media-frame {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    background: var(--bg-3);
+  }
+  .media-frame img,
+  .media-frame video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.1rem var(--section-pad-x);
+    background: rgba(10,9,6,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 0.5px solid var(--border);
+    transition: padding 0.3s var(--ease-out), background 0.3s;
+  }
+  nav.scrolled { padding-top: 0.85rem; padding-bottom: 0.85rem; background: rgba(10,9,6,0.97); }
+  .nav-logo {
+    font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:0.12em;
+    color:var(--gold); text-decoration:none; position: relative; z-index: 102;
+    transition: color 0.3s;
+  }
+  .nav-logo:hover { color: var(--gold-light); }
+  .nav-links { display:flex; gap:2.5rem; list-style:none; align-items:center; }
+  .nav-links a {
+    font-family:'DM Mono',monospace; font-size:0.68rem; letter-spacing:0.18em;
+    color:var(--muted); text-decoration:none; text-transform:uppercase;
+    transition:color 0.3s; position: relative;
+  }
+  .nav-links a::after {
+    content:''; position:absolute; left:0; bottom:-4px; width:0; height:1px;
+    background:var(--gold); transition:width 0.3s var(--ease-out);
+  }
+  .nav-links a:hover { color:var(--gold); }
+  .nav-links a:hover::after { width:100%; }
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: transparent;
+    border: 0.5px solid var(--border);
+    cursor: pointer;
+    z-index: 102;
+    transition: border-color 0.3s;
+  }
+  .nav-toggle:hover { border-color: var(--border-strong); }
+  .nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background: var(--gold);
+    transition: transform 0.3s var(--ease-out), opacity 0.3s;
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  .nav-backdrop {
+    display: none;
+    position: fixed; inset: 0; z-index: 99;
+    background: rgba(10,9,6,0.55);
+  }
+  .nav-backdrop.open { display: block; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+  }
+  .hero-content {
+    padding: calc(5rem + var(--section-pad-y) * 0.35) var(--section-pad-x) 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-eyebrow {
+    font-family:'DM Mono',monospace; font-size:0.68rem; letter-spacing:0.28em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:1.5rem;
+    display:flex; align-items:center; gap:0.75rem; flex-wrap: wrap;
+  }
+  .hero-eyebrow::before { content:''; display:inline-block; width:2rem; height:1px; background:var(--gold); flex-shrink:0; }
+  .hero-name {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(3.5rem, 9vw, 8.5rem);
+    line-height:0.92; letter-spacing:0.02em; color:var(--white); margin-bottom:1.5rem;
+  }
+  .hero-name span { color:var(--gold); }
+  .hero-tagline {
+    font-size:clamp(0.92rem, 1.5vw, 1.05rem); font-weight:300; color:var(--off-white);
+    max-width:460px; margin-bottom:2.5rem; line-height:1.85;
+  }
+  .hero-cta-row { display:flex; flex-wrap:wrap; gap:0.75rem; }
+  .hero-cta {
+    display:inline-flex; align-items:center; justify-content:center; gap:0.75rem;
+    padding:0.9rem 1.75rem; border:1px solid var(--gold); color:var(--gold);
+    text-decoration:none; font-family:'DM Mono',monospace; font-size:0.7rem;
+    letter-spacing:0.2em; text-transform:uppercase;
+    transition: background 0.3s, color 0.3s, transform 0.3s var(--ease-out), box-shadow 0.3s;
+  }
+  .hero-cta:hover {
+    background:var(--gold); color:var(--bg);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(201,168,76,0.18);
+  }
+  .hero-cta-ghost { border-color:rgba(201,168,76,0.3); color:var(--muted); }
+  .hero-cta-ghost:hover {
+    border-color:var(--gold); color:var(--gold); background:transparent;
+    box-shadow: none;
+  }
+  .hero-image-panel { position:relative; overflow:hidden; min-height:100vh; min-height:100dvh; }
+  .hero-image-panel img {
+    width:100%; height:100%; object-fit:cover; object-position:center 20%;
+    display:block; min-height:100%;
+  }
+  .hero-image-panel::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(90deg,var(--bg) 0%,transparent 35%),linear-gradient(0deg,var(--bg) 0%,transparent 25%);
+    pointer-events:none;
+  }
+  .hero-stats {
+    display:flex; gap:clamp(1.5rem, 4vw, 3rem); flex-wrap:wrap;
+    margin-top:2.5rem; padding-top:2.5rem; border-top:0.5px solid var(--border);
+  }
+  .hero-stat-num { font-family:'Bebas Neue',sans-serif; font-size:clamp(1.8rem, 3vw, 2.4rem); color:var(--gold); line-height:1; }
+  .hero-stat-label { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.16em; color:var(--muted); text-transform:uppercase; margin-top:0.2rem; }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    overflow:hidden; border-top:0.5px solid var(--border); border-bottom:0.5px solid var(--border);
+    padding:1.1rem 0; background:var(--bg-card);
+  }
+  .marquee-inner { display:flex; gap:0; animation:marquee 35s linear infinite; white-space:nowrap; width:max-content; }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .marquee-item {
+    font-family:'DM Mono',monospace; font-size:0.63rem; letter-spacing:0.25em;
+    text-transform:uppercase; color:var(--muted); flex-shrink:0; padding:0 2rem;
+  }
+  .marquee-item span { color:var(--gold); margin-left:2rem; }
+
+  /* SECTION SHARED */
+  .section-eyebrow {
+    font-family:'DM Mono',monospace; font-size:0.63rem; letter-spacing:0.3em;
+    color:var(--gold); text-transform:uppercase;
+    display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:1rem;
+  }
+  .section-eyebrow::before,.section-eyebrow::after {
+    content:''; display:block; width:2.5rem; height:1px; background:var(--gold-dim); flex-shrink:0;
+  }
+  .section-eyebrow.left { justify-content:flex-start; }
+  .section-eyebrow.left::before { display:none; }
+  .section-title {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(2.6rem, 5vw, 5.5rem);
+    line-height:0.95; letter-spacing:0.03em; color:var(--white); text-align:center;
+  }
+  .section-title em { color:var(--gold); font-style:normal; }
+  .section-subtitle {
+    margin-top:1.25rem; color:var(--muted);
+    font-size:clamp(0.9rem, 1.4vw, 0.98rem);
+    max-width:520px; margin-left:auto; margin-right:auto; text-align:center; line-height:1.75;
+  }
+  .section-header { margin-bottom:clamp(2.5rem, 5vw, 4rem); }
+
+  /* ABOUT */
+  #about { padding:var(--section-pad-y) var(--section-pad-x); background:var(--bg-2); }
+  .about-grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:clamp(2.5rem, 5vw, 5rem);
+    max-width:var(--content-max); margin:0 auto; align-items:start;
+  }
+  .about-image-wrap { position:relative; }
+  .about-image-wrap::before {
+    content:''; position:absolute; top:-1.5rem; left:-1.5rem; right:1.5rem; bottom:1.5rem;
+    border:1px solid var(--border); z-index:0; pointer-events:none;
+  }
+  .about-image-wrap img {
+    position:relative; z-index:1; width:100%;
+    height:clamp(360px, 55vw, 580px);
+    object-fit:cover; object-position:center 15%; display:block;
+  }
+  .about-text h2 {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(2.6rem, 4.5vw, 3.8rem);
+    line-height:0.95; color:var(--white); margin-bottom:1.5rem;
+  }
+  .about-text h2 span { color:var(--gold); }
+  .about-text p { color:var(--off-white); margin-bottom:1.2rem; font-size:0.97rem; line-height:1.85; }
+  .tags { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:2rem; }
+  .tag {
+    font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase;
+    padding:0.4rem 0.9rem; border:0.5px solid var(--border-strong); color:var(--gold);
+    background:rgba(201,168,76,0.06); transition: background 0.3s, border-color 0.3s;
+  }
+  .tag:hover { background:rgba(201,168,76,0.12); border-color:var(--gold); }
+  .award-chips { display:flex; flex-wrap:wrap; gap:0.6rem; margin-top:1.5rem; }
+  .award-chip {
+    font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.12em; text-transform:uppercase;
+    padding:0.4rem 0.9rem; background:rgba(201,168,76,0.08); border:0.5px solid var(--gold-dim);
+    color:var(--gold); display:flex; align-items:center; gap:0.4rem;
+  }
+  .award-chip::before { content:'★'; font-size:0.6rem; }
+  .inst-block { margin-top:2.5rem; padding-top:2rem; border-top:0.5px solid var(--border); }
+  .inst-label { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--muted); margin-bottom:0.75rem; }
+  .inst-pills { display:flex; flex-wrap:wrap; gap:0.4rem; }
+  .inst-pill {
+    font-size:0.78rem; color:var(--off-white); background:var(--bg-card);
+    border:0.5px solid var(--border); padding:0.3rem 0.8rem;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .inst-pill:hover { border-color: var(--border-strong); color: var(--white); }
+
+  /* RESEARCH */
+  #research { padding:var(--section-pad-y) var(--section-pad-x); background:var(--bg); }
+  .research-inner { max-width:var(--content-max); margin:0 auto; }
+  .research-hero-img {
+    width:100%; height:clamp(260px, 45vw, 500px);
+    object-fit:cover; object-position:center 40%; display:block;
+    margin-bottom:0.75rem; border:0.5px solid var(--border);
+  }
+  .research-caption {
+    font-family:'DM Mono',monospace; font-size:0.63rem; letter-spacing:0.2em;
+    color:var(--gold-dim); text-transform:uppercase; text-align:center;
+    margin-bottom:clamp(2.5rem, 5vw, 4rem); line-height:1.6; padding:0 0.5rem;
+  }
+  .pull-quote {
+    padding:clamp(1.5rem, 3vw, 2.5rem); border-left:2px solid var(--gold);
+    background:var(--bg-card); margin-bottom:clamp(2.5rem, 5vw, 4rem);
+  }
+  .pull-quote p {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(1.35rem, 2.5vw, 1.9rem);
+    line-height:1.25; color:var(--white);
+  }
+  .pull-quote cite {
+    display:block; margin-top:0.6rem; font-family:'DM Mono',monospace;
+    font-size:0.62rem; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; font-style:normal;
+  }
+  .research-cards {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:1.25rem; margin-bottom:clamp(2.5rem, 5vw, 4rem);
+  }
+  .r-card {
+    background:var(--bg-card); border:0.5px solid var(--border); overflow:hidden;
+    transition: border-color 0.35s, transform 0.35s var(--ease-out), box-shadow 0.35s;
+  }
+  .r-card:hover {
+    border-color:var(--border-strong);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+  }
+  .r-card img {
+    width:100%; height:var(--img-card); object-fit:cover; display:block;
+    transition: transform 0.55s var(--ease-out);
+  }
+  .r-card:hover img { transform: scale(1.04); }
+  .r-card-body { padding:1.35rem 1.4rem 1.5rem; }
+  .r-card-num { font-family:'Bebas Neue',sans-serif; font-size:2.8rem; color:var(--border-strong); line-height:1; margin-bottom:0.4rem; }
+  .r-card-title { font-size:0.97rem; font-weight:500; color:var(--white); margin-bottom:0.4rem; letter-spacing:0.01em; }
+  .r-card-desc { font-size:0.85rem; color:var(--muted); line-height:1.7; }
+  .collab-bar {
+    padding:1.5rem 1.75rem; border:0.5px solid var(--border); background:var(--bg-card);
+    display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;
+  }
+  .collab-label { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); white-space:nowrap; }
+  .collab-div { width:1px; height:1.5rem; background:var(--border); }
+  .collab-name { font-size:0.85rem; color:var(--off-white); }
+
+  /* PROJECTS */
+  #projects { padding:var(--section-pad-y) var(--section-pad-x); background:var(--bg-2); }
+  .projects-inner { max-width:var(--content-max); margin:0 auto; }
+  .projects-main { display:grid; grid-template-columns:2fr 1fr; gap:1.25rem; margin-bottom:1.25rem; }
+  .proj-card {
+    background:var(--bg-card); border:0.5px solid var(--border); overflow:hidden;
+    display: flex; flex-direction: column; height: 100%;
+    transition: border-color 0.35s, transform 0.35s var(--ease-out), box-shadow 0.35s;
+  }
+  .proj-card:hover {
+    border-color:var(--border-strong);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+  }
+  .proj-card img {
+    width:100%; height: var(--img-card-sm); object-fit:cover; display:block; flex-shrink: 0;
+    transition: transform 0.55s var(--ease-out);
+  }
+  .proj-card:hover img { transform: scale(1.04); }
+  .projects-main > .proj-card > img { height: var(--img-featured); }
+  .proj-side { display:flex; flex-direction:column; gap:1.25rem; }
+  .proj-side .proj-card img { height: var(--img-card-sm); }
+  .proj-card-body { padding:1.35rem 1.4rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
+  .proj-label { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem; }
+  .proj-title {
+    font-family:'Bebas Neue',sans-serif; font-size:clamp(1.5rem, 2.2vw, 2rem);
+    color:var(--white); line-height:1.05; margin-bottom:0.6rem; letter-spacing:0.02em;
+  }
+  .proj-desc { font-size:0.85rem; color:var(--muted); line-height:1.7; }
+  .projects-row { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+
+  /* LEADERSHIP */
+  #leadership { padding:var(--section-pad-y) var(--section-pad-x); background:var(--bg); }
+  .leadership-inner { max-width:var(--content-max); margin:0 auto; }
+  .leadership-layout {
+    display:grid; grid-template-columns:1fr 1.2fr;
+    gap:clamp(2.5rem, 5vw, 5rem); align-items:start;
+  }
+  .leadership-list { list-style:none; }
+  .l-item {
+    display:flex; gap:1.25rem; padding:1.75rem 0;
+    border-bottom:0.5px solid var(--border);
+    transition: background 0.3s;
+  }
+  .l-item:first-child { padding-top:0; }
+  .l-item:hover .l-num { color: var(--gold); }
+  .l-num {
+    font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--gold-dim);
+    line-height:1; min-width:2.5rem; transition: color 0.3s;
+  }
+  .l-role { font-size:0.95rem; font-weight:500; color:var(--white); margin-bottom:0.2rem; }
+  .l-org { font-family:'DM Mono',monospace; font-size:0.63rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem; }
+  .l-desc { font-size:0.85rem; color:var(--muted); line-height:1.7; }
+  .leadership-photos { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .leadership-photos img {
+    width:100%; object-fit:cover; display:block; border:0.5px solid var(--border);
+    transition: border-color 0.3s, transform 0.5s var(--ease-out);
+  }
+  .leadership-photos img:hover { border-color: var(--border-strong); }
+  .leadership-photos img:first-child { grid-column:1/-1; height:clamp(240px, 35vw, 320px); object-position:center 20%; }
+  .leadership-photos img:not(:first-child) { height:clamp(180px, 28vw, 240px); }
+  .corp-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:clamp(2.5rem, 5vw, 4rem); }
+  .corp-card {
+    background:var(--bg-card); border:0.5px solid var(--border); overflow:hidden;
+    transition: border-color 0.35s, transform 0.35s var(--ease-out);
+  }
+  .corp-card:hover { border-color:var(--border-strong); transform: translateY(-3px); }
+  .corp-card img {
+    width:100%; height:var(--img-card); object-fit:cover; display:block;
+    transition: transform 0.55s var(--ease-out);
+  }
+  .corp-card:hover img { transform: scale(1.04); }
+  .corp-card-label {
+    padding:1rem 1.25rem; font-family:'DM Mono',monospace; font-size:0.6rem;
+    letter-spacing:0.15em; text-transform:uppercase; color:var(--muted);
+  }
+
+  /* CAROUSEL */
+  #carousel-section { padding:clamp(3.5rem, 7vw, 6rem) 0; background:var(--bg-2); }
+  .carousel-header { padding:0 var(--section-pad-x); margin-bottom:clamp(2rem, 4vw, 3rem); }
+  .carousel-track-wrap { overflow:hidden; position:relative; }
+  .carousel-track {
+    display:flex; gap:1rem;
+    transition:transform 0.6s var(--ease-out);
+    padding:0 var(--section-pad-x);
+    will-change: transform;
+  }
+  .carousel-slide {
+    flex:0 0 min(420px, 78vw); height:clamp(240px, 40vw, 320px);
+    overflow:hidden; border:0.5px solid var(--border); position:relative; cursor:pointer;
+    transition: border-color 0.3s;
+  }
+  .carousel-slide:hover { border-color: var(--border-strong); }
+  .carousel-slide img {
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform 0.5s var(--ease-out);
+  }
+  .carousel-slide:hover img { transform:scale(1.04); }
+  .carousel-slide-caption {
+    position:absolute; bottom:0; left:0; right:0; padding:1rem 1.25rem;
+    background:linear-gradient(transparent,rgba(10,9,6,0.92));
+    font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.15em;
+    text-transform:uppercase; color:var(--off-white);
+    opacity:0; transition:opacity 0.3s;
+  }
+  .carousel-slide:hover .carousel-slide-caption { opacity:1; }
+  .carousel-controls { display:flex; gap:0.75rem; margin-top:2rem; padding:0 var(--section-pad-x); }
+  .carousel-btn {
+    width:44px; height:44px; border:1px solid var(--border-strong); background:transparent;
+    color:var(--gold); font-size:1.1rem; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:all 0.3s;
+  }
+  .carousel-btn:hover { background:var(--gold); color:var(--bg); }
+  .carousel-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  /* BEYOND */
+  #beyond { padding:var(--section-pad-y) var(--section-pad-x); background:var(--bg); }
+  .beyond-inner { max-width:var(--content-max); margin:0 auto; }
+  .beyond-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+  .beyond-card {
+    background:var(--bg-card); border:0.5px solid var(--border); overflow:hidden;
+    transition: border-color 0.35s, transform 0.35s var(--ease-out);
+  }
+  .beyond-card:hover { border-color:var(--border-strong); transform: translateY(-3px); }
+  .beyond-card img {
+    width:100%; height:280px; object-fit:cover; display:block;
+    transition: transform 0.55s var(--ease-out);
+  }
+  .beyond-card:hover img { transform: scale(1.04); }
+  .beyond-card:first-child { grid-column:1/3; }
+  .beyond-card:first-child img { height:clamp(260px, 40vw, 380px); object-position:center 30%; }
+  .beyond-caption {
+    padding:1.1rem 1.25rem; font-family:'DM Mono',monospace; font-size:0.6rem;
+    letter-spacing:0.15em; text-transform:uppercase; color:var(--muted);
+  }
+  .beyond-note {
+    text-align:center; font-family:'DM Mono',monospace; font-size:0.62rem;
+    letter-spacing:0.2em; color:var(--gold-dim); text-transform:uppercase; margin-top:2rem;
+  }
+
+  /* ROOTS */
+  #roots { padding:var(--section-pad-y) var(--section-pad-x); background:var(--bg-2); }
+  .roots-inner { max-width:var(--content-max); margin:0 auto; }
+  .roots-layout {
+    display:grid; grid-template-columns:1.2fr 1fr;
+    gap:clamp(2.5rem, 5vw, 5rem); align-items:center;
+  }
+  .roots-quote {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(2.4rem, 4vw, 4.5rem);
+    line-height:1.05; color:var(--white); margin-bottom:1.5rem;
+  }
+  .roots-quote span { color:var(--gold); }
+  .roots-text { color:var(--off-white); font-size:0.97rem; line-height:1.85; margin-bottom:1.2rem; }
+  .roots-photos { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .roots-photos img {
+    width:100%; height:clamp(180px, 28vw, 240px); object-fit:cover; display:block;
+    border:0.5px solid var(--border);
+    transition: border-color 0.3s, transform 0.5s var(--ease-out);
+  }
+  .roots-photos img:hover { border-color: var(--border-strong); transform: scale(1.02); }
+
+  /* CONTACT */
+  #contact { padding:var(--section-pad-y) var(--section-pad-x); background:var(--bg); text-align:center; }
+  .contact-big {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(3.2rem, 8vw, 9rem);
+    line-height:0.9; color:var(--white); margin-bottom:1.5rem;
+  }
+  .contact-big span { color:var(--gold); }
+  .contact-sub { color:var(--muted); font-size:0.97rem; max-width:460px; margin:0 auto 2.5rem; line-height:1.75; }
+  .contact-links { display:flex; justify-content:center; gap:0.85rem; flex-wrap:wrap; }
+  .contact-link {
+    display:inline-flex; align-items:center; justify-content:center; gap:0.5rem;
+    padding:0.9rem 1.6rem; font-family:'DM Mono',monospace; font-size:0.68rem;
+    letter-spacing:0.2em; text-transform:uppercase; text-decoration:none;
+    transition: all 0.3s var(--ease-out);
+  }
+  .contact-link-primary {
+    background:var(--gold); color:var(--bg);
+  }
+  .contact-link-primary:hover {
+    background:var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(201,168,76,0.2);
+  }
+  .contact-link-ghost { border:1px solid var(--border-strong); color:var(--muted); }
+  .contact-link-ghost:hover {
+    border-color:var(--gold); color:var(--gold);
+    transform: translateY(-2px);
+  }
+
+  /* CONTACT FORM */
+  .contact-layout {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:clamp(2.5rem, 6vw, 6rem);
+    max-width:1100px; margin:clamp(2.5rem, 5vw, 4rem) auto 0; text-align:left;
+  }
+  .contact-form-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(1.6rem, 2.5vw, 2rem); color:var(--white); margin-bottom:0.5rem; }
+  .contact-form-sub { font-size:0.88rem; color:var(--muted); margin-bottom:2rem; line-height:1.7; }
+  .form-group { margin-bottom:1.25rem; }
+  .form-group label {
+    display:block; font-family:'DM Mono',monospace; font-size:0.62rem;
+    letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem;
+  }
+  .form-group input, .form-group textarea, .form-group select {
+    width:100%; background:var(--bg-card); border:0.5px solid var(--border-strong);
+    color:var(--white); font-family:'DM Sans',sans-serif; font-size:0.92rem; font-weight:300;
+    padding:0.85rem 1rem; outline:none; transition:border-color 0.3s, box-shadow 0.3s; resize:vertical;
+    -webkit-appearance:none; appearance:none; border-radius: 0;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color:var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder { color:var(--muted); }
+  .form-group select option { background:var(--bg-card); color:var(--white); }
+  .form-submit {
+    width:100%; padding:1rem; background:var(--gold); border:none; color:var(--bg);
+    font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.25em;
+    text-transform:uppercase; cursor:pointer;
+    transition: background 0.3s, transform 0.3s var(--ease-out), box-shadow 0.3s;
+    margin-top:0.5rem;
+  }
+  .form-submit:hover {
+    background:var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(201,168,76,0.2);
+  }
+  .form-submit:disabled { opacity:0.5; cursor:not-allowed; transform:none; box-shadow:none; }
+  .form-success {
+    display:none; padding:1.5rem; border:1px solid var(--gold-dim);
+    background:rgba(201,168,76,0.06); text-align:center;
+  }
+  .form-success p {
+    font-family:'DM Mono',monospace; font-size:0.7rem; letter-spacing:0.15em;
+    color:var(--gold); text-transform:uppercase;
+  }
+  .contact-info-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(1.6rem, 2.5vw, 2rem); color:var(--white); margin-bottom:2rem; }
+  .contact-info-item { display:flex; align-items:flex-start; gap:1rem; padding:1.35rem 0; border-bottom:0.5px solid var(--border); }
+  .contact-info-item:first-of-type { padding-top:0; }
+  .contact-info-icon { font-size:1.1rem; margin-top:0.1rem; flex-shrink:0; }
+  .contact-info-label {
+    font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.2em;
+    text-transform:uppercase; color:var(--gold); margin-bottom:0.3rem;
+  }
+  .contact-info-value { font-size:0.9rem; color:var(--off-white); word-break:break-word; }
+  .contact-info-value a { color:var(--off-white); text-decoration:none; transition:color 0.3s; }
+  .contact-info-value a:hover { color:var(--gold); }
+  .resume-hint { color:var(--muted); font-size:0.8rem; display:block; margin-top:0.25rem; }
+
+  /* FOOTER */
+  footer {
+    padding:1.75rem var(--section-pad-x); border-top:0.5px solid var(--border);
+    display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;
+  }
+  .footer-name { font-family:'Bebas Neue',sans-serif; font-size:1.1rem; letter-spacing:0.1em; color:var(--gold-dim); }
+  .footer-credit { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); }
+
+  /* REVEAL */
+  .reveal {
+    opacity:0; transform:translateY(28px);
+    transition:opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+  }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .reveal-d1 { transition-delay:0.1s; }
+  .reveal-d2 { transition-delay:0.22s; }
+  .reveal-d3 { transition-delay:0.34s; }
+
+  /* GRAIN */
+  body::before {
+    content:''; position:fixed; inset:0; z-index:200; pointer-events:none; opacity:0.02;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:256px 256px;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .marquee-inner { animation: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .r-card, .proj-card, .corp-card, .beyond-card, .hero-cta, .contact-link, .form-submit { transition: none; }
+    .r-card:hover, .proj-card:hover, .corp-card:hover, .beyond-card:hover { transform: none; }
+    .r-card:hover img, .proj-card:hover img, .corp-card:hover img, .beyond-card:hover img, .carousel-slide:hover img { transform: none; }
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 1100px) {
+    .nav-links { gap: 1.5rem; }
+    .research-cards, .projects-row, .corp-grid { grid-template-columns: repeat(2, 1fr); }
+    .projects-row .proj-card:last-child { grid-column: 1 / -1; }
+    .projects-row .proj-card:last-child img { height: var(--img-card); }
+  }
+
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-image-panel {
+      min-height: min(70vw, 520px);
+      order: -1;
+    }
+    .hero-image-panel img { min-height: min(70vw, 520px); height: min(70vw, 520px); }
+    .hero-image-panel::after {
+      background: linear-gradient(0deg, var(--bg) 0%, transparent 45%);
+    }
+    .hero-content { padding-top: 2.5rem; padding-bottom: 3.5rem; }
+    .about-grid, .leadership-layout, .roots-layout, .contact-layout {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .about-image-wrap::before { top: -0.75rem; left: -0.75rem; right: 0.75rem; bottom: 0.75rem; }
+    .about-image-wrap { max-width: 520px; margin: 0 auto; }
+    .projects-main { grid-template-columns: 1fr; }
+    .projects-main > .proj-card > img { height: var(--img-featured); }
+    .beyond-grid { grid-template-columns: 1fr 1fr; }
+    .beyond-card:first-child { grid-column: 1 / -1; }
+    .collab-div { display: none; }
+    .collab-bar { gap: 0.75rem 1.25rem; }
+  }
+
+  @media (max-width: 768px) {
+    .nav-toggle { display: flex; }
+    .nav-links {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(320px, 86vw);
+      height: 100vh;
+      height: 100dvh;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      padding: 5.5rem 1.75rem 2rem;
+      background: rgba(17,16,9,0.98);
+      border-left: 0.5px solid var(--border);
+      transform: translateX(105%);
+      transition: transform 0.4s var(--ease-out);
+      z-index: 101;
+    }
+    .nav-links.open { transform: translateX(0); }
+    .nav-links li { width: 100%; border-bottom: 0.5px solid var(--border); }
+    .nav-links a {
+      display: block;
+      padding: 1.1rem 0;
+      font-size: 0.78rem;
+    }
+    .nav-links a::after { display: none; }
+    .hero-stats { gap: 1.5rem 2rem; }
+    .research-cards, .projects-row, .corp-grid { grid-template-columns: 1fr; }
+    .projects-row .proj-card:last-child { grid-column: auto; }
+    .projects-row .proj-card img,
+    .proj-side .proj-card img,
+    .r-card img,
+    .corp-card img { height: var(--img-card); }
+    .carousel-slide-caption { opacity: 1; }
+    .section-title { text-align: left; }
+    .section-subtitle { text-align: left; margin-left: 0; margin-right: 0; }
+    .section-eyebrow { justify-content: flex-start; }
+    .section-eyebrow::before { display: none; }
+    .carousel-header .section-title { font-size: clamp(2.2rem, 8vw, 3rem) !important; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (max-width: 520px) {
+    .beyond-grid { grid-template-columns: 1fr; }
+    .beyond-card:first-child { grid-column: auto; }
+    .beyond-card img,
+    .beyond-card:first-child img { height: 240px; }
+    .leadership-photos { grid-template-columns: 1fr; }
+    .leadership-photos img:first-child,
+    .leadership-photos img:not(:first-child) { height: 240px; grid-column: auto; }
+    .roots-photos { grid-template-columns: 1fr; }
+    .roots-photos img { height: 220px; }
+    .hero-cta, .contact-link { width: 100%; }
+    .contact-links { flex-direction: column; align-items: stretch; }
+    .hero-name { font-size: clamp(3.2rem, 16vw, 4.5rem); }
+    .pull-quote { padding: 1.25rem; }
+    .marquee-item { padding: 0 1.25rem; font-size: 0.58rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="siteNav">
+  <a href="#hero" class="nav-logo">CJ</a>
+  <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#leadership">Leadership</a></li>
+    <li><a href="#beyond">Beyond</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+<div class="nav-backdrop" id="navBackdrop" hidden></div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Tuskegee University · AI Farms Initiative</div>
+    <h1 class="hero-name">Cameron<br><span>Jones</span></h1>
+    <p class="hero-tagline">AI Researcher. Roboticist. Precision Agriculture Innovator. Building technology at the intersection of artificial intelligence, autonomous systems, and the future of food.</p>
+    <div class="hero-cta-row">
+      <a href="#research" class="hero-cta">View Research</a>
+      <a href="#contact" class="hero-cta hero-cta-ghost">Get In Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">3+</div>
+        <div class="hero-stat-label">Years AI Research</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">4</div>
+        <div class="hero-stat-label">Institutions</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">1st</div>
+        <div class="hero-stat-label">Author, Research Poster</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-image-panel">
+    <img src="IMG" alt="Cameron Jones presenting at podium">
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span class="marquee-item">Tuskegee University<span>✦</span></span>
+    <span class="marquee-item">USDA Collaboration<span>✦</span></span>
+    <span class="marquee-item">Cornell University CROPPS<span>✦</span></span>
+    <span class="marquee-item">UNCF Ambassador<span>✦</span></span>
+    <span class="marquee-item">MANRRS SMART Ag Tech<span>✦</span></span>
+    <span class="marquee-item">Precision Agriculture<span>✦</span></span>
+    <span class="marquee-item">Autonomous Robotics<span>✦</span></span>
+    <span class="marquee-item">FFA Honor Society<span>✦</span></span>
+    <span class="marquee-item">AI Farms Initiative<span>✦</span></span>
+    <span class="marquee-item">Tuskegee University<span>✦</span></span>
+    <span class="marquee-item">USDA Collaboration<span>✦</span></span>
+    <span class="marquee-item">Cornell University CROPPS<span>✦</span></span>
+    <span class="marquee-item">UNCF Ambassador<span>✦</span></span>
+    <span class="marquee-item">MANRRS SMART Ag Tech<span>✦</span></span>
+    <span class="marquee-item">Precision Agriculture<span>✦</span></span>
+    <span class="marquee-item">Autonomous Robotics<span>✦</span></span>
+    <span class="marquee-item">FFA Honor Society<span>✦</span></span>
+    <span class="marquee-item">AI Farms Initiative<span>✦</span></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-image-wrap reveal">
+      <img src="IMG" alt="Cameron Jones at Tuskegee University">
+    </div>
+    <div class="about-text reveal reveal-d1">
+      <div class="section-eyebrow left" style="margin-bottom:1rem;">About</div>
+      <h2>Rooted in<br><span>Legacy.</span><br>Building the<br>Future.</h2>
+      <p>I'm a Computer Science student at Tuskegee University — an institution my family has called home for generations. My parents are alumni. My siblings walked these grounds. This place is in my DNA.</p>
+      <p>Since October 2022, I've served as a Research Assistant on the AI Farms initiative, developing autonomous systems that merge artificial intelligence with precision agriculture. My work spans drone telemetry, robotic rover deployment, computer vision, and environmental monitoring.</p>
+      <p>I've presented to congressional dignitaries, demonstrated autonomous systems to hundreds of students, and collaborated with researchers across Tuskegee, Cornell, USDA, and the CROPPS program. I don't just study the future — I'm building it.</p>
+      <div class="tags">
+        <span class="tag">Artificial Intelligence</span>
+        <span class="tag">Autonomous Robotics</span>
+        <span class="tag">Precision Agriculture</span>
+        <span class="tag">Healthcare AI</span>
+        <span class="tag">Computer Vision</span>
+        <span class="tag">Drone Systems</span>
+        <span class="tag">IoT Sensors</span>
+        <span class="tag">Custom PC Builds</span>
+      </div>
+      <div class="award-chips">
+        <span class="award-chip">FFA Honor Society</span>
+        <span class="award-chip">UNCF Ambassador</span>
+        <span class="award-chip">MANRRS SMART Ag</span>
+        <span class="award-chip">2× Hackathon Champion</span>
+      </div>
+      <div class="inst-block">
+        <div class="inst-label">Institutions & Companies</div>
+        <div class="inst-pills">
+          <span class="inst-pill">Syngenta</span>
+          <span class="inst-pill">BASF</span>
+          <span class="inst-pill">Coca-Cola HQ</span>
+          <span class="inst-pill">Equinix</span>
+          <span class="inst-pill">Plug & Play</span>
+          <span class="inst-pill">FIU Energy Lab</span>
+          <span class="inst-pill">UIUC</span>
+          <span class="inst-pill">Cornell</span>
+          <span class="inst-pill">Auburn</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="research-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">AI Farms Initiative · Since Oct 2022</div>
+      <h2 class="section-title">Research &amp;<br><em>Innovation</em></h2>
+      <p class="section-subtitle">First-author research at the convergence of AI, autonomous robotics, and sustainable agriculture — in collaboration with Tuskegee, USDA, CROPPS, and Cornell.</p>
+    </div>
+
+    <div class="reveal">
+      <img class="research-hero-img" src="IMG" alt="AI Farms team demo — drones, rovers, and robot dog deployed simultaneously">
+      <p class="research-caption">"Integrating AI-Powered Robotic Systems for Precision Agriculture and Environmental Monitoring" — C. Jones et al. · Tuskegee · USDA · CROPPS · Cornell</p>
+    </div>
+
+    <div class="pull-quote reveal">
+      <p>"Drone overhead. Autonomous rover on the ground. Robot dog walking the field. All simultaneously — deployed for researchers, dignitaries, and students."</p>
+      <cite>AI Farms Field Demo — Tuskegee University</cite>
+    </div>
+
+    <div class="research-cards reveal">
+      <div class="r-card">
+        <img src="IMG" alt="Cameron with drone in field, landing pad visible" style="object-position:center 30%;">
+        <div class="r-card-body">
+          <div class="r-card-num">01</div>
+          <div class="r-card-title">Autonomous Drone Systems</div>
+          <div class="r-card-desc">Deploying DJI drones for aerial environmental monitoring, crop health analysis, and precision data collection across agricultural test sites.</div>
+        </div>
+      </div>
+      <div class="r-card">
+        <img src="IMG" alt="Cameron presenting research poster" style="object-position:center 20%;">
+        <div class="r-card-body">
+          <div class="r-card-num">02</div>
+          <div class="r-card-title">First-Author Research</div>
+          <div class="r-card-desc">Lead author on precision agriculture research poster — presented to industry professionals, academics, and government stakeholders.</div>
+        </div>
+      </div>
+      <div class="r-card">
+        <img src="IMG" alt="Greenhouse sweet potato research beds">
+        <div class="r-card-body">
+          <div class="r-card-num">03</div>
+          <div class="r-card-title">Greenhouse AI Monitoring</div>
+          <div class="r-card-desc">Integrating AI-powered sensor systems in controlled greenhouse environments for real-time environmental data collection and crop yield optimization.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="collab-bar reveal">
+      <span class="collab-label">Collaborators</span>
+      <div class="collab-div"></div>
+      <span class="collab-name">Tuskegee University</span>
+      <div class="collab-div"></div>
+      <span class="collab-name">USDA</span>
+      <div class="collab-div"></div>
+      <span class="collab-name">CROPPS</span>
+      <div class="collab-div"></div>
+      <span class="collab-name">Cornell University</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Projects</div>
+      <h2 class="section-title">Built.<br><em>Shipped.</em> Won.</h2>
+      <p class="section-subtitle">From hackathon floors to custom hardware — projects that show end-to-end technical depth and creative problem solving.</p>
+    </div>
+
+    <div class="projects-main reveal">
+      <div class="proj-card">
+        <img src="IMG" alt="Robot dog walking school hallway, students amazed" style="object-position:center 30%">
+        <div class="proj-card-body">
+          <div class="proj-label">Robotics · Community Outreach</div>
+          <div class="proj-title">Robot Dog Deployment</div>
+          <p class="proj-desc">Deployed and demonstrated a quadruped robot platform for congressional dignitaries, MANRRS conferences, and elementary school outreach — bringing autonomous robotics to policymakers and 8-year-olds alike.</p>
+        </div>
+      </div>
+      <div class="proj-side">
+        <div class="proj-card">
+          <img src="IMG" alt="AuburnHacks winners — yellow shirts, blue leis, WINNER screen" style="object-position:center 25%">
+          <div class="proj-card-body">
+            <div class="proj-label">Hackathon · AuburnHacks</div>
+            <div class="proj-title">AuburnHacks Champion</div>
+            <p class="proj-desc">First Place. "Project Tropical." Four teammates. One win.</p>
+          </div>
+        </div>
+        <div class="proj-card">
+          <img src="IMG" alt="UIUC Precision Agriculture Hackathon First Place" style="object-position:center 25%">
+          <div class="proj-card-body">
+            <div class="proj-label">Hackathon · UIUC</div>
+            <div class="proj-title">Precision Ag Hackathon</div>
+            <p class="proj-desc">First Place — Analytics & Decision Support Track. 2026 Precision & Digital Agriculture Hackathon.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="projects-row reveal" style="margin-top:1.5rem;">
+      <div class="proj-card">
+        <img src="IMG" alt="Cameron teaching kid to fly drone outdoors" style="object-position:center 20%">
+        <div class="proj-card-body">
+          <div class="proj-label">Education · Drone Tech</div>
+          <div class="proj-title">Youth Drone Training</div>
+          <p class="proj-desc">Putting drone controllers in kids' hands — making autonomous technology accessible and exciting for the next generation.</p>
+        </div>
+      </div>
+      <div class="proj-card">
+        <img src="IMG" alt="Greenhouse experimental beds">
+        <div class="proj-card-body">
+          <div class="proj-label">Research · Hardware</div>
+          <div class="proj-title">Greenhouse Sensor Systems</div>
+          <p class="proj-desc">Designed and deployed IoT sensor arrays for automated environmental monitoring in experimental greenhouse beds.</p>
+        </div>
+      </div>
+      <div class="proj-card">
+        <img src="IMG" alt="Cameron in field with team, sunglasses, teaching" style="object-position:center 25%">
+        <div class="proj-card-body">
+          <div class="proj-label">Research · Field Ops</div>
+          <div class="proj-title">Field Research Operations</div>
+          <p class="proj-desc">Leading field research sessions — coordinating drone flights, rover operations, and real-time data collection across agricultural test sites.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section id="leadership">
+  <div class="leadership-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Leadership & Impact</div>
+      <h2 class="section-title">Moving<br><em>Rooms.</em></h2>
+      <p class="section-subtitle">From Capitol Hill to elementary classrooms — building bridges between technology and the communities that need it most.</p>
+    </div>
+
+    <div class="leadership-layout reveal">
+      <ul class="leadership-list">
+        <li class="l-item">
+          <div class="l-num">01</div>
+          <div>
+            <div class="l-org">UNCF</div>
+            <div class="l-role">UNCF Ambassador</div>
+            <div class="l-desc">Representing the United Negro College Fund at corporate summits and the HBCU Tech-E Summit — advocating for HBCU students and STEM access at the highest levels.</div>
+          </div>
+        </li>
+        <li class="l-item">
+          <div class="l-num">02</div>
+          <div>
+            <div class="l-org">MANRRS · Syngenta</div>
+            <div class="l-role">SMART Ag Tech Cohort</div>
+            <div class="l-desc">Selected for the MANRRS S²MART Academy Technology Track — deploying robotics at national conferences and visiting Syngenta HQ.</div>
+          </div>
+        </li>
+        <li class="l-item">
+          <div class="l-num">03</div>
+          <div>
+            <div class="l-org">Community Outreach</div>
+            <div class="l-role">Elementary STEM Educator</div>
+            <div class="l-desc">Bringing robot dogs, drones, and coding workshops into elementary schools — sparking curiosity in the next generation of technologists.</div>
+          </div>
+        </li>
+        <li class="l-item">
+          <div class="l-num">04</div>
+          <div>
+            <div class="l-org">FFA</div>
+            <div class="l-role">Honor Society of Agriculture</div>
+            <div class="l-desc">Inducted member of the FFA Honor Society — recognized for excellence in agricultural education and leadership.</div>
+          </div>
+        </li>
+        <li class="l-item">
+          <div class="l-num">05</div>
+          <div>
+            <div class="l-org">Tuskegee University</div>
+            <div class="l-role">AI Farms Research Assistant</div>
+            <div class="l-desc">Since October 2022 — leading field research, drone operations, and robot demonstrations for university, government, and industry stakeholders.</div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="leadership-photos">
+        <img src="IMG" alt="Cameron speaking at podium — commanding" style="object-position:center 15%;">
+        <img src="IMG" alt="Cameron at Syngenta MANRRS event" style="object-position:center 30%;">
+        <img src="IMG" alt="Teaching youth to operate drone" style="object-position:center 20%;">
+      </div>
+    </div>
+
+    <!-- Corporate visits -->
+    <div class="corp-grid reveal">
+      <div class="corp-card">
+        <img src="IMG" alt="Coca-Cola HQ executive meeting" style="object-position:center 20%;">
+        <div class="corp-card-label">Coca-Cola HQ · Atlanta</div>
+      </div>
+      <div class="corp-card">
+        <img src="IMG" alt="Coca-Cola lobby group photo" style="object-position:center 25%;">
+        <div class="corp-card-label">Coca-Cola · Leadership Summit</div>
+      </div>
+      <div class="corp-card">
+        <img src="IMG" alt="UNCF group at SF Giants stadium, Plug and Play" style="object-position:center 40%;">
+        <div class="corp-card-label">Plug & Play · UNCF Tech-E</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAROUSEL -->
+<section id="carousel-section">
+  <div class="carousel-header reveal">
+    <div class="section-eyebrow left">Gallery</div>
+    <h2 class="section-title" style="text-align:left; font-size:3rem;">The Full <em>Story.</em></h2>
+  </div>
+  <div class="carousel-track-wrap">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-slide">
+        <img src="IMG" alt="Full AI Farms team with drones and rovers" style="object-position:center 35%;">
+        <div class="carousel-slide-caption">AI Farms Field Demo — Tuskegee</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="IMG" alt="AuburnHacks WINNER" style="object-position:center 20%;">
+        <div class="carousel-slide-caption">AuburnHacks Champions — Project Tropical</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="IMG" alt="AuburnHacks team seated" style="object-position:center 30%;">
+        <div class="carousel-slide-caption">AuburnHacks Team — Yellow Shirts</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="IMG" alt="UIUC Hackathon First Place" style="object-position:center 20%;">
+        <div class="carousel-slide-caption">UIUC Precision Ag Hackathon — First Place</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="IMG" alt="Poster presentation" style="object-position:center 15%;">
+        <div class="carousel-slide-caption">Research Poster Presentation</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="IMG" alt="Greenhouse research beds">
+        <div class="carousel-slide-caption">Greenhouse Experimental Beds</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="IMG" alt="Sweet potato plants in greenhouse">
+        <div class="carousel-slide-caption">Sweet Potato Research — AI Farms</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="IMG" alt="Cameron in field gesturing" style="object-position:center 20%;">
+        <div class="carousel-slide-caption">Field Research Operations</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="IMG" alt="Teaching field operations" style="object-position:center 20%;">
+        <div class="carousel-slide-caption">Teaching Drone Controller — Field Demo</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="IMG" alt="Coca-Cola lobby" style="object-position:center 25%;">
+        <div class="carousel-slide-caption">Coca-Cola HQ Visit</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="IMG" alt="UNCF at Plug and Play" style="object-position:center 40%;">
+        <div class="carousel-slide-caption">Plug & Play — UNCF Tech-E Summit</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="IMG" alt="Family at Nashville MLK event" style="object-position:center 25%;">
+        <div class="carousel-slide-caption">Nashville — Family & Community</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="IMG" alt="MANRRS SMART Academy Technology Track cohort" style="object-position:center 30%;">
+        <div class="carousel-slide-caption">MANRRS S²MART Academy — Technology Track Cohort</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="IMG" alt="Cameron in field gesturing at CROPPS visit" style="object-position:center 25%;">
+        <div class="carousel-slide-caption">CROPPS Field Visit — Tuskegee Research Farm</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="IMG" alt="Robot dog walking school hallway" style="object-position:center 30%;">
+        <div class="carousel-slide-caption">Robot Dog — School Hallway Demo</div>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-controls">
+    <button class="carousel-btn" id="prevBtn" aria-label="Previous">&#8592;</button>
+    <button class="carousel-btn" id="nextBtn" aria-label="Next">&#8594;</button>
+  </div>
+</section>
+
+<!-- BEYOND -->
+<section id="beyond">
+  <div class="beyond-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Life Outside Tech</div>
+      <h2 class="section-title">Beyond<br>the <em>Lab.</em></h2>
+      <p class="section-subtitle">The outdoors grounds me. Kayaking, fishing, photography — finding signal in the natural world.</p>
+    </div>
+    <div class="beyond-grid reveal">
+      <div class="beyond-card">
+        <img src="IMG" alt="Cameron in field, drone overhead" style="object-position:center 30%;">
+        <div class="beyond-caption">In the Field — Where It Feels Right</div>
+      </div>
+      <div class="beyond-card">
+        <img src="IMG" alt="Cameron with family" style="object-position:center 25%;">
+        <div class="beyond-caption">Family First</div>
+      </div>
+      <div class="beyond-card">
+        <img src="IMG" alt="UNCF Tuskegee group" style="object-position:center 35%;">
+        <div class="beyond-caption">With the Team</div>
+      </div>
+    </div>
+    <p class="beyond-note">
+      · Kayaking · Fishing · Photography · More coming soon ·
+    </p>
+  </div>
+</section>
+
+<!-- ROOTS -->
+<section id="roots">
+  <div class="roots-inner">
+    <div class="roots-layout reveal">
+      <div>
+        <div class="section-eyebrow left" style="margin-bottom:2rem;">Family & Legacy</div>
+        <h2 class="roots-quote">Tuskegee<br><span>Runs</span><br>Deep.</h2>
+        <p class="roots-text">My connection to Tuskegee University isn't just academic — it's generational. My parents are alumni. My siblings attended. This institution, founded in 1881 by Booker T. Washington, shaped my family across decades and continues to shape me.</p>
+        <p class="roots-text">When I walk across that campus, I carry the weight and the pride of everyone who came before me. That legacy fuels every research paper, every robot deployment, every presentation I give.</p>
+        <p class="roots-text">I'm not just attending Tuskegee. I'm adding to its story.</p>
+      </div>
+      <div class="roots-photos">
+        <img src="IMG" alt="Cameron at Tuskegee step-and-repeat" style="object-position:center 15%;">
+        <img src="IMG" alt="Cameron at Syngenta MANRRS" style="object-position:center 30%;">
+        <img src="IMG" alt="Cameron at Coca-Cola HQ" style="object-position:center 20%;">
+        <img src="IMG" alt="Family at Nashville MLK" style="object-position:center 25%;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-eyebrow" style="margin-bottom:1.5rem;">Let's Connect</div>
+    <h2 class="contact-big">Let's<br><span>Talk.</span></h2>
+    <p class="contact-sub">Whether you're a researcher, recruiter, or someone building something meaningful at the edge of AI and agriculture — I want to hear from you.</p>
+    <div class="contact-links">
+      <a href="mailto:Cameron.kalon@gmail.com" class="contact-link contact-link-primary">Email Me</a>
+      <a href="resume.pdf" class="contact-link contact-link-ghost" download="Cameron_Jones_Resume.pdf">Download Resume</a>
+      <a href="https://www.linkedin.com/in/cameron-jones-5855311b9/" class="contact-link contact-link-ghost" target="_blank">LinkedIn</a>
+      <a href="https://github.com/CamJ43737" class="contact-link contact-link-ghost" target="_blank">GitHub</a>
+    </div>
+  </div>
+
+  <div class="contact-layout">
+    <!-- FORM -->
+    <div class="contact-form-wrap reveal reveal-d1">
+      <div class="contact-form-title">Send a Message</div>
+      <p class="contact-form-sub">Fill out the form and I'll get back to you. Whether it's research, collaboration, or just a conversation — I'm listening.</p>
+
+      <div id="contactForm">
+        <div class="form-group">
+          <label for="cf-name">Your Name</label>
+          <input type="text" id="cf-name" placeholder="Jane Smith" required>
+        </div>
+        <div class="form-group">
+          <label for="cf-email">Your Email</label>
+          <input type="email" id="cf-email" placeholder="jane@company.com" required>
+        </div>
+        <div class="form-group">
+          <label for="cf-reason">Reason for Reaching Out</label>
+          <select id="cf-reason">
+            <option value="" disabled selected>Select one…</option>
+            <option value="Research Collaboration">Research Collaboration</option>
+            <option value="Job / Internship Opportunity">Job / Internship Opportunity</option>
+            <option value="Speaking Engagement">Speaking Engagement</option>
+            <option value="Media / Press">Media / Press</option>
+            <option value="General Inquiry">General Inquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" rows="5" placeholder="Tell me what's on your mind…" required></textarea>
+        </div>
+        <button class="form-submit" id="cf-submit" type="button" onclick="submitContactForm()">Send Message</button>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        <p>✦ Message sent — I'll be in touch soon. ✦</p>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="contact-info-block reveal reveal-d2">
+      <div class="contact-info-title">Direct Links</div>
+
+      <div class="contact-info-item">
+        <div class="contact-info-icon">✉</div>
+        <div>
+          <div class="contact-info-label">Email</div>
+          <div class="contact-info-value"><a href="mailto:Cameron.kalon@gmail.com">Cameron.kalon@gmail.com</a></div>
+        </div>
+      </div>
+
+      <div class="contact-info-item">
+        <div class="contact-info-icon">↗</div>
+        <div>
+          <div class="contact-info-label">LinkedIn</div>
+          <div class="contact-info-value"><a href="https://www.linkedin.com/in/cameron-jones-5855311b9/" target="_blank">linkedin.com/in/cameron-jones-5855311b9</a></div>
+        </div>
+      </div>
+
+      <div class="contact-info-item">
+        <div class="contact-info-icon">⌥</div>
+        <div>
+          <div class="contact-info-label">GitHub</div>
+          <div class="contact-info-value"><a href="https://github.com/CamJ43737" target="_blank">github.com/CamJ43737</a></div>
+        </div>
+      </div>
+
+      <div class="contact-info-item">
+        <div class="contact-info-icon">⬇</div>
+        <div>
+          <div class="contact-info-label">Resume</div>
+          <div class="contact-info-value">
+            <a href="resume.pdf" download="Cameron_Jones_Resume.pdf">Download PDF</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-info-item" style="border-bottom:none;">
+        <div class="contact-info-icon">📍</div>
+        <div>
+          <div class="contact-info-label">Based At</div>
+          <div class="contact-info-value">Tuskegee University · Tuskegee, Alabama</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Cameron Jones · Tuskegee 1881</div>
+  <div class="footer-credit">CS Student · AI Researcher · Technologist</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Nav scroll state
+  const siteNav = document.getElementById('siteNav');
+  const onScrollNav = () => {
+    if (!siteNav) return;
+    siteNav.classList.toggle('scrolled', window.scrollY > 24);
+  };
+  window.addEventListener('scroll', onScrollNav, { passive: true });
+  onScrollNav();
+
+  // Mobile nav
+  const navToggle = document.getElementById('navToggle');
+  const navLinksEl = document.getElementById('navLinks');
+  const navBackdrop = document.getElementById('navBackdrop');
+
+  function setNavOpen(open) {
+    if (!navLinksEl || !navToggle) return;
+    navLinksEl.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (navBackdrop) {
+      navBackdrop.hidden = !open;
+      navBackdrop.classList.toggle('open', open);
+    }
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  if (navToggle) {
+    navToggle.addEventListener('click', () => {
+      setNavOpen(!navLinksEl.classList.contains('open'));
+    });
+  }
+  if (navBackdrop) {
+    navBackdrop.addEventListener('click', () => setNavOpen(false));
+  }
+  if (navLinksEl) {
+    navLinksEl.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => setNavOpen(false));
+    });
+  }
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setNavOpen(false);
+  });
+
+  // Nav active section
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const navObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.getAttribute('id');
+        navLinks.forEach(a => {
+          a.style.color = a.getAttribute('href') === '#' + id ? 'var(--gold)' : '';
+        });
+      }
+    });
+  }, { threshold: 0.28 });
+  sections.forEach(s => navObs.observe(s));
+
+  // Contact form — Formspree
+  async function submitContactForm() {
+    const name    = document.getElementById('cf-name').value.trim();
+    const email   = document.getElementById('cf-email').value.trim();
+    const reason  = document.getElementById('cf-reason').value;
+    const message = document.getElementById('cf-message').value.trim();
+    if (!name || !email || !message) {
+      alert('Please fill in your name, email, and message.');
+      return;
+    }
+    const btn = document.getElementById('cf-submit');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    const FORMSPREE_ID = 'xvzyvyao';
+
+    if (FORMSPREE_ID === 'YOUR_FORMSPREE_ID') {
+      setTimeout(() => {
+        document.getElementById('contactForm').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      }, 800);
+      return;
+    }
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name, email, reason, message })
+      });
+      if (res.ok) {
+        document.getElementById('contactForm').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+        alert('Something went wrong. Please email me directly at Cameron.kalon@gmail.com');
+      }
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+      alert('Network error. Please email me directly at Cameron.kalon@gmail.com');
+    }
+  }
+  window.submitContactForm = submitContactForm;
+
+  // Carousel (responsive slide width)
+  const track = document.getElementById('carouselTrack');
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  let current = 0;
+
+  function getSlideStep() {
+    if (!track) return 436;
+    const slide = track.querySelector('.carousel-slide');
+    if (!slide) return 436;
+    const styles = getComputedStyle(track);
+    const gap = parseFloat(styles.columnGap || styles.gap) || 16;
+    return slide.getBoundingClientRect().width + gap;
+  }
+
+  function getMaxSlide() {
+    if (!track) return 0;
+    const slides = track.querySelectorAll('.carousel-slide');
+    const wrap = track.parentElement;
+    const step = getSlideStep();
+    const visible = Math.max(1, Math.floor(wrap.clientWidth / step));
+    return Math.max(0, slides.length - visible);
+  }
+
+  function updateCarousel() {
+    if (!track) return;
+    const maxSlide = getMaxSlide();
+    current = Math.min(current, maxSlide);
+    const step = getSlideStep();
+    track.style.transform = `translateX(-${current * step}px)`;
+  }
+
+  if (nextBtn && prevBtn && track) {
+    nextBtn.addEventListener('click', () => {
+      current = Math.min(current + 1, getMaxSlide());
+      updateCarousel();
+    });
+    prevBtn.addEventListener('click', () => {
+      current = Math.max(current - 1, 0);
+      updateCarousel();
+    });
+    window.addEventListener('resize', () => {
+      updateCarousel();
+    }, { passive: true });
+  }
+</script>
+</body>
+</html>

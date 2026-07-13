@@ -248,8 +248,18 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
 /* RESEARCH */
 #research{padding:var(--pad-y) 0;background:var(--bg)}
 .research-bleed{
-  width:100%;height:clamp(280px,48vw,560px);object-fit:cover;
+  display:block;width:auto;max-width:min(100%,520px);height:auto;
+  max-height:min(72vh,780px);margin:0 auto;
+  object-fit:contain;object-position:center center;
+  background:#0D0B08;
+}
+.research-bleed-wrap{
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 40%,rgba(201,168,76,.1),transparent 65%),
+    #0D0B08;
   border-block:.5px solid var(--border);
+  padding:clamp(1.2rem,3vw,2.2rem) var(--pad-x);
+  display:flex;justify-content:center;align-items:center;
 }
 .research-caption{
   font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;
@@ -866,11 +876,15 @@ body{
   margin-right:auto;
 }
 
-/* Research showcase */
+/* Research showcase — full vertical spectrometer frame */
 .research-bleed{
-  height:clamp(300px,46vw,520px) !important;
+  height:auto !important;
+  max-height:min(72vh,780px) !important;
+  width:auto !important;
+  max-width:min(100%,520px) !important;
+  object-fit:contain !important;
+  object-position:center center !important;
   filter:saturate(1.04) contrast(1.03);
-  box-shadow:0 0 0 1px rgba(201,168,76,.12);
 }
 .research-caption{letter-spacing:.22em;color:var(--gold-dim)}
 .research-support .media{
@@ -1291,11 +1305,11 @@ img{
   object-position:center 18% !important;
 }
 
-/* Research bleed — 10782 is vertical spectrometer shot in a wide frame */
+/* Research bleed — full leaf spectrometer frame (no hard crop) */
 .research-bleed,
 img.research-bleed{
-  object-fit:cover !important;
-  object-position:52% 24% !important;
+  object-fit:contain !important;
+  object-position:center center !important;
 }
 
 /* Fishing — full person + lake environment (not face zoom) */
@@ -1710,9 +1724,17 @@ nav.scrolled{
   transform:translateY(-4px);border-color:rgba(201,168,76,.42);
   box-shadow:0 22px 50px rgba(0,0,0,.4),0 0 36px rgba(201,168,76,.1);
 }
-.archive-card .media{aspect-ratio:4/3;overflow:hidden;background:#0D0B08}
-.archive-card img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
-.archive-card:hover img{transform:scale(1.04)}
+.archive-card .media{
+  aspect-ratio:4/5;overflow:hidden;background:#0D0B08;
+  display:flex;align-items:center;justify-content:center;
+  min-height:240px;
+}
+.archive-card img{
+  width:100%;height:100%;
+  object-fit:contain !important;object-position:center center !important;
+  transition:transform .7s var(--ease);
+}
+.archive-card:hover img{transform:scale(1.02)}
 .archive-card figcaption{
   padding:.95rem 1.05rem;font-family:'DM Mono',monospace;font-size:.58rem;
   letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
@@ -1799,7 +1821,9 @@ nav.scrolled{
     <span class="marquee-item">MANRRS SMART Ag Tech<span>✦</span></span>
     <span class="marquee-item">Precision Agriculture<span>✦</span></span>
     <span class="marquee-item">Autonomous Robotics<span>✦</span></span>
-    <span class="marquee-item">FFA Honor Society<span>✦</span></span>
+    <span class="marquee-item">Gamma Sigma Delta Honors Society<span>✦</span></span>
+    <span class="marquee-item">HBCUniverse Ambassador<span>✦</span></span>
+    <span class="marquee-item">TMCF Scholar<span>✦</span></span>
     <span class="marquee-item">AI Farms Initiative<span>✦</span></span>
     <span class="marquee-item">Tuskegee University<span>✦</span></span>
     <span class="marquee-item">USDA Collaboration<span>✦</span></span>
@@ -1808,7 +1832,9 @@ nav.scrolled{
     <span class="marquee-item">MANRRS SMART Ag Tech<span>✦</span></span>
     <span class="marquee-item">Precision Agriculture<span>✦</span></span>
     <span class="marquee-item">Autonomous Robotics<span>✦</span></span>
-    <span class="marquee-item">FFA Honor Society<span>✦</span></span>
+    <span class="marquee-item">Gamma Sigma Delta Honors Society<span>✦</span></span>
+    <span class="marquee-item">HBCUniverse Ambassador<span>✦</span></span>
+    <span class="marquee-item">TMCF Scholar<span>✦</span></span>
     <span class="marquee-item">AI Farms Initiative<span>✦</span></span>
   </div>
 </div>
@@ -1835,23 +1861,31 @@ nav.scrolled{
         <span class="tag">Custom PC Builds</span>
       </div>
       <div class="award-chips">
-        <span class="award-chip">FFA Honor Society</span>
+        <span class="award-chip">Gamma Sigma Delta Honors Society</span>
         <span class="award-chip">UNCF Ambassador</span>
+        <span class="award-chip">HBCUniverse Ambassador</span>
+        <span class="award-chip">TMCF Scholar</span>
         <span class="award-chip">MANRRS SMART Ag</span>
         <span class="award-chip">2× Hackathon Champion</span>
       </div>
       <div class="inst-block">
         <div class="inst-label">Institutions &amp; Companies</div>
         <div class="inst-pills">
+          <span class="inst-pill">Tuskegee University</span>
+          <span class="inst-pill">Fisk University</span>
+          <span class="inst-pill">Meharry College</span>
+          <span class="inst-pill">PVAMU University</span>
+          <span class="inst-pill">Cornell University</span>
+          <span class="inst-pill">UIUC</span>
+          <span class="inst-pill">Auburn</span>
           <span class="inst-pill">Syngenta</span>
           <span class="inst-pill">BASF</span>
           <span class="inst-pill">Coca-Cola HQ</span>
           <span class="inst-pill">Equinix</span>
           <span class="inst-pill">Plug &amp; Play</span>
+          <span class="inst-pill">Propel</span>
+          <span class="inst-pill">HBCU Heroes</span>
           <span class="inst-pill">FIU Energy Lab</span>
-          <span class="inst-pill">UIUC</span>
-          <span class="inst-pill">Cornell</span>
-          <span class="inst-pill">Auburn</span>
         </div>
       </div>
     </div>
@@ -1863,13 +1897,13 @@ nav.scrolled{
   <div class="section-header reveal">
     <div class="section-eyebrow">AI Farms Initiative · Since Oct 2022</div>
     <h2 class="section-title">Field Research.<br><em>Real Systems.</em></h2>
-    <p class="section-subtitle">First-author work at the convergence of AI, autonomous robotics, and sustainable agriculture — with Tuskegee, USDA, CROPPS, and Cornell.</p>
+    <p class="section-subtitle">Working on autonomous systems and AI technologies designed to address practical challenges in agriculture, sustainability, and environmental monitoring.</p>
   </div>
 
-  <div class="reveal">
-    <img class="research-bleed" src="assets/images%20copy/02_AI_Farms_Research/10782.jpg" alt="AI Farms field research operations with agricultural drone systems" width="2400" height="1600" loading="lazy">
-    <p class="research-caption">Hero Research — AI Farms field operations at Tuskegee University</p>
+  <div class="reveal research-bleed-wrap">
+    <img class="research-bleed" src="assets/images%20copy/02_AI_Farms_Research/10782.jpg" alt="Leaf spectrometer and crop research electronics in the field" width="1200" height="1600" loading="lazy">
   </div>
+  <p class="research-caption">SpectraVue leaf sensing — electronics and crop canopy in the field</p>
 
   <div class="research-mission reveal">
     <h3>Research<br><span>Mission.</span></h3>
@@ -1948,6 +1982,8 @@ nav.scrolled{
     <span class="collab-name">CROPPS</span>
     <div class="collab-div"></div>
     <span class="collab-name">Cornell University</span>
+    <div class="collab-div"></div>
+    <span class="collab-name">UIUC</span>
   </div>
 
   <div class="impact-line reveal">
@@ -2124,9 +2160,9 @@ nav.scrolled{
       <li class="l-item">
         <div class="l-num">04</div>
         <div>
-          <div class="l-org">FFA</div>
-          <div class="l-role">Honor Society of Agriculture</div>
-          <div class="l-desc">Inducted member of the FFA Honor Society — recognized for excellence in agricultural education and leadership.</div>
+          <div class="l-org">Gamma Sigma Delta</div>
+          <div class="l-role">Honors Society</div>
+          <div class="l-desc">Inducted member of the Gamma Sigma Delta Honors Society — recognized for excellence in agricultural education and leadership.</div>
         </div>
       </li>
       <li class="l-item">
@@ -2340,8 +2376,8 @@ nav.scrolled{
       <div class="archive-rail-wrap">
         <div class="archive-rail">
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2030.JPEG" alt="Greenhouse research systems detail" loading="lazy"></div><figcaption>Greenhouse Detail</figcaption></figure>
-          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/10785.jpg" alt="Field drone operations with research vehicle" loading="lazy" style="object-position:75% 30%"></div><figcaption>Field Ops Archive</figcaption></figure>
-          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/01_Hero/9B603348-F494-48EE-8776-CF7D4C737556.jpg" alt="Portrait from the research archive" loading="lazy" style="object-position:center 20%"></div><figcaption>Archive Portrait</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/10785.jpg" alt="Field drone operations with research vehicle" loading="lazy"></div><figcaption>Field Ops Archive</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/01_Hero/9B603348-F494-48EE-8776-CF7D4C737556.jpg" alt="Portrait from the research archive" loading="lazy"></div><figcaption>Archive Portrait</figcaption></figure>
         </div>
       </div>
     </div>
@@ -2350,11 +2386,27 @@ nav.scrolled{
       <div class="archive-rail-wrap">
         <div class="archive-rail">
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_3171.JPG" alt="Robotics team hardware systems" loading="lazy"></div><figcaption>Team Hardware</figcaption></figure>
-          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6667.JPG" alt="Robot dog field demonstration with research team" loading="lazy" style="object-position:68% 42%"></div><figcaption>Robot Dog Archive</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_6667.JPG" alt="Robot dog field demonstration with research team" loading="lazy"></div><figcaption>Robot Dog Archive</figcaption></figure>
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_5653.JPG" alt="Field robotics deployment detail" loading="lazy"></div><figcaption>Field Deployment</figcaption></figure>
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_2579.JPG" alt="Autonomous platform in research setting" loading="lazy"></div><figcaption>Platform Ops</figcaption></figure>
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_0356.JPG" alt="Robotics systems preparation" loading="lazy"></div><figcaption>Systems Prep</figcaption></figure>
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/IMG_8593.JPEG" alt="Robotics demonstration moment" loading="lazy"></div><figcaption>Demo Moment</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/03_Robotics/6389.JPG" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/06_Projects/6902.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/06_Projects/6929.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/06_Projects/6934.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/06_Projects/IMG_2574.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2574</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/06_Projects/IMG_2723.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2723</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/06_Projects/IMG_2725.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2725</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/06_Projects/IMG_2726.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2726</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/06_Projects/IMG_2727.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2727</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/06_Projects/IMG_2728.jpg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2728</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/06_Projects/IMG_2730.jpg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2730</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/06_Projects/IMG_2731.jpg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2731</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/06_Projects/IMG_2732.jpg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2732</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/06_Projects/IMG_7908.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 7908</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/06_Projects/IMG_8100.jpeg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 8100</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/06_Projects/IMG_9253.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 9253</figcaption></figure>
         </div>
       </div>
     </div>
@@ -2364,8 +2416,20 @@ nav.scrolled{
         <div class="archive-rail">
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/IMG_6284.jpeg" alt="Community leadership service" loading="lazy"></div><figcaption>Community Service</figcaption></figure>
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/IMG_0056.JPG" alt="STEM outreach workshop" loading="lazy"></div><figcaption>STEM Outreach</figcaption></figure>
-          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/3158220684081347621.jpg" alt="Leadership cohort engagement" loading="lazy" style="object-position:center 25%"></div><figcaption>Leadership Cohort</figcaption></figure>
-          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/IMG_6585.JPEG" alt="Advocacy and community impact" loading="lazy" style="object-position:center 22%"></div><figcaption>Advocacy</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/3158220684081347621.jpg" alt="Leadership cohort engagement" loading="lazy"></div><figcaption>Leadership Cohort</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/IMG_6585.JPEG" alt="Advocacy and community impact" loading="lazy"></div><figcaption>Advocacy</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/1020263345475854474.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/1946186908660677015.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/4726926781856441799.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/612952321947611602.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/7355854911111555803.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/IMG_3091.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3091</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/IMG_5055.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 5055</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/IMG_6579.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 6579</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/IMG_6583.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 6583</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/04_Leadership_Community/IMG_6596.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 6596</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/10_Honors_Achievements/IMG_3207.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3207</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/10_Honors_Achievements/IMG_3444.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3444</figcaption></figure>
         </div>
       </div>
     </div>
@@ -2375,9 +2439,21 @@ nav.scrolled{
         <div class="archive-rail">
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9798.jpeg" alt="CROPPS collaboration visit" loading="lazy"></div><figcaption>CROPPS Visit</figcaption></figure>
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9804.jpeg" alt="Institutional research partnership" loading="lazy"></div><figcaption>Partner Field Day</figcaption></figure>
-          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/10197.jpg" alt="Industry engagement moment" loading="lazy" style="object-position:center 25%"></div><figcaption>Industry Engagement</figcaption></figure>
-          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/6905568674245338.jpg" alt="Corporate and academic network" loading="lazy" style="object-position:center 28%"></div><figcaption>Network</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/10197.jpg" alt="Industry engagement moment" loading="lazy"></div><figcaption>Industry Engagement</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/6905568674245338.jpg" alt="Corporate and academic network" loading="lazy"></div><figcaption>Network</figcaption></figure>
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/IMG_2144.JPG" alt="Professional campus experience" loading="lazy"></div><figcaption>Campus Visit</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/10199.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/10210.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/10212.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/1246882608925951347.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/1493492655499417676.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/1535327722005446767.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/3027502746096312634.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/3193084451171760878.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/648829019400359107.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/imagejpeg_1.JPG" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/IMG_8416.jpeg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 8416</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/05_Industry_Corporate/IMG_9028.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 9028</figcaption></figure>
         </div>
       </div>
     </div>
@@ -2386,9 +2462,21 @@ nav.scrolled{
       <div class="archive-rail-wrap">
         <div class="archive-rail">
           <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4831.JPG" alt="Tuskegee tradition and community" loading="lazy"></div><figcaption>Tradition</figcaption></figure>
-          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5539.jpeg" alt="Tuskegee pride moment" loading="lazy" style="object-position:center 22%"></div><figcaption>Campus Pride</figcaption></figure>
-          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_8958.JPEG" alt="Legacy and family connection" loading="lazy" style="object-position:center 25%"></div><figcaption>Legacy</figcaption></figure>
-          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4164.JPEG" alt="Family and Tuskegee gathering" loading="lazy" style="object-position:center 20%"></div><figcaption>Family</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5539.jpeg" alt="Tuskegee pride moment" loading="lazy"></div><figcaption>Campus Pride</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_8958.JPEG" alt="Legacy and family connection" loading="lazy"></div><figcaption>Legacy</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4164.JPEG" alt="Family and Tuskegee gathering" loading="lazy"></div><figcaption>Family</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_3391.jpg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3391</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5413.jpeg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 5413</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5420.jpeg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 5420</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5530.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 5530</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6038.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 6038</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6069.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 6069</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6078.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 6078</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6081.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 6081</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6096.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 6096</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6793.jpg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 6793</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_7354.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 7354</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_8854.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 8854</figcaption></figure>
         </div>
       </div>
     </div>
@@ -2396,9 +2484,78 @@ nav.scrolled{
     <div class="archive-panel" data-panel="life" role="tabpanel" hidden>
       <div class="archive-rail-wrap">
         <div class="archive-rail">
-          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_9255.JPG" alt="Outdoor passion photography" loading="lazy" style="object-position:center 40%"></div><figcaption>Outdoors</figcaption></figure>
-          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_9905.jpg" alt="Personal passion moment" loading="lazy" style="object-position:center 35%"></div><figcaption>Passions</figcaption></figure>
-          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_2924.JPG" alt="Life beyond research" loading="lazy" style="object-position:center 38%"></div><figcaption>Beyond Work</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_9255.JPG" alt="Outdoor passion photography" loading="lazy"></div><figcaption>Outdoors</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_9905.jpg" alt="Personal passion moment" loading="lazy"></div><figcaption>Passions</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_2924.JPG" alt="Life beyond research" loading="lazy"></div><figcaption>Beyond Work</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/462041916518883682.JPG" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/6389.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/6391.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/6395.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/7814.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/900160467015811370.JPG" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/image000001.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/imagejpeg_0-1.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/imagejpeg_2-2.jpg" alt="Archive frame" loading="lazy"></div><figcaption>Archive Frame</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_0586.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 0586</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_1798.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 1798</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2136.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2136</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2137.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2137</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2138.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2138</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2142.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2142</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2156.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2156</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2159.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2159</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2196.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2196</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2279.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2279</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2306.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2306</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2327.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2327</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2329.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2329</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2367.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2367</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2819.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2819</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2823.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2823</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2824.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2824</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2825.PNG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2825</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2848.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2848</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2852.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2852</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_2858.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 2858</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3022.jpg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3022</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3095.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3095</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3108.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3108</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3250.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3250</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3392.jpg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3392</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3599.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3599</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3613.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3613</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3635.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3635</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3676.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3676</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3677.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3677</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3678.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3678</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3679.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3679</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3682.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3682</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3683.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3683</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3684.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3684</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3685.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3685</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_3686.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 3686</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_4367.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 4367</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_4561.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 4561</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_4636.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 4636</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_4699.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 4699</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_4704.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 4704</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_5162.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 5162</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_5386.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 5386</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_5911.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 5911</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_5944.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 5944</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_6794.jpg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 6794</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_6797.jpg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 6797</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_6798.jpg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 6798</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_6800.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 6800</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_6842.jpg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 6842</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_6843.jpg" alt="Archive frame" loading="lazy"></div><figcaption>IMG 6843</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_7427.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 7427</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_7428.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 7428</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_7433.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 7433</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_7440.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 7440</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_7838.JPEG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 7838</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_8725.JPG" alt="Archive frame" loading="lazy"></div><figcaption>IMG 8725</figcaption></figure>
+          <figure class="archive-card"><div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/Resized_20251005_042106.JPG" alt="Archive frame" loading="lazy"></div><figcaption>Resized 20251005 042106</figcaption></figure>
         </div>
       </div>
     </div>

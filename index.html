@@ -528,9 +528,16 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
 }
 
 /* ROOTS / LEGACY */
-#roots{padding:var(--pad-y) 0;background:var(--bg2)}
+#roots{padding:var(--pad-y) 0;background:var(--bg2);position:relative;overflow:hidden}
+#roots::before{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 50% 40% at 85% 20%,rgba(201,168,76,.08),transparent 60%),
+    radial-gradient(ellipse 40% 35% at 10% 80%,rgba(201,168,76,.05),transparent 55%);
+}
+#roots > *{position:relative;z-index:1}
 .roots-layout{
-  display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(2rem,5vw,4.5rem);
+  display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(1.8rem,4vw,3.5rem);
   max-width:var(--max);margin:0 auto;padding:0 var(--pad-x);align-items:center;
 }
 .roots-quote{
@@ -539,12 +546,106 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
 }
 .roots-quote span{color:var(--gold)}
 .roots-text{color:var(--off);font-size:.97rem;line-height:1.85;margin-bottom:1.1rem}
-.roots-photos{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
-.roots-photos img{
-  width:100%;height:clamp(160px,22vw,210px);object-fit:cover;border:.5px solid var(--border);
-  transition:transform .5s var(--ease),border-color .3s;
+.roots-text:last-child{margin-bottom:0}
+.roots-featured{
+  margin:0;border:1px solid rgba(201,168,76,.28);
+  background:#0D0B08;
+  box-shadow:0 24px 60px rgba(0,0,0,.35),0 0 40px rgba(201,168,76,.08);
+  overflow:hidden;
 }
-.roots-photos img:hover{transform:scale(1.02);border-color:var(--border-strong)}
+.roots-featured .media{
+  aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;
+  background:#0D0B08;overflow:hidden;
+}
+.roots-featured img{
+  width:100%;height:100%;object-fit:cover;object-position:center 28%;
+  display:block;
+}
+.roots-featured figcaption{
+  font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-dim);padding:1rem 1.1rem 1.15rem;border-top:1px solid rgba(201,168,76,.16);
+  text-align:center;line-height:1.5;
+}
+.roots-support{
+  max-width:var(--max);margin:clamp(2.4rem,5vw,3.6rem) auto 0;padding:0 var(--pad-x);
+}
+.roots-support-label{
+  font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.1rem;display:flex;align-items:center;gap:1rem;
+}
+.roots-support-label::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.22)}
+.roots-support-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.85rem;
+}
+.roots-support-card{
+  margin:0;border:1px solid rgba(201,168,76,.2);background:rgba(28,24,18,.85);
+  overflow:hidden;box-shadow:0 14px 36px rgba(0,0,0,.28);
+  transition:transform .4s var(--ease),border-color .35s;
+}
+.roots-support-card:hover{transform:translateY(-3px);border-color:rgba(201,168,76,.4)}
+.roots-support-card .media{
+  aspect-ratio:3/4;background:#0D0B08;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.roots-support-card img{
+  width:100%;height:100%;object-fit:cover;object-position:center center;display:block;
+}
+.roots-support-card.contain img{object-fit:contain !important;object-position:center center !important}
+.roots-support-card.wide .media{aspect-ratio:4/3}
+.roots-support-card figcaption{
+  font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);padding:.8rem .85rem .9rem;line-height:1.4;
+}
+.roots-legacy-gallery{
+  max-width:var(--max);margin:clamp(2.6rem,5.5vw,4rem) auto 0;padding:0 var(--pad-x);
+}
+.roots-gallery-head{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  margin-bottom:1.15rem;
+}
+.roots-gallery-head .section-eyebrow{margin-bottom:0}
+.roots-gallery-sub{
+  font-size:.88rem;color:var(--muted);max-width:28rem;line-height:1.65;margin-top:.45rem;
+}
+.roots-gallery-controls{display:flex;gap:.55rem}
+.roots-gallery-btn{
+  width:42px;height:42px;border:1px solid rgba(201,168,76,.35);background:transparent;
+  color:var(--gold);font-size:1.05rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .3s,border-color .3s,transform .3s var(--ease);
+}
+.roots-gallery-btn:hover{background:rgba(201,168,76,.12);border-color:var(--gold);transform:translateY(-1px)}
+.roots-gallery-rail-wrap{overflow:hidden}
+.roots-gallery-rail{
+  display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;-webkit-overflow-scrolling:touch;
+  padding:.2rem .1rem 1rem;scrollbar-width:thin;scrollbar-color:rgba(201,168,76,.35) transparent;
+}
+.roots-gallery-rail::-webkit-scrollbar{height:4px}
+.roots-gallery-rail::-webkit-scrollbar-thumb{background:rgba(201,168,76,.35)}
+.roots-gallery-card{
+  flex:0 0 min(280px,72vw);scroll-snap-align:start;margin:0;
+  border:1px solid rgba(201,168,76,.2);background:rgba(28,24,18,.9);overflow:hidden;
+  box-shadow:0 16px 40px rgba(0,0,0,.28);
+}
+.roots-gallery-card .media{
+  aspect-ratio:4/5;background:#0D0B08;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.roots-gallery-card img{
+  width:100%;height:100%;object-fit:contain;object-position:center center;display:block;
+}
+.roots-gallery-card figcaption{
+  font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);padding:.85rem .95rem;border-top:1px solid rgba(201,168,76,.12);
+}
+@media (max-width:980px){
+  .roots-support-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:768px){
+  .roots-layout{grid-template-columns:1fr;gap:2rem}
+  .roots-featured .media{aspect-ratio:3/4;max-height:520px}
+}
 
 /* HONORS strip */
 #honors{padding:clamp(3rem,7vw,5rem) 0;background:var(--bg);border-top:.5px solid var(--border)}
@@ -671,8 +772,8 @@ footer{
   footer{flex-direction:column;align-items:flex-start}
 }
 @media (max-width:520px){
-  .beyond-grid,.lead-mosaic,.roots-photos,.story-strip{grid-template-columns:1fr}
-  .lead-mosaic img:first-child,.lead-mosaic img:not(:first-child),.roots-photos img{height:230px;grid-column:auto}
+  .beyond-grid,.lead-mosaic,.story-strip{grid-template-columns:1fr}
+  .lead-mosaic img:first-child,.lead-mosaic img:not(:first-child){height:230px;grid-column:auto}
   .beyond-card.featured .media{aspect-ratio:4/3;min-height:0}
   .btn,.contact-links .btn{width:100%}
   .contact-links{flex-direction:column;align-items:stretch}
@@ -1493,10 +1594,11 @@ img[src*="IMG_2945"]{object-position:50% 45%}
 img[src*="IMG_9256"]{object-position:50% 42%}
 img[src*="IMG_6682"]{object-position:50% 38%}
 
-img[src*="IMG_5528"]{object-position:50% 20%}
+img[src*="IMG_5528"]{object-position:50% 28%}
 img[src*="IMG_5538"]{object-position:50% 22%}
-img[src*="IMG_4112"]{object-position:50% 22%}
+img[src*="IMG_4112"]{object-position:center center}
 img[src*="IMG_0596"]{object-position:50% 28%}
+img[src*="IMG_8854"]{object-position:center 38%}
 
 img[src*="20260420_180837"]{object-position:50% 20%}
 img[src*="9777.jpg"]{object-position:50% 32%}
@@ -1507,15 +1609,28 @@ img[src*="Screenshot%202025-09-11"],img[src*="Screenshot 2025-09-11"]{object-pos
 /* Section containers — ensure cover + overflow clip */
 .about-frame,.r-card .media,.proj .media,.corp-card .media,.beyond-card .media,
 .honor-card .media,.robo-card .media,.research-support .media,.exhibit-item,
-.lead-mosaic,.roots-photos,.research-feature{
+.lead-mosaic,.research-feature{
   overflow:hidden;
 }
 .about-frame img,.r-card img,.proj img,.corp-card img,.beyond-card img,
 .honor-card img,.robo-card img,.research-support img,.exhibit-item img,
-.lead-mosaic img,.roots-photos img,.research-feature img{
+.lead-mosaic img,.research-feature img{
   width:100%;
   height:100%;
   object-fit:cover;
+}
+/* Tuskegee Legacy — preserve full story frames */
+#roots .roots-featured img{
+  object-fit:cover !important;
+  object-position:center 28% !important;
+}
+#roots .roots-support-card.contain img,
+#roots .roots-gallery-card img{
+  object-fit:contain !important;
+  object-position:center center !important;
+}
+#roots .roots-support-card:not(.contain) img{
+  object-fit:cover !important;
 }
 /* Keep full-frame treatments after the cover reset */
 .research-bleed,
@@ -2432,15 +2547,70 @@ nav.scrolled{
     <div class="reveal">
       <div class="section-eyebrow left" style="margin-bottom:1.6rem">Family &amp; Legacy</div>
       <h2 class="roots-quote">Tuskegee<br><span>Runs</span><br>Deep.</h2>
-      <p class="roots-text">My connection to Tuskegee University isn't just academic — it's generational. My parents are alumni. My siblings attended. This institution, founded in 1881 by Booker T. Washington, shaped my family across decades and continues to shape me.</p>
-      <p class="roots-text">When I walk across that campus, I carry the weight and the pride of everyone who came before me. That legacy fuels every research paper, every robot deployment, every presentation I give.</p>
-      <p class="roots-text">I'm not just attending Tuskegee. I'm adding to its story.</p>
+      <p class="roots-text">My connection to Tuskegee University isn't just academic — it's generational. My parents are alumni, and my siblings and I all followed in their footsteps by attending the university together.</p>
+      <p class="roots-text">Growing up in a family connected to Tuskegee created a bond with this institution that goes beyond a degree. I have had the unique experience of sharing this journey with my identical twin brother and my two identical twin sisters while continuing the legacy our parents started.</p>
+      <p class="roots-text">This institution, founded in 1881 by Booker T. Washington, has shaped generations of my family and continues to influence the person, researcher, and innovator I am becoming.</p>
+      <p class="roots-text">When I walk across that campus, I carry the pride, sacrifices, and accomplishments of everyone who came before me. That legacy fuels every research project, every robot deployment, and every presentation I give.</p>
+      <p class="roots-text">I'm not just attending Tuskegee. I'm continuing a family story and adding to its legacy.</p>
     </div>
-    <div class="roots-photos reveal reveal-d1">
-      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5528.jpeg" alt="Cameron Jones with family on Tuskegee football field" loading="lazy">
-      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5538.jpeg" alt="Tuskegee University pride and campus moment" loading="lazy">
-      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4112.JPEG" alt="Family and Tuskegee legacy gathering" loading="lazy">
-      <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_0596.PNG" alt="Tuskegee legacy and campus tradition" loading="lazy">
+    <figure class="roots-featured reveal reveal-d1">
+      <div class="media">
+        <img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5528.jpeg" alt="Cameron Jones and his identical twin brother on the Tuskegee football field" width="1200" height="1500" loading="lazy">
+      </div>
+      <figcaption>Brothers · Golden Tigers Field · One Tuskegee</figcaption>
+    </figure>
+  </div>
+
+  <div class="roots-support reveal">
+    <div class="roots-support-label">Family Continuity</div>
+    <div class="roots-support-grid">
+      <figure class="roots-support-card wide">
+        <div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_8854.JPG" alt="Family gathering on Tuskegee campus" loading="lazy" style="object-position:center 35%"></div>
+        <figcaption>Generational Gathering</figcaption>
+      </figure>
+      <figure class="roots-support-card contain">
+        <div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4112.JPEG" alt="Cameron Jones with twin brother and twin sisters" loading="lazy"></div>
+        <figcaption>Sibling Bond</figcaption>
+      </figure>
+      <figure class="roots-support-card">
+        <div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5538.jpeg" alt="Tuskegee University pride and campus moment" loading="lazy" style="object-position:center 22%"></div>
+        <figcaption>Campus Pride</figcaption>
+      </figure>
+      <figure class="roots-support-card">
+        <div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_0596.PNG" alt="Tuskegee legacy and campus tradition" loading="lazy" style="object-position:center 28%"></div>
+        <figcaption>Tradition</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="roots-legacy-gallery reveal">
+    <div class="roots-gallery-head">
+      <div>
+        <div class="section-eyebrow left">Moments From A Family Legacy</div>
+        <p class="roots-gallery-sub">Additional frames from campus, family, and the Tuskegee story that continues through us.</p>
+      </div>
+      <div class="roots-gallery-controls">
+        <button class="roots-gallery-btn" id="rootsPrev" type="button" aria-label="Previous legacy moments">&#8592;</button>
+        <button class="roots-gallery-btn" id="rootsNext" type="button" aria-label="Next legacy moments">&#8594;</button>
+      </div>
+    </div>
+    <div class="roots-gallery-rail-wrap">
+      <div class="roots-gallery-rail" id="rootsGalleryRail">
+        <figure class="roots-gallery-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4831.JPG" alt="Family moment in a Tuskegee landmark setting" loading="lazy"></div><figcaption>Shared Moments</figcaption></figure>
+        <figure class="roots-gallery-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5539.jpeg" alt="Tuskegee campus pride" loading="lazy"></div><figcaption>Campus Pride</figcaption></figure>
+        <figure class="roots-gallery-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_8958.JPEG" alt="Legacy and family connection at Tuskegee" loading="lazy"></div><figcaption>Family Legacy</figcaption></figure>
+        <figure class="roots-gallery-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_4164.JPEG" alt="Family gathering connected to Tuskegee" loading="lazy"></div><figcaption>Together</figcaption></figure>
+        <figure class="roots-gallery-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_3391.jpg" alt="Tuskegee legacy moment" loading="lazy"></div><figcaption>Legacy Frame</figcaption></figure>
+        <figure class="roots-gallery-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5413.jpeg" alt="Family and campus memory" loading="lazy"></div><figcaption>Campus Memory</figcaption></figure>
+        <figure class="roots-gallery-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_5420.jpeg" alt="Tuskegee family celebration" loading="lazy"></div><figcaption>Celebration</figcaption></figure>
+        <figure class="roots-gallery-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6038.JPG" alt="Tuskegee University moment" loading="lazy"></div><figcaption>University Life</figcaption></figure>
+        <figure class="roots-gallery-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6069.JPEG" alt="Family legacy photograph" loading="lazy"></div><figcaption>Continuity</figcaption></figure>
+        <figure class="roots-gallery-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6078.JPEG" alt="Tuskegee family portrait moment" loading="lazy"></div><figcaption>Portrait</figcaption></figure>
+        <figure class="roots-gallery-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6081.JPEG" alt="Campus and family connection" loading="lazy"></div><figcaption>Connection</figcaption></figure>
+        <figure class="roots-gallery-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6096.JPEG" alt="Tuskegee legacy gathering" loading="lazy"></div><figcaption>Gathering</figcaption></figure>
+        <figure class="roots-gallery-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_6793.jpg" alt="Family legacy detail" loading="lazy"></div><figcaption>Detail</figcaption></figure>
+        <figure class="roots-gallery-card"><div class="media"><img src="assets/images%20copy/09_Tuskegee_Legacy/IMG_7354.JPG" alt="Tuskegee family moment" loading="lazy"></div><figcaption>Moment</figcaption></figure>
+      </div>
     </div>
   </div>
 </section>
@@ -2975,6 +3145,22 @@ window.submitContactForm = submitContactForm;
     const rail = activeRail();
     if (rail) rail.scrollBy({ left: step(), behavior: 'smooth' });
   });
+})();
+
+/* Tuskegee Legacy gallery rail */
+(function(){
+  const rail = document.getElementById('rootsGalleryRail');
+  const prev = document.getElementById('rootsPrev');
+  const next = document.getElementById('rootsNext');
+  if (!rail) return;
+  const step = () => {
+    const card = rail.querySelector('.roots-gallery-card');
+    if (!card) return 300;
+    const gap = parseFloat(getComputedStyle(rail).gap) || 16;
+    return card.getBoundingClientRect().width + gap;
+  };
+  prev && prev.addEventListener('click', () => rail.scrollBy({ left: -step(), behavior: 'smooth' }));
+  next && next.addEventListener('click', () => rail.scrollBy({ left: step(), behavior: 'smooth' }));
 })();
 
 // Subtle hero parallax

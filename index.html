@@ -220,6 +220,10 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
   width:100%;height:clamp(420px,54vw,640px);object-fit:cover;
   position:relative;z-index:1;
 }
+.about-frame-caption{
+  font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin-top:.85rem;line-height:1.45;position:relative;z-index:1;
+}
 .about-text h2{
   font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,4.5vw,3.9rem);
   line-height:.95;margin-bottom:1.4rem;
@@ -391,12 +395,23 @@ nav.scrolled{background:rgba(10,9,6,.94);border-bottom-color:var(--border);paddi
 .l-role{font-size:.95rem;font-weight:500;margin-bottom:.3rem}
 .l-desc{font-size:.84rem;color:var(--muted);line-height:1.7}
 .lead-mosaic{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+.lead-mosaic figure{margin:0;min-width:0}
+.lead-mosaic .media{
+  overflow:hidden;border:.5px solid var(--border);background:#0D0B08;
+  height:clamp(150px,20vw,200px);
+}
 .lead-mosaic img{
-  width:100%;height:clamp(150px,20vw,200px);object-fit:cover;border:.5px solid var(--border);
+  width:100%;height:100%;object-fit:cover;
   transition:border-color .3s,transform .55s var(--ease);
 }
-.lead-mosaic img:hover{border-color:var(--border-strong);transform:scale(1.015)}
-.lead-mosaic img:first-child{grid-column:1/-1;height:clamp(220px,28vw,300px)}
+.lead-mosaic figure:hover .media{border-color:var(--border-strong)}
+.lead-mosaic figure:hover img{transform:scale(1.015)}
+.lead-mosaic figure:first-child{grid-column:1/-1}
+.lead-mosaic figure:first-child .media{height:clamp(220px,28vw,300px)}
+.lead-mosaic figcaption{
+  font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);padding:.7rem .15rem 0;line-height:1.45;
+}
 .corp-strip{
   display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
   max-width:var(--max);margin:clamp(2.4rem,5vw,3.8rem) auto 0;padding:0 var(--pad-x);
@@ -766,14 +781,13 @@ footer{
   .nav-links .nav-cta{display:inline-flex;margin-top:1.2rem;width:100%;justify-content:center}
   .research-grid,.corp-strip,.honors-grid{grid-template-columns:1fr}
   .proj-sm,.proj-md{grid-column:span 12}
-  .section-title,.section-subtitle,.section-eyebrow{text-align:left;justify-content:flex-start;margin-left:0;margin-right:0}
-  .section-eyebrow::before{display:none}
   .gallery-slide figcaption{opacity:1}
   footer{flex-direction:column;align-items:flex-start}
 }
 @media (max-width:520px){
   .beyond-grid,.lead-mosaic,.story-strip{grid-template-columns:1fr}
-  .lead-mosaic img:first-child,.lead-mosaic img:not(:first-child){height:230px;grid-column:auto}
+  .lead-mosaic figure:first-child{grid-column:auto}
+  .lead-mosaic .media,.lead-mosaic figure:first-child .media{height:230px}
   .beyond-card.featured .media{aspect-ratio:4/3;min-height:0}
   .btn,.contact-links .btn{width:100%}
   .contact-links{flex-direction:column;align-items:stretch}
@@ -871,6 +885,11 @@ body{
 .research-support .media{aspect-ratio:4/3;overflow:hidden;border:.5px solid var(--border);background:var(--card)}
 .research-support img{width:100%;height:100%;object-fit:cover;transition:transform .65s var(--ease)}
 .research-support .media:hover img{transform:scale(1.04)}
+.research-support figure{margin:0;min-width:0}
+.research-support figcaption{
+  font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);padding:.7rem .1rem 0;line-height:1.45;
+}
 .research-mission{
   max-width:var(--max);margin:clamp(2rem,4vw,3rem) auto 0;padding:0 var(--pad-x);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -1204,7 +1223,7 @@ body{
 }
 @media (max-width:768px){
   /* hero position in audit */
-  .section-title{font-size:clamp(2.5rem,11vw,3.6rem)}
+  .section-title{font-size:clamp(2.5rem,11vw,3.6rem);text-align:center}
   .exhibit-item.e-lg,.exhibit-item.e-md,.exhibit-item.e-sm{grid-column:span 12;min-height:220px}
   .exhibit-item figcaption{opacity:1;transform:none}
   .btn{min-height:50px}
@@ -1293,11 +1312,30 @@ body{
   .section-header,
   .section-title,
   .section-subtitle,
-  .section-eyebrow{text-align:left !important;justify-content:flex-start}
-  .section-subtitle{margin-left:0 !important;margin-right:0 !important}
-  .section-eyebrow{justify-content:flex-start}
-  .section-eyebrow::before{display:none}
-  #about,#research,#robotics,#projects,#leadership,#selected,#beyond,#roots,#honors,#journey,#contact{
+  .section-eyebrow{
+    text-align:center !important;
+    justify-content:center !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+  }
+  .section-eyebrow{justify-content:center !important}
+  .section-eyebrow::before{display:inline-block}
+  .section-eyebrow.left{
+    text-align:left !important;
+    justify-content:flex-start !important;
+    margin-left:0 !important;
+  }
+  .section-eyebrow.left::before{display:none}
+  .industry-header,
+  .industry-header .section-title,
+  .industry-header .section-subtitle{
+    text-align:left !important;
+    margin-left:0 !important;
+    justify-content:flex-start !important;
+  }
+  .hero-cta-row{justify-content:flex-start}
+  #contact .contact-links{justify-content:center}
+  #about,#research,#robotics,#projects,#leadership,#selected,#beyond,#roots,#honors,#journey,#contact,#archive{
     padding-top:clamp(3.5rem,10vw,5.5rem);
     padding-bottom:clamp(3.5rem,10vw,5.5rem);
   }
@@ -1368,7 +1406,7 @@ img[src*="IMG_6289"]{
   object-position:center center !important;
   background:#111009;
 }
-.lead-mosaic img:first-child{
+.lead-mosaic figure:first-child .media{
   background:#111009;
 }
 
@@ -2288,6 +2326,7 @@ img,svg,video{max-width:100%;height:auto}
   <div class="about-grid">
     <div class="about-frame reveal">
       <img src="assets/images%20copy/01_Hero/Screenshot%202025-09-11%20at%2013.40.26.jpeg" alt="Cameron Jones professional portrait in front of Tuskegee University step-and-repeat backdrop" width="1200" height="1500" loading="lazy">
+      <p class="about-frame-caption">Professional portrait — Tuskegee University</p>
     </div>
     <div class="about-text reveal reveal-d1">
       <div class="section-eyebrow left" style="margin-bottom:1rem">About</div>
@@ -2392,10 +2431,22 @@ img,svg,video{max-width:100%;height:auto}
   </div>
 
   <div class="research-support reveal">
-    <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/274091622200731962.jpg" alt="Drone and field robotics during AI Farms research" loading="lazy"></div>
-    <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/2104941407774967754.jpg" alt="Quadruped robot in the AI Farms research lab" loading="lazy"></div>
-    <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2029.JPEG" alt="Automated greenhouse gantry system for crop monitoring" loading="lazy"></div>
-    <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2497.JPEG" alt="Experimental crop beds in greenhouse research facility" loading="lazy"></div>
+    <figure>
+      <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/274091622200731962.jpg" alt="Drone and field robotics during AI Farms research" loading="lazy"></div>
+      <figcaption>Aerial platform during AI Farms field research</figcaption>
+    </figure>
+    <figure>
+      <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/2104941407774967754.jpg" alt="Quadruped robot in the AI Farms research lab" loading="lazy"></div>
+      <figcaption>Quadruped platform in the research lab</figcaption>
+    </figure>
+    <figure>
+      <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2029.JPEG" alt="Automated greenhouse gantry system for crop monitoring" loading="lazy"></div>
+      <figcaption>Greenhouse gantry for crop monitoring</figcaption>
+    </figure>
+    <figure>
+      <div class="media"><img src="assets/images%20copy/02_AI_Farms_Research/IMG_2497.JPEG" alt="Experimental crop beds in greenhouse research facility" loading="lazy"></div>
+      <figcaption>Controlled-environment crop research beds</figcaption>
+    </figure>
   </div>
 
   <div class="research-grid reveal" style="padding-top:clamp(1.8rem,4vw,2.8rem)">
@@ -2638,10 +2689,26 @@ img,svg,video{max-width:100%;height:auto}
     </ul>
 
     <div class="lead-mosaic reveal reveal-d1">
-      <img src="assets/images%20copy/04_Leadership_Community/IMG_6289.jpeg" alt="Cameron Jones volunteering with United Way Meals on Wheels" loading="lazy">
-      <img src="assets/images%20copy/04_Leadership_Community/IMG_0062.JPG" alt="STEM outreach and youth engagement" loading="lazy">
-      <img src="assets/images%20copy/04_Leadership_Community/IMG_0055.JPG" alt="Workshop engagement and community education" loading="lazy">
-      <img src="assets/images%20copy/04_Leadership_Community/8900312655144300583.jpg" alt="Leadership and advocacy event" loading="lazy">
+      <figure>
+        <div class="media"><img src="assets/images%20copy/04_Leadership_Community/IMG_6289.jpeg" alt="Cameron Jones volunteering with United Way Meals on Wheels" loading="lazy"></div>
+        <figcaption>Community service — United Way Meals on Wheels</figcaption>
+      </figure>
+      <figure>
+        <div class="media"><img src="assets/images%20copy/04_Leadership_Community/IMG_0062.JPG" alt="STEM outreach and youth engagement" loading="lazy"></div>
+        <figcaption>STEM workshop engagement with students</figcaption>
+      </figure>
+      <figure>
+        <div class="media"><img src="assets/images%20copy/04_Leadership_Community/IMG_0055.JPG" alt="Smart Ag Farm educational presentation" loading="lazy"></div>
+        <figcaption>Smart Ag Farm teaching presentation</figcaption>
+      </figure>
+      <figure>
+        <div class="media"><img src="assets/images%20copy/04_Leadership_Community/8900312655144300583.jpg" alt="Field demonstration with research partners" loading="lazy"></div>
+        <figcaption>Field demonstration with research partners</figcaption>
+      </figure>
+      <figure>
+        <div class="media"><img src="assets/images%20copy/04_Leadership_Community/3158220684081347621.jpg" alt="Collaborative agricultural field research with student cohort" loading="lazy" style="object-position:center 40%"></div>
+        <figcaption>Collaborative field research during AI Farms work</figcaption>
+      </figure>
     </div>
   </div>
 
@@ -2654,19 +2721,19 @@ img,svg,video{max-width:100%;height:auto}
   <div class="corp-strip reveal">
     <article class="corp-card">
       <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/10196.jpg" alt="Industry leadership engagement" loading="lazy"></div>
-      <div class="corp-card-label">Industry · Leadership</div>
+      <div class="corp-card-label">Industry leadership engagement</div>
     </article>
     <article class="corp-card">
       <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9800.jpeg" alt="CROPPS research collaboration visit at Tuskegee" loading="lazy"></div>
-      <div class="corp-card-label">CROPPS · Cornell Network</div>
+      <div class="corp-card-label">CROPPS collaboration visit at Tuskegee</div>
     </article>
     <article class="corp-card">
       <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/1915048171914742516.jpg" alt="Professional networking and research partnership" loading="lazy"></div>
-      <div class="corp-card-label">Syngenta · MANRRS</div>
+      <div class="corp-card-label">MANRRS · Syngenta network moment</div>
     </article>
     <article class="corp-card">
       <div class="media"><img src="assets/images%20copy/05_Industry_Corporate/20250425_Tuskegee%20CROPPS%20visit-9796.jpeg" alt="Field research with institutional partners" loading="lazy"></div>
-      <div class="corp-card-label">Field · Partners</div>
+      <div class="corp-card-label">Partner field day with research cohort</div>
     </article>
   </div>
 </section>
@@ -2702,15 +2769,15 @@ img,svg,video{max-width:100%;height:auto}
     </article>
     <article class="beyond-card">
       <div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_2945.JPG" alt="Outdoor passion photography" loading="lazy"></div>
-      <div class="beyond-caption">Outdoors</div>
+      <div class="beyond-caption">Open Water — Kayaking</div>
     </article>
     <article class="beyond-card">
       <div class="media"><img src="assets/images%20copy/07_Hobbies_and_Passions/IMG_9256.JPG" alt="Hobby and passion photography" loading="lazy"></div>
-      <div class="beyond-caption">Passions</div>
+      <div class="beyond-caption">Landscape Photography</div>
     </article>
     <article class="beyond-card">
       <div class="media"><img src="assets/images%20copy/08_Beyond_The_Lab/IMG_6682.JPG" alt="Cinematic personal photography" loading="lazy"></div>
-      <div class="beyond-caption">Moments Beyond Work</div>
+      <div class="beyond-caption">Quiet Frames Beyond the Lab</div>
     </article>
   </div>
   <p class="beyond-note">· Kayaking · Fishing · Photography ·</p>

@@ -1230,22 +1230,30 @@ body{
 }
 /* Drone field featured — Cameron + drone */
 .robo-card.robo-fill img[src*="hero-drone-field"]{object-position:72% 28% !important}
-/* Live Demonstrations — professor/team + robot dog; crop Jeep hard left */
-.robo-card.robo-fill img[src*="IMG_6659"]{object-position:82% 28% !important}
-/* Outreach Operations — indoor demo; crop baked-in white letterbox */
+
+/* Community Demonstrations — full vertical frames (not zoomed crops) */
+.robo-card.robo-fill:has(img[src*="IMG_6659"]) .media,
+.robo-card.robo-fill:has(img[src*="IMG_6658"]) .media{
+  aspect-ratio:3/4 !important;
+  min-height:300px !important;
+  background:#0D0B08 !important;
+}
+.robo-card.robo-fill img[src*="IMG_6659"],
 .robo-card.robo-fill img[src*="IMG_6658"]{
-  object-position:center 42% !important;
-  transform:scale(1.18) !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+  transform:none !important;
   transform-origin:center center !important;
 }
+.robo-card.robo-fill:hover img[src*="IMG_6659"],
 .robo-card.robo-fill:hover img[src*="IMG_6658"]{
-  transform:scale(1.22) !important;
+  transform:scale(1.02) !important;
 }
 
 /* Selected Work / shared assets */
 img[src*="IMG_6667"]{object-fit:cover !important;object-position:68% 42% !important;background:#0D0B08}
-img[src*="IMG_6659"]{object-fit:cover !important;object-position:82% 28% !important;background:#0D0B08}
-img[src*="IMG_6658"]{object-fit:cover !important;object-position:center 42% !important;background:#0D0B08}
+img[src*="IMG_6659"]{object-fit:contain !important;object-position:center center !important;background:#0D0B08}
+img[src*="IMG_6658"]{object-fit:contain !important;object-position:center center !important;background:#0D0B08}
 .robo-card img[src*="hero-drone-field"]{object-fit:cover !important;object-position:72% 28% !important}
 
 /* Impact Beyond the Lab — top mosaic photo: full subjects in frame */
@@ -1462,8 +1470,8 @@ img[src*="IMG_0073"]{object-position:50% 42%}
 img[src*="IMG_1936"]{object-position:50% 62%}
 img[src*="IMG_1561"]{object-position:50% 48%}
 img[src*="IMG_4364"]{object-position:50% 52%}
-img[src*="IMG_6659"]{object-fit:cover !important;object-position:82% 28% !important;background:#0D0B08}
-img[src*="IMG_6658"]{object-fit:cover !important;object-position:center 42% !important;background:#0D0B08}
+img[src*="IMG_6659"]{object-fit:contain !important;object-position:center center !important;background:#0D0B08}
+img[src*="IMG_6658"]{object-fit:contain !important;object-position:center center !important;background:#0D0B08;transform:none !important}
 
 img[src*="IMG_0669"]{object-fit:contain !important;object-position:center center !important;background:#0D0B08}
 img[src*="IMG_0362"]{object-position:50% 28%}

@@ -729,16 +729,17 @@ body{
 .research-support .media:hover img{transform:scale(1.04)}
 .research-mission{
   max-width:var(--max);margin:clamp(2rem,4vw,3rem) auto 0;padding:0 var(--pad-x);
-  display:grid;grid-template-columns:1fr;gap:.85rem;align-items:center;justify-items:center;
-  text-align:center;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;gap:.85rem;box-sizing:border-box;
 }
 .research-mission h3{
   font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.05;letter-spacing:.02em;
+  text-align:center;width:100%;max-width:42rem;margin:0 auto;
 }
 .research-mission h3 span{color:var(--gold)}
 .research-mission p{
   color:var(--muted);font-size:.95rem;line-height:1.85;
-  max-width:42rem;margin:0 auto;text-align:center;
+  max-width:42rem;margin:0 auto;text-align:center;width:100%;
 }
 .impact-line{
   max-width:var(--max);margin:clamp(2rem,4vw,3rem) auto 0;padding:1.5rem 1.6rem;
@@ -751,7 +752,6 @@ body{
 #selected{padding:var(--pad-y) 0;background:var(--bg)}
 @media (max-width:900px){
   .robo-grid,.robo-grid.duo,.research-support{grid-template-columns:1fr 1fr}
-  .research-mission{grid-template-columns:1fr}
 }
 @media (max-width:560px){
   .robo-grid,.robo-grid.duo,.research-support{grid-template-columns:1fr}
@@ -879,6 +879,33 @@ body{
   margin-left:auto;
   margin-right:auto;
 }
+
+.research-mission{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  text-align:center !important;
+  width:100% !important;
+  max-width:var(--max) !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  padding-left:var(--pad-x) !important;
+  padding-right:var(--pad-x) !important;
+  box-sizing:border-box !important;
+  gap:.85rem !important;
+  grid-template-columns:unset !important;
+}
+.research-mission h3,
+.research-mission p{
+  text-align:center !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  width:100% !important;
+  max-width:42rem !important;
+}
+.research-mission h3{align-self:center !important}
+.research-mission p{align-self:center !important}
 
 /* Research showcase — full vertical spectrometer frame */
 .research-bleed{

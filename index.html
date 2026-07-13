@@ -729,13 +729,17 @@ body{
 .research-support .media:hover img{transform:scale(1.04)}
 .research-mission{
   max-width:var(--max);margin:clamp(2rem,4vw,3rem) auto 0;padding:0 var(--pad-x);
-  display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(1.5rem,4vw,3rem);align-items:center;
+  display:grid;grid-template-columns:1fr;gap:.85rem;align-items:center;justify-items:center;
+  text-align:center;
 }
 .research-mission h3{
   font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.05;letter-spacing:.02em;
 }
 .research-mission h3 span{color:var(--gold)}
-.research-mission p{color:var(--muted);font-size:.95rem;line-height:1.85}
+.research-mission p{
+  color:var(--muted);font-size:.95rem;line-height:1.85;
+  max-width:42rem;margin:0 auto;text-align:center;
+}
 .impact-line{
   max-width:var(--max);margin:clamp(2rem,4vw,3rem) auto 0;padding:1.5rem 1.6rem;
   margin-left:var(--pad-x);margin-right:var(--pad-x);
@@ -879,9 +883,9 @@ body{
 /* Research showcase — full vertical spectrometer frame */
 .research-bleed{
   height:auto !important;
-  max-height:min(72vh,780px) !important;
+  max-height:min(78vh,820px) !important;
   width:auto !important;
-  max-width:min(100%,520px) !important;
+  max-width:min(100%,560px) !important;
   object-fit:contain !important;
   object-position:center center !important;
   filter:saturate(1.04) contrast(1.03);
@@ -1213,7 +1217,7 @@ img[src*="IMG_2713"]{
   background:#0D0B08;
 }
 
-/* Beyond the Lab — fishing must sit inside the card box */
+/* Beyond the Lab — fishing: full person + lake in frame */
 .beyond-card.featured{
   overflow:hidden !important;
   max-width:480px !important;
@@ -1235,17 +1239,21 @@ img[src*="IMG_2713"]{
   height:auto !important;
   overflow:hidden !important;
   flex:0 0 auto;
+  background:#0D0B08 !important;
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
 }
 .beyond-card.featured img,
 .beyond-card.featured img[src*="IMG_6209"],
 img[src*="IMG_6209"]{
-  position:absolute !important;
-  inset:0 !important;
+  position:relative !important;
+  inset:auto !important;
   width:100% !important;
   height:100% !important;
-  max-width:none !important;
-  object-fit:cover !important;
-  object-position:center 48% !important;
+  max-width:100% !important;
+  object-fit:contain !important;
+  object-position:center center !important;
   display:block !important;
 }
 .beyond-card.featured .media,
@@ -1260,7 +1268,7 @@ img[src*="IMG_6209"]{
 @media (max-width:560px){
   .beyond-card.featured{max-width:100% !important}
   .beyond-card.featured img,
-  img[src*="IMG_6209"]{object-position:center 50% !important}
+  img[src*="IMG_6209"]{object-position:center center !important}
 }
 
 /* ===== IMAGE QUALITY AUDIT (presentation only) ===== */
@@ -1302,31 +1310,46 @@ img{
 /* About / Rooted in Legacy — Tuskegee portrait; face + torso + backdrop */
 .about-frame img{
   object-fit:cover !important;
-  object-position:center 18% !important;
+  object-position:center 22% !important;
 }
 
 /* Research bleed — full leaf spectrometer frame (no hard crop) */
+.research-bleed-wrap{
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 40%,rgba(201,168,76,.1),transparent 65%),
+    #0D0B08 !important;
+  border-block:.5px solid var(--border);
+  padding:clamp(1.4rem,3.5vw,2.6rem) var(--pad-x) !important;
+  display:flex !important;justify-content:center;align-items:center;
+  overflow:visible !important;
+}
 .research-bleed,
-img.research-bleed{
+img.research-bleed,
+img[src*="10782.jpg"].research-bleed{
+  display:block !important;
+  width:auto !important;
+  height:auto !important;
+  max-width:min(100%,560px) !important;
+  max-height:min(78vh,820px) !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+  background:#0D0B08;
+}
+
+/* Fishing — full person + lake environment */
+.beyond-card.featured img,
+img[src*="IMG_6209"]{
   object-fit:contain !important;
   object-position:center center !important;
 }
-
-/* Fishing — full person + lake environment (not face zoom) */
-.beyond-card.featured img,
-img[src*="IMG_6209"]{
-  object-fit:cover !important;
-  object-position:center 48% !important;
-}
 @media (max-width:560px){
   .beyond-card.featured img,
-  img[src*="IMG_6209"]{object-position:center 50% !important}
+  img[src*="IMG_6209"]{object-position:center center !important}
 }
 
 /* Per-asset focal points (art-directed, not centered blindly) */
 img[src*="hero-drone-field"],img[src*="imagejpeg_0"]{object-position:center center}
 img[src*="10785.jpg"]{object-position:82% 27%}
-img[src*="10782.jpg"]{object-position:52% 24%}
 img[src*="10784.jpg"]{object-position:48% 30%}
 img[src*="274091622200731962"]{object-position:50% 40%}
 img[src*="2104941407774967754"]{object-position:45% 42%}
@@ -1388,6 +1411,26 @@ img[src*="Screenshot%202025-09-11"],img[src*="Screenshot 2025-09-11"]{object-pos
   width:100%;
   height:100%;
   object-fit:cover;
+}
+/* Keep full-frame treatments after the cover reset */
+.research-bleed,
+img.research-bleed{
+  width:auto !important;
+  height:auto !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+}
+.beyond-card.featured img,
+img[src*="IMG_6209"],
+img[src*="IMG_0669"],
+img[src*="IMG_2713"],
+img[src*="IMG_6289"]{
+  object-fit:contain !important;
+  object-position:center center !important;
+}
+.archive-card img{
+  object-fit:contain !important;
+  object-position:center center !important;
 }
 .research-feature img{height:clamp(260px,40vw,420px)}
 
@@ -1821,7 +1864,7 @@ nav.scrolled{
     <span class="marquee-item">MANRRS SMART Ag Tech<span>✦</span></span>
     <span class="marquee-item">Precision Agriculture<span>✦</span></span>
     <span class="marquee-item">Autonomous Robotics<span>✦</span></span>
-    <span class="marquee-item">Gamma Sigma Delta Honors Society<span>✦</span></span>
+    <span class="marquee-item">Gamma Sigma Delta Honor Society<span>✦</span></span>
     <span class="marquee-item">HBCUniverse Ambassador<span>✦</span></span>
     <span class="marquee-item">TMCF Scholar<span>✦</span></span>
     <span class="marquee-item">AI Farms Initiative<span>✦</span></span>
@@ -1832,7 +1875,7 @@ nav.scrolled{
     <span class="marquee-item">MANRRS SMART Ag Tech<span>✦</span></span>
     <span class="marquee-item">Precision Agriculture<span>✦</span></span>
     <span class="marquee-item">Autonomous Robotics<span>✦</span></span>
-    <span class="marquee-item">Gamma Sigma Delta Honors Society<span>✦</span></span>
+    <span class="marquee-item">Gamma Sigma Delta Honor Society<span>✦</span></span>
     <span class="marquee-item">HBCUniverse Ambassador<span>✦</span></span>
     <span class="marquee-item">TMCF Scholar<span>✦</span></span>
     <span class="marquee-item">AI Farms Initiative<span>✦</span></span>
@@ -1861,7 +1904,7 @@ nav.scrolled{
         <span class="tag">Custom PC Builds</span>
       </div>
       <div class="award-chips">
-        <span class="award-chip">Gamma Sigma Delta Honors Society</span>
+        <span class="award-chip">Gamma Sigma Delta Honor Society</span>
         <span class="award-chip">UNCF Ambassador</span>
         <span class="award-chip">HBCUniverse Ambassador</span>
         <span class="award-chip">TMCF Scholar</span>
@@ -1873,8 +1916,8 @@ nav.scrolled{
         <div class="inst-pills">
           <span class="inst-pill">Tuskegee University</span>
           <span class="inst-pill">Fisk University</span>
-          <span class="inst-pill">Meharry College</span>
-          <span class="inst-pill">PVAMU University</span>
+          <span class="inst-pill">Meharry Medical College</span>
+          <span class="inst-pill">Prairie View A&amp;M University (PVAMU)</span>
           <span class="inst-pill">Cornell University</span>
           <span class="inst-pill">UIUC</span>
           <span class="inst-pill">Auburn</span>
@@ -1921,7 +1964,7 @@ nav.scrolled{
     </div>
     <div class="story-cell">
       <div class="story-label">Research</div>
-      <p>First-author work integrating AI-powered robotic systems for precision agriculture and environmental monitoring.</p>
+      <p>Contributed to research projects involving autonomous robots, computer vision, and intelligent monitoring systems for precision agriculture in collaboration with Tuskegee University and partner institutions.</p>
     </div>
     <div class="story-cell">
       <div class="story-label">Impact</div>
@@ -1983,7 +2026,7 @@ nav.scrolled{
     <div class="collab-div"></div>
     <span class="collab-name">Cornell University</span>
     <div class="collab-div"></div>
-    <span class="collab-name">UIUC</span>
+    <span class="collab-name">University of Illinois Urbana-Champaign (UIUC)</span>
   </div>
 
   <div class="impact-line reveal">
@@ -2161,8 +2204,8 @@ nav.scrolled{
         <div class="l-num">04</div>
         <div>
           <div class="l-org">Gamma Sigma Delta</div>
-          <div class="l-role">Honors Society</div>
-          <div class="l-desc">Inducted member of the Gamma Sigma Delta Honors Society — recognized for excellence in agricultural education and leadership.</div>
+          <div class="l-role">Honor Society</div>
+          <div class="l-desc">Inducted member of the Gamma Sigma Delta Honor Society — recognized for excellence in agricultural education and leadership.</div>
         </div>
       </li>
       <li class="l-item">
@@ -2231,7 +2274,7 @@ nav.scrolled{
   <div class="section-header reveal">
     <div class="section-eyebrow">Life Outside Tech</div>
     <h2 class="section-title">Beyond<br>the <em>Lab.</em></h2>
-    <p class="section-subtitle">The outdoors grounds me. Kayaking, fishing, photography — finding signal in the natural world.</p>
+    <p class="section-subtitle">I find my balance outdoors. Kayaking, fishing, and photography give me the opportunity to slow down, explore, and appreciate the world from a different perspective.</p>
   </div>
   <div class="beyond-grid reveal">
     <article class="beyond-card featured">

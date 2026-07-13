@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Cameron Jones — AI Researcher, Roboticist, and Precision Agriculture Innovator at Tuskegee University. Portfolio of research, robotics, leadership, and engineering.">
 <meta name="theme-color" content="#0A0906">
+<meta property="og:title" content="Cameron Jones — AI Researcher & Technologist">
+<meta property="og:description" content="AI, autonomous robotics, and precision agriculture research at Tuskegee University.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <title>Cameron Jones — AI Researcher &amp; Technologist</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1869,6 +1873,8 @@ nav.scrolled{
   border:1px solid rgba(201,168,76,.2);background:rgba(28,24,18,.85);
   overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.28),0 0 28px rgba(201,168,76,.05);
   transition:transform .4s var(--ease),border-color .35s,box-shadow .4s;
+  content-visibility:auto;
+  contain-intrinsic-size:320px 420px;
 }
 .archive-card:hover{
   transform:translateY(-4px);border-color:rgba(201,168,76,.42);
@@ -2170,7 +2176,7 @@ nav.scrolled{
       <div class="robo-cat-label">Autonomous Robotics</div>
       <div class="robo-grid duo">
         <article class="robo-card featured robo-fill">
-          <div class="media"><img src="assets/images%20copy/01_Hero/hero-drone-field.jpg?v=3" alt="Cameron Jones in the field with a hovering research drone and landing pad" loading="lazy"></div>
+          <div class="media"><img src="assets/images%20copy/01_Hero/hero-drone-field.jpg?v=10" alt="Cameron Jones in the field with a hovering research drone and landing pad" loading="lazy"></div>
           <div class="robo-card-body">
             <div class="robo-card-title">Drone Field Ops</div>
             <div class="robo-card-desc">Aerial systems for field sensing, monitoring, and live research demonstrations.</div>
@@ -2906,6 +2912,21 @@ window.submitContactForm = submitContactForm;
   const panels = document.querySelectorAll('.archive-panel');
   const prev = document.getElementById('archivePrev');
   const next = document.getElementById('archiveNext');
+  function hydrate(panel){
+    if (!panel) return;
+    panel.querySelectorAll('img[data-src]').forEach(img => {
+      img.setAttribute('src', img.dataset.src);
+      img.removeAttribute('data-src');
+    });
+  }
+  // Defer offscreen archive categories so initial load stays lean
+  panels.forEach(p => {
+    if (p.classList.contains('active')) return;
+    p.querySelectorAll('img[src]').forEach(img => {
+      img.dataset.src = img.getAttribute('src');
+      img.removeAttribute('src');
+    });
+  });
   function activeRail(){
     const panel = document.querySelector('.archive-panel.active');
     return panel ? panel.querySelector('.archive-rail') : null;
@@ -2919,7 +2940,12 @@ window.submitContactForm = submitContactForm;
     panels.forEach(p => {
       const on = p.dataset.panel === id;
       p.classList.toggle('active', on);
-      if (on) p.removeAttribute('hidden'); else p.setAttribute('hidden', '');
+      if (on) {
+        p.removeAttribute('hidden');
+        hydrate(p);
+      } else {
+        p.setAttribute('hidden', '');
+      }
     });
     const rail = activeRail();
     if (rail) rail.scrollTo({ left: 0, behavior: 'smooth' });

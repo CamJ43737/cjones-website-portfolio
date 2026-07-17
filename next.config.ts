@@ -1,16 +1,25 @@
 ﻿import type { NextConfig } from "next";
 
-const isProd = process.env.NODE_ENV === "production";
-const repo = "/cjones-website-portfolio";
+/**
+ * Optional subdirectory deploy (e.g. GitHub Pages):
+ *   NEXT_PUBLIC_BASE_PATH=/cjones-website-portfolio
+ *
+ * Leave unset for Vercel / custom domains (root path).
+ */
+const basePath = (process.env.NEXT_PUBLIC_BASE_PATH || "").replace(/\/$/, "");
 
 const nextConfig: NextConfig = {
-  output: "export",
+  // Native Next.js on Vercel (not static-export / GitHub Pages mode)
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
-  basePath: isProd ? repo : "",
-  assetPrefix: isProd ? repo : "",
+  ...(basePath
+    ? {
+        basePath,
+        assetPrefix: basePath,
+      }
+    : {}),
 };
 
 export default nextConfig;

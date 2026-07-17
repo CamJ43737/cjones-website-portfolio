@@ -18,13 +18,19 @@ npm install
 npm run dev
 ```
 
-## Build (GitHub Pages)
+## Build / Deploy
 
 ```bash
 npm run build
 ```
 
-Static output lands in `out/`. Production builds use `basePath` `/cjones-website-portfolio`.
+Primary host: **Vercel** (root path — no `basePath`).
+
+For GitHub Pages subdirectory deploys only, set:
+
+```bash
+NEXT_PUBLIC_BASE_PATH=/cjones-website-portfolio
+```
 
 ## Media
 

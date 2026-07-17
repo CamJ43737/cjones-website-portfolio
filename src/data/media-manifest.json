@@ -1,0 +1,2204 @@
+﻿[
+    {
+        "category":  "01_Hero",
+        "originalName":  "hero-headshot.jpg",
+        "src":  "/images/01_Hero/hero-headshot.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "01_Hero",
+        "originalName":  "tuskege-u-headhsot.jpeg",
+        "src":  "/images/01_Hero/tuskege-u-headhsot.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "10782.jpg",
+        "src":  "/images/02_AI_Farms/10782.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "10784.jpg",
+        "src":  "/images/02_AI_Farms/10784.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "6389.jpg",
+        "src":  "/images/02_AI_Farms/6389.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "6395.jpg",
+        "src":  "/images/02_AI_Farms/6395.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "6910477008579369835.mp4",
+        "src":  "/images/02_AI_Farms/6910477008579369835.mp4",
+        "type":  "video"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "ai-farmas-team-working-on-our-robot.jpg",
+        "src":  "/images/02_AI_Farms/ai-farmas-team-working-on-our-robot.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "ai-farms-team-at-hooks-farm.jpg",
+        "src":  "/images/02_AI_Farms/ai-farms-team-at-hooks-farm.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "ai-farms-team-giving-demo-to-middle-school-students.png",
+        "src":  "/images/02_AI_Farms/ai-farms-team-giving-demo-to-middle-school-students.png",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "ai-farms-team.jpg",
+        "src":  "/images/02_AI_Farms/ai-farms-team.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "cameron-and-ai-team-giving-tour-to-middle-schoolers.jpg",
+        "src":  "/images/02_AI_Farms/cameron-and-ai-team-giving-tour-to-middle-schoolers.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "computer-vision-c-oding-on-a-metaquest-3.jpg",
+        "src":  "/images/02_AI_Farms/computer-vision-c-oding-on-a-metaquest-3.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "earthsense-rovers.jpg",
+        "src":  "/images/02_AI_Farms/earthsense-rovers.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "farmbot.jpeg",
+        "src":  "/images/02_AI_Farms/farmbot.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "giving-ai-robot-dog-demo-at-ard-research-symposium.jpg",
+        "src":  "/images/02_AI_Farms/giving-ai-robot-dog-demo-at-ard-research-symposium.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "giving-demo-to-middle-school-kids.jpeg",
+        "src":  "/images/02_AI_Farms/giving-demo-to-middle-school-kids.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "hero-drone-field.jpg",
+        "src":  "/images/02_AI_Farms/hero-drone-field.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "image000001.jpg",
+        "src":  "/images/02_AI_Farms/image000001.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "imagejpeg-0-1.jpg",
+        "src":  "/images/02_AI_Farms/imagejpeg-0-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "imagejpeg-2-2.jpg",
+        "src":  "/images/02_AI_Farms/imagejpeg-2-2.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-0073.jpg",
+        "src":  "/images/02_AI_Farms/img-0073.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-0356.jpg",
+        "src":  "/images/02_AI_Farms/img-0356.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-1111.mp4",
+        "src":  "/images/02_AI_Farms/img-1111.mp4",
+        "type":  "video"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-1118.mp4",
+        "src":  "/images/02_AI_Farms/img-1118.mp4",
+        "type":  "video"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-1561.jpg",
+        "src":  "/images/02_AI_Farms/img-1561.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-1936.jpg",
+        "src":  "/images/02_AI_Farms/img-1936.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-2142.jpg",
+        "src":  "/images/02_AI_Farms/img-2142.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-2497.jpeg",
+        "src":  "/images/02_AI_Farms/img-2497.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-2998.jpg",
+        "src":  "/images/02_AI_Farms/img-2998.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-3095.jpeg",
+        "src":  "/images/02_AI_Farms/img-3095.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-3108.jpeg",
+        "src":  "/images/02_AI_Farms/img-3108.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-3112.mp4",
+        "src":  "/images/02_AI_Farms/img-3112.mp4",
+        "type":  "video"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-3114.mp4",
+        "src":  "/images/02_AI_Farms/img-3114.mp4",
+        "type":  "video"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-3363.jpg",
+        "src":  "/images/02_AI_Farms/img-3363.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-4364.jpg",
+        "src":  "/images/02_AI_Farms/img-4364.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-5407-2048x1152.jpg",
+        "src":  "/images/02_AI_Farms/img-5407-2048x1152.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-6658.jpg",
+        "src":  "/images/02_AI_Farms/img-6658.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-6659.jpg",
+        "src":  "/images/02_AI_Farms/img-6659.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-6667.jpg",
+        "src":  "/images/02_AI_Farms/img-6667.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-7427.jpg",
+        "src":  "/images/02_AI_Farms/img-7427.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-7428.jpg",
+        "src":  "/images/02_AI_Farms/img-7428.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-7433.jpg",
+        "src":  "/images/02_AI_Farms/img-7433.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "img-7440.jpg",
+        "src":  "/images/02_AI_Farms/img-7440.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "robot-dog-coding.jpg",
+        "src":  "/images/02_AI_Farms/robot-dog-coding.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "robotics-demo.jpg",
+        "src":  "/images/02_AI_Farms/robotics-demo.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "robotics-testing-with-handmade-car-at-internship-at-pvamu.jpeg",
+        "src":  "/images/02_AI_Farms/robotics-testing-with-handmade-car-at-internship-at-pvamu.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "setup-fpr-a-drone-mission-over-a-farmer-s-field-in-tuskegee.jpg",
+        "src":  "/images/02_AI_Farms/setup-fpr-a-drone-mission-over-a-farmer-s-field-in-tuskegee.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "sweet-potatoes-in-farmbot-bed.jpeg",
+        "src":  "/images/02_AI_Farms/sweet-potatoes-in-farmbot-bed.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "02_AI_Farms",
+        "originalName":  "tuskegee-middle-school-robotics-demo-for-kids.jpg",
+        "src":  "/images/02_AI_Farms/tuskegee-middle-school-robotics-demo-for-kids.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "03_Project_AEGIS",
+        "originalName":  "screenshot-92.png",
+        "src":  "/images/03_Project_AEGIS/screenshot-92.png",
+        "type":  "image"
+    },
+    {
+        "category":  "03_Project_AEGIS",
+        "originalName":  "screenshot-98.png",
+        "src":  "/images/03_Project_AEGIS/screenshot-98.png",
+        "type":  "image"
+    },
+    {
+        "category":  "04_Research",
+        "originalName":  "ai-farms-research-poster-presentation.jpeg",
+        "src":  "/images/04_Research/ai-farms-research-poster-presentation.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "04_Research",
+        "originalName":  "cameron-chatgpt-image-jul-17-2026-09-17-14-am.png",
+        "src":  "/images/04_Research/cameron-chatgpt-image-jul-17-2026-09-17-14-am.png",
+        "type":  "image"
+    },
+    {
+        "category":  "04_Research",
+        "originalName":  "img-2848.jpg",
+        "src":  "/images/04_Research/img-2848.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "04_Research",
+        "originalName":  "img-2849.mov",
+        "src":  "/images/04_Research/img-2849.mov",
+        "type":  "video"
+    },
+    {
+        "category":  "04_Research",
+        "originalName":  "poster-presentation-for-ai-farms-research.jpeg",
+        "src":  "/images/04_Research/poster-presentation-for-ai-farms-research.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "04_Research",
+        "originalName":  "poster-presentation-for-the-jars-conference.jpg",
+        "src":  "/images/04_Research/poster-presentation-for-the-jars-conference.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "04_Research",
+        "originalName":  "poster-presentation-for-the-jars-conference2.jpg",
+        "src":  "/images/04_Research/poster-presentation-for-the-jars-conference2.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "04_Research",
+        "originalName":  "poster-presentation-for-the-jars-conference3.jpg",
+        "src":  "/images/04_Research/poster-presentation-for-the-jars-conference3.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "04_Research",
+        "originalName":  "poster-presentation-for-the-jars-conference4.jpg",
+        "src":  "/images/04_Research/poster-presentation-for-the-jars-conference4.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "04_Research",
+        "originalName":  "poster-presentation-for-the-jars-conference5.jpg",
+        "src":  "/images/04_Research/poster-presentation-for-the-jars-conference5.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "04_Research",
+        "originalName":  "poster-presentation-for-the-jars-conference6.jpg",
+        "src":  "/images/04_Research/poster-presentation-for-the-jars-conference6.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "04_Research",
+        "originalName":  "poster-presentation.png",
+        "src":  "/images/04_Research/poster-presentation.png",
+        "type":  "image"
+    },
+    {
+        "category":  "04_Research/presentations",
+        "originalName":  "copy-f75218c8-ee99-4a3f-9340-3ed25ddb7a26.mov",
+        "src":  "/images/04_Research/presentations/copy-f75218c8-ee99-4a3f-9340-3ed25ddb7a26.mov",
+        "type":  "video"
+    },
+    {
+        "category":  "04_Research/presentations",
+        "originalName":  "presentation-with-ai-farms-team.pdf",
+        "src":  "/images/04_Research/presentations/presentation-with-ai-farms-team.pdf",
+        "type":  "pdf"
+    },
+    {
+        "category":  "04_Research/publications/certifications",
+        "originalName":  "img-2367.jpeg",
+        "src":  "/images/04_Research/publications/certifications/img-2367.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "04_Research/publications/certifications",
+        "originalName":  "leadership-academy-internship-certificate.png",
+        "src":  "/images/04_Research/publications/certifications/leadership-academy-internship-certificate.png",
+        "type":  "image"
+    },
+    {
+        "category":  "04_Research/publications/certifications",
+        "originalName":  "screenshot-2024-07-26-at-4-42-55-pm.png",
+        "src":  "/images/04_Research/publications/certifications/screenshot-2024-07-26-at-4-42-55-pm.png",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/coca-cola",
+        "originalName":  "img-2136.jpeg",
+        "src":  "/images/05_Internships/coca-cola/img-2136.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/coca-cola",
+        "originalName":  "img-2137.jpeg",
+        "src":  "/images/05_Internships/coca-cola/img-2137.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/coca-cola",
+        "originalName":  "img-2138.jpeg",
+        "src":  "/images/05_Internships/coca-cola/img-2138.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/coca-cola",
+        "originalName":  "img-2156.jpeg",
+        "src":  "/images/05_Internships/coca-cola/img-2156.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/coca-cola",
+        "originalName":  "img-2159.jpg",
+        "src":  "/images/05_Internships/coca-cola/img-2159.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/coca-cola",
+        "originalName":  "img-2196.jpeg",
+        "src":  "/images/05_Internships/coca-cola/img-2196.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/coca-cola",
+        "originalName":  "img-2279.jpeg",
+        "src":  "/images/05_Internships/coca-cola/img-2279.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/coca-cola",
+        "originalName":  "img-2306.jpeg",
+        "src":  "/images/05_Internships/coca-cola/img-2306.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/coca-cola",
+        "originalName":  "img-2327.jpg",
+        "src":  "/images/05_Internships/coca-cola/img-2327.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/coca-cola",
+        "originalName":  "img-2329.jpg",
+        "src":  "/images/05_Internships/coca-cola/img-2329.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "3193084451171760878-1.jpg",
+        "src":  "/images/05_Internships/industry/3193084451171760878-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "3193084451171760878.jpg",
+        "src":  "/images/05_Internships/industry/3193084451171760878.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "ai-farms-team-in-ithica-new-york-collaborating-with-our-cornell-partners-1.jpeg",
+        "src":  "/images/05_Internships/industry/ai-farms-team-in-ithica-new-york-collaborating-with-our-cornell-partners-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "ai-farms-team-in-ithica-new-york-collaborating-with-our-cornell-partners.jpeg",
+        "src":  "/images/05_Internships/industry/ai-farms-team-in-ithica-new-york-collaborating-with-our-cornell-partners.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "arriving-for-the-tech-e-summit-1.jpg",
+        "src":  "/images/05_Internships/industry/arriving-for-the-tech-e-summit-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "arriving-for-the-tech-e-summit.jpg",
+        "src":  "/images/05_Internships/industry/arriving-for-the-tech-e-summit.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "cameron-at-the-tmcf-leadership-institute-1.jpeg",
+        "src":  "/images/05_Internships/industry/cameron-at-the-tmcf-leadership-institute-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "cameron-at-the-tmcf-leadership-institute.jpeg",
+        "src":  "/images/05_Internships/industry/cameron-at-the-tmcf-leadership-institute.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university-1.jpeg",
+        "src":  "/images/05_Internships/industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university.jpeg",
+        "src":  "/images/05_Internships/industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university2-1.jpeg",
+        "src":  "/images/05_Internships/industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university2-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university2.jpeg",
+        "src":  "/images/05_Internships/industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university2.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university5-1.jpeg",
+        "src":  "/images/05_Internships/industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university5-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university5.jpeg",
+        "src":  "/images/05_Internships/industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university5.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "cameron-giving-robot-demo-to-president-of-tuskegee-university-and-dean-of-caens-college-1.jpg",
+        "src":  "/images/05_Internships/industry/cameron-giving-robot-demo-to-president-of-tuskegee-university-and-dean-of-caens-college-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "cameron-giving-robot-demo-to-president-of-tuskegee-university-and-dean-of-caens-college.jpg",
+        "src":  "/images/05_Internships/industry/cameron-giving-robot-demo-to-president-of-tuskegee-university-and-dean-of-caens-college.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "cameron-giving-robot-demo-to-senator-shomari-foster-1.jpg",
+        "src":  "/images/05_Internships/industry/cameron-giving-robot-demo-to-senator-shomari-foster-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "cameron-giving-robot-demo-to-senator-shomari-foster.jpg",
+        "src":  "/images/05_Internships/industry/cameron-giving-robot-demo-to-senator-shomari-foster.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "cameron-meeting-rapper-killer-mike-after-giving-speech-for-presidential-innaguration-1.jpg",
+        "src":  "/images/05_Internships/industry/cameron-meeting-rapper-killer-mike-after-giving-speech-for-presidential-innaguration-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "cameron-meeting-rapper-killer-mike-after-giving-speech-for-presidential-innaguration.jpg",
+        "src":  "/images/05_Internships/industry/cameron-meeting-rapper-killer-mike-after-giving-speech-for-presidential-innaguration.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-0586-1.jpeg",
+        "src":  "/images/05_Internships/industry/img-0586-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-0586.jpeg",
+        "src":  "/images/05_Internships/industry/img-0586.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-2144-1.jpg",
+        "src":  "/images/05_Internships/industry/img-2144-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-2144.jpg",
+        "src":  "/images/05_Internships/industry/img-2144.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-2819-1.jpg",
+        "src":  "/images/05_Internships/industry/img-2819-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-2819.jpg",
+        "src":  "/images/05_Internships/industry/img-2819.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-2823-1.jpg",
+        "src":  "/images/05_Internships/industry/img-2823-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-2823.jpg",
+        "src":  "/images/05_Internships/industry/img-2823.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-2824-1.jpg",
+        "src":  "/images/05_Internships/industry/img-2824-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-2824.jpg",
+        "src":  "/images/05_Internships/industry/img-2824.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-2852-1.jpg",
+        "src":  "/images/05_Internships/industry/img-2852-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-2852.jpg",
+        "src":  "/images/05_Internships/industry/img-2852.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-2853-1.mov",
+        "src":  "/images/05_Internships/industry/img-2853-1.mov",
+        "type":  "video"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-2853.mov",
+        "src":  "/images/05_Internships/industry/img-2853.mov",
+        "type":  "video"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-2856-1.mov",
+        "src":  "/images/05_Internships/industry/img-2856-1.mov",
+        "type":  "video"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-2856.mov",
+        "src":  "/images/05_Internships/industry/img-2856.mov",
+        "type":  "video"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3599-1.jpg",
+        "src":  "/images/05_Internships/industry/img-3599-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3599.jpg",
+        "src":  "/images/05_Internships/industry/img-3599.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3613-1.jpg",
+        "src":  "/images/05_Internships/industry/img-3613-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3613.jpg",
+        "src":  "/images/05_Internships/industry/img-3613.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3635-1.jpg",
+        "src":  "/images/05_Internships/industry/img-3635-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3635.jpg",
+        "src":  "/images/05_Internships/industry/img-3635.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3677-1.jpeg",
+        "src":  "/images/05_Internships/industry/img-3677-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3677.jpeg",
+        "src":  "/images/05_Internships/industry/img-3677.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3678-1.jpeg",
+        "src":  "/images/05_Internships/industry/img-3678-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3678.jpeg",
+        "src":  "/images/05_Internships/industry/img-3678.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3679-1.jpeg",
+        "src":  "/images/05_Internships/industry/img-3679-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3679.jpeg",
+        "src":  "/images/05_Internships/industry/img-3679.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3682-1.jpeg",
+        "src":  "/images/05_Internships/industry/img-3682-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3682.jpeg",
+        "src":  "/images/05_Internships/industry/img-3682.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3683-1.jpeg",
+        "src":  "/images/05_Internships/industry/img-3683-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3683.jpeg",
+        "src":  "/images/05_Internships/industry/img-3683.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3684-1.jpeg",
+        "src":  "/images/05_Internships/industry/img-3684-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3684.jpeg",
+        "src":  "/images/05_Internships/industry/img-3684.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3685-1.jpeg",
+        "src":  "/images/05_Internships/industry/img-3685-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3685.jpeg",
+        "src":  "/images/05_Internships/industry/img-3685.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3686-1.jpeg",
+        "src":  "/images/05_Internships/industry/img-3686-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-3686.jpeg",
+        "src":  "/images/05_Internships/industry/img-3686.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-4561-1.jpg",
+        "src":  "/images/05_Internships/industry/img-4561-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-4561.jpg",
+        "src":  "/images/05_Internships/industry/img-4561.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-4636-1.jpg",
+        "src":  "/images/05_Internships/industry/img-4636-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-4636.jpg",
+        "src":  "/images/05_Internships/industry/img-4636.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-5386-1.jpg",
+        "src":  "/images/05_Internships/industry/img-5386-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-5386.jpg",
+        "src":  "/images/05_Internships/industry/img-5386.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-5911-1.jpg",
+        "src":  "/images/05_Internships/industry/img-5911-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-5911.jpg",
+        "src":  "/images/05_Internships/industry/img-5911.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-5944-1.jpg",
+        "src":  "/images/05_Internships/industry/img-5944-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-5944.jpg",
+        "src":  "/images/05_Internships/industry/img-5944.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-7838-1.jpeg",
+        "src":  "/images/05_Internships/industry/img-7838-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "img-7838.jpeg",
+        "src":  "/images/05_Internships/industry/img-7838.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "loren-lorosa-meeting-cameron-jones-after-speaking-at-the-tmcf-leadership-institute-1.jpeg",
+        "src":  "/images/05_Internships/industry/loren-lorosa-meeting-cameron-jones-after-speaking-at-the-tmcf-leadership-institute-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "loren-lorosa-meeting-cameron-jones-after-speaking-at-the-tmcf-leadership-institute.jpeg",
+        "src":  "/images/05_Internships/industry/loren-lorosa-meeting-cameron-jones-after-speaking-at-the-tmcf-leadership-institute.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "mannrrs-smart-ag-cohort-tech-track-1.jpeg",
+        "src":  "/images/05_Internships/industry/mannrrs-smart-ag-cohort-tech-track-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "mannrrs-smart-ag-cohort-tech-track.jpeg",
+        "src":  "/images/05_Internships/industry/mannrrs-smart-ag-cohort-tech-track.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "pvamu-internship-1.jpg",
+        "src":  "/images/05_Internships/industry/pvamu-internship-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "pvamu-internship.jpg",
+        "src":  "/images/05_Internships/industry/pvamu-internship.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "tmcf-leadership-institute-tuskegee-group-1.jpg",
+        "src":  "/images/05_Internships/industry/tmcf-leadership-institute-tuskegee-group-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "05_Internships/industry",
+        "originalName":  "tmcf-leadership-institute-tuskegee-group.jpg",
+        "src":  "/images/05_Internships/industry/tmcf-leadership-institute-tuskegee-group.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "1535327722005446767.jpg",
+        "src":  "/images/06_Leadership/1535327722005446767.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "1915048171914742516.jpg",
+        "src":  "/images/06_Leadership/1915048171914742516.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "3027502746096312634.jpg",
+        "src":  "/images/06_Leadership/3027502746096312634.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "ag-and-coding-workshop-facilitated-by-cameron.jpg",
+        "src":  "/images/06_Leadership/ag-and-coding-workshop-facilitated-by-cameron.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "ag-and-coding-workshop.jpg",
+        "src":  "/images/06_Leadership/ag-and-coding-workshop.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "cameron-and-teachers-after-the-smart-ag-workshop.jpg",
+        "src":  "/images/06_Leadership/cameron-and-teachers-after-the-smart-ag-workshop.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "cameron-speaking-at-the-mayor-s-youth-symposium.mov",
+        "src":  "/images/06_Leadership/cameron-speaking-at-the-mayor-s-youth-symposium.mov",
+        "type":  "video"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "cameron-teaching-a-workshop-on-robotics-and-coding.jpg",
+        "src":  "/images/06_Leadership/cameron-teaching-a-workshop-on-robotics-and-coding.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "img-3091.jpeg",
+        "src":  "/images/06_Leadership/img-3091.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "img-6583.jpeg",
+        "src":  "/images/06_Leadership/img-6583.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "mayor-s-youth-council-cohort.jpg",
+        "src":  "/images/06_Leadership/mayor-s-youth-council-cohort.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "mayor-s-youth-council-volunteering-planting-trees.jpeg",
+        "src":  "/images/06_Leadership/mayor-s-youth-council-volunteering-planting-trees.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "mayor-s-youth-council-volunteering-with-friends.jpg",
+        "src":  "/images/06_Leadership/mayor-s-youth-council-volunteering-with-friends.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "model-i-had-the-teachers-and-students-build-and-code.jpg",
+        "src":  "/images/06_Leadership/model-i-had-the-teachers-and-students-build-and-code.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "myc-meeting-with-the-mayor-s-youth-council-director.jpeg",
+        "src":  "/images/06_Leadership/myc-meeting-with-the-mayor-s-youth-council-director.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "post-speech-at-the-mayor-s-youth-council-youth-symposium.jpg",
+        "src":  "/images/06_Leadership/post-speech-at-the-mayor-s-youth-council-youth-symposium.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "smart-ag-workshop-cameron-facilitated-for-teachers-on-tuskegee-campus.jpg",
+        "src":  "/images/06_Leadership/smart-ag-workshop-cameron-facilitated-for-teachers-on-tuskegee-campus.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "smart-ag-workshop.jpg",
+        "src":  "/images/06_Leadership/smart-ag-workshop.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "volunteer-work.jpeg",
+        "src":  "/images/06_Leadership/volunteer-work.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "volunteer.jpeg",
+        "src":  "/images/06_Leadership/volunteer.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "volunteering-at-local-farmer-s-bee-farm.jpg",
+        "src":  "/images/06_Leadership/volunteering-at-local-farmer-s-bee-farm.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership",
+        "originalName":  "workshop-on-robotics-for-teachers-for-ag-and-codiing.jpg",
+        "src":  "/images/06_Leadership/workshop-on-robotics-for-teachers-for-ag-and-codiing.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "06_Leadership/testimonials",
+        "originalName":  "cvameron-jones-testimonial-mannrs-smart-ag-tech-cohort.mp4",
+        "src":  "/images/06_Leadership/testimonials/cvameron-jones-testimonial-mannrs-smart-ag-tech-cohort.mp4",
+        "type":  "video"
+    },
+    {
+        "category":  "07_Awards",
+        "originalName":  "celebrating-graduation-with-the-corrdinators-of-the-nsf-stem-scholars-scholarship-committee.jpg",
+        "src":  "/images/07_Awards/celebrating-graduation-with-the-corrdinators-of-the-nsf-stem-scholars-scholarship-committee.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "07_Awards",
+        "originalName":  "gsd-honors-society-of-ag-official-pin.jpeg",
+        "src":  "/images/07_Awards/gsd-honors-society-of-ag-official-pin.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "07_Awards",
+        "originalName":  "gsd-honors-society-of-ag.jpg",
+        "src":  "/images/07_Awards/gsd-honors-society-of-ag.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "07_Awards",
+        "originalName":  "hackathon-team-for-auburn-hacks-hackathon.jpeg",
+        "src":  "/images/07_Awards/hackathon-team-for-auburn-hacks-hackathon.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "07_Awards",
+        "originalName":  "hackathon-winners-for-auburn-hacks.jpg",
+        "src":  "/images/07_Awards/hackathon-winners-for-auburn-hacks.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "07_Awards",
+        "originalName":  "hackathon-winners.jpeg",
+        "src":  "/images/07_Awards/hackathon-winners.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "07_Awards",
+        "originalName":  "img-3444.jpg",
+        "src":  "/images/07_Awards/img-3444.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "07_Awards",
+        "originalName":  "img-6798.jpg",
+        "src":  "/images/07_Awards/img-6798.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "07_Awards",
+        "originalName":  "img-6842.jpg",
+        "src":  "/images/07_Awards/img-6842.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "07_Awards",
+        "originalName":  "mid-hackathon-falling-asleep-witha-rubix-cube-lol.jpg",
+        "src":  "/images/07_Awards/mid-hackathon-falling-asleep-witha-rubix-cube-lol.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "07_Awards",
+        "originalName":  "my-sister-and-i-presenting-our-hakcathon-for-auburn-hacks.jpeg",
+        "src":  "/images/07_Awards/my-sister-and-i-presenting-our-hakcathon-for-auburn-hacks.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "07_Awards",
+        "originalName":  "nsf-stem-scholars.jpg",
+        "src":  "/images/07_Awards/nsf-stem-scholars.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "07_Awards",
+        "originalName":  "uiuc-2026-cda-hackathon-winners.jpeg",
+        "src":  "/images/07_Awards/uiuc-2026-cda-hackathon-winners.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "behind-the-lenscapturing-every-moment.jpg",
+        "src":  "/images/08_Photography/general/behind-the-lenscapturing-every-moment.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "growth-in-motionthe-heart-of-innovation.jpeg",
+        "src":  "/images/08_Photography/general/growth-in-motionthe-heart-of-innovation.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "img-5162.jpeg",
+        "src":  "/images/08_Photography/general/img-5162.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "img-9255.jpg",
+        "src":  "/images/08_Photography/general/img-9255.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "img-9256.jpg",
+        "src":  "/images/08_Photography/general/img-9256.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "img-9905.jpg",
+        "src":  "/images/08_Photography/general/img-9905.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "reflections-of-tuskegeethe-calm-of-the-lake.jpeg",
+        "src":  "/images/08_Photography/general/reflections-of-tuskegeethe-calm-of-the-lake.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "roots-of-progresssweet-potatoes-sweet-future.jpg",
+        "src":  "/images/08_Photography/general/roots-of-progresssweet-potatoes-sweet-future.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "serenity-in-stillnessthe-lake-s-quiet-beauty.jpg",
+        "src":  "/images/08_Photography/general/serenity-in-stillnessthe-lake-s-quiet-beauty.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "silent-nightpuppy-dreams-amidst-the-festivities.jpeg",
+        "src":  "/images/08_Photography/general/silent-nightpuppy-dreams-amidst-the-festivities.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "uno-shenanigansthe-mischief-maker.jpeg",
+        "src":  "/images/08_Photography/general/uno-shenanigansthe-mischief-maker.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "untitled-design-10.png",
+        "src":  "/images/08_Photography/general/untitled-design-10.png",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "untitled-design-2.png",
+        "src":  "/images/08_Photography/general/untitled-design-2.png",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "untitled-design-5.png",
+        "src":  "/images/08_Photography/general/untitled-design-5.png",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "untitled-design-7.png",
+        "src":  "/images/08_Photography/general/untitled-design-7.png",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "untitled-design-8.png",
+        "src":  "/images/08_Photography/general/untitled-design-8.png",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "untitled-design-9.png",
+        "src":  "/images/08_Photography/general/untitled-design-9.png",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/general",
+        "originalName":  "warm-wishessipping-holiday-cheer.jpeg",
+        "src":  "/images/08_Photography/general/warm-wishessipping-holiday-cheer.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/nature",
+        "originalName":  "img-2924.jpg",
+        "src":  "/images/08_Photography/nature/img-2924.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/nature",
+        "originalName":  "img-2945.jpg",
+        "src":  "/images/08_Photography/nature/img-2945.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography/nature",
+        "originalName":  "img-6209.jpeg",
+        "src":  "/images/08_Photography/nature/img-6209.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "4e259241-21ee-4265-a05e-6336dbcb6b01.mp4",
+        "src":  "/images/10_Family/4e259241-21ee-4265-a05e-6336dbcb6b01.mp4",
+        "type":  "video"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "black-expo-hustlefamily-business-in-action.jpg",
+        "src":  "/images/10_Family/black-expo-hustlefamily-business-in-action.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "bonded-by-brotherhood-sisterhoodmy-sister-sgreek-journey.jpg",
+        "src":  "/images/10_Family/bonded-by-brotherhood-sisterhoodmy-sister-sgreek-journey.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "cameron-and-sister-kaiya-at-fiu-miami-internship-for-access.jpeg",
+        "src":  "/images/10_Family/cameron-and-sister-kaiya-at-fiu-miami-internship-for-access.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "cameron-and-sister-kaiya-on-school-trip-representing-tuskegee-at-the-tmcf-leadership-institute.jpg",
+        "src":  "/images/10_Family/cameron-and-sister-kaiya-on-school-trip-representing-tuskegee-at-the-tmcf-leadership-institute.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "expo-prepbuilding-the-vision-together.jpg",
+        "src":  "/images/10_Family/expo-prepbuilding-the-vision-together.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "family-strollsteps-of-legacy.jpeg",
+        "src":  "/images/10_Family/family-strollsteps-of-legacy.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "family-unitedtuskegee-traditions.jpg",
+        "src":  "/images/10_Family/family-unitedtuskegee-traditions.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "hackathon-presentation-setup.jpg",
+        "src":  "/images/10_Family/hackathon-presentation-setup.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "hbcu-heroes-founder-meeting-cameron-and-his-family-after-conference-in-nashville-amazon-office.jpeg",
+        "src":  "/images/10_Family/hbcu-heroes-founder-meeting-cameron-and-his-family-after-conference-in-nashville-amazon-office.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "honor-and-prestigealpha-kappa-moments.jpg",
+        "src":  "/images/10_Family/honor-and-prestigealpha-kappa-moments.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "img-0596.png",
+        "src":  "/images/10_Family/img-0596.png",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "img-2402.jpg",
+        "src":  "/images/10_Family/img-2402.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "img-3391.jpg",
+        "src":  "/images/10_Family/img-3391.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "img-4112.jpeg",
+        "src":  "/images/10_Family/img-4112.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "img-4831.jpg",
+        "src":  "/images/10_Family/img-4831.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "img-5413.jpeg",
+        "src":  "/images/10_Family/img-5413.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "img-5420.jpeg",
+        "src":  "/images/10_Family/img-5420.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "img-5528.jpeg",
+        "src":  "/images/10_Family/img-5528.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "img-5538.jpeg",
+        "src":  "/images/10_Family/img-5538.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "img-6038.jpg",
+        "src":  "/images/10_Family/img-6038.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "img-6069.jpeg",
+        "src":  "/images/10_Family/img-6069.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "img-6078.jpeg",
+        "src":  "/images/10_Family/img-6078.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "img-6081.jpeg",
+        "src":  "/images/10_Family/img-6081.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "img-6096.jpeg",
+        "src":  "/images/10_Family/img-6096.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "img-8854.jpg",
+        "src":  "/images/10_Family/img-8854.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "rising-to-the-topalpha-kappa-honors.jpg",
+        "src":  "/images/10_Family/rising-to-the-topalpha-kappa-honors.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "scholarship-in-actionalpha-kappa-induction.jpg",
+        "src":  "/images/10_Family/scholarship-in-actionalpha-kappa-induction.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "seasonal-sischristmas-memories-in-the-making.jpeg",
+        "src":  "/images/10_Family/seasonal-sischristmas-memories-in-the-making.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "sibling-weekendhome-away-from-home.jpeg",
+        "src":  "/images/10_Family/sibling-weekendhome-away-from-home.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "sister-spotlightexpo-excellence.jpg",
+        "src":  "/images/10_Family/sister-spotlightexpo-excellence.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "tradition-and-triumphthegreek-experience.jpg",
+        "src":  "/images/10_Family/tradition-and-triumphthegreek-experience.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "twin-ambitionexpo-edition.jpg",
+        "src":  "/images/10_Family/twin-ambitionexpo-edition.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "uno-eyesthe-ultimate-poker-face.jpeg",
+        "src":  "/images/10_Family/uno-eyesthe-ultimate-poker-face.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "10_Family",
+        "originalName":  "untitled-design.png",
+        "src":  "/images/10_Family/untitled-design.png",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "3193084451171760878-1.jpg",
+        "src":  "/images/11_Industry/3193084451171760878-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "3193084451171760878.jpg",
+        "src":  "/images/11_Industry/3193084451171760878.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "ai-farms-team-in-ithica-new-york-collaborating-with-our-cornell-partners-1.jpeg",
+        "src":  "/images/11_Industry/ai-farms-team-in-ithica-new-york-collaborating-with-our-cornell-partners-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "ai-farms-team-in-ithica-new-york-collaborating-with-our-cornell-partners.jpeg",
+        "src":  "/images/11_Industry/ai-farms-team-in-ithica-new-york-collaborating-with-our-cornell-partners.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "arriving-for-the-tech-e-summit-1.jpg",
+        "src":  "/images/11_Industry/arriving-for-the-tech-e-summit-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "arriving-for-the-tech-e-summit.jpg",
+        "src":  "/images/11_Industry/arriving-for-the-tech-e-summit.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "cameron-at-the-tmcf-leadership-institute-1.jpeg",
+        "src":  "/images/11_Industry/cameron-at-the-tmcf-leadership-institute-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "cameron-at-the-tmcf-leadership-institute.jpeg",
+        "src":  "/images/11_Industry/cameron-at-the-tmcf-leadership-institute.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university-1.jpeg",
+        "src":  "/images/11_Industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university.jpeg",
+        "src":  "/images/11_Industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university2-1.jpeg",
+        "src":  "/images/11_Industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university2-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university2.jpeg",
+        "src":  "/images/11_Industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university2.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university5-1.jpeg",
+        "src":  "/images/11_Industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university5-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university5.jpeg",
+        "src":  "/images/11_Industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university5.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "cameron-giving-robot-demo-to-president-of-tuskegee-university-and-dean-of-caens-college-1.jpg",
+        "src":  "/images/11_Industry/cameron-giving-robot-demo-to-president-of-tuskegee-university-and-dean-of-caens-college-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "cameron-giving-robot-demo-to-president-of-tuskegee-university-and-dean-of-caens-college.jpg",
+        "src":  "/images/11_Industry/cameron-giving-robot-demo-to-president-of-tuskegee-university-and-dean-of-caens-college.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "cameron-giving-robot-demo-to-senator-shomari-foster-1.jpg",
+        "src":  "/images/11_Industry/cameron-giving-robot-demo-to-senator-shomari-foster-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "cameron-giving-robot-demo-to-senator-shomari-foster.jpg",
+        "src":  "/images/11_Industry/cameron-giving-robot-demo-to-senator-shomari-foster.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "cameron-meeting-rapper-killer-mike-after-giving-speech-for-presidential-innaguration-1.jpg",
+        "src":  "/images/11_Industry/cameron-meeting-rapper-killer-mike-after-giving-speech-for-presidential-innaguration-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "cameron-meeting-rapper-killer-mike-after-giving-speech-for-presidential-innaguration.jpg",
+        "src":  "/images/11_Industry/cameron-meeting-rapper-killer-mike-after-giving-speech-for-presidential-innaguration.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-0586-1.jpeg",
+        "src":  "/images/11_Industry/img-0586-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-0586.jpeg",
+        "src":  "/images/11_Industry/img-0586.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-2144-1.jpg",
+        "src":  "/images/11_Industry/img-2144-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-2144.jpg",
+        "src":  "/images/11_Industry/img-2144.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-2819-1.jpg",
+        "src":  "/images/11_Industry/img-2819-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-2819.jpg",
+        "src":  "/images/11_Industry/img-2819.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-2823-1.jpg",
+        "src":  "/images/11_Industry/img-2823-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-2823.jpg",
+        "src":  "/images/11_Industry/img-2823.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-2824-1.jpg",
+        "src":  "/images/11_Industry/img-2824-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-2824.jpg",
+        "src":  "/images/11_Industry/img-2824.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-2852-1.jpg",
+        "src":  "/images/11_Industry/img-2852-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-2852.jpg",
+        "src":  "/images/11_Industry/img-2852.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-2853-1.mov",
+        "src":  "/images/11_Industry/img-2853-1.mov",
+        "type":  "video"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-2853.mov",
+        "src":  "/images/11_Industry/img-2853.mov",
+        "type":  "video"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-2856-1.mov",
+        "src":  "/images/11_Industry/img-2856-1.mov",
+        "type":  "video"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-2856.mov",
+        "src":  "/images/11_Industry/img-2856.mov",
+        "type":  "video"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3599-1.jpg",
+        "src":  "/images/11_Industry/img-3599-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3599.jpg",
+        "src":  "/images/11_Industry/img-3599.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3613-1.jpg",
+        "src":  "/images/11_Industry/img-3613-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3613.jpg",
+        "src":  "/images/11_Industry/img-3613.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3635-1.jpg",
+        "src":  "/images/11_Industry/img-3635-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3635.jpg",
+        "src":  "/images/11_Industry/img-3635.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3677-1.jpeg",
+        "src":  "/images/11_Industry/img-3677-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3677.jpeg",
+        "src":  "/images/11_Industry/img-3677.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3678-1.jpeg",
+        "src":  "/images/11_Industry/img-3678-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3678.jpeg",
+        "src":  "/images/11_Industry/img-3678.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3679-1.jpeg",
+        "src":  "/images/11_Industry/img-3679-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3679.jpeg",
+        "src":  "/images/11_Industry/img-3679.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3682-1.jpeg",
+        "src":  "/images/11_Industry/img-3682-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3682.jpeg",
+        "src":  "/images/11_Industry/img-3682.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3683-1.jpeg",
+        "src":  "/images/11_Industry/img-3683-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3683.jpeg",
+        "src":  "/images/11_Industry/img-3683.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3684-1.jpeg",
+        "src":  "/images/11_Industry/img-3684-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3684.jpeg",
+        "src":  "/images/11_Industry/img-3684.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3685-1.jpeg",
+        "src":  "/images/11_Industry/img-3685-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3685.jpeg",
+        "src":  "/images/11_Industry/img-3685.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3686-1.jpeg",
+        "src":  "/images/11_Industry/img-3686-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-3686.jpeg",
+        "src":  "/images/11_Industry/img-3686.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-4561-1.jpg",
+        "src":  "/images/11_Industry/img-4561-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-4561.jpg",
+        "src":  "/images/11_Industry/img-4561.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-4636-1.jpg",
+        "src":  "/images/11_Industry/img-4636-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-4636.jpg",
+        "src":  "/images/11_Industry/img-4636.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-5386-1.jpg",
+        "src":  "/images/11_Industry/img-5386-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-5386.jpg",
+        "src":  "/images/11_Industry/img-5386.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-5911-1.jpg",
+        "src":  "/images/11_Industry/img-5911-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-5911.jpg",
+        "src":  "/images/11_Industry/img-5911.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-5944-1.jpg",
+        "src":  "/images/11_Industry/img-5944-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-5944.jpg",
+        "src":  "/images/11_Industry/img-5944.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-7838-1.jpeg",
+        "src":  "/images/11_Industry/img-7838-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "img-7838.jpeg",
+        "src":  "/images/11_Industry/img-7838.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "loren-lorosa-meeting-cameron-jones-after-speaking-at-the-tmcf-leadership-institute-1.jpeg",
+        "src":  "/images/11_Industry/loren-lorosa-meeting-cameron-jones-after-speaking-at-the-tmcf-leadership-institute-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "loren-lorosa-meeting-cameron-jones-after-speaking-at-the-tmcf-leadership-institute.jpeg",
+        "src":  "/images/11_Industry/loren-lorosa-meeting-cameron-jones-after-speaking-at-the-tmcf-leadership-institute.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "mannrrs-smart-ag-cohort-tech-track-1.jpeg",
+        "src":  "/images/11_Industry/mannrrs-smart-ag-cohort-tech-track-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "mannrrs-smart-ag-cohort-tech-track.jpeg",
+        "src":  "/images/11_Industry/mannrrs-smart-ag-cohort-tech-track.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "pvamu-internship-1.jpg",
+        "src":  "/images/11_Industry/pvamu-internship-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "pvamu-internship.jpg",
+        "src":  "/images/11_Industry/pvamu-internship.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "tmcf-leadership-institute-tuskegee-group-1.jpg",
+        "src":  "/images/11_Industry/tmcf-leadership-institute-tuskegee-group-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "11_Industry",
+        "originalName":  "tmcf-leadership-institute-tuskegee-group.jpg",
+        "src":  "/images/11_Industry/tmcf-leadership-institute-tuskegee-group.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "6902-1.jpg",
+        "src":  "/images/12_PC_Build/6902-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "6902.jpg",
+        "src":  "/images/12_PC_Build/6902.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "6929-1.jpg",
+        "src":  "/images/12_PC_Build/6929-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "6929.jpg",
+        "src":  "/images/12_PC_Build/6929.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "6934-1.jpg",
+        "src":  "/images/12_PC_Build/6934-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "6934.jpg",
+        "src":  "/images/12_PC_Build/6934.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "bd11fb91ecce4075ac443c0e5bb947dd-1.mov",
+        "src":  "/images/12_PC_Build/bd11fb91ecce4075ac443c0e5bb947dd-1.mov",
+        "type":  "video"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "bd11fb91ecce4075ac443c0e5bb947dd.mov",
+        "src":  "/images/12_PC_Build/bd11fb91ecce4075ac443c0e5bb947dd.mov",
+        "type":  "video"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-0039-1.mp4",
+        "src":  "/images/12_PC_Build/img-0039-1.mp4",
+        "type":  "video"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-0039.mp4",
+        "src":  "/images/12_PC_Build/img-0039.mp4",
+        "type":  "video"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2713-1.jpg",
+        "src":  "/images/12_PC_Build/img-2713-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2713.jpg",
+        "src":  "/images/12_PC_Build/img-2713.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2723-1.jpeg",
+        "src":  "/images/12_PC_Build/img-2723-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2723.jpeg",
+        "src":  "/images/12_PC_Build/img-2723.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2725-1.jpeg",
+        "src":  "/images/12_PC_Build/img-2725-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2725.jpeg",
+        "src":  "/images/12_PC_Build/img-2725.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2726-1.jpeg",
+        "src":  "/images/12_PC_Build/img-2726-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2726.jpeg",
+        "src":  "/images/12_PC_Build/img-2726.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2727-1.jpeg",
+        "src":  "/images/12_PC_Build/img-2727-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2727.jpeg",
+        "src":  "/images/12_PC_Build/img-2727.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2728-1.jpg",
+        "src":  "/images/12_PC_Build/img-2728-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2728.jpg",
+        "src":  "/images/12_PC_Build/img-2728.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2730-1.jpg",
+        "src":  "/images/12_PC_Build/img-2730-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2730.jpg",
+        "src":  "/images/12_PC_Build/img-2730.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2731-1.jpg",
+        "src":  "/images/12_PC_Build/img-2731-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2731.jpg",
+        "src":  "/images/12_PC_Build/img-2731.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2732-1.jpg",
+        "src":  "/images/12_PC_Build/img-2732-1.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-2732.jpg",
+        "src":  "/images/12_PC_Build/img-2732.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-7908-1.jpeg",
+        "src":  "/images/12_PC_Build/img-7908-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-7908.jpeg",
+        "src":  "/images/12_PC_Build/img-7908.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-8100-1.jpeg",
+        "src":  "/images/12_PC_Build/img-8100-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-8100.jpeg",
+        "src":  "/images/12_PC_Build/img-8100.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-8101-1.jpeg",
+        "src":  "/images/12_PC_Build/img-8101-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-8101.jpeg",
+        "src":  "/images/12_PC_Build/img-8101.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-9253-1.jpeg",
+        "src":  "/images/12_PC_Build/img-9253-1.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "12_PC_Build",
+        "originalName":  "img-9253.jpeg",
+        "src":  "/images/12_PC_Build/img-9253.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "13_Logos",
+        "originalName":  "tuskegee-university-seal-svg.png",
+        "src":  "/images/13_Logos/tuskegee-university-seal-svg.png",
+        "type":  "image"
+    },
+    {
+        "category":  "13_Logos",
+        "originalName":  "tuskegee-university-tigers-steven-parker.jpg",
+        "src":  "/images/13_Logos/tuskegee-university-tigers-steven-parker.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "resume",
+        "originalName":  "Cameron_Jones_Resume.pdf",
+        "src":  "/resume/Cameron_Jones_Resume.pdf",
+        "type":  "pdf"
+    },
+    {
+        "category":  "resume",
+        "originalName":  "cjones-cv-resume.pdf",
+        "src":  "/resume/cjones-cv-resume.pdf",
+        "type":  "pdf"
+    }
+]

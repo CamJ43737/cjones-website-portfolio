@@ -1,0 +1,84 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --obsidian: #0a0a0a;
+  --graphite: #1b1b1f;
+  --mist: #f5f5f5;
+  --cyan: #3dd9ff;
+  --gold: #c8a24a;
+  --surface: rgba(27, 27, 31, 0.72);
+  --border: rgba(245, 245, 245, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-obsidian text-mist antialiased;
+  background-image:
+    radial-gradient(ellipse 100% 80% at 10% -10%, rgba(61, 217, 255, 0.08), transparent 45%),
+    radial-gradient(ellipse 70% 50% at 90% 10%, rgba(200, 162, 74, 0.05), transparent 40%),
+    linear-gradient(#0a0a0a, #0a0a0a);
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(61, 217, 255, 0.28);
+  color: #f5f5f5;
+}
+
+@layer components {
+  .glass {
+    @apply border border-white/10 bg-graphite/60 shadow-glass backdrop-blur-xl;
+  }
+
+  .section-pad {
+    @apply px-5 sm:px-8 lg:px-12 xl:px-16;
+  }
+
+  .chapter-label {
+    @apply font-mono text-[11px] uppercase tracking-[0.28em] text-cyan-electric/80;
+  }
+
+  .display-title {
+    @apply font-display text-4xl font-semibold tracking-tight text-mist sm:text-5xl lg:text-6xl;
+  }
+
+  .prose-brand {
+    @apply text-base leading-relaxed text-ink-300 sm:text-lg;
+  }
+}
+
+/* Custom scrollbar */
+@media (pointer: fine) {
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2e2e34;
+    border-radius: 999px;
+    border: 2px solid #0a0a0a;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3dd9ff55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

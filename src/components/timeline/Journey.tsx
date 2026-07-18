@@ -63,7 +63,7 @@ function ChapterPanel({
       )}
 
       {chapter.videos && chapter.videos.length > 0 && videoActive && (
-        <div className="mt-5 grid gap-4">
+        <div className="mt-5 w-full">
           {chapter.videos.map((video) => (
             <CinematicVideo
               key={`${chapter.id}-${video.src}`}
@@ -72,7 +72,10 @@ function ChapterPanel({
               poster={video.poster}
               eager
               autoPlayWhenVisible
-              fit="contain"
+              fit={video.fit ?? "contain"}
+              objectPosition={video.objectPosition ?? "50% 50%"}
+              coverScale={video.coverScale ?? 1.06}
+              className="w-full"
             />
           ))}
         </div>

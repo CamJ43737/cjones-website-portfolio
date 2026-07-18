@@ -69,6 +69,10 @@ export type TimelineVideo = {
   src: string;
   title: string;
   poster?: string;
+  fit?: "cover" | "contain";
+  objectPosition?: string;
+  /** Mild cover zoom — keep near 1 so speakers/frames stay visible. */
+  coverScale?: number;
 };
 
 export type TimelineChapter = {
@@ -156,6 +160,17 @@ export const timeline: TimelineChapter[] = [
         src: "/images/06_Leadership/mayor-s-youth-council-volunteering-with-friends.jpg",
         alt: "Mayor's Youth Council volunteering",
         fit: "contain",
+      },
+    ],
+    videos: [
+      {
+        src: "/videos/mayor-youth-symposium.mov",
+        title: "Cameron speaking at the Mayor's Youth Symposium",
+        poster:
+          "/images/06_Leadership/post-speech-at-the-mayor-s-youth-council-youth-symposium.jpg",
+        fit: "cover",
+        objectPosition: "50% 42%",
+        coverScale: 1.04,
       },
     ],
     links: [{ label: "Leadership", href: "/#leadership" }],

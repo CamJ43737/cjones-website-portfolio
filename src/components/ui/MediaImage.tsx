@@ -45,7 +45,8 @@ export function MediaImage({
   return (
     <div
       className={cn(
-        "relative flex items-center justify-center overflow-hidden bg-charcoal/70",
+        "relative overflow-hidden",
+        resolvedFit === "contain" ? "bg-charcoal/80" : "bg-charcoal",
         className,
       )}
     >
@@ -56,8 +57,8 @@ export function MediaImage({
         loading={priority ? "eager" : "lazy"}
         decoding="async"
         className={cn(
-          "max-h-full max-w-full",
-          resolvedFit === "cover" ? "h-full w-full object-cover" : "h-full w-full object-contain",
+          "h-full w-full max-w-full",
+          resolvedFit === "cover" ? "object-cover" : "object-contain",
           imgClassName,
         )}
         style={{ objectPosition: resolvedPosition }}

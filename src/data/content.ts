@@ -21,7 +21,7 @@ export const hero = {
   name: "Cameron Jones",
   roles: ["AI Researcher.", "Robotics Engineer.", "Builder."],
   statement:
-    "Building intelligent systems that improve how people live, work, and heal.",
+    "Building intelligent systems where artificial intelligence meets the physical world.",
   domains: ["AI", "Robotics", "Healthcare", "Agriculture"],
 };
 
@@ -33,12 +33,13 @@ export const aboutStory = {
     "Programming turned curiosity into language. Artificial intelligence turned language into possibility. I chose Computer Science not for a degree — for a laboratory where ideas become machines that touch the physical world.",
     "Today I research at the intersection of AI, robotics, agriculture, and healthcare — building systems that don't just compute, but care for land, labor, and people aging in place.",
   ],
-  /** Concise homepage About — builder identity restored. */
-  homepageLead: "Before I built intelligent systems, I built things with my own hands.",
+  /** Homepage About — LEGO → hardware → research storytelling. */
+  homepageLead: "Before I built intelligent systems, I built worlds with my own hands.",
   homepageParagraphs: [
-    "My journey started with curiosity — taking apart computers, rebuilding hardware, and learning how technology worked from the inside out. That same curiosity eventually led me from building PCs to building software, robots, and AI systems designed to solve real-world problems.",
-    "At Tuskegee University, that curiosity became research. I now work at the intersection of artificial intelligence, robotics, and sensing — developing systems for precision agriculture, healthcare innovation, and environments where technology can improve the way people live and work.",
-    "I never stopped building. I just expanded what I build.",
+    "My journey began with LEGO bricks — creating structures, experimenting with designs, and learning that even the simplest pieces could become something much greater when combined with creativity and purpose. Those early moments sparked my curiosity about how individual components could work together to create complex systems.",
+    "That curiosity grew into a passion for understanding technology from the inside out. I began taking apart computers, rebuilding hardware, exploring electronics, and teaching myself how the systems around me worked. What started as building physical objects eventually evolved into building software, robots, and artificial intelligence systems.",
+    "At Tuskegee University, that curiosity became research. I now work at the intersection of artificial intelligence, robotics, and sensing, developing technologies that address real-world challenges in precision agriculture, healthcare innovation, and human-centered environments. Through autonomous robots, machine learning, computer vision, and digital twin technologies, I continue exploring how intelligent systems can improve the way people live and work.",
+    "The tools have changed, but the purpose has remained the same. I never stopped building — I simply expanded what I build.",
   ],
   whys: [
     {

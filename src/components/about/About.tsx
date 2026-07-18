@@ -15,7 +15,6 @@ export function About() {
       id="about"
       eyebrow="About"
       title="The builder before the researcher."
-      subtitle={`${site.name} · ${site.major} · ${site.university} · Expected ${site.graduation}`}
       className="overflow-hidden section-wash"
       backdrop={
         <TuskegeeSealWatermark
@@ -33,7 +32,7 @@ export function About() {
           </Reveal>
           <div className="mt-8 space-y-5">
             {aboutStory.homepageParagraphs.map((p) => (
-              <Reveal key={p.slice(0, 36)}>
+              <Reveal key={p.slice(0, 40)}>
                 <p className="prose-brand">{p}</p>
               </Reveal>
             ))}

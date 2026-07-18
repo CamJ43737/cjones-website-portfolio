@@ -34,12 +34,21 @@ export function Contact() {
   }
 
   return (
-    <Section
-      id="connect"
-      eyebrow="Connect"
-      title="Let's Connect. Let's Talk."
-      subtitle="Whether you're a researcher, recruiter, or someone building something meaningful at the edge of AI and agriculture — I want to hear from you."
-    >
+    <Section id="connect" eyebrow="Connect" title="Let's Build Something Together.">
+      <Reveal>
+        <div className="mb-10 max-w-3xl space-y-4 sm:mb-12 lg:mb-14">
+          <p className="prose-brand">
+            Whether you are a researcher, recruiter, collaborator, entrepreneur, photographer, or
+            someone looking for help bringing an idea to life, I would love to connect.
+          </p>
+          <p className="prose-brand">
+            I am always open to conversations around artificial intelligence, robotics, research
+            opportunities, creative projects, photography, and building technology that creates
+            meaningful impact.
+          </p>
+        </div>
+      </Reveal>
+
       <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
         <Reveal className="lg:col-span-5">
           <div className="space-y-6">

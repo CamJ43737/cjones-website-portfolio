@@ -38,48 +38,61 @@ const groups = [
   },
 ] as const;
 
+/** Curated awards stills — unique, category-aligned, no joke/outtake frames. */
 const recognitionImages = [
   {
     src: "/images/07_Awards/nsf-stem-scholars.jpg",
     alt: "NSF S-STEM Scholars",
-    caption: "NSF S-STEM Scholars cohort recognition.",
+    caption: "NSF S-STEM Scholars cohort.",
     fit: "contain" as const,
-    objectPosition: "50% 30%",
   },
   {
     src: "/images/07_Awards/celebrating-graduation-with-the-corrdinators-of-the-nsf-stem-scholars-scholarship-committee.jpg",
     alt: "NSF STEM Scholars celebration",
-    caption: "Celebrating with the NSF S-STEM scholarship committee.",
+    caption: "NSF S-STEM scholarship committee celebration.",
     fit: "contain" as const,
-    objectPosition: "50% 35%",
   },
   {
     src: "/images/07_Awards/gsd-honors-society-of-ag.jpg",
     alt: "Gamma Sigma Delta honors",
     caption: "Gamma Sigma Delta Honor Society of Agriculture.",
     fit: "contain" as const,
-    objectPosition: "50% 40%",
+  },
+  {
+    src: "/images/07_Awards/gsd-honors-society-of-ag-official-pin.jpeg",
+    alt: "Gamma Sigma Delta pin",
+    caption: "Gamma Sigma Delta honor society pin.",
+    fit: "contain" as const,
   },
   {
     src: "/images/07_Awards/hackathon-winners-for-auburn-hacks.jpg",
     alt: "Auburn Hacks winners",
     caption: "Auburn Hacks first-place team.",
     fit: "contain" as const,
-    objectPosition: "50% 30%",
   },
   {
-    src: "/images/07_Awards/hackathon-winners.jpeg",
-    alt: "Precision agriculture hackathon winners",
-    caption: "Precision Agriculture Hackathon first-place recognition.",
+    src: "/images/07_Awards/hackathon-team-for-auburn-hacks-hackathon.jpeg",
+    alt: "Auburn Hacks team",
+    caption: "Auburn Hacks competition team.",
     fit: "contain" as const,
-    objectPosition: "50% 50%",
   },
   {
     src: "/images/07_Awards/my-sister-and-i-presenting-our-hakcathon-for-auburn-hacks.jpeg",
     alt: "Auburn Hacks presentation",
-    caption: "Presenting the Auburn Hacks competition project.",
+    caption: "Presenting at Auburn Hacks.",
     fit: "contain" as const,
-    objectPosition: "50% 28%",
+  },
+  {
+    src: "/images/07_Awards/hackathon-winners.jpeg",
+    alt: "Precision agriculture hackathon winners",
+    caption: "Precision Agriculture Hackathon winners.",
+    fit: "contain" as const,
+  },
+  {
+    src: "/images/07_Awards/uiuc-2026-cda-hackathon-winners.jpeg",
+    alt: "CDA hackathon winners",
+    caption: "CDA hackathon recognition.",
+    fit: "contain" as const,
   },
 ] as const;
 
@@ -89,22 +102,22 @@ export function Recognition() {
       id="recognition"
       eyebrow="Recognition"
       title="Markers of trust."
-      subtitle="Scholarships, honors, ambassadorship, and competition wins — the full record lives on Resume."
+      subtitle="Scholarships, honors, leadership roles, and achievements that represent the communities supporting my journey."
       className="section-wash"
     >
-      <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-10">
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:col-span-6">
+      <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:col-span-7">
           {recognitionImages.map((m, i) => (
-            <Reveal key={m.src} delay={Math.min(i * 0.04, 0.2)}>
+            <Reveal key={m.src} delay={Math.min(i * 0.03, 0.24)} className="h-full">
               <figure className="flex h-full flex-col">
                 <MediaImage
                   src={m.src}
                   alt={m.alt}
                   fit={m.fit}
-                  objectPosition={m.objectPosition}
+                  objectPosition="50% 50%"
                   className="aspect-square w-full"
                 />
-                <figcaption className="mt-2 text-[11px] leading-snug text-ink-400 sm:text-xs">
+                <figcaption className="mt-2 min-h-[2.25rem] text-[11px] leading-snug text-ink-400 sm:text-xs">
                   {m.caption}
                 </figcaption>
               </figure>
@@ -112,7 +125,7 @@ export function Recognition() {
           ))}
         </div>
 
-        <div className="space-y-7 lg:col-span-6">
+        <div className="space-y-8 lg:col-span-5 lg:sticky lg:top-28">
           {groups.map((group, gi) => (
             <Reveal key={group.label} delay={0.05 * gi}>
               <div>
@@ -121,7 +134,7 @@ export function Recognition() {
                   {group.items.map((a) => (
                     <li
                       key={a.name}
-                      className="glass flex min-h-[4.5rem] items-start justify-between gap-4 rounded-2xl px-5 py-4"
+                      className="glass flex min-h-[4.25rem] items-start justify-between gap-4 rounded-2xl px-5 py-4"
                     >
                       <div>
                         <p className="font-display text-lg text-mist">{a.name}</p>
@@ -134,20 +147,18 @@ export function Recognition() {
               </div>
             </Reveal>
           ))}
+
+          <Reveal delay={0.2}>
+            <Link
+              href="/resume"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-charcoal/30 px-6 py-3 text-sm text-mist backdrop-blur-sm transition hover:border-tuskegee-gold/45 hover:text-tuskegee-gold"
+            >
+              View full record
+              <ArrowUpRight size={16} />
+            </Link>
+          </Reveal>
         </div>
       </div>
-
-      <Reveal delay={0.2}>
-        <div className="mt-10">
-          <Link
-            href="/resume"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-charcoal/30 px-6 py-3 text-sm text-mist backdrop-blur-sm transition hover:border-tuskegee-gold/45 hover:text-tuskegee-gold"
-          >
-            View full record
-            <ArrowUpRight size={16} />
-          </Link>
-        </div>
-      </Reveal>
     </Section>
   );
 }

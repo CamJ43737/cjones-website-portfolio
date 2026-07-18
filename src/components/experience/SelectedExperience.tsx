@@ -16,7 +16,7 @@ export function SelectedExperience() {
       id="experience"
       eyebrow="Selected Experience"
       title="Where the work happened."
-      subtitle="Current research appointments — the full archive lives one click away."
+      subtitle="Selected experiences where research, engineering, and innovation came to life."
     >
       <div className="space-y-5">
         {selected.map((exp, i) => {

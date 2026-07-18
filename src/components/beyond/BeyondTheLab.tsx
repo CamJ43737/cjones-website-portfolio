@@ -9,7 +9,7 @@ export function BeyondTheLab() {
   return (
     <Section
       id="beyond"
-      eyebrow="Chapter 09 — Beyond the Lab"
+      eyebrow="Beyond"
       title="Beyond the Lab."
       subtitle="Identity outside academia — building, seeing, and finding balance in the physical world."
       className="section-wash"

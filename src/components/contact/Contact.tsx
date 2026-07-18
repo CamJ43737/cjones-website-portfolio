@@ -36,7 +36,7 @@ export function Contact() {
   return (
     <Section
       id="connect"
-      eyebrow="Chapter 10 — Connect"
+      eyebrow="Connect"
       title="Let's Connect. Let's Talk."
       subtitle="Whether you're a researcher, recruiter, or someone building something meaningful at the edge of AI and agriculture — I want to hear from you."
     >

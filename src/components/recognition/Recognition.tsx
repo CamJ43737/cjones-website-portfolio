@@ -1,10 +1,31 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { recognitionHighlights } from "@/data/content";
 import { mediaAssignments } from "@/data/media-assignments";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { MediaImage } from "@/components/ui/MediaImage";
+
+const groups = [
+  {
+    label: "Scholarships",
+    items: [
+      { name: "NSF S-STEM Scholar", detail: "National Science Foundation" },
+      { name: "TMCF Scholar", detail: "Thurgood Marshall College Fund" },
+      { name: "Gamma Sigma Delta", detail: "Honor Society of Agriculture" },
+    ],
+  },
+  {
+    label: "Ambassador roles",
+    items: [{ name: "UNCF Ambassador", detail: "United Negro College Fund" }],
+  },
+  {
+    label: "Competitions",
+    items: [
+      { name: "Auburn Hacks Winner", detail: "1st Place" },
+      { name: "Precision Agriculture Hackathon Winner", detail: "1st Place" },
+    ],
+  },
+] as const;
 
 export function Recognition() {
   const gallery = mediaAssignments.awards.slice(0, 3);
@@ -14,7 +35,7 @@ export function Recognition() {
       id="recognition"
       eyebrow="Recognition"
       title="Markers of trust."
-      subtitle="Scholarships, ambassadorships, and competition wins — the full record is on Resume."
+      subtitle="Scholarships, ambassadorship, and competition wins — the full record lives on Resume."
       className="section-wash"
     >
       <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-10">
@@ -32,19 +53,29 @@ export function Recognition() {
           ))}
         </div>
 
-        <ul className="space-y-3 lg:col-span-7">
-          {recognitionHighlights.map((a, i) => (
-            <Reveal key={a.name} delay={0.04 * i}>
-              <li className="glass flex items-start justify-between gap-4 rounded-2xl px-5 py-4">
-                <div>
-                  <p className="font-display text-lg text-mist">{a.name}</p>
-                  <p className="mt-1 text-sm text-ink-400">{a.detail}</p>
-                </div>
-                <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-tuskegee-gold shadow-gold-sm" />
-              </li>
+        <div className="space-y-8 lg:col-span-7">
+          {groups.map((group, gi) => (
+            <Reveal key={group.label} delay={0.05 * gi}>
+              <div>
+                <p className="chapter-label mb-3">{group.label}</p>
+                <ul className="space-y-3">
+                  {group.items.map((a) => (
+                    <li
+                      key={a.name}
+                      className="glass flex items-start justify-between gap-4 rounded-2xl px-5 py-4"
+                    >
+                      <div>
+                        <p className="font-display text-lg text-mist">{a.name}</p>
+                        <p className="mt-1 text-sm text-ink-400">{a.detail}</p>
+                      </div>
+                      <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-tuskegee-gold shadow-gold-sm" />
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </Reveal>
           ))}
-        </ul>
+        </div>
       </div>
 
       <Reveal delay={0.2}>

@@ -9,8 +9,8 @@ export function Milestones() {
     <Section
       id="milestones"
       eyebrow="Milestones"
-      title="A path, not a résumé dump."
-      subtitle="Selected chapters from the full documentary journey."
+      title="Selected chapters."
+      subtitle="Milestones from the full documentary journey."
       className="section-wash"
     >
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

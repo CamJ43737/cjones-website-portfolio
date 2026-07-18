@@ -45,9 +45,6 @@ export function SiteHeader() {
               {l.label}
             </Link>
           ))}
-          <Button href={asset(site.resumePath)} variant="ghost" download className="!py-2 !px-4">
-            Resume
-          </Button>
         </nav>
 
         <button

@@ -18,14 +18,11 @@ const LABELS = [
   "Builder",
 ] as const;
 
-function MarqueeTrack({ ariaHidden }: { ariaHidden?: boolean }) {
+function MarqueeTrack({ suffix }: { suffix: string }) {
   return (
-    <div
-      className="flex shrink-0 items-center gap-8 pr-8 sm:gap-12 sm:pr-12"
-      aria-hidden={ariaHidden}
-    >
+    <div className="flex shrink-0 items-center gap-8 pr-8 sm:gap-12 sm:pr-12">
       {LABELS.map((label) => (
-        <span key={label} className="flex items-center gap-8 sm:gap-12">
+        <span key={`${label}-${suffix}`} className="flex items-center gap-8 sm:gap-12">
           <span className="whitespace-nowrap font-mono text-[11px] uppercase tracking-[0.28em] text-tuskegee-gold/90 sm:text-xs sm:tracking-[0.32em]">
             {label}
           </span>
@@ -44,30 +41,21 @@ export function IdentityRing() {
 
   return (
     <section
-      aria-label="Research identity"
-      className="relative overflow-hidden py-12 sm:py-14 lg:py-16"
+      aria-label="Research domains"
+      className="relative overflow-hidden py-8 sm:py-10"
     >
       <div
-        className="pointer-events-none absolute inset-x-0 top-1/2 h-24 -translate-y-1/2 bg-tuskegee-gold/5 blur-3xl"
+        className="pointer-events-none absolute inset-x-0 top-1/2 h-20 -translate-y-1/2 bg-tuskegee-gold/5 blur-3xl"
         aria-hidden
       />
 
-      <div className="section-pad relative mx-auto mb-8 w-full max-w-6xl text-center sm:mb-10">
-        <p className="font-display text-2xl font-semibold tracking-tight text-mist sm:text-3xl">
-          Cameron Jones
-        </p>
-        <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.28em] text-tuskegee-gold sm:text-[11px] sm:tracking-[0.32em]">
-          AI • Robotics • Research
-        </p>
-      </div>
-
-      <div className="relative">
+      <div className="relative overflow-hidden">
         <div
-          className="pointer-events-none absolute inset-y-0 left-0 z-[1] w-16 bg-gradient-to-r from-obsidian via-obsidian/80 to-transparent sm:w-28"
+          className="pointer-events-none absolute inset-y-0 left-0 z-[1] w-16 bg-gradient-to-r from-obsidian via-obsidian/85 to-transparent sm:w-28"
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute inset-y-0 right-0 z-[1] w-16 bg-gradient-to-l from-obsidian via-obsidian/80 to-transparent sm:w-28"
+          className="pointer-events-none absolute inset-y-0 right-0 z-[1] w-16 bg-gradient-to-l from-obsidian via-obsidian/85 to-transparent sm:w-28"
           aria-hidden
         />
 
@@ -77,8 +65,8 @@ export function IdentityRing() {
             !reduce && "animate-identity-marquee",
           )}
         >
-          <MarqueeTrack />
-          <MarqueeTrack ariaHidden />
+          <MarqueeTrack suffix="a" />
+          <MarqueeTrack suffix="b" />
         </div>
       </div>
 

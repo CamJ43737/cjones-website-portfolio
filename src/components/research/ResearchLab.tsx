@@ -22,7 +22,7 @@ export function ResearchLab({ featuredOnly = false }: Props) {
     <Section
       id="research"
       eyebrow={featuredOnly ? "Research" : "Chapter 03 — Research Lab"}
-      title={featuredOnly ? "Enter the laboratory." : "Enter the laboratory."}
+      title="Enter the laboratory."
       subtitle={
         featuredOnly
           ? "Flagship research — precision agriculture, healthcare digital twins, and AI infrastructure."

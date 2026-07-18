@@ -95,7 +95,7 @@ export const mediaAssignments = {
       src: "/images/02_AI_Farms/ai-farms-team-at-hooks-farm.jpg",
       alt: "AI Farms team at Hooks Farm",
       objectPosition: "50% 32%",
-      fit: "cover" as const,
+      fit: "contain" as const,
     },
     "MS-CC Research Intern": {
       src: "/images/03_Project_AEGIS/screenshot-98.png",
@@ -107,19 +107,19 @@ export const mediaAssignments = {
       src: "/images/05_Internships/industry/ai-farms-team-in-ithica-new-york-collaborating-with-our-cornell-partners.jpeg",
       alt: "AI Farms team collaborating with Cornell partners in Ithaca",
       objectPosition: "50% 32%",
-      fit: "cover" as const,
+      fit: "contain" as const,
     },
     "Robotics Intern": {
       src: "/images/05_Internships/industry/pvamu-internship.jpg",
       alt: "Prairie View A&M robotics internship",
       objectPosition: "50% 32%",
-      fit: "cover" as const,
+      fit: "contain" as const,
     },
     Intern: {
       src: "/images/05_Internships/coca-cola/img-2159.jpg",
       alt: "Coca-Cola internship",
       objectPosition: "50% 28%",
-      fit: "cover" as const,
+      fit: "contain" as const,
     },
   },
   awards: [
@@ -127,25 +127,25 @@ export const mediaAssignments = {
       src: "/images/07_Awards/nsf-stem-scholars.jpg",
       alt: "NSF S-STEM Scholars",
       objectPosition: "50% 28%",
-      fit: "cover" as const,
+      fit: "contain" as const,
     },
     {
       src: "/images/07_Awards/celebrating-graduation-with-the-corrdinators-of-the-nsf-stem-scholars-scholarship-committee.jpg",
       alt: "NSF STEM Scholars celebration",
       objectPosition: "50% 32%",
-      fit: "cover" as const,
+      fit: "contain" as const,
     },
     {
       src: "/images/07_Awards/gsd-honors-society-of-ag.jpg",
       alt: "Gamma Sigma Delta honors",
       objectPosition: "50% 38%",
-      fit: "cover" as const,
+      fit: "contain" as const,
     },
     {
       src: "/images/07_Awards/hackathon-winners-for-auburn-hacks.jpg",
       alt: "Auburn Hacks winners",
       objectPosition: "50% 28%",
-      fit: "cover" as const,
+      fit: "contain" as const,
     },
     {
       src: "/images/07_Awards/gsd-honors-society-of-ag-official-pin.jpeg",
@@ -157,7 +157,7 @@ export const mediaAssignments = {
       src: "/images/07_Awards/my-sister-and-i-presenting-our-hakcathon-for-auburn-hacks.jpeg",
       alt: "Auburn Hacks presentation",
       objectPosition: "50% 26%",
-      fit: "cover" as const,
+      fit: "contain" as const,
     },
   ],
   leadership: [
@@ -263,15 +263,27 @@ export const mediaAssignments = {
       src: "/images/04_Research/img-2848.jpg",
       alt: "Research poster session",
       objectPosition: "50% 30%",
-      fit: "cover" as const,
+      fit: "contain" as const,
     },
   ],
   /** Homepage teaser frames for Beyond the Lab photography card. */
   beyondPhotography: [
     {
+      src: "/images/08_Photography/general/cameron-the-photographer1.jpg",
+      alt: "Cameron photographing on location",
+      objectPosition: "50% 40%",
+      fit: "contain" as const,
+    },
+    {
       src: "/images/08_Photography/general/behind-the-lenscapturing-every-moment.jpg",
       alt: "Behind the lens — capturing every moment",
       objectPosition: "50% 45%",
+      fit: "contain" as const,
+    },
+    {
+      src: "/images/08_Photography/general/cameron-the-photographer2.jpg",
+      alt: "Actively shooting with camera in hand",
+      objectPosition: "50% 40%",
       fit: "contain" as const,
     },
     {
@@ -281,15 +293,15 @@ export const mediaAssignments = {
       fit: "cover" as const,
     },
     {
+      src: "/images/08_Photography/general/cameron-the-photographer3.jpg",
+      alt: "Photographing campus and community",
+      objectPosition: "50% 40%",
+      fit: "contain" as const,
+    },
+    {
       src: "/images/08_Photography/general/roots-of-progresssweet-potatoes-sweet-future.jpg",
       alt: "Roots of progress — sweet potatoes",
       objectPosition: "50% 50%",
-      fit: "cover" as const,
-    },
-    {
-      src: "/images/08_Photography/general/img-5162.jpeg",
-      alt: "Visual journal frame",
-      objectPosition: "50% 40%",
       fit: "cover" as const,
     },
   ],

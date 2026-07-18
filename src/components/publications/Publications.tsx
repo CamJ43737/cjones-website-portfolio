@@ -1,5 +1,6 @@
 import { publications } from "@/data/content";
 import { mediaAssignments } from "@/data/media-assignments";
+import { certificateImages, toGalleryItem } from "@/lib/portfolio-media";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { MediaImage } from "@/components/ui/MediaImage";
@@ -7,6 +8,7 @@ import { asset } from "@/lib/asset";
 
 export function Publications() {
   const gallery = mediaAssignments.publications;
+  const certificates = certificateImages().map((m) => toGalleryItem(m, "contain"));
 
   return (
     <Section
@@ -39,19 +41,50 @@ export function Publications() {
         <div className="grid grid-cols-2 gap-3 lg:col-span-6">
           {gallery.map((m, i) => (
             <Reveal key={m.src} delay={0.05 * i}>
-              <a href={asset(m.src)} target="_blank" rel="noopener noreferrer" className="block">
+              <a href={asset(m.src)} target="_blank" rel="noopener noreferrer" className="group block">
                 <MediaImage
                   src={m.src}
                   alt={m.alt}
-                  fit={m.fit}
+                  fit={m.fit ?? "contain"}
                   objectPosition={m.objectPosition}
-                  className="aspect-[3/4] rounded-2xl border border-white/[0.08] transition hover:border-tuskegee-gold/40"
+                  className="aspect-[3/4]"
                 />
               </a>
             </Reveal>
           ))}
         </div>
       </div>
+
+      {certificates.length > 0 && (
+        <div className="mt-16 border-t border-white/10 pt-12">
+          <p className="chapter-label">Credentials</p>
+          <h3 className="mt-3 font-display text-2xl text-mist sm:text-3xl">Certificates</h3>
+          <p className="prose-brand mt-3 max-w-2xl text-sm sm:text-base">
+            Supporting credentials shown alongside the research record — kept clear of the poster
+            gallery.
+          </p>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {certificates.map((m, i) => (
+              <Reveal key={m.src} delay={Math.min(i * 0.04, 0.2)}>
+                <a
+                  href={asset(m.src)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block"
+                >
+                  <MediaImage
+                    src={m.src}
+                    alt={m.alt}
+                    fit="contain"
+                    objectPosition="50% 50%"
+                    className="aspect-[4/5]"
+                  />
+                </a>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      )}
     </Section>
   );
 }

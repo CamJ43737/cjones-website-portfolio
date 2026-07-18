@@ -96,7 +96,7 @@ export function Experience() {
                             alt={m.alt}
                             fit="cover"
                             objectPosition={m.objectPosition}
-                            className="aspect-square rounded-xl border border-tuskegee-gold/20"
+                            className="aspect-square"
                           />
                         ))}
                     </div>

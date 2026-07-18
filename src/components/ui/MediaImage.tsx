@@ -14,6 +14,8 @@ type Props = {
   priority?: boolean;
   objectPosition?: string;
   fit?: MediaFit;
+  /** Skip the shared gold frame (rare — seals / inline icons). */
+  unframed?: boolean;
 };
 
 export function MediaImage({
@@ -24,6 +26,7 @@ export function MediaImage({
   priority,
   objectPosition,
   fit,
+  unframed = false,
 }: Props) {
   const [ok, setOk] = useState(true);
   const resolvedFit = fitForPath(src, fit);
@@ -34,6 +37,7 @@ export function MediaImage({
       <div
         className={cn(
           "flex items-center justify-center bg-graphite text-xs text-ink-400",
+          !unframed && "media-frame",
           className,
         )}
       >
@@ -45,10 +49,11 @@ export function MediaImage({
   return (
     <div
       className={cn(
-        "relative overflow-hidden",
+        "group relative overflow-hidden",
+        !unframed && "media-frame",
         resolvedFit === "contain"
-          ? "bg-obsidian/85 ring-1 ring-inset ring-tuskegee-gold/25"
-          : "bg-charcoal",
+          ? "bg-gradient-to-b from-tuskegee-gold/[0.07] via-obsidian/95 to-obsidian"
+          : "bg-charcoal/90",
         className,
       )}
     >
@@ -59,8 +64,9 @@ export function MediaImage({
         loading={priority ? "eager" : "lazy"}
         decoding="async"
         className={cn(
-          "h-full w-full max-w-full",
+          "h-full w-full max-w-full transition duration-700 ease-out",
           resolvedFit === "cover" ? "object-cover" : "object-contain p-1.5 sm:p-2",
+          !unframed && "group-hover:scale-[1.015]",
           imgClassName,
         )}
         style={{ objectPosition: resolvedPosition }}

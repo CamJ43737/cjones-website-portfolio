@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { beyondHobbies } from "@/data/content";
+import { mediaAssignments } from "@/data/media-assignments";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { MediaImage } from "@/components/ui/MediaImage";
 import { imagesOnly, mediaByCategory, mediaByPathPrefix } from "@/lib/media";
-import { photographyImages } from "@/lib/portfolio-media";
+import { featuredPcBuildImages, photographyImages } from "@/lib/portfolio-media";
 
 function countForHobby(id: string): number {
   if (id === "pc-building") {
@@ -34,14 +35,27 @@ export function BeyondTheLab() {
               <article className="group overflow-hidden rounded-[1.5rem] border border-white/[0.1] bg-charcoal/35 shadow-glass backdrop-blur-xl transition duration-500 hover:border-tuskegee-gold/35 hover:shadow-gold">
                 <Link href={`/beyond#${hobby.id}`} className="grid lg:grid-cols-12">
                   <div className="relative min-h-[220px] overflow-hidden lg:col-span-6 lg:min-h-[320px]">
-                    {hobby.coverFit === "contain" ? (
+                    {hobby.id === "pc-building" ? (
+                      <div className="absolute inset-0 grid grid-cols-3 gap-2 bg-obsidian/70 p-3 sm:gap-3 sm:p-4">
+                        {featuredPcBuildImages.map((img) => (
+                          <MediaImage
+                            key={img.src}
+                            src={img.src}
+                            alt={img.alt}
+                            fit={img.fit}
+                            objectPosition={img.objectPosition}
+                            className="h-full min-h-0 w-full"
+                          />
+                        ))}
+                      </div>
+                    ) : hobby.coverFit === "contain" ? (
                       <div className="absolute inset-0 flex items-center justify-center bg-obsidian/70 p-3 sm:p-4">
                         <MediaImage
                           src={hobby.coverSrc}
                           alt={hobby.title}
                           fit="contain"
                           objectPosition={hobby.coverPosition}
-                          className="h-full w-full rounded-xl border border-tuskegee-gold/30 shadow-gold-sm"
+                          className="h-full w-full"
                         />
                       </div>
                     ) : (
@@ -51,7 +65,7 @@ export function BeyondTheLab() {
                           alt={hobby.title}
                           fit={hobby.coverFit ?? "cover"}
                           objectPosition={hobby.coverPosition}
-                          className="absolute inset-0 h-full w-full transition duration-700 ease-out group-hover:scale-[1.015]"
+                          className="absolute inset-0 h-full w-full"
                         />
                         <div
                           className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-obsidian/15 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-obsidian/20 lg:to-obsidian/70"
@@ -72,6 +86,21 @@ export function BeyondTheLab() {
                     <p className="mt-4 max-w-measure text-sm leading-relaxed text-ink-200 sm:text-base">
                       {hobby.description}
                     </p>
+
+                    {hobby.id === "photography" && (
+                      <div className="mt-6 grid grid-cols-3 gap-2">
+                        {mediaAssignments.beyondPhotography.slice(0, 3).map((m) => (
+                          <MediaImage
+                            key={m.src}
+                            src={m.src}
+                            alt={m.alt}
+                            fit={m.fit}
+                            objectPosition={m.objectPosition}
+                            className="aspect-square"
+                          />
+                        ))}
+                      </div>
+                    )}
 
                     <dl className="mt-8 grid grid-cols-2 gap-3 border-t border-white/[0.06] pt-6 sm:grid-cols-3">
                       <div>

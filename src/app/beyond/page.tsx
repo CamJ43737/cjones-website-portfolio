@@ -5,7 +5,11 @@ import { videoAssignments } from "@/data/video-assignments";
 import { MediaImage } from "@/components/ui/MediaImage";
 import { CinematicVideo } from "@/components/ui/CinematicVideo";
 import { imagesOnly, mediaByCategory, mediaByPathPrefix } from "@/lib/media";
-import { photographyImages, toGalleryItem } from "@/lib/portfolio-media";
+import {
+  featuredPcBuildImages,
+  photographyImages,
+  toGalleryItem,
+} from "@/lib/portfolio-media";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -64,11 +68,7 @@ function HobbyGallery({
             alt={m.alt}
             fit={m.fit}
             objectPosition={m.objectPosition}
-            className={
-              m.fit === "contain"
-                ? "aspect-[4/5] rounded-2xl border border-tuskegee-gold/30 sm:aspect-[3/4]"
-                : "aspect-[4/5] rounded-2xl border border-white/[0.08] sm:aspect-[3/4]"
-            }
+            className="aspect-[4/5] sm:aspect-[3/4]"
           />
         ))}
       </div>
@@ -77,13 +77,24 @@ function HobbyGallery({
 }
 
 export default function BeyondPage() {
-  const pcImages = imagesOnly(mediaByCategory("12_PC_Build")).map((m) =>
-    toGalleryItem(m, "cover"),
-  );
+  const featuredPcSrcs = new Set<string>(featuredPcBuildImages.map((m) => m.src));
+  const pcImages = [
+    ...featuredPcBuildImages.map((m) => ({
+      src: m.src,
+      alt: m.alt,
+      fit: m.fit,
+      objectPosition: m.objectPosition,
+    })),
+    ...imagesOnly(mediaByCategory("12_PC_Build"))
+      .filter((m) => !featuredPcSrcs.has(m.src) && !m.src.includes("-1."))
+      .map((m) => toGalleryItem(m, "contain")),
+  ];
 
   const photoImages = photographyImages().map((m) => {
     const contain =
-      m.src.includes("behind-the-lens") || m.src.endsWith(".png");
+      m.src.includes("behind-the-lens") ||
+      m.src.includes("photographer") ||
+      m.src.endsWith(".png");
     return toGalleryItem(m, contain ? "contain" : "cover");
   });
 

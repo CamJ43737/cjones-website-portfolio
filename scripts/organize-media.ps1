@@ -168,7 +168,14 @@ Copy-FolderContents (Join-Path $SourceRoot "10_Leadership and Volunteer") (Join-
 $awardsRoot = Join-Path $SourceRoot "Awards"
 if (Test-Path $awardsRoot) {
   Copy-FolderContents $awardsRoot (Join-Path $PublicImages "07_Awards") "07_Awards" $manifest -RootFilesOnly
-  $family = Join-Path $awardsRoot "17_Family_On_Campus"
+}
+
+# Family: map from both Resume Photos root and Awards nested folder (if present)
+$familyCandidates = @(
+  (Join-Path $SourceRoot "17_Family_On_Campus"),
+  (Join-Path $SourceRoot "Awards\17_Family_On_Campus")
+)
+foreach ($family in $familyCandidates) {
   if (Test-Path $family) {
     Copy-FolderContents $family (Join-Path $PublicImages "10_Family") "10_Family" $manifest
   }
@@ -177,7 +184,7 @@ if (Test-Path $awardsRoot) {
 # Photography with subfolders preserved
 $photoRoot = Join-Path $SourceRoot "12_Photography"
 if (Test-Path $photoRoot) {
-  # Root-level files -> general
+  # Root-level files -> general (includes Cameron the photographer*.JPG)
   Get-ChildItem -LiteralPath $photoRoot -File | ForEach-Object {
     Copy-Sanitized $_.FullName (Join-Path $PublicImages "08_Photography/general") "08_Photography/general" $manifest
   }
@@ -277,4 +284,5 @@ Get-ChildItem -LiteralPath $PublicImages -Directory | ForEach-Object {
 }
 $resumeCount = (Get-ChildItem -LiteralPath $resumeDest -File -ErrorAction SilentlyContinue | Measure-Object).Count
 Write-Host ("{0,-20} {1}" -f "resume", $resumeCount)
+
 

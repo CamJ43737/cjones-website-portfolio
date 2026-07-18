@@ -81,6 +81,8 @@ export type TimelineChapter = {
   links?: TimelineLink[];
   images?: TimelineMedia[];
   videos?: TimelineVideo[];
+  /** Soft chapter-cover backdrop behind the story panel (desktop). */
+  coverImage?: string;
 };
 
 export const timeline: TimelineChapter[] = [
@@ -92,12 +94,18 @@ export const timeline: TimelineChapter[] = [
     description:
       "Before research titles, there were open cases and cable routes — curiosity that treated every machine as a puzzle worth solving by hand.",
     technologies: ["Hardware", "PC Building", "Systems"],
+    coverImage: "/images/12_PC_Build/img-2727.jpeg",
     images: [
       {
         src: "/images/12_PC_Build/img-2727.jpeg",
         alt: "Pyramid PC build",
         fit: "contain",
         objectPosition: "50% 45%",
+      },
+      {
+        src: "/images/12_PC_Build/img-2730.jpg",
+        alt: "Custom dual-chamber PC build with RGB",
+        fit: "contain",
       },
       {
         src: "/images/12_PC_Build/img-2713.jpg",
@@ -115,6 +123,7 @@ export const timeline: TimelineChapter[] = [
     description:
       "Hardware intuition met software language — the first scripts that made systems respond, iterate, and teach discipline.",
     technologies: ["Python", "Logic", "Software Fundamentals"],
+    coverImage: "/images/12_PC_Build/6902.jpg",
     images: [
       {
         src: "/images/12_PC_Build/6902.jpg",
@@ -131,6 +140,7 @@ export const timeline: TimelineChapter[] = [
     description:
       "Civic work and youth leadership in Nashville — speaking, serving, and learning how community voice shapes systems beyond campus.",
     technologies: ["Leadership", "Civic Engagement", "Public Speaking"],
+    coverImage: "/images/06_Leadership/post-speech-at-the-mayor-s-youth-council-youth-symposium.jpg",
     images: [
       {
         src: "/images/06_Leadership/post-speech-at-the-mayor-s-youth-council-youth-symposium.jpg",
@@ -156,18 +166,58 @@ export const timeline: TimelineChapter[] = [
     title: "Tuskegee University",
     detail: "Transferred to pursue Computer Science at an HBCU legacy campus.",
     description:
-      "Tuskegee became home base — Computer Science grounded in heritage, excellence, and research that serves people.",
-    technologies: ["Computer Science", "HBCU", "Research Culture"],
+      "Tuskegee is more than my university — it is family ground. My parents are alumni. I am an identical twin, my sisters are twins, and there are eight of us. Growing up around this campus meant study nights, family dinners, game nights, walking the grounds together, and Homecoming traditions that felt like home long before I enrolled. Choosing Tuskegee was choosing community, legacy, and the place that shaped who I became.",
+    technologies: ["Family", "Legacy", "Community", "Computer Science", "HBCU"],
+    coverImage: "/images/13_Logos/tuskegee-university-tigers-steven-parker.jpg",
     images: [
       {
-        src: "/images/01_Hero/tuskege-u-headhsot.jpeg",
-        alt: "Cameron Jones at Tuskegee University",
+        src: "/images/10_Family/family-unitedtuskegee-traditions.jpg",
+        alt: "Family united in Tuskegee traditions",
         fit: "contain",
-        objectPosition: "50% 18%",
       },
       {
-        src: "/images/10_Family/family-unitedtuskegee-traditions.jpg",
-        alt: "Family and Tuskegee traditions",
+        src: "/images/10_Family/family-strollsteps-of-legacy.jpeg",
+        alt: "Family stroll on campus — steps of legacy",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/twin-ambitionexpo-edition.jpg",
+        alt: "Identical twin ambition — expo edition",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/sibling-weekendhome-away-from-home.jpeg",
+        alt: "Sibling weekend — home away from home",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/uno-eyesthe-ultimate-poker-face.jpeg",
+        alt: "Game night with family — UNO poker face",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/seasonal-sischristmas-memories-in-the-making.jpeg",
+        alt: "Family dinner season — Christmas memories",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/sister-spotlightexpo-excellence.jpg",
+        alt: "Sisters at expo — twin spotlight",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/expo-prepbuilding-the-vision-together.jpg",
+        alt: "Study and expo prep — building the vision together",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/tradition-and-triumphthegreek-experience.jpg",
+        alt: "Homecoming and Greek traditions on campus",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/cameron-and-sister-kaiya-on-school-trip-representing-tuskegee-at-the-tmcf-leadership-institute.jpg",
+        alt: "Representing Tuskegee with family — TMCF Leadership Institute",
         fit: "contain",
       },
     ],
@@ -181,6 +231,7 @@ export const timeline: TimelineChapter[] = [
     description:
       "Field robotics, drones, and vision systems where mud and batteries matter as much as models — research that has to work outdoors.",
     technologies: ["Robotics", "Computer Vision", "Drones", "Precision Agriculture"],
+    coverImage: "/images/02_AI_Farms/hero-drone-field.jpg",
     images: [
       {
         src: "/images/02_AI_Farms/hero-drone-field.jpg",
@@ -190,6 +241,11 @@ export const timeline: TimelineChapter[] = [
       {
         src: "/images/02_AI_Farms/ai-farms-team-at-hooks-farm.jpg",
         alt: "AI Farms team at Hooks Farm",
+        fit: "contain",
+      },
+      {
+        src: "/images/02_AI_Farms/giving-ai-robot-dog-demo-at-ard-research-symposium.jpg",
+        alt: "Robot dog demonstration at research symposium",
         fit: "contain",
       },
     ],
@@ -213,6 +269,7 @@ export const timeline: TimelineChapter[] = [
     description:
       "National recognition that reinforced the path — excellence in STEM paired with responsibility to lift community.",
     technologies: ["NSF S-STEM", "Scholarship", "STEM Leadership"],
+    coverImage: "/images/07_Awards/nsf-stem-scholars.jpg",
     images: [
       {
         src: "/images/07_Awards/nsf-stem-scholars.jpg",
@@ -235,6 +292,8 @@ export const timeline: TimelineChapter[] = [
     description:
       "A year of acceleration — embedded robotics at Prairie View, Google CSSI, and CAGI cohorts where agriculture met AI under pressure.",
     technologies: ["Robotics", "Arduino", "Sensors", "CAGI", "Google CSSI"],
+    coverImage:
+      "/images/02_AI_Farms/robotics-testing-with-handmade-car-at-internship-at-pvamu.jpeg",
     images: [
       {
         src: "/images/02_AI_Farms/robotics-testing-with-handmade-car-at-internship-at-pvamu.jpeg",
@@ -273,6 +332,8 @@ export const timeline: TimelineChapter[] = [
     description:
       "NLP and automation for research cyberinfrastructure — turning dense systems knowledge into tools researchers can actually use.",
     technologies: ["Python", "LLMs", "NLP", "REST APIs", "Jira"],
+    coverImage:
+      "/images/05_Internships/industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university.jpeg",
     images: [
       {
         src: "/images/05_Internships/industry/ai-farms-team-in-ithica-new-york-collaborating-with-our-cornell-partners.jpeg",
@@ -298,6 +359,7 @@ export const timeline: TimelineChapter[] = [
     description:
       "Apartment Framework Lead for Project AEGIS — digital twins and robotics for aging-in-place, alongside competition wins that prove speed and clarity under constraint.",
     technologies: ["Unity 6", "C#", "Digital Twins", "Healthcare AI", "NavMesh"],
+    coverImage: "/images/03_Project_AEGIS/screenshot-92.png",
     images: [
       {
         src: "/images/03_Project_AEGIS/screenshot-92.png",
@@ -323,6 +385,7 @@ export const timeline: TimelineChapter[] = [
     description:
       "The next chapter is graduate research — AI that lives in soil, clinics, homes, and infrastructure, not only in slides.",
     technologies: ["PhD Path", "AI Research", "Physical AI", "Innovation"],
+    coverImage: "/images/05_Internships/industry/img-7838.jpeg",
     images: [
       {
         src: "/images/05_Internships/industry/img-7838.jpeg",
@@ -662,8 +725,8 @@ export const beyondHobbies: BeyondHobby[] = [
     theme: "Creativity, storytelling, perspective",
     description:
       "A visual journal of light, land, and people — training the eye to notice what systems and stories leave behind.",
-    coverSrc: "/images/08_Photography/general/behind-the-lenscapturing-every-moment.jpg",
-    coverPosition: "50% 45%",
+    coverSrc: "/images/08_Photography/general/cameron-the-photographer1.jpg",
+    coverPosition: "50% 40%",
     coverFit: "contain",
   },
   {

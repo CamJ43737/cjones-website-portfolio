@@ -37,7 +37,7 @@ export function ResearchLab() {
                             alt={cover.alt}
                             fit="contain"
                             objectPosition={cover.objectPosition}
-                            className="h-full w-full rounded-xl border border-tuskegee-gold/30 shadow-gold-sm"
+                            className="h-full w-full"
                           />
                         </div>
                       ) : (

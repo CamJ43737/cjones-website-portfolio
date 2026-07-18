@@ -91,8 +91,8 @@ export default async function ResearchProjectPage({ params }: Props) {
             objectPosition={cover.objectPosition}
             className={
               cover.fit === "contain"
-                ? "mt-12 aspect-[4/5] rounded-[1.35rem] border border-tuskegee-gold/30 shadow-gold-sm sm:aspect-[16/10]"
-                : "mt-12 aspect-[16/9] rounded-[1.35rem] border border-white/[0.08] shadow-gold-sm sm:aspect-[21/9]"
+                ? "mt-12 aspect-[4/5] sm:aspect-[16/10]"
+                : "mt-12 aspect-[16/9] sm:aspect-[21/9]"
             }
           />
         )}
@@ -184,7 +184,7 @@ export default async function ResearchProjectPage({ params }: Props) {
                   key={m.src}
                   src={m.src}
                   alt={m.originalName}
-                  className="mb-3 min-h-[180px] break-inside-avoid rounded-2xl border border-white/[0.08]"
+                  className="mb-3 min-h-[180px] break-inside-avoid"
                   imgClassName="w-full"
                 />
               ))}

@@ -71,11 +71,11 @@ export function About() {
                 alt={m.alt}
                 fit={m.fit}
                 objectPosition={m.objectPosition}
-                className={`rounded-2xl border border-white/[0.08] ${
+                className={
                   m.aspect === "portrait"
                     ? "aspect-[4/5] sm:col-span-2 lg:col-span-1"
                     : "aspect-[16/11]"
-                }`}
+                }
               />
             </Reveal>
           ))}
@@ -86,6 +86,7 @@ export function About() {
                 alt={mediaAssignments.logoSeal.alt}
                 fit="contain"
                 objectPosition="50% 50%"
+                unframed
                 className="h-14 w-14 shrink-0 bg-transparent"
                 imgClassName="p-1"
               />

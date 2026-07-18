@@ -90,7 +90,7 @@ export default function ResumePage() {
                   alt={m.alt}
                   fit="contain"
                   objectPosition="50% 50%"
-                  className="aspect-[4/5] rounded-2xl border border-tuskegee-gold/25 shadow-gold-sm"
+                  className="aspect-[4/5]"
                 />
               ))}
             </div>
@@ -115,7 +115,7 @@ export default function ResumePage() {
                   alt={m.alt}
                   fit="cover"
                   objectPosition={m.objectPosition}
-                  className="mb-3 break-inside-avoid rounded-2xl border border-white/[0.08]"
+                  className="mb-3 break-inside-avoid"
                   imgClassName="w-full"
                 />
               ))}

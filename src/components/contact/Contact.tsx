@@ -48,7 +48,7 @@ export function Contact() {
               alt={mediaAssignments.contact.alt}
               fit={mediaAssignments.contact.fit}
               objectPosition={mediaAssignments.contact.objectPosition}
-              className="aspect-[4/5] w-full max-w-md rounded-[1.35rem] border border-white/[0.08] lg:max-w-none"
+              className="aspect-[4/5] w-full max-w-md lg:max-w-none"
             />
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Button href={`mailto:${site.email}`} className="w-full">

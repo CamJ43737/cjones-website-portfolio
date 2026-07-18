@@ -118,7 +118,7 @@ export function Hero() {
               priority
               fit={portrait.fit}
               objectPosition={portrait.objectPosition}
-              className="relative aspect-[4/5] rounded-[1.25rem] border border-white/10 shadow-gold sm:rounded-[1.35rem]"
+              className="relative aspect-[4/5]"
             />
           </motion.div>
         </div>

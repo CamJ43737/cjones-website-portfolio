@@ -4,15 +4,18 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { photoCategories, site } from "@/data/content";
+import { photographyExclusions } from "@/data/media-assignments";
 import { MediaImage } from "@/components/ui/MediaImage";
 import { imagesOnly, mediaByPathPrefix, mediaSearch } from "@/lib/media";
+import { fitForPath } from "@/lib/image-rules";
 import { cn } from "@/lib/cn";
+import { TuskegeeAtmosphere } from "@/components/brand/TuskegeeAtmosphere";
 
 export default function PhotographyPage() {
   const all = useMemo(
     () =>
       imagesOnly(mediaByPathPrefix("/images/08_Photography")).filter(
-        (m) => !m.src.includes("untitled-design"),
+        (m) => !photographyExclusions.some((ex) => m.src.toLowerCase().includes(ex)),
       ),
     [],
   );
@@ -28,8 +31,10 @@ export default function PhotographyPage() {
   }, [active, all]);
 
   return (
-    <main className="min-h-screen pb-24 pt-28">
-      <div className="section-pad mx-auto max-w-6xl">
+    <main className="relative min-h-screen overflow-hidden pb-24 pt-28">
+      <TuskegeeAtmosphere intensity="section" />
+
+      <div className="section-pad relative z-[1] mx-auto w-full max-w-6xl">
         <Link
           href="/#photography"
           className="inline-flex items-center gap-2 text-sm text-ink-300 transition hover:text-tuskegee-gold"
@@ -37,14 +42,14 @@ export default function PhotographyPage() {
           <ArrowLeft size={16} /> Back
         </Link>
 
-        <p className="chapter-label mt-10">Visual Journal</p>
-        <h1 className="mt-4 font-display text-4xl font-semibold text-mist sm:text-6xl">
-          Photography
-        </h1>
-        <p className="prose-brand mt-5 max-w-2xl">
-          Not a grid of thumbnails — a journal of light, land, machines, and people.{" "}
-          {site.name} behind the lens.
-        </p>
+        <header className="mt-10 max-w-3xl text-left">
+          <p className="chapter-label mb-3 sm:mb-4">Visual Journal</p>
+          <h1 className="display-title">Photography</h1>
+          <p className="prose-brand mt-4 text-pretty sm:mt-5">
+            Not a grid of thumbnails — a journal of light, land, machines, and people.{" "}
+            {site.name} behind the lens.
+          </p>
+        </header>
 
         <div className="mt-10 flex flex-wrap gap-2">
           <button
@@ -75,26 +80,24 @@ export default function PhotographyPage() {
             </button>
           ))}
         </div>
-      </div>
 
-      <div className="section-pad mx-auto mt-12 max-w-6xl columns-1 gap-3 sm:columns-2 lg:columns-3">
-        {filtered.map((m) => (
-          <MediaImage
-            key={m.src}
-            src={m.src}
-            alt={m.originalName}
-            objectPosition="50% 40%"
-            className="mb-3 break-inside-avoid rounded-2xl border border-white/[0.08]"
-            imgClassName="w-full"
-          />
-        ))}
-      </div>
+        <div className="mt-12 columns-1 gap-3 sm:columns-2 lg:columns-3">
+          {filtered.map((m) => (
+            <MediaImage
+              key={m.src}
+              src={m.src}
+              alt={m.originalName}
+              fit={fitForPath(m.src)}
+              className="mb-3 min-h-[200px] break-inside-avoid rounded-2xl border border-white/[0.08]"
+              imgClassName="w-full"
+            />
+          ))}
+        </div>
 
-      {filtered.length === 0 && (
-        <p className="section-pad mx-auto mt-10 max-w-6xl text-ink-400">
-          No images in this category yet — more frames coming.
-        </p>
-      )}
+        {filtered.length === 0 && (
+          <p className="mt-10 text-ink-400">No images in this category yet — more frames coming.</p>
+        )}
+      </div>
     </main>
   );
 }

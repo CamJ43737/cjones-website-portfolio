@@ -43,6 +43,7 @@ export function Publications() {
                 <MediaImage
                   src={m.src}
                   alt={m.alt}
+                  fit={m.fit}
                   objectPosition={m.objectPosition}
                   className="aspect-[3/4] rounded-2xl border border-white/[0.08] transition hover:border-tuskegee-gold/40"
                 />

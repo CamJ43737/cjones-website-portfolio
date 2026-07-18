@@ -8,6 +8,7 @@ type Props = {
   children: React.ReactNode;
   className?: string;
   tight?: boolean;
+  backdrop?: React.ReactNode;
 };
 
 export function Section({
@@ -18,19 +19,21 @@ export function Section({
   children,
   className,
   tight,
+  backdrop,
 }: Props) {
   return (
     <section
       id={id}
       className={cn(
         "relative section-pad",
-        tight ? "py-16 sm:py-20" : "py-20 sm:py-28 lg:py-32",
+        tight ? "py-16 sm:py-20" : "py-20 sm:py-24 md:py-28 lg:py-32",
         className,
       )}
     >
-      <div className="mx-auto w-full max-w-6xl">
+      {backdrop}
+      <div className="relative z-[1] mx-auto w-full max-w-6xl">
         {(eyebrow || title || subtitle) && (
-          <header className="mb-10 max-w-3xl text-left sm:mb-14">
+          <header className="mb-10 w-full max-w-3xl text-left sm:mb-12 lg:mb-14">
             {eyebrow && <p className="chapter-label mb-3 sm:mb-4">{eyebrow}</p>}
             {title && <h2 className="display-title text-balance">{title}</h2>}
             {subtitle && (

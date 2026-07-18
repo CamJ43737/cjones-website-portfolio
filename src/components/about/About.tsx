@@ -3,6 +3,10 @@ import { mediaAssignments } from "@/data/media-assignments";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { MediaImage } from "@/components/ui/MediaImage";
+import {
+  TuskegeeAtmosphere,
+  TuskegeeSealWatermark,
+} from "@/components/brand/TuskegeeAtmosphere";
 
 export function About() {
   const sideImages = mediaAssignments.about;
@@ -13,6 +17,16 @@ export function About() {
       eyebrow="Chapter 01 — Origin"
       title="The builder before the researcher."
       subtitle={`${site.name} · ${site.major} · ${site.university} · Expected ${site.graduation}`}
+      className="overflow-hidden"
+      backdrop={
+        <>
+          <TuskegeeAtmosphere intensity="section" />
+          <TuskegeeSealWatermark
+            size="lg"
+            className="left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2"
+          />
+        </>
+      }
     >
       <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-7">
@@ -61,6 +75,7 @@ export function About() {
               <MediaImage
                 src={m.src}
                 alt={m.alt}
+                fit={m.fit}
                 objectPosition={m.objectPosition}
                 className={`rounded-2xl border border-white/[0.08] ${
                   m.aspect === "portrait"

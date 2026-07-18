@@ -46,8 +46,9 @@ export function Contact() {
             <MediaImage
               src={mediaAssignments.contact.src}
               alt={mediaAssignments.contact.alt}
+              fit={mediaAssignments.contact.fit}
               objectPosition={mediaAssignments.contact.objectPosition}
-              className="aspect-[4/5] max-w-md rounded-[1.35rem] border border-white/[0.08] lg:max-w-none"
+              className="aspect-[4/5] w-full max-w-md rounded-[1.35rem] border border-white/[0.08] lg:max-w-none"
             />
             <div className="flex flex-wrap gap-3">
               <Button href={`mailto:${site.email}`}>

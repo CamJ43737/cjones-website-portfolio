@@ -18,6 +18,8 @@ const config: Config = {
           bright: "#D4B45C",
           muted: "#8A7033",
           deep: "#6B5524",
+          bronze: "#A66A30",
+          ember: "#9A6B2F",
         },
         ink: {
           50: "#F5F5F5",

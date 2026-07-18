@@ -26,7 +26,7 @@ export function SiteHeader() {
         scrolled ? "border-b border-white/5 bg-obsidian/80 backdrop-blur-xl" : "bg-transparent",
       )}
     >
-      <div className="section-pad mx-auto flex h-16 max-w-6xl items-center justify-between sm:h-18">
+      <div className="section-pad mx-auto flex h-16 max-w-6xl items-center justify-between">
         <Link href="/" className="group flex items-center gap-2" onClick={() => setOpen(false)}>
           <span className="font-display text-lg font-semibold tracking-tight text-mist transition group-hover:text-tuskegee-gold">
             {site.name}

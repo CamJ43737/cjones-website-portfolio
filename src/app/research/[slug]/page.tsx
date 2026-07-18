@@ -75,6 +75,7 @@ export default async function ResearchProjectPage({ params }: Props) {
             src={cover.src}
             alt={cover.alt}
             priority
+            fit={cover.fit}
             objectPosition={cover.objectPosition}
             className="mt-12 aspect-[16/9] rounded-[1.35rem] border border-white/[0.08] shadow-gold-sm sm:aspect-[21/9]"
           />
@@ -168,8 +169,7 @@ export default async function ResearchProjectPage({ params }: Props) {
                   key={m.src}
                   src={m.src}
                   alt={m.originalName}
-                  objectPosition="50% 35%"
-                  className="mb-3 break-inside-avoid rounded-2xl border border-white/[0.08]"
+                  className="mb-3 min-h-[180px] break-inside-avoid rounded-2xl border border-white/[0.08]"
                   imgClassName="w-full"
                 />
               ))}

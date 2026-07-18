@@ -21,22 +21,23 @@ export function Leadership() {
             <MediaImage
               src={m.src}
               alt={m.alt}
+              fit={m.fit}
               objectPosition={m.objectPosition}
-              className="aspect-[4/5] rounded-2xl border border-white/[0.08]"
+              className="aspect-[4/5] h-full rounded-2xl border border-white/[0.08]"
             />
           </Reveal>
         ))}
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {leadership.map((item, i) => (
-          <Reveal key={item.name} delay={0.04 * i}>
-            <article className="glass h-full rounded-2xl p-6">
+          <Reveal key={item.name} delay={0.04 * i} className="h-full">
+            <article className="glass flex h-full flex-col rounded-2xl p-6">
               <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-tuskegee-gold/80">
                 Role
               </p>
               <h3 className="mt-3 font-display text-xl text-mist">{item.name}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-ink-300">{item.detail}</p>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-300">{item.detail}</p>
             </article>
           </Reveal>
         ))}

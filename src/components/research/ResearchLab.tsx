@@ -33,8 +33,9 @@ export function ResearchLab() {
                       <MediaImage
                         src={cover.src}
                         alt={cover.alt}
+                        fit={cover.fit}
                         objectPosition={cover.objectPosition}
-                        className="absolute inset-0 h-full w-full transition duration-700 ease-out group-hover:scale-[1.02]"
+                        className="absolute inset-0 h-full w-full transition duration-700 ease-out group-hover:scale-[1.015]"
                       />
                     ) : (
                       <div className="absolute inset-0 bg-charcoal" />

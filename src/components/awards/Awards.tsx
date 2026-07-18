@@ -21,6 +21,7 @@ export function Awards() {
               <MediaImage
                 src={m.src}
                 alt={m.alt}
+                fit={m.fit}
                 objectPosition={m.objectPosition}
                 className={`rounded-2xl border border-white/[0.08] ${
                   i === 0 ? "col-span-2 aspect-[16/10]" : "aspect-square"

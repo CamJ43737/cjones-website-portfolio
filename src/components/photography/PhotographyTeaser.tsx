@@ -15,15 +15,15 @@ export function PhotographyTeaser() {
       title="Seeing like a researcher."
       subtitle="A separate immersive gallery — campus light, field systems, quiet frames."
     >
-      <div className="mb-8 columns-1 gap-3 sm:columns-2 lg:columns-3">
+      <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {photos.map((m, i) => (
-          <Reveal key={m.src} delay={0.04 * i} className="mb-3 break-inside-avoid">
+          <Reveal key={m.src} delay={0.04 * i} className="h-full">
             <MediaImage
               src={m.src}
               alt={m.alt}
+              fit={m.fit}
               objectPosition={m.objectPosition}
-              className="rounded-2xl border border-white/[0.08]"
-              imgClassName="w-full"
+              className="aspect-[4/5] h-full w-full rounded-2xl border border-white/[0.08] sm:aspect-[3/4]"
             />
           </Reveal>
         ))}

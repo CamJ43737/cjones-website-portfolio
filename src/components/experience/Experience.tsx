@@ -27,8 +27,9 @@ export function Experience() {
                     <MediaImage
                       src={photo.src}
                       alt={photo.alt}
+                      fit={photo.fit}
                       objectPosition={photo.objectPosition}
-                      className="aspect-[16/11] md:col-span-5 md:aspect-auto md:min-h-[260px]"
+                      className="aspect-[16/11] md:col-span-5 md:aspect-auto md:min-h-[260px] md:h-full"
                     />
                   )}
                   <div className="flex flex-col justify-center px-6 py-7 sm:px-8 md:col-span-7">

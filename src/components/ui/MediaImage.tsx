@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { asset } from "@/lib/asset";
 import { cn } from "@/lib/cn";
+import { defaultObjectPosition, fitForPath } from "@/lib/image-rules";
+import type { MediaFit } from "@/data/media-assignments";
 
 type Props = {
   src: string;
@@ -10,10 +12,8 @@ type Props = {
   className?: string;
   imgClassName?: string;
   priority?: boolean;
-  /** CSS object-position — keep faces/subjects in frame */
   objectPosition?: string;
-  /** cover (default documentary crop) or contain (no crop) */
-  fit?: "cover" | "contain";
+  fit?: MediaFit;
 };
 
 export function MediaImage({
@@ -22,10 +22,12 @@ export function MediaImage({
   className,
   imgClassName,
   priority,
-  objectPosition = "50% 35%",
-  fit = "cover",
+  objectPosition,
+  fit,
 }: Props) {
   const [ok, setOk] = useState(true);
+  const resolvedFit = fitForPath(src, fit);
+  const resolvedPosition = defaultObjectPosition(src, objectPosition);
 
   if (!ok) {
     return (
@@ -41,7 +43,13 @@ export function MediaImage({
   }
 
   return (
-    <div className={cn("relative overflow-hidden bg-charcoal", className)}>
+    <div
+      className={cn(
+        "relative overflow-hidden",
+        resolvedFit === "contain" ? "bg-charcoal/80" : "bg-charcoal",
+        className,
+      )}
+    >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={asset(src)}
@@ -49,11 +57,11 @@ export function MediaImage({
         loading={priority ? "eager" : "lazy"}
         decoding="async"
         className={cn(
-          "h-full w-full",
-          fit === "cover" ? "object-cover" : "object-contain",
+          "h-full w-full max-w-full",
+          resolvedFit === "cover" ? "object-cover" : "object-contain",
           imgClassName,
         )}
-        style={{ objectPosition }}
+        style={{ objectPosition: resolvedPosition }}
         onError={() => setOk(false)}
       />
     </div>

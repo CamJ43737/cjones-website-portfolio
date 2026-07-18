@@ -19,15 +19,15 @@ export const mediaAssignments = {
     alt: "Tuskegee University campus atmosphere",
   },
   hero: {
-    src: "/images/01_Hero/hero-headshot.jpg",
-    alt: "Cameron Jones professional headshot",
-    objectPosition: "50% 16%",
-    fit: "cover" as const,
-  },
-  contact: {
     src: "/images/01_Hero/tuskege-u-headhsot.jpeg",
     alt: "Cameron Jones at Tuskegee University",
     objectPosition: "50% 18%",
+    fit: "cover" as const,
+  },
+  contact: {
+    src: "/images/01_Hero/hero-headshot.jpg",
+    alt: "Cameron Jones professional headshot",
+    objectPosition: "50% 16%",
     fit: "cover" as const,
   },
   logoSeal: {

@@ -864,7 +864,7 @@ export const beyondHobbies: BeyondHobby[] = [
     description: "Time outdoors, patience, and perspective.",
     coverSrc: "/images/14_Fishing/img-2945.jpg",
     coverPosition: "50% 40%",
-    coverFit: "cover",
+    coverFit: "contain",
   },
 ];
 

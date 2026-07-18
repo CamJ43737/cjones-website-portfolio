@@ -24,17 +24,17 @@ export function Section({
       id={id}
       className={cn(
         "relative section-pad",
-        tight ? "py-16 sm:py-20" : "py-24 sm:py-32",
+        tight ? "py-16 sm:py-20" : "py-20 sm:py-28 lg:py-32",
         className,
       )}
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto w-full max-w-6xl">
         {(eyebrow || title || subtitle) && (
-          <header className="mb-12 max-w-3xl sm:mb-16">
-            {eyebrow && <p className="chapter-label mb-4">{eyebrow}</p>}
+          <header className="mb-10 max-w-3xl text-left sm:mb-14">
+            {eyebrow && <p className="chapter-label mb-3 sm:mb-4">{eyebrow}</p>}
             {title && <h2 className="display-title text-balance">{title}</h2>}
             {subtitle && (
-              <p className="prose-brand mt-5 max-w-2xl text-pretty">{subtitle}</p>
+              <p className="prose-brand mt-4 text-pretty sm:mt-5">{subtitle}</p>
             )}
           </header>
         )}

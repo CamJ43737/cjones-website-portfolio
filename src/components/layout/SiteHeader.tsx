@@ -28,7 +28,7 @@ export function SiteHeader() {
     >
       <div className="section-pad mx-auto flex h-16 max-w-6xl items-center justify-between sm:h-18">
         <Link href="/" className="group flex items-center gap-2" onClick={() => setOpen(false)}>
-          <span className="font-display text-lg font-semibold tracking-tight text-mist transition group-hover:text-cyan-electric">
+          <span className="font-display text-lg font-semibold tracking-tight text-mist transition group-hover:text-tuskegee-gold">
             {site.name}
           </span>
         </Link>

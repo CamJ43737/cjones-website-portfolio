@@ -24,14 +24,14 @@ export function Particles() {
       canvas.width = canvas.offsetWidth * dpr;
       canvas.height = canvas.offsetHeight * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.floor((canvas.offsetWidth * canvas.offsetHeight) / 18000);
-      particles = Array.from({ length: Math.min(Math.max(count, 24), 70) }, () => ({
+      const count = Math.floor((canvas.offsetWidth * canvas.offsetHeight) / 22000);
+      particles = Array.from({ length: Math.min(Math.max(count, 18), 48) }, () => ({
         x: Math.random() * canvas.offsetWidth,
         y: Math.random() * canvas.offsetHeight,
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.25,
-        r: Math.random() * 1.4 + 0.4,
-        a: Math.random() * 0.35 + 0.1,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: (Math.random() - 0.5) * 0.18,
+        r: Math.random() * 1.2 + 0.35,
+        a: Math.random() * 0.28 + 0.08,
       }));
     };
 
@@ -45,7 +45,7 @@ export function Particles() {
         if (p.x < 0 || p.x > w) p.vx *= -1;
         if (p.y < 0 || p.y > h) p.vy *= -1;
         ctx.beginPath();
-        ctx.fillStyle = `rgba(61, 217, 255, ${p.a})`;
+        ctx.fillStyle = `rgba(200, 162, 74, ${p.a})`;
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
       }
@@ -65,7 +65,7 @@ export function Particles() {
     <canvas
       ref={ref}
       aria-hidden
-      className="pointer-events-none absolute inset-0 h-full w-full opacity-70"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-55"
     />
   );
 }

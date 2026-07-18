@@ -10,15 +10,14 @@ const config: Config = {
     extend: {
       colors: {
         obsidian: "#0A0A0A",
+        charcoal: "#141416",
         graphite: "#1B1B1F",
         mist: "#F5F5F5",
-        cyan: {
-          electric: "#3DD9FF",
-          dim: "#1A8FA8",
-        },
         tuskegee: {
           gold: "#C8A24A",
+          bright: "#D4B45C",
           muted: "#8A7033",
+          deep: "#6B5524",
         },
         ink: {
           50: "#F5F5F5",
@@ -38,33 +37,23 @@ const config: Config = {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
+      maxWidth: {
+        prose: "40rem",
+        measure: "38rem",
+      },
       boxShadow: {
-        glass: "0 8px 32px rgba(0,0,0,0.35)",
-        glow: "0 0 40px rgba(61, 217, 255, 0.15)",
-        gold: "0 0 40px rgba(200, 162, 74, 0.12)",
+        glass: "0 8px 32px rgba(0,0,0,0.4)",
+        gold: "0 0 36px rgba(200, 162, 74, 0.14)",
+        "gold-sm": "0 0 20px rgba(200, 162, 74, 0.1)",
       },
       backgroundImage: {
         "radial-fade":
-          "radial-gradient(ellipse 80% 60% at 50% -20%, rgba(61,217,255,0.12), transparent 55%)",
+          "radial-gradient(ellipse 70% 50% at 50% -10%, rgba(200,162,74,0.08), transparent 55%)",
         "lab-grid":
-          "linear-gradient(rgba(245,245,245,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(245,245,245,0.03) 1px, transparent 1px)",
+          "linear-gradient(rgba(245,245,245,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(245,245,245,0.025) 1px, transparent 1px)",
       },
       backgroundSize: {
-        grid: "64px 64px",
-      },
-      animation: {
-        "fade-up": "fadeUp 0.8s ease forwards",
-        float: "float 8s ease-in-out infinite",
-      },
-      keyframes: {
-        fadeUp: {
-          "0%": { opacity: "0", transform: "translateY(24px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-8px)" },
-        },
+        grid: "72px 72px",
       },
     },
   },

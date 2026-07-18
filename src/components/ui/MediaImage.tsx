@@ -10,9 +10,21 @@ type Props = {
   className?: string;
   imgClassName?: string;
   priority?: boolean;
+  /** CSS object-position — keep faces/subjects in frame */
+  objectPosition?: string;
+  /** cover (default documentary crop) or contain (no crop) */
+  fit?: "cover" | "contain";
 };
 
-export function MediaImage({ src, alt, className, imgClassName, priority }: Props) {
+export function MediaImage({
+  src,
+  alt,
+  className,
+  imgClassName,
+  priority,
+  objectPosition = "50% 35%",
+  fit = "cover",
+}: Props) {
   const [ok, setOk] = useState(true);
 
   if (!ok) {
@@ -29,14 +41,19 @@ export function MediaImage({ src, alt, className, imgClassName, priority }: Prop
   }
 
   return (
-    <div className={cn("overflow-hidden", className)}>
+    <div className={cn("relative overflow-hidden bg-charcoal", className)}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={asset(src)}
         alt={alt}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
-        className={cn("h-full w-full object-cover", imgClassName)}
+        className={cn(
+          "h-full w-full",
+          fit === "cover" ? "object-cover" : "object-contain",
+          imgClassName,
+        )}
+        style={{ objectPosition }}
         onError={() => setOk(false)}
       />
     </div>

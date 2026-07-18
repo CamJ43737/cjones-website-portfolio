@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { Github, Linkedin, Mail, Camera } from "lucide-react";
 import { contactReasons, site } from "@/data/content";
+import { mediaAssignments } from "@/data/media-assignments";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/Button";
@@ -39,13 +40,14 @@ export function Contact() {
       title="Let's Connect. Let's Talk."
       subtitle="Whether you're a researcher, recruiter, or someone building something meaningful at the edge of AI and agriculture — I want to hear from you."
     >
-      <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-        <Reveal>
+      <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
+        <Reveal className="lg:col-span-5">
           <div className="space-y-6">
             <MediaImage
-              src="/images/01_Hero/tuskege-u-headhsot.jpeg"
-              alt="Cameron Jones at Tuskegee University"
-              className="aspect-[4/5] max-w-md rounded-[1.5rem] border border-white/10"
+              src={mediaAssignments.contact.src}
+              alt={mediaAssignments.contact.alt}
+              objectPosition={mediaAssignments.contact.objectPosition}
+              className="aspect-[4/5] max-w-md rounded-[1.35rem] border border-white/[0.08] lg:max-w-none"
             />
             <div className="flex flex-wrap gap-3">
               <Button href={`mailto:${site.email}`}>
@@ -75,15 +77,15 @@ export function Contact() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.1}>
-          <form onSubmit={onSubmit} className="glass rounded-[1.5rem] p-6 sm:p-8">
+        <Reveal delay={0.1} className="lg:col-span-7">
+          <form onSubmit={onSubmit} className="glass rounded-[1.35rem] p-6 sm:p-8">
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="block text-sm text-ink-300">
                 Name
                 <input
                   required
                   name="name"
-                  className="mt-2 w-full rounded-xl border border-white/10 bg-obsidian/60 px-4 py-3 text-mist outline-none ring-cyan-electric/40 focus:ring-2"
+                  className="mt-2 w-full rounded-xl border border-white/10 bg-obsidian/60 px-4 py-3 text-mist outline-none ring-tuskegee-gold/40 focus:ring-2"
                 />
               </label>
               <label className="block text-sm text-ink-300">
@@ -92,7 +94,7 @@ export function Contact() {
                   required
                   type="email"
                   name="email"
-                  className="mt-2 w-full rounded-xl border border-white/10 bg-obsidian/60 px-4 py-3 text-mist outline-none ring-cyan-electric/40 focus:ring-2"
+                  className="mt-2 w-full rounded-xl border border-white/10 bg-obsidian/60 px-4 py-3 text-mist outline-none ring-tuskegee-gold/40 focus:ring-2"
                 />
               </label>
             </div>
@@ -103,7 +105,7 @@ export function Contact() {
                 name="reason"
                 required
                 defaultValue=""
-                className="mt-2 w-full rounded-xl border border-white/10 bg-obsidian/60 px-4 py-3 text-mist outline-none ring-cyan-electric/40 focus:ring-2"
+                className="mt-2 w-full rounded-xl border border-white/10 bg-obsidian/60 px-4 py-3 text-mist outline-none ring-tuskegee-gold/40 focus:ring-2"
               >
                 <option value="" disabled>
                   Select a reason
@@ -122,14 +124,14 @@ export function Contact() {
                 required
                 name="message"
                 rows={5}
-                className="mt-2 w-full resize-y rounded-xl border border-white/10 bg-obsidian/60 px-4 py-3 text-mist outline-none ring-cyan-electric/40 focus:ring-2"
+                className="mt-2 w-full resize-y rounded-xl border border-white/10 bg-obsidian/60 px-4 py-3 text-mist outline-none ring-tuskegee-gold/40 focus:ring-2"
               />
             </label>
 
             <button
               type="submit"
               disabled={status === "sending"}
-              className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-cyan-electric px-6 py-3 text-sm font-medium text-obsidian transition hover:bg-mist disabled:opacity-60"
+              className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-tuskegee-gold px-6 py-3 text-sm font-medium text-obsidian transition hover:bg-tuskegee-bright disabled:opacity-60"
             >
               {status === "sending" ? "Sending…" : status === "sent" ? "Message sent" : "Send message"}
             </button>
@@ -139,7 +141,7 @@ export function Contact() {
               </p>
             )}
             {status === "sent" && (
-              <p className="mt-3 text-sm text-cyan-electric">Thank you — I&apos;ll get back to you soon.</p>
+              <p className="mt-3 text-sm text-tuskegee-gold">Thank you — I&apos;ll get back to you soon.</p>
             )}
           </form>
         </Reveal>

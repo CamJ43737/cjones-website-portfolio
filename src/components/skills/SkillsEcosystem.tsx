@@ -27,7 +27,7 @@ export function SkillsEcosystem() {
               className={cn(
                 "rounded-full border px-4 py-2 text-sm transition",
                 active === cat.name
-                  ? "border-cyan-electric/50 bg-cyan-electric/15 text-cyan-electric"
+                  ? "border-tuskegee-gold/45 bg-tuskegee-gold/12 text-tuskegee-gold"
                   : "border-white/10 text-ink-300 hover:border-white/25 hover:text-mist",
               )}
             >
@@ -42,11 +42,11 @@ export function SkillsEcosystem() {
           {current.skills.map((skill, i) => (
             <div
               key={skill}
-              className="glass group relative overflow-hidden rounded-2xl p-6 transition hover:border-cyan-electric/40"
+              className="glass group relative overflow-hidden rounded-2xl p-6 transition hover:border-tuskegee-gold/35"
               style={{ transitionDelay: `${i * 40}ms` }}
             >
               <div
-                className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-cyan-electric/10 blur-2xl transition group-hover:bg-cyan-electric/20"
+                className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-tuskegee-gold/8 blur-2xl transition group-hover:bg-tuskegee-gold/14"
                 aria-hidden
               />
               <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-500">

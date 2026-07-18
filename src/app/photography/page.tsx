@@ -10,7 +10,10 @@ import { cn } from "@/lib/cn";
 
 export default function PhotographyPage() {
   const all = useMemo(
-    () => imagesOnly(mediaByPathPrefix("/images/08_Photography")),
+    () =>
+      imagesOnly(mediaByPathPrefix("/images/08_Photography")).filter(
+        (m) => !m.src.includes("untitled-design"),
+      ),
     [],
   );
   const [active, setActive] = useState("all");
@@ -29,7 +32,7 @@ export default function PhotographyPage() {
       <div className="section-pad mx-auto max-w-6xl">
         <Link
           href="/#photography"
-          className="inline-flex items-center gap-2 text-sm text-ink-300 transition hover:text-cyan-electric"
+          className="inline-flex items-center gap-2 text-sm text-ink-300 transition hover:text-tuskegee-gold"
         >
           <ArrowLeft size={16} /> Back
         </Link>
@@ -50,7 +53,7 @@ export default function PhotographyPage() {
             className={cn(
               "rounded-full border px-4 py-2 text-sm transition",
               active === "all"
-                ? "border-cyan-electric/50 bg-cyan-electric/15 text-cyan-electric"
+                ? "border-tuskegee-gold/45 bg-tuskegee-gold/12 text-tuskegee-gold"
                 : "border-white/10 text-ink-300 hover:text-mist",
             )}
           >
@@ -64,7 +67,7 @@ export default function PhotographyPage() {
               className={cn(
                 "rounded-full border px-4 py-2 text-sm transition",
                 active === c.id
-                  ? "border-cyan-electric/50 bg-cyan-electric/15 text-cyan-electric"
+                  ? "border-tuskegee-gold/45 bg-tuskegee-gold/12 text-tuskegee-gold"
                   : "border-white/10 text-ink-300 hover:text-mist",
               )}
             >
@@ -80,7 +83,8 @@ export default function PhotographyPage() {
             key={m.src}
             src={m.src}
             alt={m.originalName}
-            className="mb-3 break-inside-avoid rounded-2xl border border-white/10"
+            objectPosition="50% 40%"
+            className="mb-3 break-inside-avoid rounded-2xl border border-white/[0.08]"
             imgClassName="w-full"
           />
         ))}

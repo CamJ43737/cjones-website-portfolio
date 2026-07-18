@@ -18,7 +18,7 @@ export default function ResumePage() {
       <div className="mx-auto max-w-5xl">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-sm text-ink-300 transition hover:text-cyan-electric"
+          className="inline-flex items-center gap-2 text-sm text-ink-300 transition hover:text-tuskegee-gold"
         >
           <ArrowLeft size={16} /> Home
         </Link>

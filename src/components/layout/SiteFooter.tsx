@@ -12,16 +12,16 @@ export function SiteFooter() {
           </p>
         </div>
         <div className="flex flex-wrap gap-5 text-sm text-ink-300">
-          <a href={`mailto:${site.email}`} className="hover:text-cyan-electric">
+          <a href={`mailto:${site.email}`} className="hover:text-tuskegee-gold">
             Email
           </a>
-          <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-electric">
+          <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-tuskegee-gold">
             LinkedIn
           </a>
-          <a href={site.github} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-electric">
+          <a href={site.github} target="_blank" rel="noopener noreferrer" className="hover:text-tuskegee-gold">
             GitHub
           </a>
-          <Link href="/photography" className="hover:text-cyan-electric">
+          <Link href="/photography" className="hover:text-tuskegee-gold">
             Photography
           </Link>
         </div>

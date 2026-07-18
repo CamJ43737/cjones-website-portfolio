@@ -5,11 +5,11 @@ type Variant = "primary" | "ghost" | "gold";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-cyan-electric text-obsidian hover:bg-mist shadow-glow border border-cyan-electric/40",
+    "bg-tuskegee-gold text-obsidian hover:bg-tuskegee-bright shadow-gold-sm border border-tuskegee-gold/50",
   ghost:
-    "bg-transparent text-mist border border-white/15 hover:border-cyan-electric/50 hover:bg-white/5",
+    "bg-transparent text-mist border border-white/15 hover:border-tuskegee-gold/45 hover:bg-white/[0.04]",
   gold:
-    "bg-tuskegee-gold/15 text-tuskegee-gold border border-tuskegee-gold/40 hover:bg-tuskegee-gold/25",
+    "bg-tuskegee-gold/10 text-tuskegee-gold border border-tuskegee-gold/35 hover:bg-tuskegee-gold/18",
 };
 
 type Props = {
@@ -30,7 +30,7 @@ export function Button({
   download,
 }: Props) {
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-electric",
+    "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tuskegee-gold",
     variants[variant],
     className,
   );

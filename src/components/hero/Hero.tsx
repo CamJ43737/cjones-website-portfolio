@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDownRight, Download } from "lucide-react";
 import { hero, site } from "@/data/content";
+import { mediaAssignments } from "@/data/media-assignments";
 import { asset } from "@/lib/asset";
 import { Button } from "@/components/ui/Button";
 import { MediaImage } from "@/components/ui/MediaImage";
@@ -10,16 +11,17 @@ import { Particles } from "@/components/motion/Particles";
 
 export function Hero() {
   const reduce = useReducedMotion();
+  const portrait = mediaAssignments.hero;
 
   return (
     <section className="relative min-h-[100svh] overflow-hidden">
-      <div className="absolute inset-0 bg-lab-grid bg-grid opacity-40" aria-hidden />
+      <div className="absolute inset-0 bg-lab-grid bg-grid opacity-30" aria-hidden />
       <div className="absolute inset-0 bg-radial-fade" aria-hidden />
       <Particles />
 
-      <div className="section-pad relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end pb-16 pt-28 lg:justify-center lg:pb-24 lg:pt-24">
-        <div className="grid items-end gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-16">
-          <div>
+      <div className="section-pad relative mx-auto flex min-h-[100svh] w-full max-w-6xl flex-col justify-end pb-16 pt-28 lg:justify-center lg:pb-24 lg:pt-24">
+        <div className="grid items-end gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-14 xl:gap-16">
+          <div className="text-left">
             <motion.p
               className="chapter-label mb-5"
               initial={reduce ? false : { opacity: 0, y: 16 }}
@@ -30,7 +32,7 @@ export function Hero() {
             </motion.p>
 
             <motion.h1
-              className="font-display text-[clamp(3.2rem,10vw,6.5rem)] font-semibold leading-[0.95] tracking-tight text-mist"
+              className="font-display text-[clamp(3rem,9vw,6.25rem)] font-semibold leading-[0.95] tracking-tight text-mist"
               initial={reduce ? false : { opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.85, delay: 0.08 }}
@@ -46,14 +48,14 @@ export function Hero() {
             >
               {hero.roles.map((role) => (
                 <p key={role} className="text-balance">
-                  <span className="text-cyan-electric">{role.split(".")[0]}</span>
+                  <span className="text-tuskegee-gold">{role.split(".")[0]}</span>
                   <span className="text-ink-400">.</span>
                 </p>
               ))}
             </motion.div>
 
             <motion.p
-              className="prose-brand mt-8 max-w-xl text-pretty"
+              className="prose-brand mt-8 text-pretty"
               initial={reduce ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.28 }}
@@ -86,24 +88,27 @@ export function Hero() {
               </Button>
             </motion.div>
 
-            <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.28em] text-tuskegee-gold/80">
+            <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.28em] text-tuskegee-gold/75">
               {site.tagline}
             </p>
           </div>
 
           <motion.div
-            className="relative mx-auto w-full max-w-md lg:max-w-none"
-            initial={reduce ? false : { opacity: 0, scale: 0.97 }}
+            className="relative mx-auto w-full max-w-md lg:mx-0 lg:max-w-none"
+            initial={reduce ? false : { opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            <div className="absolute -inset-6 rounded-[2rem] bg-cyan-electric/10 blur-3xl" aria-hidden />
+            <div
+              className="absolute -inset-5 rounded-[2rem] bg-tuskegee-gold/10 blur-3xl"
+              aria-hidden
+            />
             <MediaImage
-              src="/images/01_Hero/hero-headshot.jpg"
-              alt="Cameron Jones professional headshot"
+              src={portrait.src}
+              alt={portrait.alt}
               priority
-              className="relative aspect-[4/5] rounded-[1.5rem] border border-white/10 shadow-glow"
-              imgClassName="object-cover object-top"
+              objectPosition={portrait.objectPosition}
+              className="relative aspect-[4/5] rounded-[1.35rem] border border-white/10 shadow-gold"
             />
           </motion.div>
         </div>

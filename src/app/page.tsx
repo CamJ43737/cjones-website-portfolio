@@ -5,6 +5,7 @@ import { Journey } from "@/components/timeline/Journey";
 import { ResearchLab } from "@/components/research/ResearchLab";
 import { SkillsEcosystem } from "@/components/skills/SkillsEcosystem";
 import { Experience } from "@/components/experience/Experience";
+import { ResearchImpact } from "@/components/impact/ResearchImpact";
 import { Awards } from "@/components/awards/Awards";
 import { Leadership } from "@/components/leadership/Leadership";
 import { Publications } from "@/components/publications/Publications";
@@ -21,6 +22,7 @@ export default function HomePage() {
       <ResearchLab />
       <SkillsEcosystem />
       <Experience />
+      <ResearchImpact />
       <Awards />
       <Leadership />
       <Publications />

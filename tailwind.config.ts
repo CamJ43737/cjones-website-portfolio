@@ -58,18 +58,13 @@ const config: Config = {
         grid: "72px 72px",
       },
       keyframes: {
-        "identity-spin": {
-          from: { transform: "rotate(0deg)" },
-          to: { transform: "rotate(360deg)" },
-        },
-        "identity-spin-reverse": {
-          from: { transform: "translateX(-50%) rotate(0deg)" },
-          to: { transform: "translateX(-50%) rotate(-360deg)" },
+        "identity-marquee": {
+          from: { transform: "translate3d(0,0,0)" },
+          to: { transform: "translate3d(-50%,0,0)" },
         },
       },
       animation: {
-        "identity-spin": "identity-spin 60s linear infinite",
-        "identity-spin-reverse": "identity-spin-reverse 60s linear infinite",
+        "identity-marquee": "identity-marquee 36s linear infinite",
       },
     },
   },

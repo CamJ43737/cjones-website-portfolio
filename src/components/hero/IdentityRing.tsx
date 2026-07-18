@@ -4,75 +4,81 @@ import { useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/cn";
 
 const LABELS = [
-  "AI Research",
+  "Artificial Intelligence",
   "Robotics",
   "Computer Vision",
+  "Machine Learning",
   "Digital Twins",
   "Precision Agriculture",
   "Healthcare AI",
-  "Machine Learning",
   "Autonomous Systems",
   "Research",
   "Innovation",
+  "Leadership",
+  "Builder",
 ] as const;
+
+function MarqueeTrack({ ariaHidden }: { ariaHidden?: boolean }) {
+  return (
+    <div
+      className="flex shrink-0 items-center gap-8 pr-8 sm:gap-12 sm:pr-12"
+      aria-hidden={ariaHidden}
+    >
+      {LABELS.map((label) => (
+        <span key={label} className="flex items-center gap-8 sm:gap-12">
+          <span className="whitespace-nowrap font-mono text-[11px] uppercase tracking-[0.28em] text-tuskegee-gold/90 sm:text-xs sm:tracking-[0.32em]">
+            {label}
+          </span>
+          <span
+            className="h-1 w-1 shrink-0 rounded-full bg-tuskegee-gold/55 shadow-[0_0_10px_rgba(200,162,74,0.45)]"
+            aria-hidden
+          />
+        </span>
+      ))}
+    </div>
+  );
+}
 
 export function IdentityRing() {
   const reduce = useReducedMotion();
 
   return (
     <section
-      aria-label="Research identity ring"
-      className="section-pad relative overflow-hidden py-14 sm:py-16 lg:py-20"
+      aria-label="Research identity"
+      className="relative overflow-hidden py-12 sm:py-14 lg:py-16"
     >
-      <div className="relative mx-auto flex w-full max-w-6xl justify-center">
+      <div
+        className="pointer-events-none absolute inset-x-0 top-1/2 h-24 -translate-y-1/2 bg-tuskegee-gold/5 blur-3xl"
+        aria-hidden
+      />
+
+      <div className="relative mx-auto mb-8 w-full max-w-6xl px-[clamp(1.25rem,4vw,2.5rem)] text-center sm:mb-10">
+        <p className="font-display text-2xl font-semibold tracking-tight text-mist sm:text-3xl">
+          Cameron Jones
+        </p>
+        <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.28em] text-tuskegee-gold sm:text-[11px] sm:tracking-[0.32em]">
+          AI • Robotics • Research
+        </p>
+      </div>
+
+      <div className="relative">
         <div
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[min(90vw,28rem)] w-[min(90vw,28rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-tuskegee-gold/10 blur-3xl"
+          className="pointer-events-none absolute inset-y-0 left-0 z-[1] w-16 bg-gradient-to-r from-obsidian via-obsidian/80 to-transparent sm:w-28"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 z-[1] w-16 bg-gradient-to-l from-obsidian via-obsidian/80 to-transparent sm:w-28"
           aria-hidden
         />
 
-        <div className="relative aspect-square w-[min(92vw,26rem)] sm:w-[min(80vw,30rem)] lg:w-[32rem]">
-          <div
-            className="absolute inset-0 rounded-full border border-tuskegee-gold/25 shadow-gold-sm"
-            aria-hidden
-          />
-          <div
-            className="absolute inset-[8%] rounded-full border border-white/[0.06] bg-charcoal/25 backdrop-blur-sm"
-            aria-hidden
-          />
-
-          <div
-            className={cn("absolute inset-0", !reduce && "animate-identity-spin")}
-            aria-hidden
-          >
-            {LABELS.map((label, i) => {
-              const angle = (360 / LABELS.length) * i;
-              return (
-                <div
-                  key={label}
-                  className="absolute left-1/2 top-0 h-1/2 w-0 origin-bottom"
-                  style={{ transform: `translateX(-50%) rotate(${angle}deg)` }}
-                >
-                  <span
-                    className={cn(
-                      "absolute left-1/2 top-0 block -translate-x-1/2 whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.2em] text-tuskegee-gold/85 sm:text-[10px] sm:tracking-[0.24em]",
-                      !reduce && "animate-identity-spin-reverse",
-                    )}
-                  >
-                    {label}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="absolute inset-[28%] flex flex-col items-center justify-center rounded-full border border-tuskegee-gold/30 bg-obsidian/55 px-4 text-center shadow-gold backdrop-blur-xl sm:inset-[30%]">
-            <p className="font-display text-lg font-semibold leading-tight text-mist sm:text-xl lg:text-2xl">
-              Cameron Jones
-            </p>
-            <p className="mt-2 max-w-[11rem] font-mono text-[9px] uppercase leading-relaxed tracking-[0.18em] text-tuskegee-gold sm:text-[10px] sm:tracking-[0.2em]">
-              AI + Robotics + Research
-            </p>
-          </div>
+        <div
+          className={cn(
+            "flex w-max items-center border-y border-tuskegee-gold/20 bg-charcoal/20 py-4 backdrop-blur-sm sm:py-5",
+            !reduce && "animate-identity-marquee",
+          )}
+        >
+          <MarqueeTrack />
+          <MarqueeTrack ariaHidden />
         </div>
       </div>
 

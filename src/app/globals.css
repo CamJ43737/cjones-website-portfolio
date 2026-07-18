@@ -103,8 +103,8 @@ img {
     transition-duration: 0.01ms !important;
   }
 
-  .animate-identity-spin,
-  .animate-identity-spin-reverse {
+  .animate-identity-marquee {
     animation: none !important;
+    transform: none !important;
   }
 }

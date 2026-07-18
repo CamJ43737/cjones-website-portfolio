@@ -1,7 +1,19 @@
-﻿# Videos
+﻿# Portfolio videos
 
-Placeholder hero clip for research surfaces:
+Curated, lossless copies from `Resume Photos` (especially `16_Videos` and project folders).
+Assigned in `src/data/video-assignments.ts` — do not randomly reassign.
 
-- `public/videos/hero-research.mp4`
+| File | Section |
+|------|---------|
+| `hero-research.mp4` | Homepage hero |
+| `ai-farms-1111.mp4` | AI Farms research |
+| `ai-farms-1118.mp4` | AI Farms research |
+| `ai-farms-3112.mp4` | AI Farms research |
+| `ai-farms-robot-dog.mp4` | AI Farms research |
+| `prairie-view-smart-transport.mov` | Prairie View robotics |
+| `access-industry-2853.mov` | ACCESS-CI / industry |
+| `access-industry-2856.mov` | ACCESS-CI / industry |
+| `pc-build-timelapse.mp4` | Beyond — PC building |
+| `testimonial-mannrs.mp4` | Research Impact (testimonial) |
 
-Replace this file with a preferred cinematic source when ready. Current copy is staged from an AI Farms demo under `public/images`.
+Duplicates intentionally omitted (e.g. PC build `.mov` twin, AI Farms `6910…` twin of robot-dog).

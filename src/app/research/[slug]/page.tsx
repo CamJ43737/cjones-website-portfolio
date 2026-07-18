@@ -5,8 +5,10 @@ import { researchProjects, site } from "@/data/content";
 import { mediaAssignments } from "@/data/media-assignments";
 import { MediaImage } from "@/components/ui/MediaImage";
 import { Button } from "@/components/ui/Button";
-import { imagesOnly, mediaByCategory, videosOnly } from "@/lib/media";
+import { imagesOnly, mediaByCategory } from "@/lib/media";
+import { videoAssignments } from "@/data/video-assignments";
 import { asset } from "@/lib/asset";
+import { CinematicVideo } from "@/components/ui/CinematicVideo";
 import type { Metadata } from "next";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -38,7 +40,10 @@ export default async function ResearchProjectPage({ params }: Props) {
   const gallery = imagesOnly(pool)
     .filter((m) => m.src !== cover?.src)
     .slice(0, 12);
-  const videos = videosOnly(pool).slice(0, 3);
+  const videos =
+    videoAssignments.research[
+      project.slug as keyof typeof videoAssignments.research
+    ] ?? [];
 
   return (
     <main className="section-pad pb-24 pt-28">
@@ -111,17 +116,16 @@ export default async function ResearchProjectPage({ params }: Props) {
             {videos.length > 0 && (
               <section>
                 <h2 className="font-display text-2xl text-mist">Field video</h2>
-                <div className="mt-4 grid gap-4">
+                <div className="mt-4 grid gap-5">
                   {videos.map((v) => (
-                    <video
+                    <CinematicVideo
                       key={v.src}
-                      controls
-                      playsInline
-                      className="w-full rounded-2xl border border-white/[0.08]"
-                      src={asset(v.src)}
-                    >
-                      Your browser does not support the video tag.
-                    </video>
+                      src={v.src}
+                      title={v.title}
+                      caption={v.caption}
+                      poster={v.poster}
+                      autoPlayWhenVisible={v.autoPlayWhenVisible ?? true}
+                    />
                   ))}
                 </div>
               </section>

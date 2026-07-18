@@ -2,7 +2,9 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { beyondHobbies, site } from "@/data/content";
 import { mediaAssignments } from "@/data/media-assignments";
+import { videoAssignments } from "@/data/video-assignments";
 import { MediaImage } from "@/components/ui/MediaImage";
+import { CinematicVideo } from "@/components/ui/CinematicVideo";
 import { imagesOnly, mediaByCategory, mediaByPathPrefix } from "@/lib/media";
 import type { Metadata } from "next";
 
@@ -18,18 +20,35 @@ function HobbyGallery({
   theme,
   description,
   images,
+  videos,
 }: {
   id: string;
   title: string;
   theme: string;
   description: string;
   images: { src: string; alt: string; objectPosition?: string; fit?: "cover" | "contain" }[];
+  videos?: { src: string; title: string; caption?: string; poster?: string; autoPlayWhenVisible?: boolean }[];
 }) {
   return (
     <section id={id} className="scroll-mt-24 border-t border-white/10 pt-14 sm:pt-16">
       <p className="chapter-label">{theme}</p>
       <h2 className="mt-3 font-display text-3xl text-mist sm:text-4xl">{title}</h2>
       <p className="prose-brand mt-4">{description}</p>
+
+      {videos && videos.length > 0 && (
+        <div className="mt-8 grid gap-5">
+          {videos.map((v) => (
+            <CinematicVideo
+              key={v.src}
+              src={v.src}
+              title={v.title}
+              caption={v.caption}
+              poster={v.poster}
+              autoPlayWhenVisible={v.autoPlayWhenVisible ?? true}
+            />
+          ))}
+        </div>
+      )}
 
       <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {images.map((m) => (
@@ -68,7 +87,6 @@ export default function BeyondPage() {
     objectPosition: "50% 40%",
     fit: "cover" as const,
   }));
-
 
   const galleries = {
     "pc-building": pcImages,
@@ -115,6 +133,11 @@ export default function BeyondPage() {
             theme={hobby.theme}
             description={hobby.description}
             images={galleries[hobby.id as keyof typeof galleries]}
+            videos={
+              videoAssignments.beyond[
+                hobby.id as keyof typeof videoAssignments.beyond
+              ]
+            }
           />
         ))}
       </div>

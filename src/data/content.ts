@@ -377,8 +377,8 @@ export const beyondHobbies: BeyondHobby[] = [
     description:
       "Opening cases, routing cables, and assembling machines from parts — the same curiosity that leads from Legos to laboratories.",
     coverSrc: "/images/12_PC_Build/img-2713.jpg",
-    coverPosition: "50% 45%",
-    coverFit: "cover",
+    coverPosition: "50% 50%",
+    coverFit: "contain",
   },
   {
     id: "photography",
@@ -388,7 +388,7 @@ export const beyondHobbies: BeyondHobby[] = [
     description:
       "A visual journal of light, land, and people — training the eye to notice what systems and stories leave behind.",
     coverSrc: "/images/08_Photography/general/behind-the-lenscapturing-every-moment.jpg",
-    coverPosition: "50% 45%",
+    coverPosition: "50% 50%",
     coverFit: "contain",
   },
   {
@@ -399,10 +399,11 @@ export const beyondHobbies: BeyondHobby[] = [
     description:
       "Time on the water — patience, quiet focus, and balance away from screens and labs.",
     coverSrc: "/images/14_Fishing/img-2945.jpg",
-    coverPosition: "50% 40%",
-    coverFit: "cover",
+    coverPosition: "50% 50%",
+    coverFit: "contain",
   },
 ];
+
 
 export const contactReasons = [
   "Research Collaboration",

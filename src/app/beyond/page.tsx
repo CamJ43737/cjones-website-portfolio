@@ -51,22 +51,22 @@ export default function BeyondPage() {
   const pcImages = imagesOnly(mediaByCategory("12_PC_Build")).map((m) => ({
     src: m.src,
     alt: m.originalName || "PC build",
-    objectPosition: "50% 40%",
-    fit: "cover" as const,
+    objectPosition: "50% 50%",
+    fit: "contain" as const,
   }));
 
   const photoImages = mediaAssignments.beyondPhotography.map((m) => ({
     src: m.src,
     alt: m.alt,
-    objectPosition: m.objectPosition,
-    fit: m.fit,
+    objectPosition: "50% 50%",
+    fit: "contain" as const,
   }));
 
   const fishingImages = imagesOnly(mediaByPathPrefix("/images/14_Fishing")).map((m) => ({
     src: m.src,
     alt: m.originalName || "Fishing",
-    objectPosition: "50% 40%",
-    fit: "cover" as const,
+    objectPosition: "50% 50%",
+    fit: "contain" as const,
   }));
 
   const galleries = {

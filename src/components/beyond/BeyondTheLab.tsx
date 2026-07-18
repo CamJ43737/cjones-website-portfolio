@@ -37,8 +37,8 @@ export function BeyondTheLab() {
                     <MediaImage
                       src={hobby.coverSrc}
                       alt={hobby.title}
-                      fit={hobby.coverFit ?? "cover"}
-                      objectPosition={hobby.coverPosition}
+                      fit={hobby.coverFit ?? "contain"}
+                      objectPosition={hobby.coverPosition ?? "50% 50%"}
                       className="absolute inset-0 h-full w-full transition duration-700 ease-out group-hover:scale-[1.015]"
                     />
                     <div

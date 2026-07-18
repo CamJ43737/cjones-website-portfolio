@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Download } from "lucide-react";
-import { site } from "@/data/content";
+import { site, timeline } from "@/data/content";
 import { mediaAssignments } from "@/data/media-assignments";
 import { Button } from "@/components/ui/Button";
 import { MediaImage } from "@/components/ui/MediaImage";
@@ -21,9 +21,15 @@ export default function ResumePage() {
   const resume = asset(site.resumePath);
   const certificates = certificateImages().map((m) => toGalleryItem(m, "contain"));
 
+  const journeySrcs = timeline.flatMap((chapter) => [
+    ...(chapter.images?.map((img) => img.src) ?? []),
+    ...(chapter.videos?.map((video) => video.src) ?? []),
+  ]);
+
   const claimed = new Set<string>([
     ...mediaAssignments.homepageIndustrySrcs,
     ...mediaAssignments.accessIndustryGallery.map((m) => m.src),
+    ...journeySrcs,
   ]);
 
   const industryArchive = industryImages()

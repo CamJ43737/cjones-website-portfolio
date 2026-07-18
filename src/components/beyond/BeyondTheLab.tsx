@@ -34,17 +34,31 @@ export function BeyondTheLab() {
               <article className="group overflow-hidden rounded-[1.5rem] border border-white/[0.1] bg-charcoal/35 shadow-glass backdrop-blur-xl transition duration-500 hover:border-tuskegee-gold/35 hover:shadow-gold">
                 <Link href={`/beyond#${hobby.id}`} className="grid lg:grid-cols-12">
                   <div className="relative min-h-[220px] overflow-hidden lg:col-span-6 lg:min-h-[320px]">
-                    <MediaImage
-                      src={hobby.coverSrc}
-                      alt={hobby.title}
-                      fit={hobby.coverFit ?? "cover"}
-                      objectPosition={hobby.coverPosition}
-                      className="absolute inset-0 h-full w-full transition duration-700 ease-out group-hover:scale-[1.015]"
-                    />
-                    <div
-                      className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-obsidian/15 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-obsidian/20 lg:to-obsidian/70"
-                      aria-hidden
-                    />
+                    {hobby.coverFit === "contain" ? (
+                      <div className="absolute inset-0 flex items-center justify-center bg-obsidian/70 p-3 sm:p-4">
+                        <MediaImage
+                          src={hobby.coverSrc}
+                          alt={hobby.title}
+                          fit="contain"
+                          objectPosition={hobby.coverPosition}
+                          className="h-full w-full rounded-xl border border-tuskegee-gold/30 shadow-gold-sm"
+                        />
+                      </div>
+                    ) : (
+                      <>
+                        <MediaImage
+                          src={hobby.coverSrc}
+                          alt={hobby.title}
+                          fit={hobby.coverFit ?? "cover"}
+                          objectPosition={hobby.coverPosition}
+                          className="absolute inset-0 h-full w-full transition duration-700 ease-out group-hover:scale-[1.015]"
+                        />
+                        <div
+                          className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-obsidian/15 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-obsidian/20 lg:to-obsidian/70"
+                          aria-hidden
+                        />
+                      </>
+                    )}
                   </div>
 
                   <div className="relative flex flex-col justify-center px-6 py-8 sm:px-9 sm:py-10 lg:col-span-6 lg:px-10">

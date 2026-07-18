@@ -56,17 +56,282 @@ export const aboutStory = {
   ],
 };
 
-export const timeline = [
-  { year: "2018", title: "Building computers", detail: "Exploring technology from the inside out — hardware first." },
-  { year: "2019", title: "Programming fundamentals", detail: "Learning to speak to machines and shape software." },
-  { year: "2020", title: "Fisk University · Mayor's Youth Council", detail: "Leadership and civic voice in Nashville." },
-  { year: "2022", title: "Tuskegee University", detail: "Transferred to pursue Computer Science at an HBCU legacy campus." },
-  { year: "2022", title: "AI Farms Research", detail: "Joined the AI Farms Research Initiative — robotics meets precision agriculture." },
-  { year: "2023", title: "NSF S-STEM Scholar", detail: "Recognized for academic excellence and STEM commitment." },
-  { year: "2024", title: "Prairie View · Google CSSI · CAGI", detail: "Robotics internship, Google CSSI, and CAGI AI Bootcamp." },
-  { year: "2025", title: "ACCESS-CI NSF Internship", detail: "Software engineering & NLP automation at UIUC / ACCESS-CI." },
-  { year: "2026", title: "MS-CC · Project AEGIS · Hackathon Wins", detail: "Healthcare AI digital twins, aging-in-place research, competition wins." },
-  { year: "Future", title: "Graduate School · PhD · AI Innovation", detail: "Building toward a career as an AI scientist shaping the physical world." },
+export type TimelineLink = { label: string; href: string; external?: boolean };
+
+export type TimelineMedia = {
+  src: string;
+  alt: string;
+  fit?: "cover" | "contain";
+  objectPosition?: string;
+};
+
+export type TimelineVideo = {
+  src: string;
+  title: string;
+  poster?: string;
+};
+
+export type TimelineChapter = {
+  id: string;
+  year: string;
+  title: string;
+  detail: string;
+  description: string;
+  technologies: string[];
+  links?: TimelineLink[];
+  images?: TimelineMedia[];
+  videos?: TimelineVideo[];
+};
+
+export const timeline: TimelineChapter[] = [
+  {
+    id: "2018-building",
+    year: "2018",
+    title: "Building computers",
+    detail: "Exploring technology from the inside out — hardware first.",
+    description:
+      "Before research titles, there were open cases and cable routes — curiosity that treated every machine as a puzzle worth solving by hand.",
+    technologies: ["Hardware", "PC Building", "Systems"],
+    images: [
+      {
+        src: "/images/12_PC_Build/img-2727.jpeg",
+        alt: "Pyramid PC build",
+        fit: "contain",
+        objectPosition: "50% 45%",
+      },
+      {
+        src: "/images/12_PC_Build/img-2713.jpg",
+        alt: "RTX 3090 Ti Founders Edition",
+        fit: "contain",
+      },
+    ],
+    links: [{ label: "Beyond the Lab — PC Building", href: "/beyond#pc-building" }],
+  },
+  {
+    id: "2019-programming",
+    year: "2019",
+    title: "Programming fundamentals",
+    detail: "Learning to speak to machines and shape software.",
+    description:
+      "Hardware intuition met software language — the first scripts that made systems respond, iterate, and teach discipline.",
+    technologies: ["Python", "Logic", "Software Fundamentals"],
+    images: [
+      {
+        src: "/images/12_PC_Build/6902.jpg",
+        alt: "Hands-on hardware and software build session",
+        fit: "contain",
+      },
+    ],
+  },
+  {
+    id: "2020-fisk-myc",
+    year: "2020",
+    title: "Fisk University · Mayor's Youth Council",
+    detail: "Leadership and civic voice in Nashville.",
+    description:
+      "Civic work and youth leadership in Nashville — speaking, serving, and learning how community voice shapes systems beyond campus.",
+    technologies: ["Leadership", "Civic Engagement", "Public Speaking"],
+    images: [
+      {
+        src: "/images/06_Leadership/post-speech-at-the-mayor-s-youth-council-youth-symposium.jpg",
+        alt: "Mayor's Youth Council symposium",
+        fit: "contain",
+      },
+      {
+        src: "/images/06_Leadership/img-6583.jpeg",
+        alt: "Community moment with Slim & Husky's pizza",
+        fit: "contain",
+      },
+      {
+        src: "/images/06_Leadership/mayor-s-youth-council-volunteering-with-friends.jpg",
+        alt: "Mayor's Youth Council volunteering",
+        fit: "contain",
+      },
+    ],
+    links: [{ label: "Leadership", href: "/#leadership" }],
+  },
+  {
+    id: "2022-tuskegee",
+    year: "2022",
+    title: "Tuskegee University",
+    detail: "Transferred to pursue Computer Science at an HBCU legacy campus.",
+    description:
+      "Tuskegee became home base — Computer Science grounded in heritage, excellence, and research that serves people.",
+    technologies: ["Computer Science", "HBCU", "Research Culture"],
+    images: [
+      {
+        src: "/images/01_Hero/tuskege-u-headhsot.jpeg",
+        alt: "Cameron Jones at Tuskegee University",
+        fit: "contain",
+        objectPosition: "50% 18%",
+      },
+      {
+        src: "/images/10_Family/family-unitedtuskegee-traditions.jpg",
+        alt: "Family and Tuskegee traditions",
+        fit: "contain",
+      },
+    ],
+    links: [{ label: "About", href: "/#about" }],
+  },
+  {
+    id: "2022-ai-farms",
+    year: "2022",
+    title: "AI Farms Research",
+    detail: "Joined the AI Farms Research Initiative — robotics meets precision agriculture.",
+    description:
+      "Field robotics, drones, and vision systems where mud and batteries matter as much as models — research that has to work outdoors.",
+    technologies: ["Robotics", "Computer Vision", "Drones", "Precision Agriculture"],
+    images: [
+      {
+        src: "/images/02_AI_Farms/hero-drone-field.jpg",
+        alt: "Drone mission over agricultural field",
+        fit: "contain",
+      },
+      {
+        src: "/images/02_AI_Farms/ai-farms-team-at-hooks-farm.jpg",
+        alt: "AI Farms team at Hooks Farm",
+        fit: "contain",
+      },
+    ],
+    videos: [
+      {
+        src: "/videos/ai-farms-robot-dog.mp4",
+        title: "Robot dog field training",
+        poster: "/images/02_AI_Farms/robot-dog-coding.jpg",
+      },
+    ],
+    links: [
+      { label: "AI Farms dossier", href: "/research/ai-farms" },
+      { label: "Research Lab", href: "/#research" },
+    ],
+  },
+  {
+    id: "2023-nsf",
+    year: "2023",
+    title: "NSF S-STEM Scholar",
+    detail: "Recognized for academic excellence and STEM commitment.",
+    description:
+      "National recognition that reinforced the path — excellence in STEM paired with responsibility to lift community.",
+    technologies: ["NSF S-STEM", "Scholarship", "STEM Leadership"],
+    images: [
+      {
+        src: "/images/07_Awards/nsf-stem-scholars.jpg",
+        alt: "NSF S-STEM Scholars",
+        fit: "contain",
+      },
+      {
+        src: "/images/07_Awards/celebrating-graduation-with-the-corrdinators-of-the-nsf-stem-scholars-scholarship-committee.jpg",
+        alt: "NSF STEM Scholars celebration",
+        fit: "contain",
+      },
+    ],
+    links: [{ label: "Awards", href: "/#awards" }],
+  },
+  {
+    id: "2024-prairie-cagi",
+    year: "2024",
+    title: "Prairie View · Google CSSI · CAGI",
+    detail: "Robotics internship, Google CSSI, and CAGI AI Bootcamp.",
+    description:
+      "A year of acceleration — embedded robotics at Prairie View, Google CSSI, and CAGI cohorts where agriculture met AI under pressure.",
+    technologies: ["Robotics", "Arduino", "Sensors", "CAGI", "Google CSSI"],
+    images: [
+      {
+        src: "/images/02_AI_Farms/robotics-testing-with-handmade-car-at-internship-at-pvamu.jpeg",
+        alt: "Robotics testing at Prairie View A&M",
+        fit: "contain",
+      },
+      {
+        src: "/images/05_Internships/industry/mannrrs-smart-ag-cohort-tech-track.jpeg",
+        alt: "MANRRS Smart AG Tech Track cohort",
+        fit: "contain",
+      },
+      {
+        src: "/images/07_Awards/hackathon-winners.jpeg",
+        alt: "Hackathon first-place team",
+        fit: "contain",
+      },
+    ],
+    videos: [
+      {
+        src: "/videos/prairie-view-smart-transport.mov",
+        title: "PVAMU smart transportation",
+        poster:
+          "/images/02_AI_Farms/robotics-testing-with-handmade-car-at-internship-at-pvamu.jpeg",
+      },
+    ],
+    links: [
+      { label: "Prairie View Robotics", href: "/research/prairie-view-robotics" },
+      { label: "CAGI & Hackathons", href: "/research/cagi-hackathons" },
+    ],
+  },
+  {
+    id: "2025-access",
+    year: "2025",
+    title: "ACCESS-CI NSF Internship",
+    detail: "Software engineering & NLP automation at UIUC / ACCESS-CI.",
+    description:
+      "NLP and automation for research cyberinfrastructure — turning dense systems knowledge into tools researchers can actually use.",
+    technologies: ["Python", "LLMs", "NLP", "REST APIs", "Jira"],
+    images: [
+      {
+        src: "/images/05_Internships/industry/ai-farms-team-in-ithica-new-york-collaborating-with-our-cornell-partners.jpeg",
+        alt: "Collaborating with Cornell partners in Ithaca",
+        fit: "contain",
+      },
+      {
+        src: "/images/05_Internships/industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university.jpeg",
+        alt: "Presentation to Cornell partners",
+        fit: "contain",
+      },
+    ],
+    links: [
+      { label: "ACCESS-CI dossier", href: "/research/access-ci" },
+      { label: "Experience", href: "/#experience" },
+    ],
+  },
+  {
+    id: "2026-aegis",
+    year: "2026",
+    title: "MS-CC · Project AEGIS · Hackathon Wins",
+    detail: "Healthcare AI digital twins, aging-in-place research, competition wins.",
+    description:
+      "Apartment Framework Lead for Project AEGIS — digital twins and robotics for aging-in-place, alongside competition wins that prove speed and clarity under constraint.",
+    technologies: ["Unity 6", "C#", "Digital Twins", "Healthcare AI", "NavMesh"],
+    images: [
+      {
+        src: "/images/03_Project_AEGIS/screenshot-92.png",
+        alt: "Project AEGIS apartment digital twin",
+        fit: "contain",
+      },
+      {
+        src: "/images/03_Project_AEGIS/screenshot-98.png",
+        alt: "Project AEGIS simulation environment",
+        fit: "contain",
+      },
+    ],
+    links: [
+      { label: "Project AEGIS", href: "/research/project-aegis" },
+      { label: "Resume", href: "/resume" },
+    ],
+  },
+  {
+    id: "future",
+    year: "Future",
+    title: "Graduate School · PhD · AI Innovation",
+    detail: "Building toward a career as an AI scientist shaping the physical world.",
+    description:
+      "The next chapter is graduate research — AI that lives in soil, clinics, homes, and infrastructure, not only in slides.",
+    technologies: ["PhD Path", "AI Research", "Physical AI", "Innovation"],
+    images: [
+      {
+        src: "/images/05_Internships/industry/img-7838.jpeg",
+        alt: "Research mural at NCSA Illinois",
+        fit: "contain",
+      },
+    ],
+    links: [{ label: "Let's connect", href: "/#connect" }],
+  },
 ];
 
 export type ResearchProject = {
@@ -387,8 +652,8 @@ export const beyondHobbies: BeyondHobby[] = [
     description:
       "Opening cases, routing cables, and assembling machines from parts — the same curiosity that leads from Legos to laboratories.",
     coverSrc: "/images/12_PC_Build/img-2727.jpeg",
-    coverPosition: "50% 40%",
-    coverFit: "cover",
+    coverPosition: "50% 45%",
+    coverFit: "contain",
   },
   {
     id: "photography",

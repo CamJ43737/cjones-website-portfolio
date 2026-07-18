@@ -212,12 +212,8 @@ export const mediaAssignments = {
       fit: "cover" as const,
     },
   ],
-  /**
-   * Photography teaser — unique frames only.
-   * One camera still: behind-the-lens.
-   * One lake: reflections (serenity excluded as near-duplicate).
-   */
-  photographyTeaser: [
+  /** Strongest photography frames for Beyond the Lab (no fishing, no mockups). */
+  beyondPhotography: [
     {
       src: "/images/08_Photography/general/behind-the-lenscapturing-every-moment.jpg",
       alt: "Behind the lens — capturing every moment",
@@ -228,12 +224,6 @@ export const mediaAssignments = {
       src: "/images/08_Photography/general/reflections-of-tuskegeethe-calm-of-the-lake.jpeg",
       alt: "Reflections of Tuskegee — lake",
       objectPosition: "50% 50%",
-      fit: "cover" as const,
-    },
-    {
-      src: "/images/08_Photography/nature/img-2945.jpg",
-      alt: "Nature study",
-      objectPosition: "50% 40%",
       fit: "cover" as const,
     },
     {
@@ -249,22 +239,38 @@ export const mediaAssignments = {
       fit: "cover" as const,
     },
     {
-      src: "/images/08_Photography/nature/img-6209.jpeg",
-      alt: "Nature frame",
+      src: "/images/08_Photography/general/img-9905.jpg",
+      alt: "Photography study",
       objectPosition: "50% 40%",
+      fit: "cover" as const,
+    },
+    {
+      src: "/images/08_Photography/general/warm-wishessipping-holiday-cheer.jpeg",
+      alt: "Warm wishes — holiday frame",
+      objectPosition: "50% 35%",
+      fit: "cover" as const,
+    },
+    {
+      src: "/images/08_Photography/general/silent-nightpuppy-dreams-amidst-the-festivities.jpeg",
+      alt: "Silent night — quiet moment",
+      objectPosition: "50% 40%",
+      fit: "cover" as const,
+    },
+    {
+      src: "/images/08_Photography/general/uno-shenanigansthe-mischief-maker.jpeg",
+      alt: "UNO shenanigans",
+      objectPosition: "50% 35%",
       fit: "cover" as const,
     },
   ],
 } as const;
 
-/**
- * Photography page exclusions — duplicate/near-duplicate camera & lake frames,
- * plus unused Canva mockups.
- */
+/** Exclude mockups / weak duplicates from photography hobby sets */
 export const photographyExclusions = [
   "untitled-design",
-  "growth-in-motionthe-heart-of-innovation", // duplicate camera companion
-  "serenity-in-stillnessthe-lake-s-quiet-beauty", // near-dup of reflections lake
-  "img-9255", // near-dup camera pair
+  "growth-in-motionthe-heart-of-innovation",
+  "serenity-in-stillnessthe-lake-s-quiet-beauty",
+  "img-9255",
   "img-9256",
+  "/nature/", // fishing frames live in 14_Fishing
 ];

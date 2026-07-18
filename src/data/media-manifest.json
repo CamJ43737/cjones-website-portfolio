@@ -2200,5 +2200,41 @@
         "originalName":  "cjones-cv-resume.pdf",
         "src":  "/resume/cjones-cv-resume.pdf",
         "type":  "pdf"
+    },
+    {
+        "category":  "14_Fishing",
+        "originalName":  "IMG_2924.JPG",
+        "src":  "/images/14_Fishing/img-2924.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "14_Fishing",
+        "originalName":  "IMG_2945.JPG",
+        "src":  "/images/14_Fishing/img-2945.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "14_Fishing",
+        "originalName":  "IMG_6209.jpeg",
+        "src":  "/images/14_Fishing/img-6209.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography",
+        "originalName":  "AC0266D2-07D8-4E6D-B975-AAD41BB67416_1_105_c.jpeg",
+        "src":  "/images/08_Photography/general/ac0266d2-07d8-4e6d-b975-aad41bb67416-1-105-c.jpeg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography",
+        "originalName":  "E1112438-0202-4E66-91DE-55517600443A_1_105_c.JPG",
+        "src":  "/images/08_Photography/general/e1112438-0202-4e66-91de-55517600443a-1-105-c.jpg",
+        "type":  "image"
+    },
+    {
+        "category":  "08_Photography",
+        "originalName":  "Serenity in StillnessThe Lake’s Quiet Beauty.JPG",
+        "src":  "/images/08_Photography/general/serenity-in-stillnessthe-lakes-quiet-beauty.jpg",
+        "type":  "image"
     }
 ]

@@ -351,10 +351,57 @@ export const publications = [
 export const photoCategories = [
   { id: "campus", label: "Campus", keywords: ["campus", "tuskegee", "lake"] },
   { id: "technology", label: "Technology", keywords: ["technology", "innovation", "growth"] },
-  { id: "nature", label: "Nature", keywords: ["nature", "lake", "serenity", "img-2924", "img-2945", "img-6209"] },
+  { id: "nature", label: "Nature", keywords: ["nature", "lake", "serenity"] },
   { id: "agriculture", label: "Agriculture", keywords: ["agriculture", "sweet-potato", "roots", "farm"] },
   { id: "people", label: "People", keywords: ["portrait", "uno", "holiday", "puppy", "warm"] },
   { id: "travel", label: "Travel", keywords: ["travel"] },
+];
+
+export type BeyondHobby = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  theme: string;
+  description: string;
+  coverSrc: string;
+  coverPosition?: string;
+  coverFit?: "cover" | "contain";
+};
+
+export const beyondHobbies: BeyondHobby[] = [
+  {
+    id: "pc-building",
+    eyebrow: "Hardware · Engineering",
+    title: "PC Building",
+    theme: "Hardware, engineering, building, curiosity",
+    description:
+      "Opening cases, routing cables, and assembling machines from parts — the same curiosity that leads from Legos to laboratories.",
+    coverSrc: "/images/12_PC_Build/img-2713.jpg",
+    coverPosition: "50% 45%",
+    coverFit: "cover",
+  },
+  {
+    id: "photography",
+    eyebrow: "Creativity · Perspective",
+    title: "Photography",
+    theme: "Creativity, storytelling, perspective",
+    description:
+      "A visual journal of light, land, and people — training the eye to notice what systems and stories leave behind.",
+    coverSrc: "/images/08_Photography/general/behind-the-lenscapturing-every-moment.jpg",
+    coverPosition: "50% 45%",
+    coverFit: "contain",
+  },
+  {
+    id: "fishing",
+    eyebrow: "Outdoors · Balance",
+    title: "Fishing",
+    theme: "Outdoors, patience, balance",
+    description:
+      "Time on the water — patience, quiet focus, and balance away from screens and labs.",
+    coverSrc: "/images/14_Fishing/img-2945.jpg",
+    coverPosition: "50% 40%",
+    coverFit: "cover",
+  },
 ];
 
 export const contactReasons = [
@@ -370,7 +417,7 @@ export const navLinks = [
   { href: "/#journey", label: "Journey" },
   { href: "/#research", label: "Research" },
   { href: "/#experience", label: "Experience" },
-  { href: "/photography", label: "Photography" },
+  { href: "/#beyond", label: "Beyond" },
   { href: "/resume", label: "Resume" },
   { href: "/#connect", label: "Connect" },
 ];

@@ -215,6 +215,18 @@ foreach ($pc in $pcCandidates) {
   }
 }
 
+# Fishing (Beyond the Lab)
+$fishCandidates = @(
+  (Join-Path $SourceRoot "fishing"),
+  (Join-Path $SourceRoot "Fishing"),
+  (Join-Path $SourceRoot "14_Fishing")
+)
+foreach ($fish in $fishCandidates) {
+  if (Test-Path $fish) {
+    Copy-FolderContents $fish (Join-Path $PublicImages "14_Fishing") "14_Fishing" $manifest -Recurse
+  }
+}
+
 # Campus if present
 $campusCandidates = @(
   (Join-Path $SourceRoot "09_Campus"),

@@ -63,8 +63,8 @@ export function Contact() {
               <Button href={site.github} variant="ghost" external>
                 <Github size={16} /> GitHub
               </Button>
-              <Button href="/photography" variant="gold">
-                <Camera size={16} /> Photography
+              <Button href="/beyond" variant="gold">
+                <Camera size={16} /> Beyond the Lab
               </Button>
             </div>
             <div className="text-sm text-ink-400">

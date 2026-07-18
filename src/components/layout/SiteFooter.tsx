@@ -37,8 +37,8 @@ export function SiteFooter() {
           >
             GitHub
           </a>
-          <Link href="/photography" className="hover:text-tuskegee-gold">
-            Photography
+          <Link href="/beyond" className="hover:text-tuskegee-gold">
+            Beyond the Lab
           </Link>
         </div>
       </div>

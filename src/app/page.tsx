@@ -7,7 +7,7 @@ import { Experience } from "@/components/experience/Experience";
 import { Awards } from "@/components/awards/Awards";
 import { Leadership } from "@/components/leadership/Leadership";
 import { Publications } from "@/components/publications/Publications";
-import { PhotographyTeaser } from "@/components/photography/PhotographyTeaser";
+import { BeyondTheLab } from "@/components/beyond/BeyondTheLab";
 import { Contact } from "@/components/contact/Contact";
 
 export default function HomePage() {
@@ -22,7 +22,7 @@ export default function HomePage() {
       <Awards />
       <Leadership />
       <Publications />
-      <PhotographyTeaser />
+      <BeyondTheLab />
       <Contact />
     </>
   );

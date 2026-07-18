@@ -23,6 +23,9 @@ function HobbyGallery({
   title,
   theme,
   description,
+  heroSrc,
+  heroFit,
+  heroPosition,
   images,
   videos,
 }: {
@@ -30,6 +33,9 @@ function HobbyGallery({
   title: string;
   theme: string;
   description: string;
+  heroSrc: string;
+  heroFit?: "cover" | "contain";
+  heroPosition?: string;
   images: { src: string; alt: string; objectPosition?: string; fit?: "cover" | "contain" }[];
   videos?: {
     src: string;
@@ -39,11 +45,22 @@ function HobbyGallery({
     autoPlayWhenVisible?: boolean;
   }[];
 }) {
+  const gallery = images.filter((m) => m.src !== heroSrc);
+
   return (
     <section id={id} className="scroll-mt-24 border-t border-white/10 pt-14 sm:pt-16">
       <p className="chapter-label">{theme}</p>
       <h2 className="mt-3 font-display text-3xl text-mist sm:text-4xl">{title}</h2>
-      <p className="prose-brand mt-4">{description}</p>
+      <p className="prose-brand mt-4 max-w-2xl">{description}</p>
+
+      <MediaImage
+        src={heroSrc}
+        alt={`${title} hero`}
+        fit={heroFit ?? "cover"}
+        objectPosition={heroPosition ?? "50% 40%"}
+        className="mt-8 aspect-[16/10] w-full sm:aspect-[21/9]"
+        priority
+      />
 
       {videos && videos.length > 0 && (
         <div className="mt-8 grid gap-5">
@@ -61,7 +78,7 @@ function HobbyGallery({
       )}
 
       <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {images.map((m) => (
+        {gallery.map((m) => (
           <MediaImage
             key={m.src}
             src={m.src}
@@ -146,6 +163,9 @@ export default function BeyondPage() {
             title={hobby.title}
             theme={hobby.theme}
             description={hobby.description}
+            heroSrc={hobby.coverSrc}
+            heroFit={hobby.coverFit}
+            heroPosition={hobby.coverPosition}
             images={galleries[hobby.id as keyof typeof galleries]}
             videos={
               videoAssignments.beyond[

@@ -9,6 +9,13 @@ const COCA_COLA_PREFIX = "/images/05_Internships/coca-cola/";
 const PHOTO_PREFIX = "/images/08_Photography/";
 const CERT_PREFIX = "/images/04_Research/publications/certifications/";
 
+/** Filenames that live in both Photography/nature and Fishing — Fishing owns them. */
+const FISHING_ONLY = new Set([
+  "img-2924.jpg",
+  "img-2945.jpg",
+  "img-6209.jpeg",
+]);
+
 /** Prefer the canonical internship industry folder; skip mirrored 11_Industry + *-1 copies. */
 export function industryImages(): MediaItem[] {
   return imagesOnly(mediaByPathPrefix(INDUSTRY_PREFIX)).filter(
@@ -29,10 +36,28 @@ function photoPriority(src: string): number {
   return 10;
 }
 
-/** All photography stills — skip graphic mockups; photographer frames first. */
+function isFishingPhoto(src: string): boolean {
+  const base = src.split("/").pop()?.toLowerCase() ?? "";
+  if (FISHING_ONLY.has(base)) return true;
+  const s = src.toLowerCase();
+  return (
+    s.includes("/14_fishing/") ||
+    s.includes("fishing") ||
+    s.includes("/nature/img-2924") ||
+    s.includes("/nature/img-2945") ||
+    s.includes("/nature/img-6209")
+  );
+}
+
+/** Photography stills only — no fishing frames, no graphic mockups. */
 export function photographyImages(): MediaItem[] {
   return imagesOnly(mediaByPathPrefix(PHOTO_PREFIX))
-    .filter((m) => !m.src.toLowerCase().includes("untitled-design"))
+    .filter(
+      (m) =>
+        !m.src.toLowerCase().includes("untitled-design") &&
+        !m.src.toLowerCase().includes("growth-in-motion") &&
+        !isFishingPhoto(m.src),
+    )
     .sort((a, b) => {
       const d = photoPriority(a.src) - photoPriority(b.src);
       return d !== 0 ? d : a.src.localeCompare(b.src);
@@ -43,7 +68,7 @@ export function certificateImages(): MediaItem[] {
   return imagesOnly(mediaByPathPrefix(CERT_PREFIX));
 }
 
-/** Best three PC build frames for teasers (unique, evenly spaced layouts). */
+/** Best three PC build frames for curated leads (unique). */
 export const featuredPcBuildImages = [
   {
     src: "/images/12_PC_Build/img-2727.jpeg",

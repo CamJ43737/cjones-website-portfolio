@@ -164,9 +164,9 @@ export const timeline: TimelineChapter[] = [
     id: "2022-tuskegee",
     year: "2022",
     title: "Tuskegee University",
-    detail: "Transferred to pursue Computer Science at an HBCU legacy campus.",
+    detail: "Returned to the same institution my parents once walked — Computer Science at an HBCU legacy campus.",
     description:
-      "Tuskegee is more than my university — it is family ground. My parents are alumni. I am an identical twin, my sisters are twins, and there are eight of us. Growing up around this campus meant study nights, family dinners, game nights, walking the grounds together, and Homecoming traditions that felt like home long before I enrolled. Choosing Tuskegee was choosing community, legacy, and the place that shaped who I became.",
+      "Tuskegee is more than my university — it is family ground. My parents are alumni, and returning here meant stepping into a legacy I grew up watching. I am an identical twin, my sisters are twins, and there are eight of us. Campus was already home: study nights, family dinners, game nights, walking the grounds together, Homecoming, and a community that shaped who I became long before I enrolled.",
     technologies: ["Family", "Legacy", "Community", "Computer Science", "HBCU"],
     coverImage: "/images/13_Logos/tuskegee-university-tigers-steven-parker.jpg",
     images: [
@@ -186,13 +186,13 @@ export const timeline: TimelineChapter[] = [
         fit: "contain",
       },
       {
-        src: "/images/10_Family/sibling-weekendhome-away-from-home.jpeg",
-        alt: "Sibling weekend — home away from home",
+        src: "/images/10_Family/sister-spotlightexpo-excellence.jpg",
+        alt: "Twin sisters at expo",
         fit: "contain",
       },
       {
-        src: "/images/10_Family/uno-eyesthe-ultimate-poker-face.jpeg",
-        alt: "Game night with family — UNO poker face",
+        src: "/images/10_Family/sibling-weekendhome-away-from-home.jpeg",
+        alt: "Sibling weekend — home away from home",
         fit: "contain",
       },
       {
@@ -201,23 +201,128 @@ export const timeline: TimelineChapter[] = [
         fit: "contain",
       },
       {
-        src: "/images/10_Family/sister-spotlightexpo-excellence.jpg",
-        alt: "Sisters at expo — twin spotlight",
+        src: "/images/10_Family/uno-eyesthe-ultimate-poker-face.jpeg",
+        alt: "Game night with family",
         fit: "contain",
       },
       {
         src: "/images/10_Family/expo-prepbuilding-the-vision-together.jpg",
-        alt: "Study and expo prep — building the vision together",
+        alt: "Study night and expo prep together",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/black-expo-hustlefamily-business-in-action.jpg",
+        alt: "Family event — Black Expo hustle",
         fit: "contain",
       },
       {
         src: "/images/10_Family/tradition-and-triumphthegreek-experience.jpg",
-        alt: "Homecoming and Greek traditions on campus",
+        alt: "Homecoming and Greek traditions",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/bonded-by-brotherhood-sisterhoodmy-sister-sgreek-journey.jpg",
+        alt: "Brotherhood and sisterhood on campus",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/scholarship-in-actionalpha-kappa-induction.jpg",
+        alt: "Celebration — Alpha Kappa induction",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/rising-to-the-topalpha-kappa-honors.jpg",
+        alt: "Celebration — Alpha Kappa honors",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/honor-and-prestigealpha-kappa-moments.jpg",
+        alt: "Family celebration — honor and prestige",
         fit: "contain",
       },
       {
         src: "/images/10_Family/cameron-and-sister-kaiya-on-school-trip-representing-tuskegee-at-the-tmcf-leadership-institute.jpg",
-        alt: "Representing Tuskegee with family — TMCF Leadership Institute",
+        alt: "Representing Tuskegee with family",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/hbcu-heroes-founder-meeting-cameron-and-his-family-after-conference-in-nashville-amazon-office.jpeg",
+        alt: "Family and HBCU community in Nashville",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/cameron-and-sister-kaiya-at-fiu-miami-internship-for-access.jpeg",
+        alt: "With sister Kaiya — family on the journey",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/img-5413.jpeg",
+        alt: "Family campus memory",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/img-5420.jpeg",
+        alt: "Candid family moment on campus",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/img-5528.jpeg",
+        alt: "Family gathering",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/img-5538.jpeg",
+        alt: "Campus family candid",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/img-6038.jpg",
+        alt: "Family of eight — together",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/img-6069.jpeg",
+        alt: "Family portrait moment",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/img-6078.jpeg",
+        alt: "Family celebration",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/img-6081.jpeg",
+        alt: "Siblings on campus",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/img-6096.jpeg",
+        alt: "Family tradition",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/img-2402.jpg",
+        alt: "Family memory",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/img-3391.jpg",
+        alt: "Campus family moment",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/img-4112.jpeg",
+        alt: "Family on campus grounds",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/img-4831.jpg",
+        alt: "Family event",
+        fit: "contain",
+      },
+      {
+        src: "/images/10_Family/img-8854.jpg",
+        alt: "Homecoming community",
         fit: "contain",
       },
     ],
@@ -291,23 +396,18 @@ export const timeline: TimelineChapter[] = [
     detail: "Robotics internship, Google CSSI, and CAGI AI Bootcamp.",
     description:
       "A year of acceleration — embedded robotics at Prairie View, Google CSSI, and CAGI cohorts where agriculture met AI under pressure.",
-    technologies: ["Robotics", "Arduino", "Sensors", "CAGI", "Google CSSI"],
+    technologies: ["Robotics", "Arduino", "Sensors", "IoT", "CAGI", "Google CSSI"],
     coverImage:
       "/images/02_AI_Farms/robotics-testing-with-handmade-car-at-internship-at-pvamu.jpeg",
     images: [
       {
         src: "/images/02_AI_Farms/robotics-testing-with-handmade-car-at-internship-at-pvamu.jpeg",
-        alt: "Robotics testing at Prairie View A&M",
+        alt: "Handmade robotics platform testing at Prairie View",
         fit: "contain",
       },
       {
-        src: "/images/05_Internships/industry/mannrrs-smart-ag-cohort-tech-track.jpeg",
-        alt: "MANRRS Smart AG Tech Track cohort",
-        fit: "contain",
-      },
-      {
-        src: "/images/07_Awards/hackathon-winners.jpeg",
-        alt: "Hackathon first-place team",
+        src: "/images/05_Internships/prairie-view/img-4699.jpeg",
+        alt: "Arduino IoT robot car — Prairie View engineering",
         fit: "contain",
       },
     ],
@@ -343,6 +443,11 @@ export const timeline: TimelineChapter[] = [
       {
         src: "/images/05_Internships/industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university.jpeg",
         alt: "Presentation to Cornell partners",
+        fit: "contain",
+      },
+      {
+        src: "/images/05_Internships/access-ci/img-5295.jpg",
+        alt: "UIUC visitor badge — 2025 CI NSF Internship",
         fit: "contain",
       },
     ],
@@ -712,8 +817,7 @@ export const beyondHobbies: BeyondHobby[] = [
     eyebrow: "Hardware · Engineering",
     title: "PC Building",
     theme: "Hardware, engineering, building, curiosity",
-    description:
-      "Opening cases, routing cables, and assembling machines from parts — the same curiosity that leads from Legos to laboratories.",
+    description: "Building systems from the hardware up.",
     coverSrc: "/images/12_PC_Build/img-2727.jpeg",
     coverPosition: "50% 45%",
     coverFit: "contain",
@@ -723,8 +827,7 @@ export const beyondHobbies: BeyondHobby[] = [
     eyebrow: "Creativity · Perspective",
     title: "Photography",
     theme: "Creativity, storytelling, perspective",
-    description:
-      "A visual journal of light, land, and people — training the eye to notice what systems and stories leave behind.",
+    description: "Capturing technology, people, and moments through my lens.",
     coverSrc: "/images/08_Photography/general/cameron-the-photographer1.jpg",
     coverPosition: "50% 40%",
     coverFit: "contain",
@@ -734,8 +837,7 @@ export const beyondHobbies: BeyondHobby[] = [
     eyebrow: "Outdoors · Balance",
     title: "Fishing",
     theme: "Outdoors, patience, balance",
-    description:
-      "Time on the water — patience, quiet focus, and balance away from screens and labs.",
+    description: "Time outdoors, patience, and perspective.",
     coverSrc: "/images/14_Fishing/img-2945.jpg",
     coverPosition: "50% 40%",
     coverFit: "cover",

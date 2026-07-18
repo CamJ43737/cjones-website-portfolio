@@ -1,22 +1,9 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { beyondHobbies } from "@/data/content";
-import { mediaAssignments } from "@/data/media-assignments";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { MediaImage } from "@/components/ui/MediaImage";
-import { imagesOnly, mediaByCategory, mediaByPathPrefix } from "@/lib/media";
-import { featuredPcBuildImages, photographyImages } from "@/lib/portfolio-media";
-
-function countForHobby(id: string): number {
-  if (id === "pc-building") {
-    return imagesOnly(mediaByCategory("12_PC_Build")).length;
-  }
-  if (id === "fishing") {
-    return imagesOnly(mediaByPathPrefix("/images/14_Fishing")).length;
-  }
-  return photographyImages().length;
-}
 
 export function BeyondTheLab() {
   return (
@@ -28,117 +15,55 @@ export function BeyondTheLab() {
       className="section-wash"
     >
       <div className="space-y-7">
-        {beyondHobbies.map((hobby, index) => {
-          const count = countForHobby(hobby.id);
-          return (
-            <Reveal key={hobby.id} delay={Math.min(index * 0.05, 0.2)}>
-              <article className="group overflow-hidden rounded-[1.5rem] border border-white/[0.1] bg-charcoal/35 shadow-glass backdrop-blur-xl transition duration-500 hover:border-tuskegee-gold/35 hover:shadow-gold">
-                <Link href={`/beyond#${hobby.id}`} className="grid lg:grid-cols-12">
-                  <div className="relative min-h-[220px] overflow-hidden lg:col-span-6 lg:min-h-[320px]">
-                    {hobby.id === "pc-building" ? (
-                      <div className="absolute inset-0 grid grid-cols-3 gap-2 bg-obsidian/70 p-3 sm:gap-3 sm:p-4">
-                        {featuredPcBuildImages.map((img) => (
-                          <MediaImage
-                            key={img.src}
-                            src={img.src}
-                            alt={img.alt}
-                            fit={img.fit}
-                            objectPosition={img.objectPosition}
-                            className="h-full min-h-0 w-full"
-                          />
-                        ))}
-                      </div>
-                    ) : hobby.coverFit === "contain" ? (
-                      <div className="absolute inset-0 flex items-center justify-center bg-obsidian/70 p-3 sm:p-4">
-                        <MediaImage
-                          src={hobby.coverSrc}
-                          alt={hobby.title}
-                          fit="contain"
-                          objectPosition={hobby.coverPosition}
-                          className="h-full w-full"
-                        />
-                      </div>
-                    ) : (
-                      <>
-                        <MediaImage
-                          src={hobby.coverSrc}
-                          alt={hobby.title}
-                          fit={hobby.coverFit ?? "cover"}
-                          objectPosition={hobby.coverPosition}
-                          className="absolute inset-0 h-full w-full"
-                        />
-                        <div
-                          className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-obsidian/15 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-obsidian/20 lg:to-obsidian/70"
-                          aria-hidden
-                        />
-                      </>
-                    )}
-                  </div>
+        {beyondHobbies.map((hobby, index) => (
+          <Reveal key={hobby.id} delay={Math.min(index * 0.05, 0.2)}>
+            <article className="group overflow-hidden rounded-[1.5rem] border border-white/[0.1] bg-charcoal/35 shadow-glass backdrop-blur-xl transition duration-500 hover:border-tuskegee-gold/35 hover:shadow-gold">
+              <Link href={`/beyond#${hobby.id}`} className="grid lg:grid-cols-12">
+                <div className="relative min-h-[220px] overflow-hidden lg:col-span-6 lg:min-h-[320px]">
+                  {hobby.coverFit === "contain" ? (
+                    <div className="absolute inset-0 flex items-center justify-center bg-obsidian/70 p-3 sm:p-4">
+                      <MediaImage
+                        src={hobby.coverSrc}
+                        alt={hobby.title}
+                        fit="contain"
+                        objectPosition={hobby.coverPosition}
+                        className="h-full w-full"
+                      />
+                    </div>
+                  ) : (
+                    <>
+                      <MediaImage
+                        src={hobby.coverSrc}
+                        alt={hobby.title}
+                        fit={hobby.coverFit ?? "cover"}
+                        objectPosition={hobby.coverPosition}
+                        className="absolute inset-0 h-full w-full"
+                      />
+                      <div
+                        className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-obsidian/15 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-obsidian/20 lg:to-obsidian/70"
+                        aria-hidden
+                      />
+                    </>
+                  )}
+                </div>
 
-                  <div className="relative flex flex-col justify-center px-6 py-8 sm:px-9 sm:py-10 lg:col-span-6 lg:px-10">
-                    <p className="chapter-label">{hobby.eyebrow}</p>
-                    <h3 className="mt-3 font-display text-2xl leading-tight text-mist sm:text-3xl lg:text-[2.15rem]">
-                      {hobby.title}
-                    </h3>
-                    <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.18em] text-tuskegee-gold/80">
-                      {hobby.theme}
-                    </p>
-                    <p className="mt-4 max-w-measure text-sm leading-relaxed text-ink-200 sm:text-base">
-                      {hobby.description}
-                    </p>
-
-                    {hobby.id === "photography" && (
-                      <div className="mt-6 grid grid-cols-3 gap-2">
-                        {mediaAssignments.beyondPhotography.slice(0, 3).map((m) => (
-                          <MediaImage
-                            key={m.src}
-                            src={m.src}
-                            alt={m.alt}
-                            fit={m.fit}
-                            objectPosition={m.objectPosition}
-                            className="aspect-square"
-                          />
-                        ))}
-                      </div>
-                    )}
-
-                    <dl className="mt-8 grid grid-cols-2 gap-3 border-t border-white/[0.06] pt-6 sm:grid-cols-3">
-                      <div>
-                        <dt className="font-display text-xl text-tuskegee-gold sm:text-2xl">
-                          {count}
-                        </dt>
-                        <dd className="mt-1 text-[11px] leading-snug text-ink-400">
-                          Frames in gallery
-                        </dd>
-                      </div>
-                      <div>
-                        <dt className="font-display text-xl text-tuskegee-gold sm:text-2xl">
-                          Life
-                        </dt>
-                        <dd className="mt-1 text-[11px] leading-snug text-ink-400">
-                          Outside the lab
-                        </dd>
-                      </div>
-                      <div className="col-span-2 sm:col-span-1">
-                        <dt className="font-display text-xl text-tuskegee-gold sm:text-2xl">
-                          Craft
-                        </dt>
-                        <dd className="mt-1 text-[11px] leading-snug text-ink-400">
-                          Hands-on practice
-                        </dd>
-                      </div>
-                    </dl>
-
-                    <p className="mt-8 inline-flex items-center gap-2 text-sm text-mist transition group-hover:text-tuskegee-gold">
-                      Open gallery
-                      <ArrowUpRight size={16} />
-                    </p>
-                  </div>
-                </Link>
-              </article>
-            </Reveal>
-          );
-        })}
+                <div className="relative flex flex-col justify-center px-6 py-8 sm:px-9 sm:py-10 lg:col-span-6 lg:px-10">
+                  <p className="chapter-label">{hobby.eyebrow}</p>
+                  <h3 className="mt-3 font-display text-2xl leading-tight text-mist sm:text-3xl lg:text-[2.15rem]">
+                    {hobby.title}
+                  </h3>
+                  <p className="mt-4 max-w-measure text-sm leading-relaxed text-ink-200 sm:text-base">
+                    {hobby.description}
+                  </p>
+                  <p className="mt-8 inline-flex items-center gap-2 text-sm text-mist transition group-hover:text-tuskegee-gold">
+                    Open gallery
+                    <ArrowUpRight size={16} />
+                  </p>
+                </div>
+              </Link>
+            </article>
+          </Reveal>
+        ))}
       </div>
 
       <Reveal delay={0.15}>

@@ -1,4 +1,4 @@
-﻿[
+[
     {
         "category":  "01_Hero",
         "originalName":  "hero-headshot.jpg",
@@ -1165,20 +1165,8 @@
     },
     {
         "category":  "08_Photography/general",
-        "originalName":  "growth-in-motionthe-heart-of-innovation.jpeg",
-        "src":  "/images/08_Photography/general/growth-in-motionthe-heart-of-innovation.jpeg",
-        "type":  "image"
-    },
-    {
-        "category":  "08_Photography/general",
         "originalName":  "img-5162.jpeg",
         "src":  "/images/08_Photography/general/img-5162.jpeg",
-        "type":  "image"
-    },
-    {
-        "category":  "08_Photography/general",
-        "originalName":  "img-9255.jpg",
-        "src":  "/images/08_Photography/general/img-9255.jpg",
         "type":  "image"
     },
     {
@@ -1203,12 +1191,6 @@
         "category":  "08_Photography/general",
         "originalName":  "roots-of-progresssweet-potatoes-sweet-future.jpg",
         "src":  "/images/08_Photography/general/roots-of-progresssweet-potatoes-sweet-future.jpg",
-        "type":  "image"
-    },
-    {
-        "category":  "08_Photography/general",
-        "originalName":  "serenity-in-stillnessthe-lake-s-quiet-beauty.jpg",
-        "src":  "/images/08_Photography/general/serenity-in-stillnessthe-lake-s-quiet-beauty.jpg",
         "type":  "image"
     },
     {
@@ -2272,5 +2254,17 @@
         "originalName":  "Screenshot (109).png",
         "src":  "/images/04_Research/publications/certifications/screenshot-109.png",
         "type":  "image"
+    },
+    {
+        "originalName":  "IMG_4699.JPEG",
+        "category":  "05_Internships/prairie-view",
+        "type":  "image",
+        "src":  "/images/05_Internships/prairie-view/img-4699.jpeg"
+    },
+    {
+        "originalName":  "IMG_5295.JPG",
+        "category":  "05_Internships/access-ci",
+        "type":  "image",
+        "src":  "/images/05_Internships/access-ci/img-5295.jpg"
     }
 ]

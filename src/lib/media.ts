@@ -57,7 +57,12 @@ export function mediaByPathPrefix(prefix: string): MediaItem[] {
 }
 
 export function imagesOnly(list: MediaItem[]): MediaItem[] {
-  return list.filter((m) => m.type === "image" && !isDuplicateCopy(m.src));
+  return list.filter(
+    (m) =>
+      m.type === "image" &&
+      !isDuplicateCopy(m.src) &&
+      /\.(jpe?g|png|webp|gif)$/i.test(m.src),
+  );
 }
 
 export function videosOnly(list: MediaItem[]): MediaItem[] {

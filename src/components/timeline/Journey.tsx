@@ -15,11 +15,22 @@ function ChapterPanel({
   chapter,
   panelId,
   labelledBy,
+  videoActive = true,
 }: {
   chapter: TimelineChapter;
   panelId?: string;
   labelledBy: string;
+  /** When false, timeline videos pause (chapter closed). */
+  videoActive?: boolean;
 }) {
+  const imageCount = chapter.images?.length ?? 0;
+  const imageGrid =
+    imageCount <= 1
+      ? "grid-cols-1 sm:max-w-xl"
+      : imageCount === 2
+        ? "grid-cols-1 sm:grid-cols-2"
+        : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
+
   return (
     <div
       id={panelId}
@@ -34,10 +45,41 @@ function ChapterPanel({
       <p className="mt-3 max-w-3xl text-sm leading-relaxed text-ink-200 sm:text-base">
         {chapter.description}
       </p>
-      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-ink-400">{chapter.detail}</p>
+      <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-400">{chapter.detail}</p>
+
+      {chapter.images && chapter.images.length > 0 && (
+        <div className={cn("mt-6 grid gap-3", imageGrid)}>
+          {chapter.images.map((img) => (
+            <MediaImage
+              key={img.src}
+              src={img.src}
+              alt={img.alt}
+              fit={img.fit ?? "contain"}
+              objectPosition={img.objectPosition ?? "50% 50%"}
+              className="aspect-[4/3] w-full"
+            />
+          ))}
+        </div>
+      )}
+
+      {chapter.videos && chapter.videos.length > 0 && videoActive && (
+        <div className="mt-5 grid gap-4">
+          {chapter.videos.map((video) => (
+            <CinematicVideo
+              key={`${chapter.id}-${video.src}`}
+              src={video.src}
+              title={video.title}
+              poster={video.poster}
+              eager
+              autoPlayWhenVisible
+              fit="contain"
+            />
+          ))}
+        </div>
+      )}
 
       {chapter.technologies.length > 0 && (
-        <ul className="mt-5 flex flex-wrap gap-2" aria-label="Technologies and themes">
+        <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technologies and themes">
           {chapter.technologies.map((tech) => (
             <li
               key={tech}
@@ -49,38 +91,8 @@ function ChapterPanel({
         </ul>
       )}
 
-      {chapter.images && chapter.images.length > 0 && (
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {chapter.images.map((img) => (
-            <MediaImage
-              key={img.src}
-              src={img.src}
-              alt={img.alt}
-              fit={img.fit ?? "contain"}
-              objectPosition={img.objectPosition ?? "50% 50%"}
-              className="aspect-[4/3]"
-            />
-          ))}
-        </div>
-      )}
-
-      {chapter.videos && chapter.videos.length > 0 && (
-        <div className="mt-5 grid gap-4">
-          {chapter.videos.map((video) => (
-            <CinematicVideo
-              key={video.src}
-              src={video.src}
-              title={video.title}
-              poster={video.poster}
-              autoPlayWhenVisible={false}
-              fit="contain"
-            />
-          ))}
-        </div>
-      )}
-
       {chapter.links && chapter.links.length > 0 && (
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-5 flex flex-wrap gap-3">
           {chapter.links.map((link) =>
             link.external || link.href.startsWith("http") ? (
               <a

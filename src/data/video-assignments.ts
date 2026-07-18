@@ -10,15 +10,27 @@ export type AssignedVideo = {
   poster?: string;
   /** Autoplay when visible (muted). Default true for field reels. */
   autoPlayWhenVisible?: boolean;
+  /** cover crops letterboxing; contain preserves full frame. */
+  fit?: "cover" | "contain";
 };
 
 export const videoAssignments = {
   hero: {
+    src: "/videos/testimonial-mannrs.mp4",
+    title: "MANRRS Smart AG Tech Cohort",
+    caption: "What peers say about the work — tap for sound or expand.",
+    poster: "/images/02_AI_Farms/ai-farms-team.jpg",
+    autoPlayWhenVisible: true,
+  } as AssignedVideo,
+
+  /** Field reel — paired with Robotics Intern experience. */
+  fieldReel: {
     src: "/videos/hero-research.mp4",
-    title: "Field research reel",
-    caption: "Research in motion — tap for sound or expand.",
+    title: "Research in motion",
+    caption: "Field robotics and systems capture.",
     poster: "/images/02_AI_Farms/hero-drone-field.jpg",
     autoPlayWhenVisible: true,
+    fit: "cover",
   } as AssignedVideo,
 
   research: {
@@ -84,11 +96,4 @@ export const videoAssignments = {
     ],
   } as Record<string, AssignedVideo[]>,
 
-  testimonial: {
-    src: "/videos/testimonial-mannrs.mp4",
-    title: "MANRRS Smart AG Tech Cohort",
-    caption: "A peer perspective on research, leadership, and impact.",
-    poster: "/images/02_AI_Farms/ai-farms-team.jpg",
-    autoPlayWhenVisible: false,
-  } as AssignedVideo,
 };

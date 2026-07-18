@@ -10,10 +10,11 @@ export function HeroVideo() {
     <div className="relative mt-10 w-full lg:mt-14">
       <CinematicVideo
         src={video.src}
-        title="Field reel"
+        title={video.title}
         caption={video.caption}
         poster={video.poster}
         autoPlayWhenVisible={video.autoPlayWhenVisible}
+        fit={video.fit}
         eager
       />
     </div>

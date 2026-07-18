@@ -5,7 +5,8 @@ Assigned in `src/data/video-assignments.ts` — do not randomly reassign.
 
 | File | Section |
 |------|---------|
-| `hero-research.mp4` | Homepage hero |
+| `testimonial-mannrs.mp4` | Homepage hero |
+| `hero-research.mp4` | Experience — Robotics Intern (cover-cropped) |
 | `ai-farms-1111.mp4` | AI Farms research |
 | `ai-farms-1118.mp4` | AI Farms research |
 | `ai-farms-3112.mp4` | AI Farms research |
@@ -14,6 +15,5 @@ Assigned in `src/data/video-assignments.ts` — do not randomly reassign.
 | `access-industry-2853.mov` | ACCESS-CI / industry |
 | `access-industry-2856.mov` | ACCESS-CI / industry |
 | `pc-build-timelapse.mp4` | Beyond — PC building |
-| `testimonial-mannrs.mp4` | Research Impact (testimonial) |
 
 Duplicates intentionally omitted (e.g. PC build `.mov` twin, AI Farms `6910…` twin of robot-dog).

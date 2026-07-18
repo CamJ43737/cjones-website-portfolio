@@ -14,6 +14,10 @@ type Props = {
   autoPlayWhenVisible?: boolean;
   /** Start muted playback on mount (hero). Still pauses when leaving the viewport. */
   eager?: boolean;
+  /** cover fills the frame (crops letterboxing); contain shows the full frame. */
+  fit?: "cover" | "contain";
+  /** Flush into a parent card (no outer radius/border). */
+  embedded?: boolean;
   className?: string;
   /** Show expand control. Default true. */
   expandable?: boolean;
@@ -26,6 +30,8 @@ export function CinematicVideo({
   poster,
   autoPlayWhenVisible = true,
   eager = false,
+  fit = "contain",
+  embedded = false,
   className,
   expandable = true,
 }: Props) {
@@ -134,8 +140,10 @@ export function CinematicVideo({
       <div ref={rootRef} className={cn("relative w-full", className)}>
         <div
           className={cn(
-            "group relative overflow-hidden rounded-[1.35rem] border border-tuskegee-gold/25",
-            "bg-obsidian/80 shadow-gold-sm backdrop-blur-xl",
+            "group relative h-full overflow-hidden bg-obsidian/80 backdrop-blur-xl",
+            embedded
+              ? "rounded-none border-0 shadow-none"
+              : "rounded-[1.35rem] border border-tuskegee-gold/25 shadow-gold-sm",
           )}
         >
           <div
@@ -152,8 +160,35 @@ export function CinematicVideo({
             <img
               src={posterSrc}
               alt={title}
-              className="mx-auto block h-auto w-full object-contain"
+              className={cn(
+                "block w-full",
+                fit === "cover"
+                  ? "aspect-video object-cover"
+                  : "mx-auto h-auto object-contain",
+              )}
             />
+          ) : fit === "cover" ? (
+            <div
+              className={cn(
+                "relative w-full overflow-hidden bg-obsidian",
+                embedded ? "aspect-[16/11] h-full min-h-[220px] md:aspect-auto md:min-h-[260px]" : "aspect-video",
+              )}
+            >
+              <video
+                ref={videoRef}
+                className="absolute inset-0 h-full w-full scale-[1.15] object-cover"
+                muted
+                loop
+                playsInline
+                preload={inView || autoPlayWhenVisible ? "metadata" : "none"}
+                poster={posterSrc}
+                onPlay={() => setPlaying(true)}
+                onPause={() => setPlaying(false)}
+                aria-label={title}
+              >
+                <source src={videoSrc} />
+              </video>
+            </div>
           ) : (
             <video
               ref={videoRef}

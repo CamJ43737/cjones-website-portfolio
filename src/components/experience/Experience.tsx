@@ -1,10 +1,16 @@
+"use client";
+
 import { experiences } from "@/data/content";
 import { mediaAssignments } from "@/data/media-assignments";
+import { videoAssignments } from "@/data/video-assignments";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { MediaImage } from "@/components/ui/MediaImage";
+import { CinematicVideo } from "@/components/ui/CinematicVideo";
 
 export function Experience() {
+  const fieldReel = videoAssignments.fieldReel;
+
   return (
     <Section
       id="experience"
@@ -18,19 +24,34 @@ export function Experience() {
             mediaAssignments.experience[
               exp.role as keyof typeof mediaAssignments.experience
             ];
+          const isRobotics = exp.role === "Robotics Intern";
 
           return (
             <Reveal key={exp.role} delay={Math.min(i * 0.05, 0.2)}>
               <article className="glass overflow-hidden rounded-[1.35rem]">
                 <div className="grid md:grid-cols-12">
-                  {photo && (
-                    <MediaImage
-                      src={photo.src}
-                      alt={photo.alt}
-                      fit={photo.fit}
-                      objectPosition={photo.objectPosition}
-                      className="aspect-[16/11] md:col-span-5 md:aspect-auto md:min-h-[260px] md:h-full"
-                    />
+                  {isRobotics ? (
+                    <div className="md:col-span-5 md:h-full">
+                      <CinematicVideo
+                        src={fieldReel.src}
+                        title={fieldReel.title}
+                        caption={fieldReel.caption}
+                        poster={fieldReel.poster}
+                        autoPlayWhenVisible={fieldReel.autoPlayWhenVisible}
+                        fit="cover"
+                        embedded
+                      />
+                    </div>
+                  ) : (
+                    photo && (
+                      <MediaImage
+                        src={photo.src}
+                        alt={photo.alt}
+                        fit={photo.fit}
+                        objectPosition={photo.objectPosition}
+                        className="aspect-[16/11] md:col-span-5 md:aspect-auto md:min-h-[260px] md:h-full"
+                      />
+                    )
                   )}
                   <div className="flex flex-col justify-center px-6 py-7 sm:px-8 md:col-span-7">
                     <p className="font-mono text-xs tracking-wide text-tuskegee-gold">

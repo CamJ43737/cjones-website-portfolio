@@ -38,7 +38,7 @@ const groups = [
   },
 ] as const;
 
-/** Curated awards stills — unique, category-aligned, no joke/outtake frames. */
+/** Full awards gallery — all 12 recognition stills (contain to preserve faces/certificates). */
 const recognitionImages = [
   {
     src: "/images/07_Awards/nsf-stem-scholars.jpg",
@@ -94,6 +94,24 @@ const recognitionImages = [
     caption: "CDA hackathon recognition.",
     fit: "contain" as const,
   },
+  {
+    src: "/images/07_Awards/img-3444.jpg",
+    alt: "Awards recognition moment",
+    caption: "Recognition and scholarship community.",
+    fit: "contain" as const,
+  },
+  {
+    src: "/images/07_Awards/img-6798.jpg",
+    alt: "Awards ceremony moment",
+    caption: "Honors and awards celebration.",
+    fit: "contain" as const,
+  },
+  {
+    src: "/images/07_Awards/img-6842.jpg",
+    alt: "Awards program recognition",
+    caption: "Program recognition and community support.",
+    fit: "contain" as const,
+  },
 ] as const;
 
 export function Recognition() {
@@ -106,9 +124,9 @@ export function Recognition() {
       className="section-wash"
     >
       <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:col-span-7">
+        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:col-span-7">
           {recognitionImages.map((m, i) => (
-            <Reveal key={m.src} delay={Math.min(i * 0.03, 0.24)} className="h-full">
+            <Reveal key={m.src} delay={Math.min(i * 0.025, 0.28)} className="h-full">
               <figure className="flex h-full flex-col">
                 <MediaImage
                   src={m.src}
@@ -117,7 +135,7 @@ export function Recognition() {
                   objectPosition="50% 50%"
                   className="aspect-square w-full"
                 />
-                <figcaption className="mt-2 min-h-[2.25rem] text-[11px] leading-snug text-ink-400 sm:text-xs">
+                <figcaption className="mt-1.5 line-clamp-2 min-h-[2rem] text-[10px] leading-snug text-ink-400 sm:mt-2 sm:text-[11px]">
                   {m.caption}
                 </figcaption>
               </figure>

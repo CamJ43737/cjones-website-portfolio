@@ -37,9 +37,16 @@ export default async function ResearchProjectPage({ params }: Props) {
       project.slug as keyof typeof mediaAssignments.researchCovers
     ];
   const pool = mediaByCategory(project.mediaCategory);
-  const gallery = imagesOnly(pool)
-    .filter((m) => m.src !== cover?.src)
-    .slice(0, 12);
+  const curatedAccess =
+    project.slug === "access-ci" ? mediaAssignments.accessIndustryGallery : null;
+  const gallery = curatedAccess
+    ? curatedAccess.map((m) => ({
+        src: m.src,
+        originalName: m.alt,
+      }))
+    : imagesOnly(pool)
+        .filter((m) => m.src !== cover?.src)
+        .slice(0, 12);
   const videos =
     videoAssignments.research[
       project.slug as keyof typeof videoAssignments.research

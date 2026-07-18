@@ -5,7 +5,7 @@ import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { MediaImage } from "@/components/ui/MediaImage";
 import { imagesOnly, mediaByCategory, mediaByPathPrefix } from "@/lib/media";
-import { mediaAssignments } from "@/data/media-assignments";
+import { photographyImages } from "@/lib/portfolio-media";
 
 function countForHobby(id: string): number {
   if (id === "pc-building") {
@@ -14,7 +14,7 @@ function countForHobby(id: string): number {
   if (id === "fishing") {
     return imagesOnly(mediaByPathPrefix("/images/14_Fishing")).length;
   }
-  return mediaAssignments.beyondPhotography.length;
+  return photographyImages().length;
 }
 
 export function BeyondTheLab() {

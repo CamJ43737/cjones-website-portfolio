@@ -104,9 +104,9 @@ export const mediaAssignments = {
       fit: "contain" as const,
     },
     "ACCESS-CI Software Engineering Intern": {
-      src: "/images/10_Family/cameron-and-sister-kaiya-at-fiu-miami-internship-for-access.jpeg",
-      alt: "ACCESS internship — FIU Miami",
-      objectPosition: "50% 22%",
+      src: "/images/05_Internships/industry/ai-farms-team-in-ithica-new-york-collaborating-with-our-cornell-partners.jpeg",
+      alt: "AI Farms team collaborating with Cornell partners in Ithaca",
+      objectPosition: "50% 32%",
       fit: "cover" as const,
     },
     "Robotics Intern": {
@@ -185,6 +185,54 @@ export const mediaAssignments = {
       objectPosition: "50% 38%",
       fit: "cover" as const,
     },
+    {
+      src: "/images/05_Internships/industry/cameron-giving-robot-demo-to-president-of-tuskegee-university-and-dean-of-caens-college.jpg",
+      alt: "Robot demo for Tuskegee University leadership",
+      objectPosition: "50% 30%",
+      fit: "cover" as const,
+    },
+    {
+      src: "/images/05_Internships/industry/cameron-giving-robot-demo-to-senator-shomari-foster.jpg",
+      alt: "Robot demo for Senator Shomari Foster",
+      objectPosition: "50% 30%",
+      fit: "cover" as const,
+    },
+    {
+      src: "/images/05_Internships/industry/cameron-meeting-rapper-killer-mike-after-giving-speech-for-presidential-innaguration.jpg",
+      alt: "Meeting Killer Mike after presidential inauguration speech",
+      objectPosition: "50% 28%",
+      fit: "cover" as const,
+    },
+    {
+      src: "/images/05_Internships/industry/cameron-at-the-tmcf-leadership-institute.jpeg",
+      alt: "TMCF Leadership Institute",
+      objectPosition: "50% 25%",
+      fit: "cover" as const,
+    },
+    {
+      src: "/images/05_Internships/industry/tmcf-leadership-institute-tuskegee-group.jpg",
+      alt: "Tuskegee cohort at TMCF Leadership Institute",
+      objectPosition: "50% 32%",
+      fit: "cover" as const,
+    },
+    {
+      src: "/images/05_Internships/industry/loren-lorosa-meeting-cameron-jones-after-speaking-at-the-tmcf-leadership-institute.jpeg",
+      alt: "Meeting Loren Lorosa at TMCF Leadership Institute",
+      objectPosition: "50% 28%",
+      fit: "cover" as const,
+    },
+    {
+      src: "/images/05_Internships/industry/mannrrs-smart-ag-cohort-tech-track.jpeg",
+      alt: "MANRRS Smart AG Tech Track cohort",
+      objectPosition: "50% 32%",
+      fit: "cover" as const,
+    },
+    {
+      src: "/images/05_Internships/industry/arriving-for-the-tech-e-summit.jpg",
+      alt: "Arriving for the Tech-E Summit",
+      objectPosition: "50% 35%",
+      fit: "cover" as const,
+    },
   ],
   publications: [
     {
@@ -212,7 +260,7 @@ export const mediaAssignments = {
       fit: "cover" as const,
     },
   ],
-  /** Strongest photography frames for Beyond the Lab (no fishing, no mockups). */
+  /** Homepage teaser frames for Beyond the Lab photography card. */
   beyondPhotography: [
     {
       src: "/images/08_Photography/general/behind-the-lenscapturing-every-moment.jpg",
@@ -238,39 +286,38 @@ export const mediaAssignments = {
       objectPosition: "50% 40%",
       fit: "cover" as const,
     },
+  ],
+
+  /**
+   * Industry stills featured on the homepage (Leadership).
+   * Remaining industry frames go to /resume archive — no duplicates.
+   */
+  homepageIndustrySrcs: [
+    "/images/05_Internships/industry/ai-farms-team-in-ithica-new-york-collaborating-with-our-cornell-partners.jpeg",
+    "/images/05_Internships/industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university.jpeg",
+    "/images/05_Internships/industry/cameron-giving-robot-demo-to-president-of-tuskegee-university-and-dean-of-caens-college.jpg",
+    "/images/05_Internships/industry/cameron-giving-robot-demo-to-senator-shomari-foster.jpg",
+    "/images/05_Internships/industry/cameron-meeting-rapper-killer-mike-after-giving-speech-for-presidential-innaguration.jpg",
+    "/images/05_Internships/industry/cameron-at-the-tmcf-leadership-institute.jpeg",
+    "/images/05_Internships/industry/tmcf-leadership-institute-tuskegee-group.jpg",
+    "/images/05_Internships/industry/loren-lorosa-meeting-cameron-jones-after-speaking-at-the-tmcf-leadership-institute.jpeg",
+    "/images/05_Internships/industry/mannrrs-smart-ag-cohort-tech-track.jpeg",
+    "/images/05_Internships/industry/arriving-for-the-tech-e-summit.jpg",
+  ] as string[],
+
+  /** Cornell presentation variants for ACCESS research dossier gallery. */
+  accessIndustryGallery: [
     {
-      src: "/images/08_Photography/general/img-9905.jpg",
-      alt: "Photography study",
-      objectPosition: "50% 40%",
+      src: "/images/05_Internships/industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university2.jpeg",
+      alt: "Cornell partner presentation",
+      objectPosition: "50% 30%",
       fit: "cover" as const,
     },
     {
-      src: "/images/08_Photography/general/warm-wishessipping-holiday-cheer.jpeg",
-      alt: "Warm wishes — holiday frame",
-      objectPosition: "50% 35%",
-      fit: "cover" as const,
-    },
-    {
-      src: "/images/08_Photography/general/silent-nightpuppy-dreams-amidst-the-festivities.jpeg",
-      alt: "Silent night — quiet moment",
-      objectPosition: "50% 40%",
-      fit: "cover" as const,
-    },
-    {
-      src: "/images/08_Photography/general/uno-shenanigansthe-mischief-maker.jpeg",
-      alt: "UNO shenanigans",
-      objectPosition: "50% 35%",
+      src: "/images/05_Internships/industry/cameron-giving-a-presentation-in-ithica-new-york-to-partners-at-cornell-university5.jpeg",
+      alt: "Cornell research collaboration moment",
+      objectPosition: "50% 32%",
       fit: "cover" as const,
     },
   ],
 } as const;
-
-/** Exclude mockups / weak duplicates from photography hobby sets */
-export const photographyExclusions = [
-  "untitled-design",
-  "growth-in-motionthe-heart-of-innovation",
-  "serenity-in-stillnessthe-lake-s-quiet-beauty",
-  "img-9255",
-  "img-9256",
-  "/nature/", // fishing frames live in 14_Fishing
-];

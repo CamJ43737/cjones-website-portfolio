@@ -15,9 +15,9 @@ export function Leadership() {
       subtitle="Ambassadorship, teaching, and civic work — documenting impact beyond the lab."
       className="section-wash"
     >
-      <div className="mb-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mb-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {gallery.map((m, i) => (
-          <Reveal key={m.src} delay={i * 0.05}>
+          <Reveal key={m.src} delay={Math.min(i * 0.03, 0.24)}>
             <MediaImage
               src={m.src}
               alt={m.alt}

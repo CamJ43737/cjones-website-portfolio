@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { beyondHobbies, site } from "@/data/content";
-import { mediaAssignments } from "@/data/media-assignments";
 import { videoAssignments } from "@/data/video-assignments";
 import { MediaImage } from "@/components/ui/MediaImage";
 import { CinematicVideo } from "@/components/ui/CinematicVideo";
 import { imagesOnly, mediaByCategory, mediaByPathPrefix } from "@/lib/media";
+import { photographyImages, toGalleryItem } from "@/lib/portfolio-media";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -27,7 +27,13 @@ function HobbyGallery({
   theme: string;
   description: string;
   images: { src: string; alt: string; objectPosition?: string; fit?: "cover" | "contain" }[];
-  videos?: { src: string; title: string; caption?: string; poster?: string; autoPlayWhenVisible?: boolean }[];
+  videos?: {
+    src: string;
+    title: string;
+    caption?: string;
+    poster?: string;
+    autoPlayWhenVisible?: boolean;
+  }[];
 }) {
   return (
     <section id={id} className="scroll-mt-24 border-t border-white/10 pt-14 sm:pt-16">
@@ -58,7 +64,11 @@ function HobbyGallery({
             alt={m.alt}
             fit={m.fit}
             objectPosition={m.objectPosition}
-            className="aspect-[4/5] rounded-2xl border border-white/[0.08] sm:aspect-[3/4]"
+            className={
+              m.fit === "contain"
+                ? "aspect-[4/5] rounded-2xl border border-tuskegee-gold/30 sm:aspect-[3/4]"
+                : "aspect-[4/5] rounded-2xl border border-white/[0.08] sm:aspect-[3/4]"
+            }
           />
         ))}
       </div>
@@ -67,26 +77,19 @@ function HobbyGallery({
 }
 
 export default function BeyondPage() {
-  const pcImages = imagesOnly(mediaByCategory("12_PC_Build")).map((m) => ({
-    src: m.src,
-    alt: m.originalName || "PC build",
-    objectPosition: "50% 40%",
-    fit: "cover" as const,
-  }));
+  const pcImages = imagesOnly(mediaByCategory("12_PC_Build")).map((m) =>
+    toGalleryItem(m, "cover"),
+  );
 
-  const photoImages = mediaAssignments.beyondPhotography.map((m) => ({
-    src: m.src,
-    alt: m.alt,
-    objectPosition: m.objectPosition,
-    fit: m.fit,
-  }));
+  const photoImages = photographyImages().map((m) => {
+    const contain =
+      m.src.includes("behind-the-lens") || m.src.endsWith(".png");
+    return toGalleryItem(m, contain ? "contain" : "cover");
+  });
 
-  const fishingImages = imagesOnly(mediaByPathPrefix("/images/14_Fishing")).map((m) => ({
-    src: m.src,
-    alt: m.originalName || "Fishing",
-    objectPosition: "50% 40%",
-    fit: "cover" as const,
-  }));
+  const fishingImages = imagesOnly(mediaByPathPrefix("/images/14_Fishing")).map((m) =>
+    toGalleryItem(m, "cover"),
+  );
 
   const galleries = {
     "pc-building": pcImages,

@@ -3,12 +3,15 @@
 import { experiences } from "@/data/content";
 import { mediaAssignments } from "@/data/media-assignments";
 import { videoAssignments } from "@/data/video-assignments";
+import { cocaColaImages, toGalleryItem } from "@/lib/portfolio-media";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { MediaImage } from "@/components/ui/MediaImage";
 import { CinematicVideo } from "@/components/ui/CinematicVideo";
 
 export function Experience() {
+  const cocaCola = cocaColaImages().map((m) => toGalleryItem(m));
+
   return (
     <Section
       id="experience"
@@ -23,6 +26,7 @@ export function Experience() {
               exp.role as keyof typeof mediaAssignments.experience
             ];
           const video = videoAssignments.experience[exp.role];
+          const isCocaCola = exp.role === "Intern";
 
           return (
             <Reveal key={exp.role} delay={Math.min(i * 0.05, 0.2)}>
@@ -76,6 +80,28 @@ export function Experience() {
                     </ul>
                   </div>
                 </div>
+
+                {isCocaCola && cocaCola.length > 0 && (
+                  <div className="border-t border-white/[0.08] bg-obsidian/30 p-3 sm:p-4">
+                    <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-tuskegee-gold/80">
+                      Coca-Cola internship frames
+                    </p>
+                    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-5">
+                      {cocaCola
+                        .filter((m) => m.src !== photo?.src)
+                        .map((m) => (
+                          <MediaImage
+                            key={m.src}
+                            src={m.src}
+                            alt={m.alt}
+                            fit="cover"
+                            objectPosition={m.objectPosition}
+                            className="aspect-square rounded-xl border border-tuskegee-gold/20"
+                          />
+                        ))}
+                    </div>
+                  </div>
+                )}
               </article>
             </Reveal>
           );

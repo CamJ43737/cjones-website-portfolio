@@ -271,6 +271,16 @@ export const experiences = [
     mediaCategory: "05_Internships",
   },
   {
+    role: "Robotics Demo",
+    org: "Tuskegee University",
+    timeline: "2025",
+    impact:
+      "Remote sensing with the AI Farms team — arm-bot demonstration for precision agriculture outreach.",
+    technologies: ["Robotics", "Remote Sensing", "AI Farms", "Demo"],
+    photoKeywords: ["arm", "demo", "ai-farms"],
+    mediaCategory: "02_AI_Farms",
+  },
+  {
     role: "Robotics Intern",
     org: "Prairie View A&M University",
     timeline: "2024",

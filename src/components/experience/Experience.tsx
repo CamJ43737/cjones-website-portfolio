@@ -9,8 +9,6 @@ import { MediaImage } from "@/components/ui/MediaImage";
 import { CinematicVideo } from "@/components/ui/CinematicVideo";
 
 export function Experience() {
-  const fieldReel = videoAssignments.fieldReel;
-
   return (
     <Section
       id="experience"
@@ -24,21 +22,21 @@ export function Experience() {
             mediaAssignments.experience[
               exp.role as keyof typeof mediaAssignments.experience
             ];
-          const isRobotics = exp.role === "Robotics Intern";
+          const video = videoAssignments.experience[exp.role];
 
           return (
             <Reveal key={exp.role} delay={Math.min(i * 0.05, 0.2)}>
               <article className="glass overflow-hidden rounded-[1.35rem]">
                 <div className="grid md:grid-cols-12">
-                  {isRobotics ? (
+                  {video ? (
                     <div className="md:col-span-5 md:h-full">
                       <CinematicVideo
-                        src={fieldReel.src}
-                        title={fieldReel.title}
-                        caption={fieldReel.caption}
-                        poster={fieldReel.poster}
-                        autoPlayWhenVisible={fieldReel.autoPlayWhenVisible}
-                        fit="cover"
+                        src={video.src}
+                        title={video.title}
+                        caption={video.caption}
+                        poster={video.poster}
+                        autoPlayWhenVisible={video.autoPlayWhenVisible}
+                        fit={video.fit ?? "cover"}
                         embedded
                       />
                     </div>

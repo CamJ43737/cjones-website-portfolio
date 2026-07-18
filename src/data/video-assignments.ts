@@ -23,15 +23,26 @@ export const videoAssignments = {
     autoPlayWhenVisible: true,
   } as AssignedVideo,
 
-  /** Field reel — paired with Robotics Intern experience. */
-  fieldReel: {
-    src: "/videos/hero-research.mp4",
-    title: "Research in motion",
-    caption: "Field robotics and systems capture.",
-    poster: "/images/02_AI_Farms/hero-drone-field.jpg",
-    autoPlayWhenVisible: true,
-    fit: "cover",
-  } as AssignedVideo,
+  /** Experience cards that use video media instead of a still. */
+  experience: {
+    "Robotics Intern": {
+      src: "/videos/prairie-view-smart-transport.mov",
+      title: "PVAMU smart transportation",
+      caption: "Robotic smart transportation research at Prairie View A&M.",
+      poster:
+        "/images/02_AI_Farms/robotics-testing-with-handmade-car-at-internship-at-pvamu.jpeg",
+      autoPlayWhenVisible: true,
+      fit: "cover",
+    },
+    "Robotics Demo": {
+      src: "/videos/hero-research.mp4",
+      title: "AI Farms arm-bot demo",
+      caption: "Remote sensing demonstration with the AI Farms team.",
+      poster: "/images/02_AI_Farms/hero-drone-field.jpg",
+      autoPlayWhenVisible: true,
+      fit: "cover",
+    },
+  } as Record<string, AssignedVideo>,
 
   research: {
     "ai-farms": [

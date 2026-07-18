@@ -870,10 +870,11 @@ export const contactReasons = [
 
 export const navLinks = [
   { href: "/#about", label: "About" },
-  { href: "/#journey", label: "Journey" },
-  { href: "/#research", label: "Research" },
-  { href: "/#experience", label: "Experience" },
-  { href: "/#beyond", label: "Beyond" },
+  { href: "/journey", label: "Journey" },
+  { href: "/research", label: "Research" },
+  { href: "/experience", label: "Experience" },
+  { href: "/publications", label: "Publications" },
+  { href: "/beyond", label: "Beyond" },
   { href: "/resume", label: "Resume" },
   { href: "/#connect", label: "Connect" },
 ];

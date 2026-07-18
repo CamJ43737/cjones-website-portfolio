@@ -8,10 +8,7 @@ import { asset } from "@/lib/asset";
 import { Button } from "@/components/ui/Button";
 import { MediaImage } from "@/components/ui/MediaImage";
 import { Particles } from "@/components/motion/Particles";
-import {
-  TuskegeeAtmosphere,
-  TuskegeeSealWatermark,
-} from "@/components/brand/TuskegeeAtmosphere";
+import { TuskegeeSealWatermark } from "@/components/brand/TuskegeeAtmosphere";
 
 export function Hero() {
   const reduce = useReducedMotion();
@@ -19,8 +16,11 @@ export function Hero() {
 
   return (
     <section className="relative min-h-[100svh] overflow-hidden">
-      <TuskegeeAtmosphere intensity="hero" />
-      <div className="absolute inset-0 bg-lab-grid bg-grid opacity-20" aria-hidden />
+      <div className="absolute inset-0 bg-lab-grid bg-grid opacity-15" aria-hidden />
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-obsidian/40 via-transparent to-obsidian/50"
+        aria-hidden
+      />
       <Particles />
       <TuskegeeSealWatermark
         size="lg"

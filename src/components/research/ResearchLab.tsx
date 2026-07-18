@@ -23,7 +23,7 @@ export function ResearchLab() {
 
           return (
             <Reveal key={project.slug} delay={Math.min(index * 0.05, 0.2)}>
-              <article className="group overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-graphite/45 shadow-glass backdrop-blur-xl transition duration-500 hover:border-tuskegee-gold/35 hover:shadow-gold">
+              <article className="group overflow-hidden rounded-[1.5rem] border border-white/[0.1] bg-charcoal/35 shadow-glass backdrop-blur-xl transition duration-500 hover:border-tuskegee-gold/35 hover:shadow-gold">
                 <Link
                   href={`/research/${project.slug}`}
                   className="grid lg:grid-cols-12"

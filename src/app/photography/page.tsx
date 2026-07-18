@@ -9,7 +9,6 @@ import { MediaImage } from "@/components/ui/MediaImage";
 import { imagesOnly, mediaByPathPrefix, mediaSearch } from "@/lib/media";
 import { fitForPath } from "@/lib/image-rules";
 import { cn } from "@/lib/cn";
-import { TuskegeeAtmosphere } from "@/components/brand/TuskegeeAtmosphere";
 
 export default function PhotographyPage() {
   const all = useMemo(
@@ -32,8 +31,6 @@ export default function PhotographyPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden pb-24 pt-28">
-      <TuskegeeAtmosphere intensity="section" />
-
       <div className="section-pad relative z-[1] mx-auto w-full max-w-6xl">
         <Link
           href="/#photography"
@@ -56,10 +53,10 @@ export default function PhotographyPage() {
             type="button"
             onClick={() => setActive("all")}
             className={cn(
-              "rounded-full border px-4 py-2 text-sm transition",
+              "rounded-full border px-4 py-2 text-sm transition backdrop-blur-sm",
               active === "all"
                 ? "border-tuskegee-gold/45 bg-tuskegee-gold/12 text-tuskegee-gold"
-                : "border-white/10 text-ink-300 hover:text-mist",
+                : "border-white/10 bg-charcoal/25 text-ink-300 hover:text-mist",
             )}
           >
             All
@@ -70,10 +67,10 @@ export default function PhotographyPage() {
               type="button"
               onClick={() => setActive(c.id)}
               className={cn(
-                "rounded-full border px-4 py-2 text-sm transition",
+                "rounded-full border px-4 py-2 text-sm transition backdrop-blur-sm",
                 active === c.id
                   ? "border-tuskegee-gold/45 bg-tuskegee-gold/12 text-tuskegee-gold"
-                  : "border-white/10 text-ink-300 hover:text-mist",
+                  : "border-white/10 bg-charcoal/25 text-ink-300 hover:text-mist",
               )}
             >
               {c.label}

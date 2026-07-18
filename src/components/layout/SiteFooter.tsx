@@ -1,14 +1,10 @@
 import Link from "next/link";
 import { site } from "@/data/content";
-import {
-  TuskegeeAtmosphere,
-  TuskegeeSealWatermark,
-} from "@/components/brand/TuskegeeAtmosphere";
+import { TuskegeeSealWatermark } from "@/components/brand/TuskegeeAtmosphere";
 
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden border-t border-white/5 section-pad py-12 sm:py-14">
-      <TuskegeeAtmosphere intensity="footer" />
+    <footer className="relative overflow-hidden border-t border-white/10 section-pad bg-obsidian/25 py-12 backdrop-blur-sm sm:py-14">
       <TuskegeeSealWatermark
         size="md"
         className="bottom-2 right-4 sm:bottom-4 sm:right-10"
@@ -17,11 +13,11 @@ export function SiteFooter() {
       <div className="relative z-[1] mx-auto flex max-w-6xl flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="font-display text-xl font-semibold text-mist">{site.name}</p>
-          <p className="mt-2 max-w-md text-sm text-ink-400">
+          <p className="mt-2 max-w-md text-sm text-ink-300">
             {site.tagline} AI · Robotics · Agriculture · Healthcare.
           </p>
         </div>
-        <div className="flex flex-wrap gap-5 text-sm text-ink-300">
+        <div className="flex flex-wrap gap-5 text-sm text-ink-200">
           <a href={`mailto:${site.email}`} className="hover:text-tuskegee-gold">
             Email
           </a>

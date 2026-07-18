@@ -41,7 +41,7 @@ export default function ResumePage() {
           </Button>
         </div>
 
-        <div className="mt-12 overflow-hidden rounded-[1.5rem] border border-white/10 bg-graphite shadow-glass">
+        <div className="mt-12 overflow-hidden rounded-[1.5rem] border border-white/10 bg-charcoal/50 shadow-glass backdrop-blur-xl">
           <iframe
             title={`${site.name} resume PDF`}
             src={resume}

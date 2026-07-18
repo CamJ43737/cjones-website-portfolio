@@ -13,7 +13,7 @@ export function Leadership() {
       eyebrow="Chapter 07 — Leadership"
       title="Community is part of the research."
       subtitle="Ambassadorship, teaching, and civic work — documenting impact beyond the lab."
-      className="bg-gradient-to-b from-transparent via-charcoal/50 to-transparent"
+      className="section-wash"
     >
       <div className="mb-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {gallery.map((m, i) => (

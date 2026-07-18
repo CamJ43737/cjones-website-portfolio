@@ -3,10 +3,7 @@ import { mediaAssignments } from "@/data/media-assignments";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { MediaImage } from "@/components/ui/MediaImage";
-import {
-  TuskegeeAtmosphere,
-  TuskegeeSealWatermark,
-} from "@/components/brand/TuskegeeAtmosphere";
+import { TuskegeeSealWatermark } from "@/components/brand/TuskegeeAtmosphere";
 
 export function About() {
   const sideImages = mediaAssignments.about;
@@ -17,15 +14,12 @@ export function About() {
       eyebrow="Chapter 01 — Origin"
       title="The builder before the researcher."
       subtitle={`${site.name} · ${site.major} · ${site.university} · Expected ${site.graduation}`}
-      className="overflow-hidden"
+      className="overflow-hidden section-wash"
       backdrop={
-        <>
-          <TuskegeeAtmosphere intensity="section" />
-          <TuskegeeSealWatermark
-            size="lg"
-            className="left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2"
-          />
-        </>
+        <TuskegeeSealWatermark
+          size="lg"
+          className="left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2"
+        />
       }
     >
       <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
@@ -48,7 +42,7 @@ export function About() {
               <Reveal key={item.q} delay={0.05 * i}>
                 <div className="glass rounded-2xl px-5 py-5 sm:px-6">
                   <h3 className="font-display text-lg text-tuskegee-gold">{item.q}</h3>
-                  <p className="mt-2 max-w-measure text-sm leading-relaxed text-ink-300 sm:text-base">
+                  <p className="mt-2 max-w-measure text-sm leading-relaxed text-ink-200 sm:text-base">
                     {item.a}
                   </p>
                 </div>
@@ -62,7 +56,7 @@ export function About() {
               <p className="mt-3 font-display text-xl leading-snug text-mist sm:text-2xl">
                 AI + Robotics + Agriculture + Healthcare
               </p>
-              <p className="mt-3 max-w-measure text-sm leading-relaxed text-ink-400">
+              <p className="mt-3 max-w-measure text-sm leading-relaxed text-ink-300">
                 Based between {site.hometown} and {site.location}.
               </p>
             </div>
@@ -86,7 +80,7 @@ export function About() {
             </Reveal>
           ))}
           <Reveal delay={0.3}>
-            <div className="flex items-center gap-4 rounded-2xl border border-tuskegee-gold/20 bg-tuskegee-gold/[0.04] px-4 py-4">
+            <div className="flex items-center gap-4 rounded-2xl border border-tuskegee-gold/25 bg-tuskegee-gold/[0.06] px-4 py-4 backdrop-blur-md">
               <MediaImage
                 src={mediaAssignments.logoSeal.src}
                 alt={mediaAssignments.logoSeal.alt}
@@ -95,7 +89,7 @@ export function About() {
                 className="h-14 w-14 shrink-0 bg-transparent"
                 imgClassName="p-1"
               />
-              <p className="text-sm leading-relaxed text-ink-300">
+              <p className="text-sm leading-relaxed text-ink-200">
                 Tuskegee University — heritage, excellence, and research in service of people.
               </p>
             </div>

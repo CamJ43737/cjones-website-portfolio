@@ -10,8 +10,8 @@
   --gold: #c8a24a;
   --gold-bright: #d4b45c;
   --bronze: #a66a30;
-  --surface: rgba(27, 27, 31, 0.72);
-  --border: rgba(245, 245, 245, 0.08);
+  --surface: rgba(20, 20, 22, 0.45);
+  --border: rgba(245, 245, 245, 0.1);
 }
 
 html {
@@ -19,13 +19,18 @@ html {
 }
 
 body {
-  @apply bg-obsidian text-mist antialiased;
-  background-image:
-    radial-gradient(ellipse 90% 55% at 50% -12%, rgba(200, 162, 74, 0.07), transparent 52%),
-    radial-gradient(ellipse 45% 35% at 100% 8%, rgba(166, 106, 48, 0.04), transparent 48%),
-    linear-gradient(#0a0a0a, #0a0a0a);
+  @apply relative text-mist antialiased;
+  background-color: #0a0a0a;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+/* Content sits above fixed GlobalBackdrop */
+#main,
+header,
+footer {
+  position: relative;
+  z-index: 1;
 }
 
 ::selection {
@@ -35,7 +40,7 @@ body {
 
 @layer components {
   .glass {
-    @apply border border-white/[0.08] bg-graphite/55 shadow-glass backdrop-blur-xl;
+    @apply border border-white/[0.1] bg-charcoal/40 shadow-glass backdrop-blur-xl;
   }
 
   .section-pad {
@@ -43,7 +48,7 @@ body {
   }
 
   .chapter-label {
-    @apply font-mono text-[11px] font-medium uppercase tracking-[0.3em] text-tuskegee-gold/85;
+    @apply font-mono text-[11px] font-medium uppercase tracking-[0.3em] text-tuskegee-gold/90;
   }
 
   .display-title {
@@ -51,11 +56,16 @@ body {
   }
 
   .prose-brand {
-    @apply max-w-measure text-base leading-[1.75] text-ink-300 sm:text-lg sm:leading-[1.7];
+    @apply max-w-measure text-base leading-[1.75] text-ink-200 sm:text-lg sm:leading-[1.7];
   }
 
   .accent-text {
     @apply text-tuskegee-gold;
+  }
+
+  /* Soft section wash — lets backdrop show through */
+  .section-wash {
+    @apply bg-gradient-to-b from-obsidian/25 via-transparent to-obsidian/30;
   }
 }
 

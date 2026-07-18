@@ -12,7 +12,7 @@ export function Journey() {
       eyebrow="Chapter 02 — Trajectory"
       title="A timeline of becoming."
       subtitle="From opening computer cases to leading research that touches fields and homes."
-      className="bg-gradient-to-b from-transparent via-charcoal/40 to-transparent"
+      className="section-wash"
     >
       <ol className="relative">
         <div

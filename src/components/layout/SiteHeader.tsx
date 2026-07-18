@@ -23,7 +23,9 @@ export function SiteHeader() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled ? "border-b border-white/5 bg-obsidian/80 backdrop-blur-xl" : "bg-transparent",
+        scrolled
+          ? "border-b border-white/10 bg-obsidian/55 backdrop-blur-xl"
+          : "bg-transparent",
       )}
     >
       <div className="section-pad mx-auto flex h-16 max-w-6xl items-center justify-between">
@@ -63,7 +65,7 @@ export function SiteHeader() {
       <div
         id="mobile-nav"
         className={cn(
-          "border-b border-white/5 bg-obsidian/95 backdrop-blur-xl lg:hidden",
+          "border-b border-white/10 bg-obsidian/70 backdrop-blur-xl lg:hidden",
           open ? "block" : "hidden",
         )}
       >

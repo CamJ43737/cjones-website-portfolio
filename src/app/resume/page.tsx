@@ -4,6 +4,7 @@ import { site, timeline } from "@/data/content";
 import { mediaAssignments } from "@/data/media-assignments";
 import { Button } from "@/components/ui/Button";
 import { MediaImage } from "@/components/ui/MediaImage";
+import { SkillsEcosystem } from "@/components/skills/SkillsEcosystem";
 import { asset } from "@/lib/asset";
 import {
   certificateImages,
@@ -37,8 +38,8 @@ export default function ResumePage() {
     .map((m) => toGalleryItem(m, "cover"));
 
   return (
-    <main className="section-pad pb-24 pt-28">
-      <div className="mx-auto max-w-5xl">
+    <main className="pb-24 pt-28">
+      <div className="section-pad mx-auto max-w-5xl">
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-sm text-ink-300 transition hover:text-tuskegee-gold"
@@ -71,7 +72,11 @@ export default function ResumePage() {
             className="h-[80vh] w-full bg-mist"
           />
         </div>
+      </div>
 
+      <SkillsEcosystem />
+
+      <div className="section-pad mx-auto max-w-5xl">
         {certificates.length > 0 && (
           <section className="mt-20 border-t border-white/10 pt-12">
             <p className="chapter-label">Supporting documents</p>

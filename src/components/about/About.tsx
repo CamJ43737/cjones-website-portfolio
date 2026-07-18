@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { aboutStory, site } from "@/data/content";
 import { mediaAssignments } from "@/data/media-assignments";
 import { Section } from "@/components/ui/Section";
@@ -6,12 +8,12 @@ import { MediaImage } from "@/components/ui/MediaImage";
 import { TuskegeeSealWatermark } from "@/components/brand/TuskegeeAtmosphere";
 
 export function About() {
-  const sideImages = mediaAssignments.about;
+  const sideImages = mediaAssignments.about.slice(0, 2);
 
   return (
     <Section
       id="about"
-      eyebrow="Chapter 01 — Origin"
+      eyebrow="About"
       title="The builder before the researcher."
       subtitle={`${site.name} · ${site.major} · ${site.university} · Expected ${site.graduation}`}
       className="overflow-hidden section-wash"
@@ -30,28 +32,34 @@ export function About() {
             </p>
           </Reveal>
           <div className="mt-8 space-y-5">
-            {aboutStory.paragraphs.map((p, i) => (
-              <Reveal key={p.slice(0, 24)} delay={0.08 * (i + 1)}>
+            {aboutStory.homepageParagraphs.map((p) => (
+              <Reveal key={p.slice(0, 28)}>
                 <p className="prose-brand">{p}</p>
               </Reveal>
             ))}
           </div>
 
-          <div className="mt-10 space-y-3">
-            {aboutStory.whys.map((item, i) => (
-              <Reveal key={item.q} delay={0.05 * i}>
-                <div className="glass rounded-2xl px-5 py-5 sm:px-6">
-                  <h3 className="font-display text-lg text-tuskegee-gold">{item.q}</h3>
-                  <p className="mt-2 max-w-measure text-sm leading-relaxed text-ink-200 sm:text-base">
-                    {item.a}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delay={0.12}>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href="/journey"
+                className="inline-flex items-center gap-2 rounded-full border border-tuskegee-gold/35 bg-tuskegee-gold/10 px-5 py-2.5 text-sm text-tuskegee-gold transition hover:border-tuskegee-gold/55 hover:bg-tuskegee-gold/15"
+              >
+                Read my journey
+                <ArrowUpRight size={16} />
+              </Link>
+              <Link
+                href="/research"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm text-mist transition hover:border-tuskegee-gold/45 hover:text-tuskegee-gold"
+              >
+                View research
+                <ArrowUpRight size={16} />
+              </Link>
+            </div>
+          </Reveal>
 
-          <Reveal delay={0.2}>
-            <div className="glass mt-6 rounded-2xl px-5 py-6 sm:px-6">
+          <Reveal delay={0.18}>
+            <div className="glass mt-8 rounded-2xl px-5 py-6 sm:px-6">
               <p className="chapter-label">Focus</p>
               <p className="mt-3 font-display text-xl leading-snug text-mist sm:text-2xl">
                 AI + Robotics + Agriculture + Healthcare
@@ -79,7 +87,7 @@ export function About() {
               />
             </Reveal>
           ))}
-          <Reveal delay={0.3}>
+          <Reveal delay={0.25}>
             <div className="flex items-center gap-4 rounded-2xl border border-tuskegee-gold/25 bg-tuskegee-gold/[0.06] px-4 py-4 backdrop-blur-md">
               <MediaImage
                 src={mediaAssignments.logoSeal.src}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Journey } from "@/components/timeline/Journey";
-import { site } from "@/data/content";
+import { aboutStory, site } from "@/data/content";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function JourneyPage() {
     <main className="relative min-h-screen pb-8 pt-28">
       <div className="section-pad relative z-[1] mx-auto w-full max-w-6xl">
         <Link
-          href="/#journey"
+          href="/#milestones"
           className="inline-flex items-center gap-2 text-sm text-ink-300 transition hover:text-tuskegee-gold"
         >
           <ArrowLeft size={16} /> Home
@@ -23,10 +23,16 @@ export default function JourneyPage() {
         <header className="mt-10 max-w-3xl text-left">
           <p className="chapter-label mb-3 sm:mb-4">Documentary archive</p>
           <h1 className="display-title">Journey</h1>
-          <p className="prose-brand mt-4 text-pretty sm:mt-5">
-            The full interactive timeline — every chapter, gallery, and field video preserved in
-            one place.
+          <p className="mt-6 font-display text-2xl leading-snug text-mist sm:text-3xl">
+            {aboutStory.lead}
           </p>
+          <div className="mt-6 space-y-4">
+            {aboutStory.paragraphs.map((p) => (
+              <p key={p.slice(0, 32)} className="prose-brand text-pretty">
+                {p}
+              </p>
+            ))}
+          </div>
         </header>
       </div>
       <Journey />

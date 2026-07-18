@@ -27,10 +27,16 @@ export const hero = {
 
 export const aboutStory = {
   lead: "I never stopped building.",
+  /** Full origin narrative — preserved for Journey / archives. */
   paragraphs: [
     "It started with Legos — systems you could hold, break, and rebuild until they worked. Then came computers: opening cases, tracing cables, learning that intelligence is something you assemble piece by piece.",
     "Programming turned curiosity into language. Artificial intelligence turned language into possibility. I chose Computer Science not for a degree — for a laboratory where ideas become machines that touch the physical world.",
     "Today I research at the intersection of AI, robotics, agriculture, and healthcare — building systems that don't just compute, but care for land, labor, and people aging in place.",
+  ],
+  /** Concise homepage About. */
+  homepageParagraphs: [
+    "I started by taking computers apart. Today I build intelligent systems that connect AI with the physical world — from precision agriculture to healthcare digital twins.",
+    "At Tuskegee University, that builder instinct became research: robotics in the field, software that serves scientists, and systems meant to help people and land.",
   ],
   whys: [
     {
@@ -866,6 +872,35 @@ export const contactReasons = [
   "Speaking Engagement",
   "Media",
   "General Inquiry",
+] as const;
+
+/** Homepage Research preview — full archive remains on /research. */
+export const featuredResearchSlugs = ["ai-farms", "project-aegis", "access-ci"] as const;
+
+/** Homepage Selected Experience — full archive remains on /experience. */
+export const selectedExperienceRoles = [
+  "AI Farms Research Assistant / Coordinator",
+  "MS-CC Research Intern",
+  "ACCESS-CI Software Engineering Intern",
+] as const;
+
+/** Homepage Recognition highlights — full awards/leadership data preserved. */
+export const recognitionHighlights = [
+  { name: "NSF S-STEM Scholar", detail: "National Science Foundation" },
+  { name: "UNCF Ambassador", detail: "United Negro College Fund" },
+  { name: "TMCF Scholar", detail: "Thurgood Marshall College Fund" },
+  { name: "Gamma Sigma Delta", detail: "Honor Society of Agriculture" },
+  { name: "Auburn Hacks Winner", detail: "1st Place" },
+  { name: "Precision Agriculture Hackathon Winner", detail: "1st Place" },
+] as const;
+
+export const homepageMilestones = [
+  { year: "2018", title: "Building Computers", href: "/journey" },
+  { year: "2022", title: "Tuskegee University", href: "/journey" },
+  { year: "2022", title: "AI Farms Research", href: "/journey" },
+  { year: "2025", title: "ACCESS-CI NSF Internship", href: "/journey" },
+  { year: "2026", title: "Project AEGIS", href: "/journey" },
+  { year: "Future", title: "Graduate Research / AI Innovation", href: "/journey" },
 ] as const;
 
 export const navLinks = [

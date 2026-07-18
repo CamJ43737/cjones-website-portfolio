@@ -15,7 +15,7 @@ export default function ExperiencePage() {
     <main className="relative min-h-screen pb-8 pt-28">
       <div className="section-pad relative z-[1] mx-auto w-full max-w-6xl">
         <Link
-          href="/#experience"
+          href="/"
           className="inline-flex items-center gap-2 text-sm text-ink-300 transition hover:text-tuskegee-gold"
         >
           <ArrowLeft size={16} /> Home

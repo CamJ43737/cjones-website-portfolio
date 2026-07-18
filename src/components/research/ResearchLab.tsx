@@ -1,21 +1,36 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { researchProjects } from "@/data/content";
+import { featuredResearchSlugs, researchProjects } from "@/data/content";
 import { mediaAssignments } from "@/data/media-assignments";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { MediaImage } from "@/components/ui/MediaImage";
 
-export function ResearchLab() {
+type Props = {
+  /** When true, show only homepage featured projects + archive CTA. */
+  featuredOnly?: boolean;
+};
+
+export function ResearchLab({ featuredOnly = false }: Props) {
+  const projects = featuredOnly
+    ? researchProjects.filter((p) =>
+        (featuredResearchSlugs as readonly string[]).includes(p.slug),
+      )
+    : researchProjects;
+
   return (
     <Section
       id="research"
-      eyebrow="Chapter 03 — Research Lab"
-      title="Enter the laboratory."
-      subtitle="Each project is a chapter in building intelligent systems for the physical world."
+      eyebrow={featuredOnly ? "Research" : "Chapter 03 — Research Lab"}
+      title={featuredOnly ? "Enter the laboratory." : "Enter the laboratory."}
+      subtitle={
+        featuredOnly
+          ? "Flagship research — precision agriculture, healthcare digital twins, and AI infrastructure."
+          : "Each project is a chapter in building intelligent systems for the physical world."
+      }
     >
       <div className="space-y-7">
-        {researchProjects.map((project, index) => {
+        {projects.map((project, index) => {
           const cover =
             mediaAssignments.researchCovers[
               project.slug as keyof typeof mediaAssignments.researchCovers
@@ -93,6 +108,20 @@ export function ResearchLab() {
           );
         })}
       </div>
+
+      {featuredOnly && (
+        <Reveal delay={0.15}>
+          <div className="mt-10">
+            <Link
+              href="/research"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-charcoal/30 px-6 py-3 text-sm text-mist backdrop-blur-sm transition hover:border-tuskegee-gold/45 hover:text-tuskegee-gold"
+            >
+              View all research
+              <ArrowUpRight size={16} />
+            </Link>
+          </div>
+        </Reveal>
+      )}
     </Section>
   );
 }

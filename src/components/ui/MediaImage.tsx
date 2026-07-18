@@ -51,7 +51,7 @@ export function MediaImage({
       className={cn(
         "group relative overflow-hidden",
         !unframed && "media-frame",
-        !unframed
+        resolvedFit === "contain"
           ? "bg-gradient-to-b from-tuskegee-gold/[0.07] via-obsidian/95 to-obsidian"
           : "bg-charcoal/90",
         className,
@@ -65,8 +65,8 @@ export function MediaImage({
         decoding="async"
         className={cn(
           "h-full w-full max-w-full transition duration-700 ease-out",
-          resolvedFit === "cover" ? "object-cover" : "object-contain",
-          !unframed && "p-1.5 sm:p-2 group-hover:scale-[1.015]",
+          resolvedFit === "cover" ? "object-cover" : "object-contain p-1.5 sm:p-2",
+          !unframed && "group-hover:scale-[1.015]",
           imgClassName,
         )}
         style={{ objectPosition: resolvedPosition }}

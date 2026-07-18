@@ -35,19 +35,19 @@ export function SelectedExperience() {
 
           return (
             <Reveal key={exp.role} delay={Math.min(i * 0.05, 0.2)}>
-              <article className="glass rounded-[1.35rem]">
+              <article className="glass overflow-hidden rounded-[1.35rem]">
                 <div className="grid md:grid-cols-12">
                   {photo && (
-                    <figure className="flex h-full flex-col p-3 sm:p-4 md:col-span-5">
+                    <figure className="flex h-full flex-col md:col-span-5">
                       <MediaImage
                         src={photo.src}
                         alt={photo.alt}
                         fit={photo.fit}
                         objectPosition={photo.objectPosition}
-                        className="aspect-[16/11] w-full md:aspect-auto md:min-h-[220px] md:flex-1"
+                        className="aspect-[16/11] w-full md:aspect-auto md:min-h-[240px] md:flex-1"
                       />
                       {caption && (
-                        <figcaption className="mt-2 px-0.5 text-[11px] leading-snug text-ink-400 sm:text-xs">
+                        <figcaption className="border-t border-white/[0.06] bg-obsidian/30 px-4 py-2.5 text-[11px] leading-snug text-ink-400 sm:text-xs">
                           {caption}
                         </figcaption>
                       )}

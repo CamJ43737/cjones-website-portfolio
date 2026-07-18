@@ -52,20 +52,36 @@ export function ResearchLab({ featuredOnly = false }: Props) {
                   href={`/research/${project.slug}`}
                   className="grid lg:grid-cols-12"
                 >
-                  <div className="relative flex min-h-[220px] flex-col lg:col-span-6 lg:min-h-[340px]">
-                    <div className="relative min-h-[220px] flex-1 lg:min-h-0">
+                  <div className="relative flex min-h-[220px] flex-col overflow-hidden lg:col-span-6 lg:min-h-[340px]">
+                    <div className="relative min-h-[220px] flex-1 overflow-hidden lg:min-h-0">
                       {cover ? (
-                        <div className="absolute inset-0 flex items-center justify-center bg-obsidian/70 p-3 sm:p-4">
+                        cover.fit === "contain" ? (
+                          <div className="absolute inset-0 flex items-center justify-center bg-obsidian/70 p-3 sm:p-4">
+                            <MediaImage
+                              src={cover.src}
+                              alt={cover.alt}
+                              fit="contain"
+                              objectPosition={cover.objectPosition}
+                              className="h-full w-full"
+                            />
+                          </div>
+                        ) : (
                           <MediaImage
                             src={cover.src}
                             alt={cover.alt}
                             fit={cover.fit}
                             objectPosition={cover.objectPosition}
-                            className="h-full w-full"
+                            className="absolute inset-0 h-full w-full transition duration-700 ease-out group-hover:scale-[1.015]"
                           />
-                        </div>
+                        )
                       ) : (
                         <div className="absolute inset-0 bg-charcoal" />
+                      )}
+                      {cover?.fit !== "contain" && (
+                        <div
+                          className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-obsidian/15 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-obsidian/20 lg:to-obsidian/70"
+                          aria-hidden
+                        />
                       )}
                     </div>
                     {featuredOnly && homepageCaptions[project.slug] && (

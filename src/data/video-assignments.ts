@@ -36,9 +36,7 @@ export const videoAssignments = {
       poster:
         "/images/02_AI_Farms/robotics-testing-with-handmade-car-at-internship-at-pvamu.jpeg",
       autoPlayWhenVisible: true,
-      fit: "cover",
-      objectPosition: "50% 40%",
-      coverScale: 1.08,
+      fit: "contain",
     },
     "Robotics Demo": {
       src: "/videos/hero-research.mp4",
@@ -46,9 +44,7 @@ export const videoAssignments = {
       caption: "Remote sensing demonstration with the AI Farms team.",
       poster: "/images/02_AI_Farms/hero-drone-field.jpg",
       autoPlayWhenVisible: true,
-      fit: "cover",
-      objectPosition: "50% 12%",
-      coverScale: 1.03,
+      fit: "contain",
     },
   } as Record<string, AssignedVideo>,
 

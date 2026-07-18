@@ -82,7 +82,11 @@ export default async function ResearchProjectPage({ params }: Props) {
             priority
             fit={cover.fit}
             objectPosition={cover.objectPosition}
-            className="mt-12 aspect-[16/9] rounded-[1.35rem] border border-white/[0.08] shadow-gold-sm sm:aspect-[21/9]"
+            className={
+              cover.fit === "contain"
+                ? "mt-12 aspect-[4/5] rounded-[1.35rem] border border-tuskegee-gold/30 shadow-gold-sm sm:aspect-[16/10]"
+                : "mt-12 aspect-[16/9] rounded-[1.35rem] border border-white/[0.08] shadow-gold-sm sm:aspect-[21/9]"
+            }
           />
         )}
 

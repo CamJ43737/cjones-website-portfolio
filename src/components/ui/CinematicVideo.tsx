@@ -200,20 +200,34 @@ export function CinematicVideo({
               </video>
             </div>
           ) : (
-            <video
-              ref={videoRef}
-              className="mx-auto block h-auto max-h-[min(70vh,40rem)] w-full object-contain"
-              muted
-              loop
-              playsInline
-              preload={inView || autoPlayWhenVisible ? "metadata" : "none"}
-              poster={posterSrc}
-              onPlay={() => setPlaying(true)}
-              onPause={() => setPlaying(false)}
-              aria-label={title}
+            <div
+              className={cn(
+                "flex w-full items-center justify-center bg-obsidian/90",
+                embedded
+                  ? "min-h-[220px] border-r border-tuskegee-gold/20 md:min-h-[280px]"
+                  : "min-h-[12rem]",
+              )}
             >
-              <source src={videoSrc} />
-            </video>
+              <video
+                ref={videoRef}
+                className={cn(
+                  "mx-auto block h-auto w-full object-contain",
+                  embedded
+                    ? "max-h-[280px] p-2 sm:max-h-[320px] sm:p-3"
+                    : "max-h-[min(70vh,40rem)]",
+                )}
+                muted
+                loop
+                playsInline
+                preload={inView || autoPlayWhenVisible ? "metadata" : "none"}
+                poster={posterSrc}
+                onPlay={() => setPlaying(true)}
+                onPause={() => setPlaying(false)}
+                aria-label={title}
+              >
+                <source src={videoSrc} />
+              </video>
+            </div>
           )}
 
           <div className="absolute inset-x-0 bottom-0 z-[2] flex items-end justify-between gap-3 p-4 sm:p-5">

@@ -36,7 +36,7 @@ export function Experience() {
                         caption={video.caption}
                         poster={video.poster}
                         autoPlayWhenVisible={video.autoPlayWhenVisible}
-                        fit={video.fit ?? "cover"}
+                        fit={video.fit ?? "contain"}
                         objectPosition={video.objectPosition}
                         coverScale={video.coverScale}
                         embedded

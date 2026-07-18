@@ -23,7 +23,11 @@ export function Leadership() {
               alt={m.alt}
               fit={m.fit}
               objectPosition={m.objectPosition}
-              className="aspect-[4/5] h-full rounded-2xl border border-white/[0.08]"
+              className={
+                m.fit === "contain"
+                  ? "aspect-[4/5] h-full rounded-2xl border border-tuskegee-gold/30 shadow-gold-sm"
+                  : "aspect-[4/5] h-full rounded-2xl border border-white/[0.08]"
+              }
             />
           </Reveal>
         ))}

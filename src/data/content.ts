@@ -386,8 +386,8 @@ export const beyondHobbies: BeyondHobby[] = [
     theme: "Hardware, engineering, building, curiosity",
     description:
       "Opening cases, routing cables, and assembling machines from parts — the same curiosity that leads from Legos to laboratories.",
-    coverSrc: "/images/12_PC_Build/img-2713.jpg",
-    coverPosition: "50% 45%",
+    coverSrc: "/images/12_PC_Build/img-2727.jpeg",
+    coverPosition: "50% 40%",
     coverFit: "cover",
   },
   {

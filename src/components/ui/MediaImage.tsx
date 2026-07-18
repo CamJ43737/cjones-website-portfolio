@@ -46,7 +46,9 @@ export function MediaImage({
     <div
       className={cn(
         "relative overflow-hidden",
-        resolvedFit === "contain" ? "bg-charcoal/80" : "bg-charcoal",
+        resolvedFit === "contain"
+          ? "bg-obsidian/85 ring-1 ring-inset ring-tuskegee-gold/25"
+          : "bg-charcoal",
         className,
       )}
     >
@@ -58,7 +60,7 @@ export function MediaImage({
         decoding="async"
         className={cn(
           "h-full w-full max-w-full",
-          resolvedFit === "cover" ? "object-cover" : "object-contain",
+          resolvedFit === "cover" ? "object-cover" : "object-contain p-1.5 sm:p-2",
           imgClassName,
         )}
         style={{ objectPosition: resolvedPosition }}

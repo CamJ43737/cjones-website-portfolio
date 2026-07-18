@@ -86,8 +86,8 @@ export const mediaAssignments = {
     "cagi-hackathons": {
       src: "/images/07_Awards/uiuc-2026-cda-hackathon-winners.jpeg",
       alt: "Hackathon winning team",
-      objectPosition: "50% 28%",
-      fit: "cover" as const,
+      objectPosition: "50% 50%",
+      fit: "contain" as const,
     },
   },
   experience: {
@@ -170,8 +170,8 @@ export const mediaAssignments = {
     {
       src: "/images/06_Leadership/cameron-teaching-a-workshop-on-robotics-and-coding.jpg",
       alt: "Teaching robotics and coding workshop",
-      objectPosition: "50% 20%",
-      fit: "cover" as const,
+      objectPosition: "50% 50%",
+      fit: "contain" as const,
     },
     {
       src: "/images/06_Leadership/post-speech-at-the-mayor-s-youth-council-youth-symposium.jpg",

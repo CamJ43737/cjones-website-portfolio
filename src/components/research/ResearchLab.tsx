@@ -11,6 +11,15 @@ type Props = {
   featuredOnly?: boolean;
 };
 
+const homepageCaptions: Record<string, string> = {
+  "ai-farms":
+    "Field robotics and sensing for AI Farms precision agriculture research.",
+  "project-aegis":
+    "Project AEGIS digital twin environment built in Unity 6.",
+  "access-ci":
+    "ACCESS-CI research collaboration and AI-powered knowledge systems.",
+};
+
 export function ResearchLab({ featuredOnly = false }: Props) {
   const projects = featuredOnly
     ? researchProjects.filter((p) =>
@@ -43,35 +52,42 @@ export function ResearchLab({ featuredOnly = false }: Props) {
                   href={`/research/${project.slug}`}
                   className="grid lg:grid-cols-12"
                 >
-                  <div className="relative min-h-[220px] overflow-hidden lg:col-span-6 lg:min-h-[340px]">
-                    {cover ? (
-                      cover.fit === "contain" ? (
-                        <div className="absolute inset-0 flex items-center justify-center bg-obsidian/70 p-3 sm:p-4">
+                  <div className="relative flex min-h-[220px] flex-col overflow-hidden lg:col-span-6 lg:min-h-[340px]">
+                    <div className="relative min-h-[220px] flex-1 overflow-hidden lg:min-h-0">
+                      {cover ? (
+                        cover.fit === "contain" ? (
+                          <div className="absolute inset-0 flex items-center justify-center bg-obsidian/70 p-3 sm:p-4">
+                            <MediaImage
+                              src={cover.src}
+                              alt={cover.alt}
+                              fit="contain"
+                              objectPosition={cover.objectPosition}
+                              className="h-full w-full"
+                            />
+                          </div>
+                        ) : (
                           <MediaImage
                             src={cover.src}
                             alt={cover.alt}
-                            fit="contain"
+                            fit={cover.fit}
                             objectPosition={cover.objectPosition}
-                            className="h-full w-full"
+                            className="absolute inset-0 h-full w-full transition duration-700 ease-out group-hover:scale-[1.015]"
                           />
-                        </div>
+                        )
                       ) : (
-                        <MediaImage
-                          src={cover.src}
-                          alt={cover.alt}
-                          fit={cover.fit}
-                          objectPosition={cover.objectPosition}
-                          className="absolute inset-0 h-full w-full transition duration-700 ease-out group-hover:scale-[1.015]"
+                        <div className="absolute inset-0 bg-charcoal" />
+                      )}
+                      {cover?.fit !== "contain" && (
+                        <div
+                          className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-obsidian/15 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-obsidian/20 lg:to-obsidian/70"
+                          aria-hidden
                         />
-                      )
-                    ) : (
-                      <div className="absolute inset-0 bg-charcoal" />
-                    )}
-                    {cover?.fit !== "contain" && (
-                      <div
-                        className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-obsidian/15 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-obsidian/20 lg:to-obsidian/70"
-                        aria-hidden
-                      />
+                      )}
+                    </div>
+                    {featuredOnly && homepageCaptions[project.slug] && (
+                      <p className="border-t border-white/[0.06] bg-obsidian/40 px-4 py-2.5 text-[11px] leading-snug text-ink-400 sm:text-xs">
+                        {homepageCaptions[project.slug]}
+                      </p>
                     )}
                   </div>
 

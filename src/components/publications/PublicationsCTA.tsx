@@ -23,14 +23,18 @@ export function PublicationsCTA() {
         >
           <div className="grid grid-cols-3 gap-2 p-4 sm:col-span-5 sm:gap-3 sm:p-5">
             {posters.map((m) => (
-              <MediaImage
-                key={m.src}
-                src={m.src}
-                alt={m.alt}
-                fit={m.fit ?? "contain"}
-                objectPosition={m.objectPosition}
-                className="aspect-[3/4]"
-              />
+              <figure key={m.src} className="flex flex-col">
+                <MediaImage
+                  src={m.src}
+                  alt={m.alt}
+                  fit={m.fit ?? "contain"}
+                  objectPosition={m.objectPosition}
+                  className="aspect-[3/4]"
+                />
+                <figcaption className="mt-1.5 line-clamp-2 text-[10px] leading-snug text-ink-400">
+                  {m.alt}
+                </figcaption>
+              </figure>
             ))}
           </div>
           <div className="flex flex-col justify-center border-t border-white/[0.06] px-6 py-7 sm:col-span-7 sm:border-l sm:border-t-0 sm:px-9 sm:py-8">

@@ -24,19 +24,34 @@ export function SelectedExperience() {
             mediaAssignments.experience[
               exp.role as keyof typeof mediaAssignments.experience
             ];
+          const caption =
+            exp.role === "AI Farms Research Assistant / Coordinator"
+              ? "AI Farms field research and team collaboration in precision agriculture."
+              : exp.role === "MS-CC Research Intern"
+                ? "Project AEGIS digital twin simulation for aging-in-place research."
+                : exp.role === "ACCESS-CI Software Engineering Intern"
+                  ? "ACCESS-CI NSF internship — research cyberinfrastructure collaboration."
+                  : undefined;
 
           return (
             <Reveal key={exp.role} delay={Math.min(i * 0.05, 0.2)}>
               <article className="glass overflow-hidden rounded-[1.35rem]">
                 <div className="grid md:grid-cols-12">
                   {photo && (
-                    <MediaImage
-                      src={photo.src}
-                      alt={photo.alt}
-                      fit={photo.fit}
-                      objectPosition={photo.objectPosition}
-                      className="aspect-[16/11] md:col-span-5 md:aspect-auto md:min-h-[240px] md:h-full"
-                    />
+                    <figure className="flex h-full flex-col md:col-span-5">
+                      <MediaImage
+                        src={photo.src}
+                        alt={photo.alt}
+                        fit={photo.fit}
+                        objectPosition={photo.objectPosition}
+                        className="aspect-[16/11] w-full md:aspect-auto md:min-h-[240px] md:flex-1"
+                      />
+                      {caption && (
+                        <figcaption className="border-t border-white/[0.06] bg-obsidian/30 px-4 py-2.5 text-[11px] leading-snug text-ink-400 sm:text-xs">
+                          {caption}
+                        </figcaption>
+                      )}
+                    </figure>
                   )}
                   <div className="flex flex-col justify-center px-6 py-7 sm:px-8 md:col-span-7">
                     <p className="font-mono text-xs tracking-wide text-tuskegee-gold">

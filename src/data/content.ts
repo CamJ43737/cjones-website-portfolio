@@ -33,10 +33,12 @@ export const aboutStory = {
     "Programming turned curiosity into language. Artificial intelligence turned language into possibility. I chose Computer Science not for a degree — for a laboratory where ideas become machines that touch the physical world.",
     "Today I research at the intersection of AI, robotics, agriculture, and healthcare — building systems that don't just compute, but care for land, labor, and people aging in place.",
   ],
-  /** Concise homepage About. */
+  /** Concise homepage About — builder identity restored. */
+  homepageLead: "Before I built intelligent systems, I built things with my own hands.",
   homepageParagraphs: [
-    "I started by taking computers apart. Today I build intelligent systems that connect AI with the physical world — from precision agriculture to healthcare digital twins.",
-    "At Tuskegee University, that builder instinct became research: robotics in the field, software that serves scientists, and systems meant to help people and land.",
+    "My journey started with curiosity — taking apart computers, rebuilding hardware, and learning how technology worked from the inside out. That same curiosity eventually led me from building PCs to building software, robots, and AI systems designed to solve real-world problems.",
+    "At Tuskegee University, that curiosity became research. I now work at the intersection of artificial intelligence, robotics, and sensing — developing systems for precision agriculture, healthcare innovation, and environments where technology can improve the way people live and work.",
+    "I never stopped building. I just expanded what I build.",
   ],
   whys: [
     {
@@ -882,16 +884,6 @@ export const selectedExperienceRoles = [
   "AI Farms Research Assistant / Coordinator",
   "MS-CC Research Intern",
   "ACCESS-CI Software Engineering Intern",
-] as const;
-
-/** Homepage Recognition highlights — full awards/leadership data preserved. */
-export const recognitionHighlights = [
-  { name: "NSF S-STEM Scholar", detail: "National Science Foundation" },
-  { name: "UNCF Ambassador", detail: "United Negro College Fund" },
-  { name: "TMCF Scholar", detail: "Thurgood Marshall College Fund" },
-  { name: "Gamma Sigma Delta", detail: "Honor Society of Agriculture" },
-  { name: "Auburn Hacks Winner", detail: "1st Place" },
-  { name: "Precision Agriculture Hackathon Winner", detail: "1st Place" },
 ] as const;
 
 export const homepageMilestones = [

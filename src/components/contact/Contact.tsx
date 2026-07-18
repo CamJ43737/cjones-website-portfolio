@@ -46,8 +46,8 @@ export function Contact() {
             <MediaImage
               src={mediaAssignments.contact.src}
               alt={mediaAssignments.contact.alt}
-              fit={mediaAssignments.contact.fit}
-              objectPosition={mediaAssignments.contact.objectPosition}
+              fit="cover"
+              objectPosition="50% 50%"
               className="aspect-[4/5] w-full max-w-md lg:max-w-none"
             />
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">

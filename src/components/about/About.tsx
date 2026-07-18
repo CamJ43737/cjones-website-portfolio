@@ -28,12 +28,12 @@ export function About() {
         <div className="lg:col-span-7">
           <Reveal>
             <p className="font-display text-2xl leading-snug text-mist sm:text-3xl">
-              {aboutStory.lead}
+              {aboutStory.homepageLead}
             </p>
           </Reveal>
           <div className="mt-8 space-y-5">
             {aboutStory.homepageParagraphs.map((p) => (
-              <Reveal key={p.slice(0, 28)}>
+              <Reveal key={p.slice(0, 36)}>
                 <p className="prose-brand">{p}</p>
               </Reveal>
             ))}

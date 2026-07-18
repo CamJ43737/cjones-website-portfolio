@@ -27,7 +27,7 @@ export const mediaAssignments = {
   contact: {
     src: "/images/01_Hero/hero-headshot.jpg",
     alt: "Cameron Jones professional headshot",
-    objectPosition: "50% 16%",
+    objectPosition: "50% 50%",
     fit: "cover" as const,
   },
   logoSeal: {

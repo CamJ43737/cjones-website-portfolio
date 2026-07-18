@@ -57,6 +57,20 @@ const config: Config = {
       backgroundSize: {
         grid: "72px 72px",
       },
+      keyframes: {
+        "identity-spin": {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(360deg)" },
+        },
+        "identity-spin-reverse": {
+          from: { transform: "translateX(-50%) rotate(0deg)" },
+          to: { transform: "translateX(-50%) rotate(-360deg)" },
+        },
+      },
+      animation: {
+        "identity-spin": "identity-spin 60s linear infinite",
+        "identity-spin-reverse": "identity-spin-reverse 60s linear infinite",
+      },
     },
   },
   plugins: [],

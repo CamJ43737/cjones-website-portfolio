@@ -1,4 +1,5 @@
 ﻿import { Hero } from "@/components/hero/Hero";
+import { IdentityRing } from "@/components/hero/IdentityRing";
 import { About } from "@/components/about/About";
 import { Journey } from "@/components/timeline/Journey";
 import { ResearchLab } from "@/components/research/ResearchLab";
@@ -14,6 +15,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <IdentityRing />
       <About />
       <Journey />
       <ResearchLab />

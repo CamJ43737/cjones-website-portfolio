@@ -102,4 +102,9 @@ img {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
+  .animate-identity-spin,
+  .animate-identity-spin-reverse {
+    animation: none !important;
+  }
 }

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { MediaImage } from "@/components/ui/MediaImage";
 import { Particles } from "@/components/motion/Particles";
 import { TuskegeeSealWatermark } from "@/components/brand/TuskegeeAtmosphere";
+import { HeroVideo } from "@/components/hero/HeroVideo";
 
 export function Hero() {
   const reduce = useReducedMotion();
@@ -27,7 +28,7 @@ export function Hero() {
         className="bottom-[-2rem] right-[-1rem] opacity-80 sm:bottom-8 sm:right-8 lg:right-[8%]"
       />
 
-      <div className="section-pad relative z-10 mx-auto flex min-h-[100svh] w-full max-w-6xl flex-col justify-end pb-14 pt-28 sm:pb-16 lg:justify-center lg:pb-24 lg:pt-24">
+      <div className="section-pad relative z-10 mx-auto flex min-h-[100svh] w-full max-w-6xl flex-col justify-end pb-14 pt-28 sm:pb-16 lg:justify-center lg:pb-20 lg:pt-24">
         <div className="grid items-end gap-8 sm:gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
           <div className="text-left lg:col-span-7">
             <motion.p
@@ -121,6 +122,14 @@ export function Hero() {
             />
           </motion.div>
         </div>
+
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.85, delay: 0.5 }}
+        >
+          <HeroVideo />
+        </motion.div>
       </div>
     </section>
   );

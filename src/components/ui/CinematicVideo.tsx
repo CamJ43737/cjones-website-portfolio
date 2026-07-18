@@ -16,6 +16,9 @@ type Props = {
   eager?: boolean;
   /** cover fills the frame (crops letterboxing); contain shows the full frame. */
   fit?: "cover" | "contain";
+  objectPosition?: string;
+  /** Slight zoom for cover mode; default trims mild letterboxing without clipping faces. */
+  coverScale?: number;
   /** Flush into a parent card (no outer radius/border). */
   embedded?: boolean;
   className?: string;
@@ -31,6 +34,8 @@ export function CinematicVideo({
   autoPlayWhenVisible = true,
   eager = false,
   fit = "contain",
+  objectPosition = "50% 50%",
+  coverScale = 1.06,
   embedded = false,
   className,
   expandable = true,
@@ -166,6 +171,7 @@ export function CinematicVideo({
                   ? "aspect-video object-cover"
                   : "mx-auto h-auto object-contain",
               )}
+              style={fit === "cover" ? { objectPosition } : undefined}
             />
           ) : fit === "cover" ? (
             <div
@@ -176,7 +182,11 @@ export function CinematicVideo({
             >
               <video
                 ref={videoRef}
-                className="absolute inset-0 h-full w-full scale-[1.15] object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
+                style={{
+                  objectPosition,
+                  transform: `scale(${coverScale})`,
+                }}
                 muted
                 loop
                 playsInline

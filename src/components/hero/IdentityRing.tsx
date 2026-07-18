@@ -52,7 +52,7 @@ export function IdentityRing() {
         aria-hidden
       />
 
-      <div className="relative mx-auto mb-8 w-full max-w-6xl px-[clamp(1.25rem,4vw,2.5rem)] text-center sm:mb-10">
+      <div className="section-pad relative mx-auto mb-8 w-full max-w-6xl text-center sm:mb-10">
         <p className="font-display text-2xl font-semibold tracking-tight text-mist sm:text-3xl">
           Cameron Jones
         </p>

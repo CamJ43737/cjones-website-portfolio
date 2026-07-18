@@ -12,6 +12,10 @@ export type AssignedVideo = {
   autoPlayWhenVisible?: boolean;
   /** cover crops letterboxing; contain preserves full frame. */
   fit?: "cover" | "contain";
+  /** CSS object-position for cover crops (e.g. "50% 20%"). */
+  objectPosition?: string;
+  /** Cover zoom. Keep near 1 to avoid cutting faces; slightly above 1 trims letterboxing. */
+  coverScale?: number;
 };
 
 export const videoAssignments = {
@@ -33,6 +37,8 @@ export const videoAssignments = {
         "/images/02_AI_Farms/robotics-testing-with-handmade-car-at-internship-at-pvamu.jpeg",
       autoPlayWhenVisible: true,
       fit: "cover",
+      objectPosition: "50% 40%",
+      coverScale: 1.08,
     },
     "Robotics Demo": {
       src: "/videos/hero-research.mp4",
@@ -41,6 +47,8 @@ export const videoAssignments = {
       poster: "/images/02_AI_Farms/hero-drone-field.jpg",
       autoPlayWhenVisible: true,
       fit: "cover",
+      objectPosition: "50% 12%",
+      coverScale: 1.03,
     },
   } as Record<string, AssignedVideo>,
 

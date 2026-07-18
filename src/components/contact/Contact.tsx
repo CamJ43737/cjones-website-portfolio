@@ -50,20 +50,25 @@ export function Contact() {
               objectPosition={mediaAssignments.contact.objectPosition}
               className="aspect-[4/5] w-full max-w-md rounded-[1.35rem] border border-white/[0.08] lg:max-w-none"
             />
-            <div className="flex flex-wrap gap-3">
-              <Button href={`mailto:${site.email}`}>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <Button href={`mailto:${site.email}`} className="w-full">
                 <Mail size={16} /> Email Me
               </Button>
-              <Button href={asset(site.resumePath)} variant="ghost" download>
+              <Button
+                href={asset(site.resumePath)}
+                variant="ghost"
+                download
+                className="w-full"
+              >
                 Download Resume
               </Button>
-              <Button href={site.linkedin} variant="ghost" external>
+              <Button href={site.linkedin} variant="ghost" external className="w-full">
                 <Linkedin size={16} /> LinkedIn
               </Button>
-              <Button href={site.github} variant="ghost" external>
+              <Button href={site.github} variant="ghost" external className="w-full">
                 <Github size={16} /> GitHub
               </Button>
-              <Button href="/beyond" variant="gold">
+              <Button href="/beyond" variant="gold" className="w-full sm:col-span-2">
                 <Camera size={16} /> Beyond the Lab
               </Button>
             </div>

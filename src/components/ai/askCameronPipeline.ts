@@ -21,9 +21,16 @@ import {
   type AskCameronConfidence,
   type AskCameronRetrievalResult,
 } from "@/components/ai/askCameronRetrieval";
+import {
+  createEmptyConversationState,
+  refineFollowUpFromAnswer,
+  resolveFollowUpQuestion,
+  updateConversationState,
+  type AskCameronConversationState,
+} from "@/components/ai/askCameronConversation";
 
-export { SUGGESTED_QUESTIONS };
-export type { AskCameronConfidence };
+export { SUGGESTED_QUESTIONS, createEmptyConversationState };
+export type { AskCameronConfidence, AskCameronConversationState };
 
 /** Which backend produced the answer. */
 export type AskCameronGeneratorKind = "local" | "llm";
@@ -34,6 +41,10 @@ export type AskCameronQuestion = {
 
 export type AskCameronContext = {
   question: string;
+  /** Original user text before follow-up resolution (if any). */
+  originalQuestion: string;
+  /** True when a short follow-up was rewritten using conversation state. */
+  resolvedFromFollowUp: boolean;
   systemPrompt: string;
   assistantName: string;
   retrieval: AskCameronRetrievalResult;
@@ -52,6 +63,12 @@ export type AskCameronResponse = {
   generator: AskCameronGeneratorKind;
   /** Phase 3G — mirror of retrieval confidence for future LLM routing. */
   confidence: AskCameronConfidence;
+  /** Lightweight continuity memory for the next turn. */
+  conversation: AskCameronConversationState;
+};
+
+export type AskCameronPipelineOptions = {
+  conversation?: AskCameronConversationState;
 };
 
 function buildContextBlock(retrieval: AskCameronRetrievalResult): string {
@@ -100,9 +117,15 @@ export function retrieveForQuestion(question: string): AskCameronRetrievalResult
 export function buildAskCameronContext(
   question: string,
   retrieval: AskCameronRetrievalResult,
+  options?: {
+    originalQuestion?: string;
+    resolvedFromFollowUp?: boolean;
+  },
 ): AskCameronContext {
   return {
     question: question.trim(),
+    originalQuestion: (options?.originalQuestion ?? question).trim(),
+    resolvedFromFollowUp: Boolean(options?.resolvedFromFollowUp),
     systemPrompt: getAskCameronSystemPrompt(),
     assistantName: askCameronAssistantName,
     retrieval,
@@ -116,24 +139,43 @@ export function buildAskCameronContext(
  * Swap this implementation later for an LLM call using `context.systemPrompt` + `context.contextBlock`.
  * Future LLM routing can branch on `context.confidence` (high/medium/low).
  */
-export function generateAskCameronAnswer(context: AskCameronContext): AskCameronResponse {
+export function generateAskCameronAnswer(
+  context: AskCameronContext,
+  conversation: AskCameronConversationState = createEmptyConversationState(),
+): AskCameronResponse {
   const answer = generateLocalAskCameronAnswer(context.retrieval);
+  const next = refineFollowUpFromAnswer(
+    updateConversationState(conversation, context.question, context.retrieval),
+    answer,
+  );
   return {
     answer,
     context,
     generator: "local",
     confidence: context.confidence,
+    conversation: next,
   };
 }
 
 /**
  * Full pipeline entry point used by the UI.
- * Preserves prior `answerFromKnowledge` behavior via the local generator.
+ * Optional `conversation` enables follow-up resolution (“please do”, “tell me more”, …).
  */
-export function runAskCameronPipeline(question: string): AskCameronResponse {
-  const retrieval = retrieveForQuestion(question);
-  const context = buildAskCameronContext(question, retrieval);
-  return generateAskCameronAnswer(context);
+export function runAskCameronPipeline(
+  question: string,
+  options: AskCameronPipelineOptions = {},
+): AskCameronResponse {
+  const prior = options.conversation ?? createEmptyConversationState();
+  const original = question.trim();
+  const resolved = resolveFollowUpQuestion(original, prior);
+  const effective = resolved ?? original;
+
+  const retrieval = retrieveForQuestion(effective);
+  const context = buildAskCameronContext(effective, retrieval, {
+    originalQuestion: original,
+    resolvedFromFollowUp: Boolean(resolved),
+  });
+  return generateAskCameronAnswer(context, prior);
 }
 
 /** Back-compat helper — same string answers as Phase 2.75. */

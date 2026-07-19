@@ -13,7 +13,9 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MessageSquareText, Send, Sparkles, X } from "lucide-react";
 import {
   SUGGESTED_QUESTIONS,
+  createEmptyConversationState,
   runAskCameronPipeline,
+  type AskCameronConversationState,
 } from "@/components/ai/askCameronPipeline";
 import { cn } from "@/lib/cn";
 
@@ -67,6 +69,9 @@ export function AskCameron() {
     },
   ]);
   const [pending, setPending] = useState(false);
+  const conversationRef = useRef<AskCameronConversationState>(
+    createEmptyConversationState(),
+  );
 
   const panelRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -94,10 +99,13 @@ export function AskCameron() {
       setPending(true);
 
       window.setTimeout(() => {
-        const { answer } = runAskCameronPipeline(trimmed);
+        const result = runAskCameronPipeline(trimmed, {
+          conversation: conversationRef.current,
+        });
+        conversationRef.current = result.conversation;
         setMessages((prev) => [
           ...prev,
-          { id: `a-${Date.now()}`, role: "assistant", content: answer },
+          { id: `a-${Date.now()}`, role: "assistant", content: result.answer },
         ]);
         setPending(false);
       }, reduce ? 0 : 380);

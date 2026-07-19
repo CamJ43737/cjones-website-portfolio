@@ -5,10 +5,12 @@ import Link from "next/link";
 import { ArrowLeft, CheckCircle2, FlaskConical, ListChecks, Play, XCircle } from "lucide-react";
 import { runAskCameronPipeline } from "@/components/ai/askCameronPipeline";
 import {
+  askCameronAllTestQuestions,
   askCameronTestQuestions,
   runAskCameronEvaluation,
   type AskCameronEvaluationReport,
 } from "@/data/askCameronEvaluation";
+import { askCameronHumanTests } from "@/data/askCameronHumanTests";
 
 const EXAMPLE_QUESTIONS = [
   "Explain Project AEGIS",
@@ -114,7 +116,7 @@ export function AskCameronTestDashboard() {
 
   const onRunEvaluation = () => {
     setViewMode("evaluation");
-    setEvalReport(runAskCameronEvaluation(askCameronTestQuestions));
+    setEvalReport(runAskCameronEvaluation(askCameronAllTestQuestions));
   };
 
   return (
@@ -166,9 +168,13 @@ export function AskCameronTestDashboard() {
             }`}
           >
             <ListChecks size={14} aria-hidden />
-            Run Evaluation ({askCameronTestQuestions.length})
+            Run Evaluation ({askCameronAllTestQuestions.length})
           </button>
         </div>
+        <p className="mt-3 text-xs text-ink-400">
+          Suite: {askCameronTestQuestions.length} automated + {askCameronHumanTests.length} human
+          QA (Phase 3G)
+        </p>
 
         {viewMode === "evaluation" && evalReport ? (
           <div className="mt-8 space-y-5">
@@ -365,7 +371,12 @@ export function AskCameronTestDashboard() {
                   {result.context.question || "—"}
                 </p>
                 <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-500">
-                  Mode: {result.context.retrieval.mode} · Generator: {result.generator}
+                  Mode: {result.context.retrieval.mode} · Generator: {result.generator} ·
+                  Confidence: {result.confidence} · Voice:{" "}
+                  {result.context.retrieval.answerVoice}
+                </p>
+                <p className="mt-1 text-[11px] text-ink-500">
+                  Confidence is internal only (not shown in the public Ask Cameron UI).
                 </p>
               </Panel>
 

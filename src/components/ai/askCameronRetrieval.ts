@@ -18,6 +18,8 @@ import {
   formatRoboticsExperienceIntent,
   formatSkillsIntent,
   generateIntentResponse,
+  voiceForIntent,
+  type AskCameronAnswerVoice,
   type AskCameronResponseIntent,
 } from "@/components/ai/askCameronIntentResponses";
 
@@ -32,12 +34,16 @@ export type AskCameronRetrievalMode =
   | "motivation-origin"
   | "education"
   | "collaboration-services"
+  | "project-simple"
   | "comparison"
   | "research-timeline"
   | "perspective"
   | "research-index"
   | "ranked"
   | "fallback";
+
+/** Internal confidence for future LLM routing (not shown in public UI). */
+export type AskCameronConfidence = "high" | "medium" | "low";
 
 export type AskCameronScoredDocument = {
   id: string;
@@ -58,6 +64,10 @@ export type AskCameronRetrievalResult = {
   perspectiveDocId?: string;
   /** Composed response intent (Phase 3D) — bypasses single-doc keyword ranking. */
   responseIntent?: AskCameronResponseIntent;
+  /** Phase 3G — internal confidence for future LLM use */
+  confidence: AskCameronConfidence;
+  /** Phase 3G — answer voice guidance */
+  answerVoice: AskCameronAnswerVoice;
   /** For research-index mode extras */
   includeExperience?: boolean;
   includeSkills?: boolean;
@@ -85,9 +95,33 @@ function modeForResponseIntent(intent: AskCameronResponseIntent): AskCameronRetr
       return "collaboration-services";
     case "research-comparison":
       return "comparison";
+    case "project-simple":
+      return "project-simple";
     default:
       return "ranked";
   }
+}
+
+function resultBase(
+  partial: Omit<AskCameronRetrievalResult, "confidence" | "answerVoice"> & {
+    confidence?: AskCameronConfidence;
+    answerVoice?: AskCameronAnswerVoice;
+  },
+): AskCameronRetrievalResult {
+  const voice = partial.responseIntent
+    ? voiceForIntent(partial.responseIntent)
+    : partial.mode === "perspective" ||
+        partial.mode === "future-direction" ||
+        partial.mode === "motivation-origin" ||
+        partial.mode === "identity-intro"
+      ? "first-person"
+      : "third-person";
+
+  return {
+    ...partial,
+    confidence: partial.confidence ?? "medium",
+    answerVoice: partial.answerVoice ?? voice,
+  };
 }
 
 function contextDocsForIntent(intent: AskCameronResponseIntent): AskCameronScoredDocument[] {
@@ -112,7 +146,8 @@ function contextDocsForIntent(intent: AskCameronResponseIntent): AskCameronScore
     intent === "research-overview" ||
     intent === "robotics-experience" ||
     intent === "research-comparison" ||
-    intent === "future-direction"
+    intent === "future-direction" ||
+    intent === "project-simple"
   ) {
     for (const slug of ["ai-farms", "project-aegis", "access-ci"]) {
       const doc = all.find((d) => d.id === `research-${slug}`);
@@ -699,19 +734,19 @@ function formatPerspective(hitId?: string): string {
   const p = cameronKnowledge.perspective;
 
   if (hitId === "perspective-why-builds") {
-    return ["**Why Cameron builds**", "", p.whyCameronBuilds].join("\n");
+    return ["**Why I build**", "", p.whyCameronBuilds].join("\n");
   }
   if (hitId === "perspective-why-ai-robotics") {
-    return ["**Why AI and robotics**", "", p.whyAiAndRobotics, "", "**Vision**", p.aiRoboticsVision].join(
+    return ["**Why I chose AI and robotics**", "", p.whyAiAndRobotics, "", "**My vision**", p.aiRoboticsVision].join(
       "\n",
     );
   }
   if (hitId === "perspective-why-tuskegee") {
-    return ["**Why Tuskegee matters**", "", p.whyTuskegeeMatters].join("\n");
+    return ["**Why Tuskegee matters to me**", "", p.whyTuskegeeMatters].join("\n");
   }
   if (hitId === "perspective-future-interests") {
     return [
-      "**Future research interests**",
+      "**What I want to research**",
       "",
       p.researchInterestsSummary,
       "",
@@ -720,11 +755,11 @@ function formatPerspective(hitId?: string): string {
   }
   if (hitId === "perspective-graduate-direction") {
     return [
-      "**Graduate research direction**",
+      "**My graduate research direction**",
       "",
       p.graduateResearchDirection,
       "",
-      "**AI + robotics vision**",
+      "**My AI + robotics vision**",
       p.aiRoboticsVision,
       "",
       "**Research interests**",
@@ -735,13 +770,13 @@ function formatPerspective(hitId?: string): string {
   return [
     "**Perspective & direction**",
     "",
-    "**Why Cameron builds**",
+    "**Why I build**",
     p.whyCameronBuilds,
     "",
     "**Why AI and robotics**",
     p.whyAiAndRobotics,
     "",
-    "**Why Tuskegee matters**",
+    "**Why Tuskegee matters to me**",
     p.whyTuskegeeMatters,
     "",
     "**Graduate research direction**",
@@ -919,17 +954,17 @@ function navForAnswer(query: string, sections: string[], projects: CameronResear
 function gracefulFallback(question: string): string {
   return withNav(
     [
-      "I don’t have a confident match for that in the local portfolio knowledge base.",
+      "I can help with Cameron’s research, projects, experience, skills, journey, awards, publications, or future goals.",
       "",
-      "I can help with:",
-      "• Research projects and comparisons (e.g. AI Farms vs Project AEGIS)",
-      "• Robotics experience overview and research timeline",
-      "• Why Cameron builds, AI/robotics vision, and graduate direction",
-      "• Skills, awards, publications, and contact details",
+      "Try asking something like:",
+      "• “Who is Cameron?”",
+      "• “Explain Project AEGIS in simple terms”",
+      "• “What robotics experience does Cameron have?”",
+      "• “Where has Cameron interned?”",
+      "• “What are Cameron’s future goals?”",
+      "• “How can someone contact Cameron?”",
       "",
       `Your question: “${question.trim()}”`,
-      "",
-      "Try rephrasing, or use one of the suggested questions.",
     ].join("\n"),
     [
       `Research → ${portfolioNav.research}`,
@@ -942,9 +977,9 @@ function gracefulFallback(question: string): string {
 
 function emptyPromptFallback(): string {
   return [
-    "Ask about Cameron’s research, experience, graduate goals, AI + robotics vision, journey, or contact details.",
+    "I can help with Cameron’s research, projects, experience, skills, journey, awards, publications, or future goals.",
     "",
-    "Tip: try comparisons (“AI Farms vs Project AEGIS”) or direction questions (“graduate research goals”).",
+    "Try asking: “Who is Cameron?”, “What research does Cameron do?”, or “How can I contact Cameron?”",
   ].join("\n");
 }
 
@@ -966,24 +1001,26 @@ function toScoredDocuments(hits: ScoredHit[]): AskCameronScoredDocument[] {
 export function retrieveAskCameronKnowledge(question: string): AskCameronRetrievalResult {
   const trimmed = question.trim();
   if (!trimmed) {
-    return {
+    return resultBase({
       question: "",
       mode: "empty",
       intents: [],
       documents: [],
       matchedProjects: [],
-    };
+      confidence: "low",
+      answerVoice: "third-person",
+    });
   }
 
   const q = trimmed.toLowerCase();
   const matchedProjects = matchResearchInQuery(trimmed);
   const intents = [...detectIntents(trimmed)];
 
-  // Phase 3D — intent-aware composed answers (before keyword doc ranking)
+  // Phase 3D/3F/3G — intent-aware composed answers (before keyword doc ranking)
   const responseIntent = detectResponseIntent(trimmed);
   if (responseIntent) {
     const intentCats = categoriesForResponseIntent(responseIntent);
-    return {
+    return resultBase({
       question: trimmed,
       mode: modeForResponseIntent(responseIntent),
       intents: [...new Set([...intents, ...intentCats, responseIntent])],
@@ -991,7 +1028,9 @@ export function retrieveAskCameronKnowledge(question: string): AskCameronRetriev
       matchedProjects:
         responseIntent === "research-overview" ||
         responseIntent === "identity-intro" ||
-        responseIntent === "robotics-experience"
+        responseIntent === "robotics-experience" ||
+        responseIntent === "research-comparison" ||
+        responseIntent === "project-simple"
           ? cameronKnowledge.research.filter((r) =>
               ["ai-farms", "project-aegis", "access-ci", "prairie-view-robotics"].includes(
                 r.slug,
@@ -999,7 +1038,8 @@ export function retrieveAskCameronKnowledge(question: string): AskCameronRetriev
             )
           : matchedProjects,
       responseIntent,
-    };
+      confidence: "high",
+    });
   }
 
   if (isComparisonQuestion(trimmed)) {
@@ -1012,35 +1052,38 @@ export function retrieveAskCameronKnowledge(question: string): AskCameronRetriev
       }
     }
     if (pair.length >= 2) {
-      return {
+      return resultBase({
         question: trimmed,
         mode: "comparison",
         intents,
         documents: [],
         matchedProjects: pair,
         comparisonProjects: pair,
-      };
+        confidence: "high",
+      });
     }
   }
 
   if (isResearchTimelineQuestion(trimmed)) {
-    return {
+    return resultBase({
       question: trimmed,
       mode: "research-timeline",
       intents,
       documents: [],
       matchedProjects,
-    };
+      confidence: "high",
+    });
   }
 
   if (isRoboticsOverviewQuestion(trimmed)) {
-    return {
+    return resultBase({
       question: trimmed,
       mode: "robotics-overview",
       intents,
       documents: [],
       matchedProjects,
-    };
+      confidence: "high",
+    });
   }
 
   if (
@@ -1051,7 +1094,7 @@ export function retrieveAskCameronKnowledge(question: string): AskCameronRetriev
     q.includes("research goals") ||
     q.includes("research direction")
   ) {
-    return {
+    return resultBase({
       question: trimmed,
       mode: "perspective",
       intents,
@@ -1060,7 +1103,9 @@ export function retrieveAskCameronKnowledge(question: string): AskCameronRetriev
       perspectiveDocId: q.includes("interest")
         ? "perspective-future-interests"
         : "perspective-graduate-direction",
-    };
+      confidence: "medium",
+      answerVoice: "first-person",
+    });
   }
 
   if (
@@ -1070,14 +1115,16 @@ export function retrieveAskCameronKnowledge(question: string): AskCameronRetriev
     let id = "perspective-why-builds";
     if (q.includes("tuskegee")) id = "perspective-why-tuskegee";
     else if (q.includes("ai") || q.includes("robot")) id = "perspective-why-ai-robotics";
-    return {
+    return resultBase({
       question: trimmed,
       mode: "perspective",
       intents,
       documents: [],
       matchedProjects,
       perspectiveDocId: id,
-    };
+      confidence: "medium",
+      answerVoice: "first-person",
+    });
   }
 
   const hits = retrieve(trimmed);
@@ -1093,7 +1140,7 @@ export function retrieveAskCameronKnowledge(question: string): AskCameronRetriev
     asksAllResearch &&
     (q.includes("what") || q.includes("which") || q.includes("list") || q.includes("worked"))
   ) {
-    return {
+    return resultBase({
       question: trimmed,
       mode: "research-index",
       intents,
@@ -1101,27 +1148,30 @@ export function retrieveAskCameronKnowledge(question: string): AskCameronRetriev
       matchedProjects: cameronKnowledge.research,
       includeExperience: intentSet.has("experience") || q.includes("robot"),
       includeSkills: intentSet.has("skills"),
-    };
+      confidence: "medium",
+    });
   }
 
   const top = hits[0];
   if (!top || top.score < 4) {
-    return {
+    return resultBase({
       question: trimmed,
       mode: "fallback",
       intents,
       documents: toScoredDocuments(hits),
       matchedProjects,
-    };
+      confidence: "low",
+    });
   }
 
-  return {
+  return resultBase({
     question: trimmed,
     mode: "ranked",
     intents,
     documents: toScoredDocuments(hits),
     matchedProjects,
-  };
+    confidence: top.score >= 10 ? "high" : "medium",
+  });
 }
 
 /**

@@ -8,6 +8,7 @@ import {
   type AskCameronResponse,
 } from "@/components/ai/askCameronPipeline";
 import type { AskCameronRetrievalResult } from "@/components/ai/askCameronRetrieval";
+import { askCameronHumanTests } from "@/data/askCameronHumanTests";
 
 export type AskCameronTestQuestion = {
   id: string;
@@ -448,6 +449,7 @@ export function getRetrievedCategories(retrieval: AskCameronRetrievalResult): st
       break;
     case "skills-overview":
       cats.add("skills");
+      cats.add("research");
       break;
     case "career-overview":
       cats.add("experience");
@@ -469,6 +471,9 @@ export function getRetrievedCategories(retrieval: AskCameronRetrievalResult): st
     case "collaboration-services":
       cats.add("contact");
       cats.add("beyond");
+      break;
+    case "project-simple":
+      cats.add("research");
       break;
     case "perspective":
       cats.add("perspective");
@@ -537,12 +542,15 @@ function documentHintMatched(
     "motivation-origin",
     "education",
     "collaboration-services",
+    "project-simple",
   ]);
 
   if (structuredModes.has(retrieval.mode)) {
     if (inProjects || inMode || inDocs) return true;
     if (
-      (retrieval.mode === "research-index" || retrieval.mode === "research-overview") &&
+      (retrieval.mode === "research-index" ||
+        retrieval.mode === "research-overview" ||
+        retrieval.mode === "project-simple") &&
       (h.includes("farm") || h.includes("aegis") || h.includes("access"))
     ) {
       return true;
@@ -566,6 +574,7 @@ function documentHintMatched(
     if (retrieval.mode === "research-timeline") return true;
     if (retrieval.mode === "skills-overview" || retrieval.mode === "career-overview") return true;
     if (retrieval.mode === "comparison" && (h.includes("farm") || h.includes("aegis"))) return true;
+    if (retrieval.mode === "project-simple") return true;
   }
 
   return inDocs || inProjects || Boolean(inMode);
@@ -611,8 +620,14 @@ export function evaluateAskCameronQuestion(
   };
 }
 
+/** Automated suite (Phase 3C–3F) + human QA suite (Phase 3G). */
+export const askCameronAllTestQuestions: AskCameronTestQuestion[] = [
+  ...askCameronTestQuestions,
+  ...askCameronHumanTests,
+];
+
 export function runAskCameronEvaluation(
-  questions: AskCameronTestQuestion[] = askCameronTestQuestions,
+  questions: AskCameronTestQuestion[] = askCameronAllTestQuestions,
 ): AskCameronEvaluationReport {
   const results = questions.map(evaluateAskCameronQuestion);
   const passed = results.filter((r) => r.passed).length;

@@ -18,10 +18,12 @@ import {
   SUGGESTED_QUESTIONS,
   retrieveAskCameronKnowledge,
   generateLocalAskCameronAnswer,
+  type AskCameronConfidence,
   type AskCameronRetrievalResult,
 } from "@/components/ai/askCameronRetrieval";
 
 export { SUGGESTED_QUESTIONS };
+export type { AskCameronConfidence };
 
 /** Which backend produced the answer. */
 export type AskCameronGeneratorKind = "local" | "llm";
@@ -40,12 +42,16 @@ export type AskCameronContext = {
    * Local generator may ignore this and use structured `retrieval` instead.
    */
   contextBlock: string;
+  /** Phase 3G — internal confidence (not shown in public UI). */
+  confidence: AskCameronConfidence;
 };
 
 export type AskCameronResponse = {
   answer: string;
   context: AskCameronContext;
   generator: AskCameronGeneratorKind;
+  /** Phase 3G — mirror of retrieval confidence for future LLM routing. */
+  confidence: AskCameronConfidence;
 };
 
 function buildContextBlock(retrieval: AskCameronRetrievalResult): string {
@@ -55,6 +61,8 @@ function buildContextBlock(retrieval: AskCameronRetrievalResult): string {
 
   const parts: string[] = [
     `Retrieval mode: ${retrieval.mode}`,
+    `Confidence: ${retrieval.confidence}`,
+    `Answer voice: ${retrieval.answerVoice}`,
     `Intents: ${retrieval.intents.join(", ") || "none"}`,
   ];
 
@@ -99,12 +107,14 @@ export function buildAskCameronContext(
     assistantName: askCameronAssistantName,
     retrieval,
     contextBlock: buildContextBlock(retrieval),
+    confidence: retrieval.confidence,
   };
 }
 
 /**
  * Step 4: Context → Response (local generator).
  * Swap this implementation later for an LLM call using `context.systemPrompt` + `context.contextBlock`.
+ * Future LLM routing can branch on `context.confidence` (high/medium/low).
  */
 export function generateAskCameronAnswer(context: AskCameronContext): AskCameronResponse {
   const answer = generateLocalAskCameronAnswer(context.retrieval);
@@ -112,6 +122,7 @@ export function generateAskCameronAnswer(context: AskCameronContext): AskCameron
     answer,
     context,
     generator: "local",
+    confidence: context.confidence,
   };
 }
 

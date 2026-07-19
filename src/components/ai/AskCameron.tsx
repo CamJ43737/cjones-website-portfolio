@@ -13,8 +13,8 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MessageSquareText, Send, Sparkles, X } from "lucide-react";
 import {
   SUGGESTED_QUESTIONS,
-  answerFromKnowledge,
-} from "@/components/ai/askCameronRetrieval";
+  runAskCameronPipeline,
+} from "@/components/ai/askCameronPipeline";
 import { cn } from "@/lib/cn";
 
 type ChatRole = "user" | "assistant";
@@ -94,10 +94,10 @@ export function AskCameron() {
       setPending(true);
 
       window.setTimeout(() => {
-        const reply = answerFromKnowledge(trimmed);
+        const { answer } = runAskCameronPipeline(trimmed);
         setMessages((prev) => [
           ...prev,
-          { id: `a-${Date.now()}`, role: "assistant", content: reply },
+          { id: `a-${Date.now()}`, role: "assistant", content: answer },
         ]);
         setPending(false);
       }, reduce ? 0 : 380);
@@ -303,4 +303,4 @@ export function AskCameron() {
 }
 
 /** Re-export for tests / future tooling. */
-export { answerFromKnowledge } from "@/components/ai/askCameronRetrieval";
+export { answerFromKnowledge, runAskCameronPipeline } from "@/components/ai/askCameronPipeline";

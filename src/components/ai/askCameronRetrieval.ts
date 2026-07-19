@@ -1,6 +1,6 @@
 /**
- * Ask Cameron — Phase 2.75 local retrieval.
- * Multi-category scoring, comparisons, graduate/perspective answers, nav links.
+ * Ask Cameron — local retrieval + local response composer.
+ * Phase 3A: structured retrieval result feeds the pipeline context builder.
  * No external APIs.
  */
 
@@ -11,6 +11,38 @@ import {
   type CameronKnowledgeDocument,
   type CameronResearchEntry,
 } from "@/data/cameronKnowledge";
+
+export type AskCameronRetrievalMode =
+  | "empty"
+  | "comparison"
+  | "research-timeline"
+  | "robotics-overview"
+  | "perspective"
+  | "research-index"
+  | "ranked"
+  | "fallback";
+
+export type AskCameronScoredDocument = {
+  id: string;
+  category: string;
+  title: string;
+  text: string;
+  score: number;
+  metadata: Record<string, string | string[] | undefined>;
+};
+
+export type AskCameronRetrievalResult = {
+  question: string;
+  mode: AskCameronRetrievalMode;
+  intents: string[];
+  documents: AskCameronScoredDocument[];
+  matchedProjects: CameronResearchEntry[];
+  comparisonProjects?: CameronResearchEntry[];
+  perspectiveDocId?: string;
+  /** For research-index mode extras */
+  includeExperience?: boolean;
+  includeSkills?: boolean;
+};
 
 export const SUGGESTED_QUESTIONS = [
   "What research projects has Cameron worked on?",
@@ -852,17 +884,37 @@ function emptyPromptFallback(): string {
   ].join("\n");
 }
 
+function toScoredDocuments(hits: ScoredHit[]): AskCameronScoredDocument[] {
+  return hits.map((h) => ({
+    id: h.id,
+    category: h.category,
+    title: h.title,
+    text: h.text,
+    score: h.score,
+    metadata: h.metadata,
+  }));
+}
+
 /**
- * Phase 2.75 entry point: multi-category retrieval, comparisons, perspective, nav links.
+ * Step: Question → Retrieval (structured).
+ * Detects special modes and ranks documents for the context builder / generator.
  */
-export function answerFromKnowledge(question: string): string {
+export function retrieveAskCameronKnowledge(question: string): AskCameronRetrievalResult {
   const trimmed = question.trim();
-  if (!trimmed) return emptyPromptFallback();
+  if (!trimmed) {
+    return {
+      question: "",
+      mode: "empty",
+      intents: [],
+      documents: [],
+      matchedProjects: [],
+    };
+  }
 
   const q = trimmed.toLowerCase();
   const matchedProjects = matchResearchInQuery(trimmed);
+  const intents = [...detectIntents(trimmed)];
 
-  // Comparisons (e.g. AI Farms vs Project AEGIS)
   if (isComparisonQuestion(trimmed)) {
     let pair = matchedProjects;
     if (pair.length < 2) {
@@ -873,27 +925,37 @@ export function answerFromKnowledge(question: string): string {
       }
     }
     if (pair.length >= 2) {
-      return withNav(formatComparison(pair), navForAnswer(trimmed, ["Research"], pair));
+      return {
+        question: trimmed,
+        mode: "comparison",
+        intents,
+        documents: [],
+        matchedProjects: pair,
+        comparisonProjects: pair,
+      };
     }
   }
 
-  // Research timeline
   if (isResearchTimelineQuestion(trimmed)) {
-    return withNav(
-      formatResearchTimeline(),
-      navForAnswer(trimmed, ["Research", "Journey"], cameronKnowledge.research),
-    );
+    return {
+      question: trimmed,
+      mode: "research-timeline",
+      intents,
+      documents: [],
+      matchedProjects,
+    };
   }
 
-  // Robotics overview
   if (isRoboticsOverviewQuestion(trimmed)) {
-    return withNav(
-      formatRoboticsOverview(),
-      navForAnswer(trimmed, ["Research", "Experience"], matchedProjects),
-    );
+    return {
+      question: trimmed,
+      mode: "robotics-overview",
+      intents,
+      documents: [],
+      matchedProjects,
+    };
   }
 
-  // Graduate / perspective direct intents
   if (
     q.includes("graduate") ||
     q.includes("phd") ||
@@ -902,15 +964,16 @@ export function answerFromKnowledge(question: string): string {
     q.includes("research goals") ||
     q.includes("research direction")
   ) {
-    const body = formatPerspective(
-      q.includes("interest")
+    return {
+      question: trimmed,
+      mode: "perspective",
+      intents,
+      documents: [],
+      matchedProjects,
+      perspectiveDocId: q.includes("interest")
         ? "perspective-future-interests"
         : "perspective-graduate-direction",
-    );
-    return withNav(
-      body,
-      navForAnswer(trimmed, ["Journey", "Research"], []),
-    );
+    };
   }
 
   if (
@@ -920,11 +983,18 @@ export function answerFromKnowledge(question: string): string {
     let id = "perspective-why-builds";
     if (q.includes("tuskegee")) id = "perspective-why-tuskegee";
     else if (q.includes("ai") || q.includes("robot")) id = "perspective-why-ai-robotics";
-    return withNav(formatPerspective(id), navForAnswer(trimmed, ["Journey"], []));
+    return {
+      question: trimmed,
+      mode: "perspective",
+      intents,
+      documents: [],
+      matchedProjects,
+      perspectiveDocId: id,
+    };
   }
 
-  const intents = detectIntents(trimmed);
   const hits = retrieve(trimmed);
+  const intentSet = detectIntents(trimmed);
 
   const asksAllResearch =
     (q.includes("research") || q.includes("projects")) &&
@@ -936,23 +1006,107 @@ export function answerFromKnowledge(question: string): string {
     asksAllResearch &&
     (q.includes("what") || q.includes("which") || q.includes("list") || q.includes("worked"))
   ) {
-    const extras: string[] = [];
-    if (intents.has("experience") || q.includes("robot")) {
-      extras.push(formatExperienceHits(hits.filter((h) => h.category === "experience")));
-    }
-    if (intents.has("skills")) extras.push(formatSkills());
-    const body = [formatResearchIndex(), ...extras.filter(Boolean)].join("\n\n——\n\n");
-    return withNav(body, navForAnswer(trimmed, ["Research"], cameronKnowledge.research));
+    return {
+      question: trimmed,
+      mode: "research-index",
+      intents,
+      documents: toScoredDocuments(hits),
+      matchedProjects: cameronKnowledge.research,
+      includeExperience: intentSet.has("experience") || q.includes("robot"),
+      includeSkills: intentSet.has("skills"),
+    };
   }
 
   const top = hits[0];
   if (!top || top.score < 4) {
+    return {
+      question: trimmed,
+      mode: "fallback",
+      intents,
+      documents: toScoredDocuments(hits),
+      matchedProjects,
+    };
+  }
+
+  return {
+    question: trimmed,
+    mode: "ranked",
+    intents,
+    documents: toScoredDocuments(hits),
+    matchedProjects,
+  };
+}
+
+/**
+ * Step: Context/Retrieval → local Response Generator.
+ * Preserves Phase 2.75 answer quality. Replaceable later by an LLM generator.
+ */
+export function generateLocalAskCameronAnswer(
+  retrieval: AskCameronRetrievalResult,
+): string {
+  const trimmed = retrieval.question;
+
+  if (retrieval.mode === "empty") return emptyPromptFallback();
+
+  if (retrieval.mode === "comparison" && retrieval.comparisonProjects?.length) {
+    const pair = retrieval.comparisonProjects;
+    return withNav(formatComparison(pair), navForAnswer(trimmed, ["Research"], pair));
+  }
+
+  if (retrieval.mode === "research-timeline") {
+    return withNav(
+      formatResearchTimeline(),
+      navForAnswer(trimmed, ["Research", "Journey"], cameronKnowledge.research),
+    );
+  }
+
+  if (retrieval.mode === "robotics-overview") {
+    return withNav(
+      formatRoboticsOverview(),
+      navForAnswer(trimmed, ["Research", "Experience"], retrieval.matchedProjects),
+    );
+  }
+
+  if (retrieval.mode === "perspective") {
+    return withNav(
+      formatPerspective(retrieval.perspectiveDocId),
+      navForAnswer(trimmed, ["Journey", "Research"], []),
+    );
+  }
+
+  if (retrieval.mode === "research-index") {
+    const hitsAsScored: ScoredHit[] = retrieval.documents.map((d) => ({
+      ...d,
+      metadata: d.metadata,
+    }));
+    const extras: string[] = [];
+    if (retrieval.includeExperience) {
+      extras.push(
+        formatExperienceHits(hitsAsScored.filter((h) => h.category === "experience")),
+      );
+    }
+    if (retrieval.includeSkills) extras.push(formatSkills());
+    const body = [formatResearchIndex(), ...extras.filter(Boolean)].join("\n\n——\n\n");
+    return withNav(body, navForAnswer(trimmed, ["Research"], cameronKnowledge.research));
+  }
+
+  if (retrieval.mode === "fallback") {
     return gracefulFallback(trimmed);
   }
 
+  // ranked
+  const hits: ScoredHit[] = retrieval.documents.map((d) => ({
+    id: d.id,
+    category: d.category,
+    title: d.title,
+    text: d.text,
+    score: d.score,
+    metadata: d.metadata,
+  }));
+
   const sections: string[] = [];
   const used = new Set<string>();
-  const projectHits: CameronResearchEntry[] = [...matchedProjects];
+  const projectHits: CameronResearchEntry[] = [...retrieval.matchedProjects];
 
   for (const hit of hits) {
     if (hit.score < 3) continue;
@@ -1008,4 +1162,9 @@ export function answerFromKnowledge(question: string): string {
         ].join("\n");
 
   return withNav(body, navForAnswer(trimmed, sections, projectHits));
+}
+
+/** Back-compat — prefer `runAskCameronPipeline` from askCameronPipeline. */
+export function answerFromKnowledge(question: string): string {
+  return generateLocalAskCameronAnswer(retrieveAskCameronKnowledge(question));
 }

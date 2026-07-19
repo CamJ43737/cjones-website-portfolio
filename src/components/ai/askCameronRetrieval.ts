@@ -28,6 +28,10 @@ export type AskCameronRetrievalMode =
   | "robotics-overview"
   | "skills-overview"
   | "career-overview"
+  | "future-direction"
+  | "motivation-origin"
+  | "education"
+  | "collaboration-services"
   | "comparison"
   | "research-timeline"
   | "perspective"
@@ -71,6 +75,16 @@ function modeForResponseIntent(intent: AskCameronResponseIntent): AskCameronRetr
       return "skills-overview";
     case "career-internships":
       return "career-overview";
+    case "future-direction":
+      return "future-direction";
+    case "motivation-origin":
+      return "motivation-origin";
+    case "education":
+      return "education";
+    case "collaboration-services":
+      return "collaboration-services";
+    case "research-comparison":
+      return "comparison";
     default:
       return "ranked";
   }
@@ -96,10 +110,49 @@ function contextDocsForIntent(intent: AskCameronResponseIntent): AskCameronScore
   if (
     intent === "identity-intro" ||
     intent === "research-overview" ||
-    intent === "robotics-experience"
+    intent === "robotics-experience" ||
+    intent === "research-comparison" ||
+    intent === "future-direction"
   ) {
     for (const slug of ["ai-farms", "project-aegis", "access-ci"]) {
       const doc = all.find((d) => d.id === `research-${slug}`);
+      if (doc && !picked.some((p) => p.id === doc.id)) {
+        picked.push({
+          id: doc.id,
+          category: doc.category,
+          title: doc.title,
+          text: doc.text,
+          score: 10,
+          metadata: doc.metadata,
+        });
+      }
+    }
+  }
+
+  if (intent === "future-direction" || intent === "motivation-origin") {
+    for (const id of [
+      "perspective-graduate-direction",
+      "perspective-future-interests",
+      "perspective-why-builds",
+      "story",
+    ]) {
+      const doc = all.find((d) => d.id === id);
+      if (doc && !picked.some((p) => p.id === doc.id)) {
+        picked.push({
+          id: doc.id,
+          category: doc.category,
+          title: doc.title,
+          text: doc.text,
+          score: 10,
+          metadata: doc.metadata,
+        });
+      }
+    }
+  }
+
+  if (intent === "collaboration-services") {
+    for (const id of ["contact", "beyond-photography", "beyond-pc-building"]) {
+      const doc = all.find((d) => d.id === id);
       if (doc && !picked.some((p) => p.id === doc.id)) {
         picked.push({
           id: doc.id,
@@ -1082,9 +1135,9 @@ export function generateLocalAskCameronAnswer(
 
   if (retrieval.mode === "empty") return emptyPromptFallback();
 
-  // Phase 3D — composed intent responses
+  // Phase 3D/3F — composed intent responses
   if (retrieval.responseIntent) {
-    return generateIntentResponse(retrieval.responseIntent);
+    return generateIntentResponse(retrieval.responseIntent, trimmed);
   }
 
   if (retrieval.mode === "comparison" && retrieval.comparisonProjects?.length) {

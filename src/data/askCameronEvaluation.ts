@@ -273,6 +273,128 @@ export const askCameronTestQuestions: AskCameronTestQuestion[] = [
     question: "What technologies does Cameron use?",
     expectedCategories: ["skills"],
   },
+  // Phase 3F.1 — expanded intents
+  {
+    id: "intent-future-planning",
+    category: "future direction",
+    question: "What is Cameron planning to do?",
+    expectedCategories: ["perspective"],
+  },
+  {
+    id: "intent-future-goals",
+    category: "future direction",
+    question: "What are Cameron's future goals?",
+    expectedCategories: ["perspective", "education"],
+  },
+  {
+    id: "intent-after-graduation",
+    category: "future direction",
+    question: "What will Cameron do after graduation?",
+    expectedCategories: ["perspective"],
+  },
+  {
+    id: "intent-graduate-school-plan",
+    category: "future direction",
+    question: "Is Cameron planning graduate school?",
+    expectedCategories: ["perspective", "education"],
+  },
+  {
+    id: "intent-career-goal",
+    category: "future direction",
+    question: "What is Cameron's career goal?",
+    expectedCategories: ["perspective"],
+  },
+  {
+    id: "intent-why-ai",
+    category: "motivation",
+    question: "Why did Cameron choose AI?",
+    expectedCategories: ["perspective", "story"],
+  },
+  {
+    id: "intent-why-robotics",
+    category: "motivation",
+    question: "Why robotics?",
+    expectedCategories: ["perspective", "story"],
+  },
+  {
+    id: "intent-why-technology",
+    category: "motivation",
+    question: "Why technology?",
+    expectedCategories: ["perspective", "story"],
+  },
+  {
+    id: "intent-why-tuskegee",
+    category: "motivation",
+    question: "Why Tuskegee?",
+    expectedCategories: ["perspective", "story"],
+  },
+  {
+    id: "intent-inspired",
+    category: "motivation",
+    question: "What inspired Cameron?",
+    expectedCategories: ["perspective", "story"],
+  },
+  {
+    id: "intent-where-study",
+    category: "education",
+    question: "Where does Cameron study?",
+    expectedCategories: ["education", "identity"],
+  },
+  {
+    id: "intent-majoring",
+    category: "education",
+    question: "What is Cameron majoring in?",
+    expectedCategories: ["education"],
+  },
+  {
+    id: "intent-when-graduate",
+    category: "education",
+    question: "When does Cameron graduate?",
+    expectedCategories: ["education"],
+  },
+  {
+    id: "intent-work-with",
+    category: "collaboration",
+    question: "How can I work with Cameron?",
+    expectedCategories: ["contact", "beyond"],
+  },
+  {
+    id: "intent-websites",
+    category: "collaboration",
+    question: "Does Cameron build websites?",
+    expectedCategories: ["contact", "beyond"],
+  },
+  {
+    id: "intent-photography-service",
+    category: "collaboration",
+    question: "Does Cameron do photography?",
+    expectedCategories: ["contact", "beyond"],
+  },
+  {
+    id: "intent-contact-collab",
+    category: "collaboration",
+    question: "How can someone contact Cameron?",
+    expectedCategories: ["contact"],
+  },
+  {
+    id: "intent-compare-farms-aegis",
+    category: "research comparison",
+    question: "Compare AI Farms and Project AEGIS",
+    expectedCategories: ["research"],
+    expectedDocumentHints: ["farms", "aegis"],
+  },
+  {
+    id: "intent-projects-connected",
+    category: "research comparison",
+    question: "How are Cameron's projects connected?",
+    expectedCategories: ["research"],
+  },
+  {
+    id: "intent-research-themes",
+    category: "research comparison",
+    question: "What themes connect Cameron's research?",
+    expectedCategories: ["research"],
+  },
 ];
 
 export type AskCameronEvalCaseResult = {
@@ -329,7 +451,24 @@ export function getRetrievedCategories(retrieval: AskCameronRetrievalResult): st
       break;
     case "career-overview":
       cats.add("experience");
-      cats.add("research");
+      break;
+    case "future-direction":
+      cats.add("perspective");
+      cats.add("education");
+      cats.add("journey");
+      break;
+    case "motivation-origin":
+      cats.add("perspective");
+      cats.add("story");
+      cats.add("journey");
+      break;
+    case "education":
+      cats.add("education");
+      cats.add("identity");
+      break;
+    case "collaboration-services":
+      cats.add("contact");
+      cats.add("beyond");
       break;
     case "perspective":
       cats.add("perspective");
@@ -347,6 +486,9 @@ export function getRetrievedCategories(retrieval: AskCameronRetrievalResult): st
       "journey",
       "perspective",
       "skills",
+      "education",
+      "contact",
+      "beyond",
     ]) {
       if (retrieval.intents.includes(c)) cats.add(c);
     }
@@ -391,6 +533,10 @@ function documentHintMatched(
     "research-overview",
     "skills-overview",
     "career-overview",
+    "future-direction",
+    "motivation-origin",
+    "education",
+    "collaboration-services",
   ]);
 
   if (structuredModes.has(retrieval.mode)) {
@@ -401,7 +547,16 @@ function documentHintMatched(
     ) {
       return true;
     }
-    if (retrieval.mode === "perspective" || retrieval.mode === "identity-intro") return true;
+    if (
+      retrieval.mode === "perspective" ||
+      retrieval.mode === "identity-intro" ||
+      retrieval.mode === "future-direction" ||
+      retrieval.mode === "motivation-origin" ||
+      retrieval.mode === "education" ||
+      retrieval.mode === "collaboration-services"
+    ) {
+      return true;
+    }
     if (
       retrieval.mode === "robotics-overview" &&
       (h.includes("prairie") || h.includes("robot") || h.includes("aegis") || h.includes("farm"))
@@ -410,6 +565,7 @@ function documentHintMatched(
     }
     if (retrieval.mode === "research-timeline") return true;
     if (retrieval.mode === "skills-overview" || retrieval.mode === "career-overview") return true;
+    if (retrieval.mode === "comparison" && (h.includes("farm") || h.includes("aegis"))) return true;
   }
 
   return inDocs || inProjects || Boolean(inMode);

@@ -1,5 +1,5 @@
 /**
- * Ask Cameron — intent-aware composed responses (Phase 3D/3E).
+ * Ask Cameron — intent-aware composed responses (Phase 3D–3F.1).
  * Local only. Used before keyword ranking so intro questions don't latch onto a single timeline doc.
  */
 
@@ -15,7 +15,12 @@ export type AskCameronResponseIntent =
   | "research-overview"
   | "robotics-experience"
   | "skills"
-  | "career-internships";
+  | "career-internships"
+  | "future-direction"
+  | "motivation-origin"
+  | "education"
+  | "collaboration-services"
+  | "research-comparison";
 
 function joinList(items: string[]): string {
   return items.length ? items.join(", ") : "None listed";
@@ -54,7 +59,6 @@ export function getInternshipAppointments(): CameronExperienceEntry[] {
   });
 }
 
-/** Technologies evidenced in experience and/or research entries (not unverified skill labels). */
 function evidencedTechnologies(): string[] {
   return unique([
     ...cameronKnowledge.experience.flatMap((e) => e.technologies),
@@ -66,7 +70,6 @@ function roboticsTechnologies(): string[] {
   const evidenced = evidencedTechnologies().map((t) => t.toLowerCase());
   const fromSkills = cameronKnowledge.technicalSkills.robotics.filter((skill) => {
     const s = skill.toLowerCase();
-    // Never claim ROS unless it appears in experience/research tech lists
     if (s === "ros") {
       return evidenced.some((t) => t.includes("ros"));
     }
@@ -86,6 +89,26 @@ function withNav(body: string, links: string[]): string {
   );
 }
 
+function whyAnswer(topic: "ai" | "robotics" | "technology" | "tuskegee" | "general"): string {
+  const whys = cameronKnowledge.story.whys;
+  const find = (needle: string) =>
+    whys.find((w) => w.question.toLowerCase().includes(needle))?.answer;
+
+  if (topic === "ai") return find("why ai") ?? cameronKnowledge.perspective.whyAiAndRobotics;
+  if (topic === "robotics")
+    return find("why robotics") ?? cameronKnowledge.perspective.whyAiAndRobotics;
+  if (topic === "tuskegee") return cameronKnowledge.perspective.whyTuskegeeMatters;
+  if (topic === "technology") {
+    return [
+      find("computer science"),
+      cameronKnowledge.perspective.whyCameronBuilds,
+    ]
+      .filter(Boolean)
+      .join("\n\n");
+  }
+  return cameronKnowledge.perspective.whyCameronBuilds;
+}
+
 /**
  * Detect high-level response intents before keyword document ranking.
  * Returns null to fall through to existing retrieval modes.
@@ -94,7 +117,102 @@ export function detectResponseIntent(question: string): AskCameronResponseIntent
   const q = question.toLowerCase().trim().replace(/[?.!]+$/g, "");
   if (!q) return null;
 
-  // Skills (before generic "what does cameron" paths)
+  // 1) Research comparison / connecting themes
+  if (
+    q.includes("compare") ||
+    q.includes(" vs ") ||
+    q.includes("versus") ||
+    q.includes("difference between") ||
+    (q.includes("connected") && (q.includes("project") || q.includes("research"))) ||
+    (q.includes("themes") && q.includes("research")) ||
+    (q.includes("how are") && q.includes("project"))
+  ) {
+    return "research-comparison";
+  }
+
+  // 2) Collaboration / services / contact
+  if (
+    q.includes("contact") ||
+    q.includes("reach cameron") ||
+    q.includes("email cameron") ||
+    q.includes("work with cameron") ||
+    q.includes("collaborate") ||
+    q.includes("collaboration") ||
+    q.includes("hire cameron") ||
+    q.includes("build website") ||
+    q.includes("build websites") ||
+    q.includes("web development") ||
+    q.includes("photography") ||
+    q.includes("photographer") ||
+    (q.includes("how can") &&
+      (q.includes("work with") || q.includes("contact") || q.includes("reach") || q.includes("hire")))
+  ) {
+    return "collaboration-services";
+  }
+
+  // 3) Motivation / origin (before robotics/skills so "why robotics" is not experience)
+  if (
+    q.includes("why did cameron") ||
+    q.includes("why does cameron") ||
+    q.includes("what inspired") ||
+    q.includes("inspired cameron") ||
+    /^why (ai|robotics|technology|tech|tuskegee)\b/.test(q) ||
+    (q.includes("why") &&
+      (q.includes("choose ai") ||
+        q.includes("choose robotics") ||
+        q.includes("into ai") ||
+        q.includes("into robotics") ||
+        q.includes("tuskegee") ||
+        q.includes("technology") ||
+        (q.includes("robot") && !q.includes("experience")) ||
+        (q.includes("ai") && !q.includes("farms") && !q.includes("technolog"))))
+  ) {
+    // Avoid stealing "why does cameron want graduate research" → future
+    if (q.includes("graduate") || q.includes("phd") || q.includes("after graduation")) {
+      return "future-direction";
+    }
+    return "motivation-origin";
+  }
+
+  // 4) Future direction / career goals / graduate plans
+  if (
+    q.includes("future goal") ||
+    q.includes("future goals") ||
+    q.includes("career goal") ||
+    q.includes("career goals") ||
+    q.includes("after graduation") ||
+    q.includes("planning to do") ||
+    q.includes("plan to do") ||
+    q.includes("planning graduate") ||
+    q.includes("graduate school") ||
+    q.includes("phd") ||
+    (q.includes("future") &&
+      (q.includes("plan") || q.includes("direction") || q.includes("interest") || q.includes("research"))) ||
+    (q.includes("graduate") &&
+      (q.includes("research") || q.includes("goal") || q.includes("plan") || q.includes("want")))
+  ) {
+    return "future-direction";
+  }
+
+  // 5) Education
+  if (
+    q.includes("where does cameron study") ||
+    q.includes("where does cameron go to school") ||
+    q.includes("what university") ||
+    q.includes("which university") ||
+    q.includes("majoring") ||
+    q.includes("major in") ||
+    q.includes("what is cameron majoring") ||
+    q.includes("what does cameron study") ||
+    q.includes("when does cameron graduate") ||
+    q.includes("graduation date") ||
+    q.includes("expected graduation") ||
+    (q.includes("graduate") && q.includes("when") && !q.includes("school") && !q.includes("phd"))
+  ) {
+    return "education";
+  }
+
+  // Skills
   if (
     (q.includes("skill") ||
       q.includes("technolog") ||
@@ -116,9 +234,10 @@ export function detectResponseIntent(question: string): AskCameronResponseIntent
     }
   }
 
-  // Robotics experience
+  // Robotics experience (not motivation)
   if (
     q.includes("robot") &&
+    !q.startsWith("why") &&
     (q.includes("experience") ||
       q.includes("work") ||
       q.includes("background") ||
@@ -136,10 +255,11 @@ export function detectResponseIntent(question: string): AskCameronResponseIntent
     (q.includes("where") && (q.includes("work") || q.includes("intern"))) ||
     (q.includes("experience") &&
       !q.includes("robot") &&
+      !q.includes("goal") &&
       (q.includes("what experience") ||
         q.includes("professional experience") ||
         q.includes("work experience") ||
-        q.includes("career")))
+        (q.includes("career") && !q.includes("goal"))))
   ) {
     return "career-internships";
   }
@@ -158,25 +278,19 @@ export function detectResponseIntent(question: string): AskCameronResponseIntent
       q.includes("cameron's research") ||
       q.includes("camerons research")
     ) {
-      if (
-        q.includes("graduate") ||
-        q.includes("phd") ||
-        q.includes("future research interest") ||
-        q.includes("why") ||
-        q.includes("appointment")
-      ) {
-        // "research appointments" → career intent (already handled above if appointment)
-        if (q.includes("appointment")) return "career-internships";
-        return null;
+      if (q.includes("appointment")) return "career-internships";
+      if (q.includes("graduate") || q.includes("phd") || q.includes("future")) {
+        return "future-direction";
       }
+      if (q.includes("why")) return "motivation-origin";
       return "research-overview";
     }
   }
 
-  // Identity / introduction — must be about Cameron holistically
+  // Identity / introduction
   if (mentionsSpecificProject(q)) return null;
   if (q.includes("robot") || q.includes("intern") || q.includes("skill")) return null;
-  if (q.includes("award") || q.includes("publication") || q.includes("contact")) return null;
+  if (q.includes("award") || q.includes("publication")) return null;
 
   const identitySignals = [
     /^who is cameron/,
@@ -224,6 +338,16 @@ export function categoriesForResponseIntent(
       return ["skills"];
     case "career-internships":
       return ["experience"];
+    case "future-direction":
+      return ["perspective", "education", "journey"];
+    case "motivation-origin":
+      return ["perspective", "story", "journey"];
+    case "education":
+      return ["education", "identity"];
+    case "collaboration-services":
+      return ["contact", "beyond"];
+    case "research-comparison":
+      return ["research"];
     default:
       return [];
   }
@@ -327,7 +451,6 @@ export function formatRoboticsExperienceIntent(): string {
   const overview =
     "Cameron’s robotics work centers on embodied AI in agriculture and healthcare contexts — drones, rovers, embedded prototypes, and assistive robotics inside digital twin environments — not classroom simulation alone.";
 
-  // One entry per theme (no duplicate AI Farms project + AI Farms experience lines)
   const experienceLines = [
     farms
       ? `• **AI Farms** — ${farms.role}. Field robotics with drones, rovers, computer vision, and autonomous platforms for precision agriculture.`
@@ -422,7 +545,205 @@ export function formatCareerInternshipsIntent(): string {
   ]);
 }
 
-export function generateIntentResponse(intent: AskCameronResponseIntent): string {
+export function formatFutureDirectionIntent(): string {
+  const p = cameronKnowledge.perspective;
+  const overview = `${cameronKnowledge.identity.name} is preparing for graduate research that advances AI and robotics as intelligent systems for the physical world — especially agriculture, healthcare, and autonomous environments.`;
+
+  const body = [
+    overview,
+    "",
+    "**Graduate research direction**",
+    p.graduateResearchDirection,
+    "",
+    "**AI + robotics focus**",
+    p.aiRoboticsVision,
+    "",
+    "**Themes he is building toward**",
+    ...p.futureResearchInterests.map((i) => `• ${i}`),
+    "",
+    "**Career goal**",
+    "Grow into an AI scientist / robotics researcher who shapes intelligent systems that serve people, land, and communities — through graduate study (PhD path) and continued research impact.",
+  ].join("\n");
+
+  return withNav(body, [
+    `Journey (future chapter) → ${portfolioNav.journey}`,
+    `Research → ${portfolioNav.research}`,
+    `Resume → ${portfolioNav.resume}`,
+    `Connect → ${portfolioNav.connect}`,
+  ]);
+}
+
+export function formatMotivationOriginIntent(question: string): string {
+  const q = question.toLowerCase();
+  const k = cameronKnowledge;
+
+  let focus = "general" as "ai" | "robotics" | "technology" | "tuskegee" | "general";
+  if (q.includes("tuskegee")) focus = "tuskegee";
+  else if (q.includes("robot")) focus = "robotics";
+  else if (q.includes("ai") || q.includes("artificial intelligence")) focus = "ai";
+  else if (q.includes("technolog") || q.includes("computer science") || q.includes("tech"))
+    focus = "technology";
+
+  const overview =
+    "Cameron’s path is a builder’s story: curiosity started with things he could hold, then became systems he could program, then machines that act in the world.";
+
+  const body = [
+    overview,
+    "",
+    "**LEGO → computers → robotics → AI**",
+    k.story.legoStory,
+    "",
+    k.story.pcBuildingStory.split("\n\n")[0] ?? k.story.pcBuildingStory,
+    "",
+    "From hardware and software fundamentals, he moved into robotics and artificial intelligence — building systems that perceive, decide, and act in agriculture and healthcare contexts.",
+    "",
+    "**Why this path**",
+    whyAnswer(focus),
+    "",
+    focus === "tuskegee" ? null : "**Why Tuskegee also matters**",
+    focus === "tuskegee" ? null : k.perspective.whyTuskegeeMatters.split("\n\n")[0],
+  ]
+    .filter((line) => line !== null)
+    .join("\n");
+
+  return withNav(body, [
+    `Journey → ${portfolioNav.journey}`,
+    `About / research → ${portfolioNav.research}`,
+  ]);
+}
+
+export function formatEducationIntent(): string {
+  const e = cameronKnowledge.education;
+  const i = cameronKnowledge.identity;
+  const overview = `${i.name} studies ${e.major} at ${e.university}.`;
+
+  const body = [
+    overview,
+    "",
+    "**Education**",
+    `• University: ${e.university}`,
+    `• Major: ${e.major}`,
+    `• Expected graduation: ${e.expectedGraduation}`,
+    `• Location: ${e.location}`,
+    `• Hometown: ${i.hometown}`,
+  ].join("\n");
+
+  return withNav(body, [
+    `Resume → ${portfolioNav.resume}`,
+    `Journey → ${portfolioNav.journey}`,
+  ]);
+}
+
+export function formatCollaborationServicesIntent(question: string): string {
+  const q = question.toLowerCase();
+  const c = cameronKnowledge.contact;
+  const beyond = cameronKnowledge.beyondTheLab;
+  const photo = beyond.find((b) => b.id === "photography");
+  const pc = beyond.find((b) => b.id === "pc-building");
+
+  const overview = `${cameronKnowledge.identity.name} welcomes research collaboration, professional opportunities, creative projects, and thoughtful outreach related to AI, robotics, and building in the real world.`;
+
+  const services: string[] = [];
+  if (q.includes("website") || q.includes("web")) {
+    services.push(
+      "• **Websites / digital projects** — Cameron builds software and systems; for web or product work, the best next step is to email a short brief of what you need.",
+    );
+  }
+  if (q.includes("photo")) {
+    services.push(
+      `• **Photography** — ${photo?.description ?? "Cameron practices photography as a creative craft."} Theme: ${photo?.theme ?? "creativity and perspective"}.`,
+    );
+  }
+  if (q.includes("pc") || q.includes("computer build") || q.includes("hardware")) {
+    services.push(
+      `• **PC building / hardware** — ${pc?.description ?? "Cameron builds systems from the hardware up."}`,
+    );
+  }
+  if (!services.length) {
+    services.push(
+      "• Research collaboration (AI, robotics, agriculture, healthcare digital twins)",
+      "• Professional / recruiting conversations",
+      "• Creative and technical projects (including photography and hardware interests)",
+    );
+  }
+
+  const body = [
+    overview,
+    "",
+    "**Ways to work together**",
+    ...services,
+    "",
+    "**Beyond the Lab**",
+    ...beyond.map((b) => `• **${b.title}** — ${b.description}`),
+    "",
+    "**Contact**",
+    `• Email: ${c.email}`,
+    `• LinkedIn: ${c.linkedin}`,
+    `• GitHub: ${c.github}`,
+  ].join("\n");
+
+  return withNav(body, [
+    `Connect → ${portfolioNav.connect}`,
+    `Beyond the Lab → /beyond`,
+    `Resume → ${portfolioNav.resume}`,
+  ]);
+}
+
+export function formatResearchComparisonIntent(question: string): string {
+  const q = question.toLowerCase();
+  const farms = projectBySlug("ai-farms");
+  const aegis = projectBySlug("project-aegis");
+  const access = projectBySlug("access-ci");
+
+  const wantsThemes =
+    q.includes("theme") || q.includes("connected") || q.includes("connect");
+
+  const overview = wantsThemes
+    ? "Cameron’s projects are connected by one idea: intelligent systems that act in the physical world — sensing, deciding, and supporting people and land."
+    : "AI Farms and Project AEGIS show two faces of Cameron’s research: field robotics for agriculture, and healthcare digital twins for aging-in-place.";
+
+  const body = [
+    overview,
+    "",
+    farms && aegis
+      ? [
+          "**AI Farms vs Project AEGIS**",
+          `• **AI Farms** (${farms.domain}) — Role: ${farms.role}. Focus: ${farms.problem.slice(0, 2).join("; ")}. Technologies: ${joinList(farms.technologies)}. Impact: ${joinList(farms.impact)}.`,
+          `• **Project AEGIS** (${aegis.domain}) — Role: ${aegis.role}. Focus: ${aegis.problem.slice(0, 2).join("; ")}. Technologies: ${joinList(aegis.technologies)}. Impact: ${joinList(aegis.impact)}.`,
+        ].join("\n")
+      : null,
+    "",
+    "**Connecting themes**",
+    "• Embodied / physical AI — intelligence that must work outside slides",
+    "• Sensing + autonomy — drones, robots, digital twins, and simulation",
+    "• Human impact — food systems, aging-in-place dignity, research velocity",
+    access
+      ? `• Infrastructure & knowledge systems — ACCESS-CI (${access.role}) complements the applied research stack`
+      : null,
+    "",
+    "**Relevant technologies**",
+    joinList(
+      unique([
+        ...(farms?.technologies ?? []),
+        ...(aegis?.technologies ?? []),
+        ...(access?.technologies ?? []),
+      ]),
+    ),
+  ]
+    .filter((line) => line !== null)
+    .join("\n");
+
+  return withNav(body, [
+    farms ? `AI Farms → ${portfolioNav.researchProject("ai-farms")}` : "",
+    aegis ? `Project AEGIS → ${portfolioNav.researchProject("project-aegis")}` : "",
+    `All research → ${portfolioNav.research}`,
+  ]);
+}
+
+export function generateIntentResponse(
+  intent: AskCameronResponseIntent,
+  question = "",
+): string {
   switch (intent) {
     case "identity-intro":
       return formatIdentityIntroduction();
@@ -434,6 +755,16 @@ export function generateIntentResponse(intent: AskCameronResponseIntent): string
       return formatSkillsIntent();
     case "career-internships":
       return formatCareerInternshipsIntent();
+    case "future-direction":
+      return formatFutureDirectionIntent();
+    case "motivation-origin":
+      return formatMotivationOriginIntent(question);
+    case "education":
+      return formatEducationIntent();
+    case "collaboration-services":
+      return formatCollaborationServicesIntent(question);
+    case "research-comparison":
+      return formatResearchComparisonIntent(question);
     default:
       return formatIdentityIntroduction();
   }

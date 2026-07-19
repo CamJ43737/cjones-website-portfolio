@@ -4,12 +4,13 @@
 
 `cameronKnowledge.ts` is the centralized, structured source of truth for a future **Ask Cameron** AI assistant on this portfolio site.
 
-Phase 1 creates **data only**:
+Phase 1 created **data only**. Phase 2 adds a UI prototype (`AskCameron`) that answers via **local keyword matching** against this file.
 
-- No chatbot UI
-- No OpenAI / external AI APIs
-- No vector database, embeddings pipeline, or backend services
-- No homepage or route changes
+Still not included:
+
+- OpenAI / external AI APIs
+- Vector database, embeddings pipeline, or backend services
+- Homepage redesign
 
 The knowledge object answers questions such as:
 

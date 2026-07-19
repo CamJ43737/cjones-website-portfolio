@@ -4,7 +4,8 @@
  * Canonical professional facts for a future AI assistant.
  * Derived from `@/data/content` so the site remains the source of truth.
  *
- * Do not import this into UI components yet — Phase 1 is data foundation only.
+ * Phase 2 UI (`AskCameron`) reads this for local mock answers.
+ * Still no external AI APIs — keyword matching only.
  */
 
 import {

@@ -3,6 +3,7 @@ import { Syne, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { GlobalBackdrop } from "@/components/brand/TuskegeeAtmosphere";
+import { AskCameron } from "@/components/ai/AskCameron";
 import { site } from "@/data/content";
 import "./globals.css";
 
@@ -78,6 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteHeader />
         <div id="main">{children}</div>
         <SiteFooter />
+        <AskCameron />
       </body>
     </html>
   );

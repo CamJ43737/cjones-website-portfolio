@@ -8,6 +8,7 @@ import {
   cameronKnowledge,
   getCameronKnowledgeDocuments,
   portfolioNav,
+  type CameronJourneyChapter,
   type CameronKnowledgeDocument,
   type CameronResearchEntry,
 } from "@/data/cameronKnowledge";
@@ -38,6 +39,7 @@ export type AskCameronRetrievalMode =
   | "project-simple"
   | "comparison"
   | "research-timeline"
+  | "journey-chapter"
   | "perspective"
   | "research-index"
   | "ranked"
@@ -65,6 +67,8 @@ export type AskCameronRetrievalResult = {
   perspectiveDocId?: string;
   /** Composed response intent (Phase 3D) — bypasses single-doc keyword ranking. */
   responseIntent?: AskCameronResponseIntent;
+  /** Journey chapter expansion target (composition). */
+  chapterId?: string;
   /** Phase 3G — internal confidence for future LLM use */
   confidence: AskCameronConfidence;
   /** Phase 3G — answer voice guidance */
@@ -780,6 +784,302 @@ function formatSkills(): string {
   return formatSkillsIntent();
 }
 
+/** Detect / match a specific journey chapter for narrative expansion. */
+export function matchJourneyChapter(query: string): CameronJourneyChapter | null {
+  const q = query.toLowerCase().trim().replace(/[?.!]+$/g, "");
+  if (!q) return null;
+
+  const chapters = cameronKnowledge.journey;
+  const yearMatch = q.match(/\b(20\d{2}|future)\b/);
+  const year = yearMatch?.[1] ?? null;
+
+  const expandSignals =
+    /\b(expand|chapter|tell me more|go deeper|explain|what happened|during)\b/.test(q) ||
+    /^explain\s+20\d{2}$/.test(q) ||
+    /^explain\s+future$/.test(q) ||
+    /\btell me more about\b/.test(q);
+
+  const keywordHits = (c: CameronJourneyChapter): number => {
+    let score = 0;
+    const title = c.title.toLowerCase();
+    const id = c.id.toLowerCase();
+    const blob = `${title} ${id} ${c.summary.toLowerCase()}`;
+
+    if (year && c.year.toLowerCase() === year) score += 4;
+    if (q.includes("ai farms") && (blob.includes("ai farms") || id.includes("ai-farms")))
+      score += 6;
+    if (q.includes("access") && blob.includes("access")) score += 6;
+    if (q.includes("aegis") && blob.includes("aegis")) score += 6;
+    if (q.includes("tuskegee") && blob.includes("tuskegee")) score += 5;
+    if (q.includes("prairie") && blob.includes("prairie")) score += 5;
+    if (q.includes("cagi") && blob.includes("cagi")) score += 4;
+    if (q.includes("nsf") && blob.includes("nsf") && !q.includes("access")) score += 3;
+    if (q.includes("building computer") || (q.includes("2018") && q.includes("build")))
+      score += id.includes("building") ? 5 : 0;
+    if (q.includes("programming") && blob.includes("programming")) score += 4;
+    if (q.includes("fisk") || q.includes("mayor")) {
+      if (blob.includes("fisk") || blob.includes("mayor")) score += 5;
+    }
+    if (q.includes("graduate") && (c.year.toLowerCase() === "future" || id === "future"))
+      score += 4;
+
+    // Title token overlap for “expand chapter …” phrasing
+    for (const token of title.split(/[^a-z0-9]+/).filter((t) => t.length > 3)) {
+      if (q.includes(token)) score += 1;
+    }
+    return score;
+  };
+
+  // Strong chapter-expansion phrasing, or year + expand/explain/more
+  const wantsChapter =
+    /\bexpand\s+chapter\b/.test(q) ||
+    /\bchapter\s+20\d{2}\b/.test(q) ||
+    /\bwhat happened (during|in|at)\b/.test(q) ||
+    (expandSignals && Boolean(year)) ||
+    (/\b(expand|tell me more|go deeper|explain)\b/.test(q) &&
+      (q.includes("access") ||
+        q.includes("ai farms") ||
+        q.includes("aegis") ||
+        q.includes("prairie") ||
+        (q.includes("tuskegee") && (Boolean(year) || q.includes("chapter")))));
+
+  if (!wantsChapter) return null;
+
+  // Avoid stealing motivation / “why Tuskegee” / plain project explainers
+  if (
+    (q.includes("why") && q.includes("tuskegee")) ||
+    (q.includes("background") && q.includes("tuskegee") && !year && !q.includes("chapter"))
+  ) {
+    return null;
+  }
+  if (
+    /^(explain|tell me about)\s+(project\s+)?aegis\b/.test(q) &&
+    !year &&
+    !q.includes("chapter") &&
+    !q.includes("happened")
+  ) {
+    return null;
+  }
+
+  let best: CameronJourneyChapter | null = null;
+  let bestScore = 0;
+  for (const c of chapters) {
+    const score = keywordHits(c);
+    if (score > bestScore) {
+      best = c;
+      bestScore = score;
+    }
+  }
+
+  if (!best || bestScore < 4) {
+    // Year-only expand/explain: pick the research-leaning chapter for that year when possible
+    if (year) {
+      const inYear = chapters.filter((c) => c.year.toLowerCase() === year);
+      if (inYear.length === 1) return inYear[0];
+      if (inYear.length > 1) {
+        const researchish = inYear.find((c) =>
+          /ai farms|access|aegis|prairie|cagi|research|nsf/i.test(
+            `${c.id} ${c.title}`,
+          ),
+        );
+        return researchish ?? inYear[0];
+      }
+    }
+    return null;
+  }
+
+  return best;
+}
+
+function relatedRoleForChapter(chapter: CameronJourneyChapter): string | null {
+  const blob = `${chapter.id} ${chapter.title} ${chapter.summary}`.toLowerCase();
+  if (blob.includes("ai farms")) {
+    return (
+      cameronKnowledge.research.find((r) => r.slug === "ai-farms")?.role ??
+      "AI Research Assistant / Coordinator"
+    );
+  }
+  if (blob.includes("access")) {
+    return (
+      cameronKnowledge.research.find((r) => r.slug === "access-ci")?.role ??
+      "Software Engineering Intern (NSF)"
+    );
+  }
+  if (blob.includes("aegis")) {
+    return (
+      cameronKnowledge.research.find((r) => r.slug === "project-aegis")?.role ??
+      "Apartment Framework Lead"
+    );
+  }
+  if (blob.includes("prairie")) {
+    const intern = cameronKnowledge.experience.find((e) =>
+      e.role.toLowerCase().includes("robotics intern"),
+    );
+    return intern?.role ?? "Robotics Intern";
+  }
+  return null;
+}
+
+function matchedProjectsForChapter(chapter: CameronJourneyChapter): CameronResearchEntry[] {
+  const blob = `${chapter.id} ${chapter.title}`.toLowerCase();
+  return cameronKnowledge.research.filter((r) => {
+    if (blob.includes("ai farms") && r.slug === "ai-farms") return true;
+    if (blob.includes("access") && r.slug === "access-ci") return true;
+    if (blob.includes("aegis") && r.slug === "project-aegis") return true;
+    if (blob.includes("prairie") && r.slug === "prairie-view-robotics") return true;
+    if (blob.includes("cagi") && r.slug === "cagi-hackathons") return true;
+    return false;
+  });
+}
+
+function journeyDocForChapter(chapter: CameronJourneyChapter): AskCameronScoredDocument {
+  return {
+    id: `journey-${chapter.id}`,
+    category: "journey",
+    title: `${chapter.year} — ${chapter.title}`,
+    text: [chapter.summary, chapter.description, joinList(chapter.technologies)].join("\n"),
+    score: 12,
+    metadata: {
+      year: chapter.year,
+      title: chapter.title,
+      technologies: chapter.technologies,
+    },
+  };
+}
+
+/**
+ * Narrative expansion for a single timeline chapter (not a database dump).
+ */
+export function formatJourneyChapterExpansion(chapter: CameronJourneyChapter): string {
+  const tech = chapter.technologies.filter(Boolean);
+  const softThemes =
+    tech.length > 0 &&
+    tech.every((t) =>
+      /family|legacy|community|leadership|civic|scholarship|phd|innovation|hbcu/i.test(t),
+    );
+
+  const narrative = chapterNarrative(chapter);
+  const whyItMattered = whyChapterMattered(chapter);
+
+  const body = [
+    `${chapter.year} — ${chapter.title}`,
+    "",
+    narrative,
+    "",
+    whyItMattered,
+  ];
+
+  if (tech.length) {
+    body.push("", softThemes ? "Themes:" : "Technologies:", joinList(tech));
+  }
+
+  body.push("", "I can also expand another chapter from Cameron’s journey.");
+  return body.join("\n");
+}
+
+function chapterNarrative(chapter: CameronJourneyChapter): string {
+  const id = chapter.id.toLowerCase();
+  const role = relatedRoleForChapter(chapter);
+  const detail = firstBlock(chapter.description);
+
+  if (id.includes("access")) {
+    return [
+      "During the ACCESS-CI internship at the University of Illinois Urbana-Champaign, Cameron worked on applying AI and software engineering to research infrastructure.",
+      "His work focused on NLP automation and knowledge retrieval systems that helped researchers interact with complex information more efficiently.",
+      role ? `He contributed as ${role}.` : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+  }
+
+  if (id.includes("ai-farms")) {
+    return [
+      "In 2022, Cameron joined the AI Farms Research Initiative, where robotics meets precision agriculture.",
+      detail,
+      role
+        ? `As ${role}, he helped integrate sensing, autonomy, and field robotics into real agricultural environments.`
+        : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+  }
+
+  if (id.includes("aegis")) {
+    return [
+      "This chapter centers on healthcare AI and digital twins through Project AEGIS and related research acceleration.",
+      detail,
+      role ? `Cameron served as ${role}, connecting simulation environments to aging-in-place research goals.` : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+  }
+
+  if (id.includes("prairie") || id.includes("cagi")) {
+    return [
+      "This was a year of acceleration across robotics internship work, Google CSSI, and CAGI AI experiences.",
+      detail,
+      role ? `His robotics internship role (${role}) emphasized embedded systems and hands-on autonomy.` : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+  }
+
+  if (id.includes("building") || id.includes("2018")) {
+    return [
+      "In 2018, Cameron’s path was still hands-on and hardware-first — opening cases, routing cables, and treating every machine as a puzzle.",
+      detail,
+    ].join(" ");
+  }
+
+  if (id.includes("tuskegee")) {
+    return [
+      "In 2022, Cameron began Computer Science at Tuskegee University — returning to a campus already woven into his family story.",
+      firstSentence(detail),
+    ].join(" ");
+  }
+
+  // Generic narrative from chapter fields
+  const roleClause = role ? ` Cameron’s role was ${role}.` : "";
+  return `In ${chapter.year}, ${chapter.summary.replace(/\.$/, "")}. ${detail}${roleClause}`
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function whyChapterMattered(chapter: CameronJourneyChapter): string {
+  const id = chapter.id.toLowerCase();
+  if (id.includes("building") || id.includes("2018")) {
+    return "This hands-on hardware foundation shaped how Cameron approaches systems — curiosity first, then engineering discipline.";
+  }
+  if (id.includes("programming") || id.includes("2019")) {
+    return "Learning to program turned hardware intuition into software craft, setting up the path into AI and robotics research.";
+  }
+  if (id.includes("fisk") || id.includes("myc")) {
+    return "Leadership and civic voice in Nashville strengthened Cameron’s sense that technology should serve communities, not only labs.";
+  }
+  if (id.includes("tuskegee")) {
+    return "Choosing Tuskegee connected family legacy with a Computer Science path — place and purpose reinforcing each other.";
+  }
+  if (id.includes("ai-farms")) {
+    return "This experience grounded his research in the physical world — robots and sensing that have to work outdoors, not only in simulation.";
+  }
+  if (id.includes("nsf") && !id.includes("access")) {
+    return "National recognition reinforced both academic excellence and a responsibility to keep building for community impact.";
+  }
+  if (id.includes("prairie") || id.includes("cagi")) {
+    return "The year accelerated his robotics and AI training across internship, cohort, and competition settings under real constraints.";
+  }
+  if (id.includes("access")) {
+    return "This experience expanded his interest in building intelligent systems that improve how people access and use knowledge.";
+  }
+  if (id.includes("aegis")) {
+    return "Healthcare digital twins connected his robotics background to aging-in-place research — technology with direct human stakes.";
+  }
+  if (id.includes("future") || chapter.year.toLowerCase() === "future") {
+    return "This chapter looks ahead: graduate research aimed at AI that lives in soil, clinics, homes, and infrastructure.";
+  }
+  return "This chapter marks a meaningful step in how Cameron’s builder path became research with real-world impact.";
+}
+
 /**
  * Journey / timeline / background / origin — composition only.
  * Do not change retrieval; used to avoid appending project dumps after timelines.
@@ -836,7 +1136,10 @@ function formatJourney(hits: ScoredHit[], query: string): string {
 
   const hit = hits.find((h) => h.category === "journey" || h.category === "story");
   if (!hit) return firstSentence(k.story.legoStory);
-  return `${firstBlock(hit.text)}\n\nI can share more of the journey timeline if helpful.`;
+  const chapterId = hit.id.replace(/^journey-/, "");
+  const chapter = k.journey.find((c) => c.id === chapterId);
+  if (chapter) return formatJourneyChapterExpansion(chapter);
+  return `${firstBlock(hit.text)}\n\nI can also expand another chapter from Cameron’s journey.`;
 }
 
 function formatAwards(): string {
@@ -980,6 +1283,22 @@ export function retrieveAskCameronKnowledge(question: string): AskCameronRetriev
   const q = trimmed.toLowerCase();
   const matchedProjects = matchResearchInQuery(trimmed);
   const intents = [...detectIntents(trimmed)];
+
+  // Timeline chapter expansion (before intent handlers that would steal “explain 2025”)
+  const chapter = matchJourneyChapter(trimmed);
+  if (chapter) {
+    const projects = matchedProjectsForChapter(chapter);
+    return resultBase({
+      question: trimmed,
+      mode: "journey-chapter",
+      intents: [...new Set([...intents, "journey", "story"])],
+      documents: [journeyDocForChapter(chapter)],
+      matchedProjects: projects.length ? projects : matchedProjects,
+      chapterId: chapter.id,
+      confidence: "high",
+      answerVoice: "third-person",
+    });
+  }
 
   // Phase 3D/3F/3G — intent-aware composed answers (before keyword doc ranking)
   const responseIntent = detectResponseIntent(trimmed);
@@ -1150,6 +1469,18 @@ export function generateLocalAskCameronAnswer(
 
   if (retrieval.mode === "empty") return emptyPromptFallback();
 
+  // Narrative chapter expansion
+  if (retrieval.mode === "journey-chapter" || retrieval.chapterId) {
+    const chapter =
+      cameronKnowledge.journey.find((c) => c.id === retrieval.chapterId) ??
+      matchJourneyChapter(trimmed);
+    if (chapter) return formatJourneyChapterExpansion(chapter);
+  }
+  const chapterFromQuestion = matchJourneyChapter(trimmed);
+  if (chapterFromQuestion) {
+    return formatJourneyChapterExpansion(chapterFromQuestion);
+  }
+
   // Journey / timeline questions: answer that topic only (composition override).
   // Intent detection may still classify some timeline asks as research-overview;
   // do not expand into project dossiers here.
@@ -1196,6 +1527,11 @@ export function generateLocalAskCameronAnswer(
   if (retrieval.mode === "research-timeline") {
     // Timeline only — do not append project dossiers or tech lists
     return formatResearchTimeline();
+  }
+
+  if (retrieval.mode === "journey-chapter" && retrieval.chapterId) {
+    const chapter = cameronKnowledge.journey.find((c) => c.id === retrieval.chapterId);
+    if (chapter) return formatJourneyChapterExpansion(chapter);
   }
 
   if (retrieval.mode === "robotics-overview") {

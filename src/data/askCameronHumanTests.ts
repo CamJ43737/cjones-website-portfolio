@@ -112,6 +112,35 @@ export const askCameronHumanTests: AskCameronHumanTestCase[] = [
     question: "What does building mean to Cameron?",
     expectedCategories: ["perspective", "story"],
   },
+  // Timeline chapter expansion
+  {
+    id: "human-expand-2018",
+    category: "timeline chapter",
+    question: "expand chapter 2018",
+    expectedCategories: ["journey"],
+    expectedDocumentHints: ["2018", "building"],
+  },
+  {
+    id: "human-expand-2022-farms",
+    category: "timeline chapter",
+    question: "tell me more about 2022 AI Farms",
+    expectedCategories: ["journey"],
+    expectedDocumentHints: ["ai-farms", "farms"],
+  },
+  {
+    id: "human-explain-2025",
+    category: "timeline chapter",
+    question: "explain 2025",
+    expectedCategories: ["journey"],
+    expectedDocumentHints: ["2025", "access"],
+  },
+  {
+    id: "human-access-happened",
+    category: "timeline chapter",
+    question: "what happened during ACCESS-CI",
+    expectedCategories: ["journey"],
+    expectedDocumentHints: ["access"],
+  },
   // Collaboration
   {
     id: "human-can-websites",

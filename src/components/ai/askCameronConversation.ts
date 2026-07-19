@@ -227,6 +227,11 @@ function deriveSuggestedFollowUp(
       ? { kind: "project-detail", slug: firstSlug }
       : { kind: "project-detail", slug: "ai-farms" };
   }
+  if (mode === "journey-chapter") {
+    return firstSlug
+      ? { kind: "project-detail", slug: firstSlug }
+      : { kind: "journey" };
+  }
   if (mode === "perspective") {
     return { kind: "future-direction" };
   }
@@ -263,6 +268,9 @@ function deriveDiscussedTopic(retrieval: AskCameronRetrievalResult): string | nu
   }
   if (intent) return intent;
   if (retrieval.mode === "research-timeline") return "research-timeline";
+  if (retrieval.mode === "journey-chapter") {
+    return retrieval.chapterId ? `chapter:${retrieval.chapterId}` : "journey";
+  }
   if (retrieval.mode === "research-overview" || retrieval.mode === "research-index") {
     return "research";
   }
@@ -332,9 +340,11 @@ export function refineFollowUpFromAnswer(
   ) {
     const slug = state.lastMatchedProjectSlugs[0];
     if (slug) suggested = { kind: "project-detail", slug };
-  } else if (closing.includes("expand any chapter")) {
-    const slug = state.lastMatchedProjectSlugs[0] ?? "ai-farms";
-    suggested = { kind: "project-detail", slug };
+  } else if (
+    closing.includes("expand any chapter") ||
+    closing.includes("expand another chapter")
+  ) {
+    suggested = { kind: "journey" };
   } else if (
     closing.includes("go deeper on the technology") ||
     closing.includes("cameron’s role") ||

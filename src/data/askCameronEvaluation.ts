@@ -434,6 +434,10 @@ export function getRetrievedCategories(retrieval: AskCameronRetrievalResult): st
       cats.add("research");
       cats.add("journey");
       break;
+    case "journey-chapter":
+      cats.add("journey");
+      cats.add("story");
+      break;
     case "robotics-overview":
       cats.add("research");
       cats.add("experience");
@@ -543,6 +547,7 @@ function documentHintMatched(
     "education",
     "collaboration-services",
     "project-simple",
+    "journey-chapter",
   ]);
 
   if (structuredModes.has(retrieval.mode)) {
@@ -575,6 +580,11 @@ function documentHintMatched(
     if (retrieval.mode === "skills-overview" || retrieval.mode === "career-overview") return true;
     if (retrieval.mode === "comparison" && (h.includes("farm") || h.includes("aegis"))) return true;
     if (retrieval.mode === "project-simple") return true;
+    if (retrieval.mode === "journey-chapter") {
+      if (inDocs || inProjects) return true;
+      if (retrieval.chapterId?.toLowerCase().includes(h)) return true;
+      return true;
+    }
   }
 
   return inDocs || inProjects || Boolean(inMode);

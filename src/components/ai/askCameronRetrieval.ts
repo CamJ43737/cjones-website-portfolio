@@ -11,12 +11,22 @@ import {
   type CameronKnowledgeDocument,
   type CameronResearchEntry,
 } from "@/data/cameronKnowledge";
+import {
+  categoriesForResponseIntent,
+  detectResponseIntent,
+  generateIntentResponse,
+  type AskCameronResponseIntent,
+} from "@/components/ai/askCameronIntentResponses";
 
 export type AskCameronRetrievalMode =
   | "empty"
+  | "identity-intro"
+  | "research-overview"
+  | "robotics-overview"
+  | "skills-overview"
+  | "career-overview"
   | "comparison"
   | "research-timeline"
-  | "robotics-overview"
   | "perspective"
   | "research-index"
   | "ranked"
@@ -39,10 +49,69 @@ export type AskCameronRetrievalResult = {
   matchedProjects: CameronResearchEntry[];
   comparisonProjects?: CameronResearchEntry[];
   perspectiveDocId?: string;
+  /** Composed response intent (Phase 3D) — bypasses single-doc keyword ranking. */
+  responseIntent?: AskCameronResponseIntent;
   /** For research-index mode extras */
   includeExperience?: boolean;
   includeSkills?: boolean;
 };
+
+function modeForResponseIntent(intent: AskCameronResponseIntent): AskCameronRetrievalMode {
+  switch (intent) {
+    case "identity-intro":
+      return "identity-intro";
+    case "research-overview":
+      return "research-overview";
+    case "robotics-experience":
+      return "robotics-overview";
+    case "skills":
+      return "skills-overview";
+    case "career-internships":
+      return "career-overview";
+    default:
+      return "ranked";
+  }
+}
+
+function contextDocsForIntent(intent: AskCameronResponseIntent): AskCameronScoredDocument[] {
+  const all = getCameronKnowledgeDocuments();
+  const wanted = new Set(categoriesForResponseIntent(intent));
+
+  const picked = all
+    .filter((d) => wanted.has(d.category) || (intent === "identity-intro" && d.category === "identity"))
+    .slice(0, 8)
+    .map((d) => ({
+      id: d.id,
+      category: d.category,
+      title: d.title,
+      text: d.text,
+      score: 10,
+      metadata: d.metadata,
+    }));
+
+  // Ensure key research projects appear in context for composed intents
+  if (
+    intent === "identity-intro" ||
+    intent === "research-overview" ||
+    intent === "robotics-experience"
+  ) {
+    for (const slug of ["ai-farms", "project-aegis", "access-ci"]) {
+      const doc = all.find((d) => d.id === `research-${slug}`);
+      if (doc && !picked.some((p) => p.id === doc.id)) {
+        picked.push({
+          id: doc.id,
+          category: doc.category,
+          title: doc.title,
+          text: doc.text,
+          score: 10,
+          metadata: doc.metadata,
+        });
+      }
+    }
+  }
+
+  return picked;
+}
 
 export const SUGGESTED_QUESTIONS = [
   "What research projects has Cameron worked on?",
@@ -915,6 +984,29 @@ export function retrieveAskCameronKnowledge(question: string): AskCameronRetriev
   const matchedProjects = matchResearchInQuery(trimmed);
   const intents = [...detectIntents(trimmed)];
 
+  // Phase 3D — intent-aware composed answers (before keyword doc ranking)
+  const responseIntent = detectResponseIntent(trimmed);
+  if (responseIntent) {
+    const intentCats = categoriesForResponseIntent(responseIntent);
+    return {
+      question: trimmed,
+      mode: modeForResponseIntent(responseIntent),
+      intents: [...new Set([...intents, ...intentCats, responseIntent])],
+      documents: contextDocsForIntent(responseIntent),
+      matchedProjects:
+        responseIntent === "research-overview" ||
+        responseIntent === "identity-intro" ||
+        responseIntent === "robotics-experience"
+          ? cameronKnowledge.research.filter((r) =>
+              ["ai-farms", "project-aegis", "access-ci", "prairie-view-robotics"].includes(
+                r.slug,
+              ),
+            )
+          : matchedProjects,
+      responseIntent,
+    };
+  }
+
   if (isComparisonQuestion(trimmed)) {
     let pair = matchedProjects;
     if (pair.length < 2) {
@@ -1047,6 +1139,11 @@ export function generateLocalAskCameronAnswer(
   const trimmed = retrieval.question;
 
   if (retrieval.mode === "empty") return emptyPromptFallback();
+
+  // Phase 3D — composed intent responses
+  if (retrieval.responseIntent) {
+    return generateIntentResponse(retrieval.responseIntent);
+  }
 
   if (retrieval.mode === "comparison" && retrieval.comparisonProjects?.length) {
     const pair = retrieval.comparisonProjects;

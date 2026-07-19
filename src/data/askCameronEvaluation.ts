@@ -211,6 +211,43 @@ export const askCameronTestQuestions: AskCameronTestQuestion[] = [
     question: "How can I contact Cameron?",
     expectedCategories: ["contact"],
   },
+  // Phase 3D — intent-aware composed responses
+  {
+    id: "intent-who-is-cameron",
+    category: "identity",
+    question: "Who is Cameron?",
+    expectedCategories: ["identity", "research", "story"],
+  },
+  {
+    id: "intent-tell-me-about-cameron",
+    category: "identity",
+    question: "Tell me about Cameron",
+    expectedCategories: ["identity", "research", "experience"],
+  },
+  {
+    id: "intent-research-overview",
+    category: "research",
+    question: "What research does Cameron do?",
+    expectedCategories: ["research"],
+  },
+  {
+    id: "intent-robotics-experience",
+    category: "robotics",
+    question: "What robotics experience does Cameron have?",
+    expectedCategories: ["research", "experience", "skills"],
+  },
+  {
+    id: "intent-technologies",
+    category: "skills",
+    question: "What technologies does Cameron use?",
+    expectedCategories: ["skills"],
+  },
+  {
+    id: "intent-internships",
+    category: "internships",
+    question: "What internships has Cameron completed?",
+    expectedCategories: ["experience"],
+  },
 ];
 
 export type AskCameronEvalCaseResult = {
@@ -242,6 +279,7 @@ export function getRetrievedCategories(retrieval: AskCameronRetrievalResult): st
   switch (retrieval.mode) {
     case "comparison":
     case "research-index":
+    case "research-overview":
       cats.add("research");
       break;
     case "research-timeline":
@@ -253,11 +291,40 @@ export function getRetrievedCategories(retrieval: AskCameronRetrievalResult): st
       cats.add("experience");
       cats.add("skills");
       break;
+    case "identity-intro":
+      cats.add("identity");
+      cats.add("story");
+      cats.add("research");
+      cats.add("experience");
+      cats.add("journey");
+      cats.add("perspective");
+      break;
+    case "skills-overview":
+      cats.add("skills");
+      break;
+    case "career-overview":
+      cats.add("experience");
+      cats.add("research");
+      break;
     case "perspective":
       cats.add("perspective");
       break;
     default:
       break;
+  }
+
+  if (retrieval.responseIntent) {
+    for (const c of [
+      "identity",
+      "story",
+      "research",
+      "experience",
+      "journey",
+      "perspective",
+      "skills",
+    ]) {
+      if (retrieval.intents.includes(c)) cats.add(c);
+    }
   }
 
   if (retrieval.matchedProjects.length) cats.add("research");
@@ -288,24 +355,36 @@ function documentHintMatched(
     (h.includes("farm") &&
       retrieval.comparisonProjects?.some((p) => p.slug.includes("farm")));
 
-  // Structured modes that answer the topic without ranked docs still count
-  if (
-    !retrieval.documents.length &&
-    (retrieval.mode === "comparison" ||
-      retrieval.mode === "research-timeline" ||
-      retrieval.mode === "robotics-overview" ||
-      retrieval.mode === "perspective" ||
-      retrieval.mode === "research-index")
-  ) {
-    if (inProjects || inMode) return true;
-    if (retrieval.mode === "research-index" && (h.includes("farm") || h.includes("aegis") || h.includes("access"))) {
+  // Structured / intent modes that answer without relying on a single ranked doc
+  const structuredModes = new Set([
+    "comparison",
+    "research-timeline",
+    "robotics-overview",
+    "perspective",
+    "research-index",
+    "identity-intro",
+    "research-overview",
+    "skills-overview",
+    "career-overview",
+  ]);
+
+  if (structuredModes.has(retrieval.mode)) {
+    if (inProjects || inMode || inDocs) return true;
+    if (
+      (retrieval.mode === "research-index" || retrieval.mode === "research-overview") &&
+      (h.includes("farm") || h.includes("aegis") || h.includes("access"))
+    ) {
       return true;
     }
-    if (retrieval.mode === "perspective") return true;
-    if (retrieval.mode === "robotics-overview" && (h.includes("prairie") || h.includes("robot"))) {
+    if (retrieval.mode === "perspective" || retrieval.mode === "identity-intro") return true;
+    if (
+      retrieval.mode === "robotics-overview" &&
+      (h.includes("prairie") || h.includes("robot") || h.includes("aegis") || h.includes("farm"))
+    ) {
       return true;
     }
     if (retrieval.mode === "research-timeline") return true;
+    if (retrieval.mode === "skills-overview" || retrieval.mode === "career-overview") return true;
   }
 
   return inDocs || inProjects || Boolean(inMode);

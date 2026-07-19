@@ -248,6 +248,31 @@ export const askCameronTestQuestions: AskCameronTestQuestion[] = [
     question: "What internships has Cameron completed?",
     expectedCategories: ["experience"],
   },
+  // Phase 3E — precision checks
+  {
+    id: "precision-where-interned",
+    category: "internships",
+    question: "Where has Cameron interned?",
+    expectedCategories: ["experience"],
+  },
+  {
+    id: "precision-research-appointments",
+    category: "internships",
+    question: "What research appointments has Cameron held?",
+    expectedCategories: ["experience"],
+  },
+  {
+    id: "precision-robotics-experience",
+    category: "robotics",
+    question: "What robotics experience does Cameron have?",
+    expectedCategories: ["research", "experience", "skills"],
+  },
+  {
+    id: "precision-technologies",
+    category: "skills",
+    question: "What technologies does Cameron use?",
+    expectedCategories: ["skills"],
+  },
 ];
 
 export type AskCameronEvalCaseResult = {

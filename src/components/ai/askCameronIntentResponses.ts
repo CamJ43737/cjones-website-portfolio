@@ -1,11 +1,12 @@
 /**
- * Ask Cameron — intent-aware composed responses (Phase 3D).
+ * Ask Cameron — intent-aware composed responses (Phase 3D/3E).
  * Local only. Used before keyword ranking so intro questions don't latch onto a single timeline doc.
  */
 
 import {
   cameronKnowledge,
   portfolioNav,
+  type CameronExperienceEntry,
   type CameronResearchEntry,
 } from "@/data/cameronKnowledge";
 
@@ -18,6 +19,10 @@ export type AskCameronResponseIntent =
 
 function joinList(items: string[]): string {
   return items.length ? items.join(", ") : "None listed";
+}
+
+function unique(items: string[]): string[] {
+  return [...new Set(items.filter(Boolean))];
 }
 
 function projectBySlug(slug: string): CameronResearchEntry | undefined {
@@ -36,6 +41,49 @@ function mentionsSpecificProject(q: string): boolean {
       (r.slug === "access-ci" && q.includes("access"))
     );
   });
+}
+
+/** Internships + research appointments — excludes demos and one-off project labels. */
+export function getInternshipAppointments(): CameronExperienceEntry[] {
+  return cameronKnowledge.experience.filter((e) => {
+    const role = e.role.toLowerCase();
+    if (role.includes("demo")) return false;
+    if (role.includes("intern")) return true;
+    if (role.includes("research assistant") || role.includes("coordinator")) return true;
+    return false;
+  });
+}
+
+/** Technologies evidenced in experience and/or research entries (not unverified skill labels). */
+function evidencedTechnologies(): string[] {
+  return unique([
+    ...cameronKnowledge.experience.flatMap((e) => e.technologies),
+    ...cameronKnowledge.research.flatMap((r) => r.technologies),
+  ]);
+}
+
+function roboticsTechnologies(): string[] {
+  const evidenced = evidencedTechnologies().map((t) => t.toLowerCase());
+  const fromSkills = cameronKnowledge.technicalSkills.robotics.filter((skill) => {
+    const s = skill.toLowerCase();
+    // Never claim ROS unless it appears in experience/research tech lists
+    if (s === "ros") {
+      return evidenced.some((t) => t.includes("ros"));
+    }
+    return true;
+  });
+  const fromProjects = evidencedTechnologies().filter((t) =>
+    /robot|arduino|sensor|drone|rover|navmesh|unity|autonomous|cv|vision/i.test(t),
+  );
+  return unique([...fromSkills, ...fromProjects]);
+}
+
+function withNav(body: string, links: string[]): string {
+  const uniqueLinks = [...new Set(links.filter(Boolean))];
+  if (!uniqueLinks.length) return body;
+  return [body, "", "**Explore on this site**", ...uniqueLinks.map((l) => `• ${l}`)].join(
+    "\n",
+  );
 }
 
 /**
@@ -81,9 +129,10 @@ export function detectResponseIntent(question: string): AskCameronResponseIntent
     return "robotics-experience";
   }
 
-  // Career / internships
+  // Career / internships / research appointments
   if (
     q.includes("intern") ||
+    q.includes("appointment") ||
     (q.includes("where") && (q.includes("work") || q.includes("intern"))) ||
     (q.includes("experience") &&
       !q.includes("robot") &&
@@ -109,13 +158,15 @@ export function detectResponseIntent(question: string): AskCameronResponseIntent
       q.includes("cameron's research") ||
       q.includes("camerons research")
     ) {
-      // Avoid stealing graduate/perspective questions
       if (
         q.includes("graduate") ||
         q.includes("phd") ||
         q.includes("future research interest") ||
-        q.includes("why")
+        q.includes("why") ||
+        q.includes("appointment")
       ) {
+        // "research appointments" → career intent (already handled above if appointment)
+        if (q.includes("appointment")) return "career-internships";
         return null;
       }
       return "research-overview";
@@ -172,16 +223,10 @@ export function categoriesForResponseIntent(
     case "skills":
       return ["skills"];
     case "career-internships":
-      return ["experience", "research"];
+      return ["experience"];
     default:
       return [];
   }
-}
-
-function withNav(body: string, links: string[]): string {
-  const unique = [...new Set(links.filter(Boolean))];
-  if (!unique.length) return body;
-  return [body, "", "**Explore on this site**", ...unique.map((l) => `• ${l}`)].join("\n");
 }
 
 export function formatIdentityIntroduction(): string {
@@ -191,21 +236,21 @@ export function formatIdentityIntroduction(): string {
   const aegis = projectBySlug("project-aegis");
   const access = projectBySlug("access-ci");
 
-  const intro = [
+  const overview = [
     `**${i.name}** is a ${i.major} student at ${i.university} (expected graduation ${i.graduation}), working as an AI researcher and robotics engineer.`,
     `His research focuses on ${joinList(i.researchFocus)} — building intelligent systems where artificial intelligence meets the physical world.`,
   ].join(" ");
 
-  const origin = [
+  const body = [
+    overview,
+    "",
     "**Origin story**",
     k.story.legoStory,
     "",
     k.story.pcBuildingStory.split("\n\n")[0] ?? k.story.pcBuildingStory,
     "",
     "That path grew into software, robotics, and AI research — curiosity that never stopped building.",
-  ].join("\n");
-
-  const current = [
+    "",
     "**Current work**",
     farms
       ? `• **AI Farms** — ${farms.role}. ${farms.description.split("\n\n")[0]}`
@@ -216,25 +261,27 @@ export function formatIdentityIntroduction(): string {
     access
       ? `• **ACCESS-CI** — ${access.role}. ${access.description.split("\n\n")[0]}`
       : null,
-  ]
-    .filter(Boolean)
-    .join("\n");
-
-  const future = [
-    "**Future direction**",
-    k.perspective.aiRoboticsVision,
     "",
+    "**Relevant technologies**",
+    joinList(
+      unique([
+        ...(farms?.technologies ?? []),
+        ...(aegis?.technologies ?? []),
+        ...(access?.technologies ?? []),
+      ]),
+    ),
+    "",
+    "**Future direction**",
     k.perspective.graduateResearchDirection.split("\n\n")[0] ??
       k.perspective.graduateResearchDirection,
-  ].join("\n");
+  ]
+    .filter((line) => line !== null)
+    .join("\n");
 
-  return withNav([intro, "", origin, "", current, "", future].join("\n"), [
+  return withNav(body, [
     `Research dossiers → ${portfolioNav.research}`,
     `Journey → ${portfolioNav.journey}`,
     `Resume → ${portfolioNav.resume}`,
-    farms ? `AI Farms → ${portfolioNav.researchProject("ai-farms")}` : "",
-    aegis ? `Project AEGIS → ${portfolioNav.researchProject("project-aegis")}` : "",
-    access ? `ACCESS-CI → ${portfolioNav.researchProject("access-ci")}` : "",
   ]);
 }
 
@@ -244,24 +291,22 @@ export function formatResearchOverviewIntent(): string {
     .map((slug) => projectBySlug(slug))
     .filter(Boolean) as CameronResearchEntry[];
 
+  const overview = `${k.identity.name} researches ${joinList(k.identity.researchFocus)}, with flagship work in precision agriculture robotics, healthcare digital twins, and AI-powered research infrastructure.`;
+
   const body = [
-    "**Research focus**",
-    `${k.identity.name} researches ${joinList(k.identity.researchFocus)}.`,
-    k.perspective.researchInterestsSummary,
+    overview,
     "",
     "**Projects**",
     ...featured.map(
       (r) =>
-        `• **${r.project}** (${r.domain})\n  Role: ${r.role}\n  ${r.description.split("\n\n")[0]}\n  Impact: ${joinList(r.impact)}\n  Dossier: ${portfolioNav.researchProject(r.slug)}`,
+        `• **${r.project}** (${r.domain}) — Role: ${r.role}. ${r.description.split("\n\n")[0]} Impact: ${joinList(r.impact)}.`,
     ),
     "",
-    "**Technologies**",
-    joinList([
-      ...new Set(featured.flatMap((r) => r.technologies)),
-    ]),
+    "**Relevant technologies**",
+    joinList(unique(featured.flatMap((r) => r.technologies))),
     "",
-    "**Impact themes**",
-    "Precision agriculture efficiency and conservation; healthcare digital twins for aging-in-place; AI-powered research cyberinfrastructure that reduces manual knowledge work.",
+    "**Impact**",
+    "Field systems that conserve resources; digital twins that support aging-in-place research; NLP automation that speeds research cyberinfrastructure workflows.",
   ].join("\n");
 
   return withNav(body, [
@@ -272,54 +317,43 @@ export function formatResearchOverviewIntent(): string {
 }
 
 export function formatRoboticsExperienceIntent(): string {
-  const k = cameronKnowledge;
   const farms = projectBySlug("ai-farms");
   const aegis = projectBySlug("project-aegis");
   const prairie = projectBySlug("prairie-view-robotics");
+  const roboticsIntern = cameronKnowledge.experience.find((e) =>
+    e.role.toLowerCase().includes("robotics intern"),
+  );
+
+  const overview =
+    "Cameron’s robotics work centers on embodied AI in agriculture and healthcare contexts — drones, rovers, embedded prototypes, and assistive robotics inside digital twin environments — not classroom simulation alone.";
+
+  // One entry per theme (no duplicate AI Farms project + AI Farms experience lines)
+  const experienceLines = [
+    farms
+      ? `• **AI Farms** — ${farms.role}. Field robotics with drones, rovers, computer vision, and autonomous platforms for precision agriculture.`
+      : null,
+    roboticsIntern
+      ? `• **Prairie View A&M Robotics Internship** (${roboticsIntern.dates}) — ${roboticsIntern.responsibilities}`
+      : prairie
+        ? `• **Prairie View Robotics** — ${prairie.role}: hands-on autonomous systems, embedded sensing, and prototyping.`
+        : null,
+    aegis
+      ? `• **Project AEGIS** — ${aegis.role}. Digital twin apartment framework with assistive robotics integration (RoboDog concepts for aging-in-place research).`
+      : null,
+  ].filter(Boolean);
 
   const body = [
-    "**Robotics experience**",
-    k.perspective.aiRoboticsVision,
+    overview,
     "",
     "**Experience**",
-    farms
-      ? `• **AI Farms** — field robotics with drones, rovers, vision, and autonomous platforms for precision agriculture (${farms.role}).`
-      : null,
-    prairie
-      ? `• **Prairie View Robotics** — ${prairie.role}: hands-on autonomous systems, embedded sensing, and prototyping.`
-      : null,
-    aegis
-      ? `• **Project AEGIS** — ${aegis.role}: digital twin environments with assistive robotics integration (including RoboDog concepts in the aging-in-place ecosystem).`
-      : null,
-    ...k.experience
-      .filter(
-        (e) =>
-          /robot/i.test(e.role) ||
-          e.technologies.some((t) => /robot/i.test(t)) ||
-          /robot|drone|rover/i.test(e.responsibilities),
-      )
-      .map(
-        (e) =>
-          `• **${e.role}** @ ${e.organization} (${e.dates}) — ${e.responsibilities}`,
-      ),
+    ...experienceLines,
     "",
-    "**Hardware & software**",
-    `Robotics stack: ${joinList(k.technicalSkills.robotics)}.`,
-    `Also used across projects: ${joinList(
-      [
-        ...new Set(
-          [farms, aegis, prairie]
-            .filter(Boolean)
-            .flatMap((r) => r!.technologies),
-        ),
-      ],
-    )}.`,
+    "**Relevant technologies**",
+    joinList(roboticsTechnologies()),
     "",
     "**Applications**",
-    "Precision agriculture (sensing, autonomy, field demos), embedded robotics prototypes, and healthcare-oriented digital twin / assistive robotics research.",
-  ]
-    .filter(Boolean)
-    .join("\n");
+    "Precision agriculture sensing and autonomy; embedded robotics prototypes; healthcare-oriented digital twin and assistive robotics research.",
+  ].join("\n");
 
   return withNav(body, [
     `AI Farms → ${portfolioNav.researchProject("ai-farms")}`,
@@ -331,29 +365,31 @@ export function formatRoboticsExperienceIntent(): string {
 
 export function formatSkillsIntent(): string {
   const s = cameronKnowledge.technicalSkills;
+  const robotics = roboticsTechnologies();
+  const overview = `${cameronKnowledge.identity.name} works across AI research software, robotics/embedded systems, and research tooling for physical-world applications.`;
+
   const body = [
-    `**Technical skills — ${cameronKnowledge.identity.name}**`,
+    overview,
     "",
     "**Programming languages**",
     joinList(s.languages),
     "",
     "**AI tools & methods**",
-    joinList(s.ai),
+    joinList(s.ai.filter((t) => t.toLowerCase() !== "ros")),
     "",
-    "**Robotics tools**",
-    joinList(s.robotics),
+    "**Robotics & embodied systems**",
+    joinList(robotics),
     "",
-    "**Frameworks**",
+    "**Frameworks & platforms**",
     joinList(s.frameworks),
     "",
     "**Research methods & tools**",
-    joinList([
-      ...s.categories.find((c) => c.name === "Research")?.skills ?? [],
-      ...s.tools,
-    ]),
-    "",
-    "By category:",
-    ...s.categories.map((c) => `• ${c.name}: ${joinList(c.skills)}`),
+    joinList(
+      unique([
+        ...(s.categories.find((c) => c.name === "Research")?.skills ?? []),
+        ...s.tools,
+      ]),
+    ),
   ].join("\n");
 
   return withNav(body, [
@@ -363,20 +399,21 @@ export function formatSkillsIntent(): string {
 }
 
 export function formatCareerInternshipsIntent(): string {
+  const appointments = getInternshipAppointments();
+  const overview = `${cameronKnowledge.identity.name} has held research appointments and internships spanning precision agriculture AI, healthcare digital twins, research cyberinfrastructure, embedded robotics, and industry operations.`;
+
   const body = [
-    `**Experience & internships — ${cameronKnowledge.identity.name}**`,
+    overview,
     "",
-    ...cameronKnowledge.experience.map(
+    "**Internships & research appointments**",
+    ...appointments.map(
       (e) =>
-        [
-          `**${e.role}**`,
-          `Organization: ${e.organization}`,
-          `Dates: ${e.dates}`,
-          `Impact: ${e.responsibilities}`,
-          `Technologies: ${joinList(e.technologies)}`,
-        ].join("\n"),
+        `• **${e.role}** — ${e.organization} (${e.dates}). ${e.responsibilities}`,
     ),
-  ].join("\n\n");
+    "",
+    "**Relevant technologies**",
+    joinList(unique(appointments.flatMap((e) => e.technologies))),
+  ].join("\n");
 
   return withNav(body, [
     `Full experience → ${portfolioNav.experience}`,

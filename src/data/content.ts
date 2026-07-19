@@ -680,7 +680,7 @@ export const skillCategories = [
   },
   {
     name: "Robotics",
-    skills: ["ROS", "Arduino", "Sensors", "Autonomous Systems"],
+    skills: ["Arduino", "Sensors", "Autonomous Systems", "Drones"],
   },
   {
     name: "Software",

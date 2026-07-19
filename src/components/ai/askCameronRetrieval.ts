@@ -14,6 +14,9 @@ import {
 import {
   categoriesForResponseIntent,
   detectResponseIntent,
+  formatCareerInternshipsIntent,
+  formatRoboticsExperienceIntent,
+  formatSkillsIntent,
   generateIntentResponse,
   type AskCameronResponseIntent,
 } from "@/components/ai/askCameronIntentResponses";
@@ -636,37 +639,7 @@ function formatResearchTimeline(): string {
 }
 
 function formatRoboticsOverview(): string {
-  const research = cameronKnowledge.research.filter((r) =>
-    /robot|farm|aegis|prairie|hack/i.test(
-      `${r.project} ${r.domain} ${r.technologies.join(" ")}`,
-    ),
-  );
-  const experience = cameronKnowledge.experience.filter(
-    (e) =>
-      /robot/i.test(e.role) ||
-      e.technologies.some((t) => /robot/i.test(t)) ||
-      /robot/i.test(e.responsibilities),
-  );
-
-  return [
-    "**Robotics experience overview**",
-    "",
-    cameronKnowledge.perspective.aiRoboticsVision,
-    "",
-    "**Research with robotics**",
-    ...research.map(
-      (r) =>
-        `• **${r.project}** — Role: ${r.role}. Tech: ${joinList(r.technologies)}. Impact: ${joinList(r.impact)}.`,
-    ),
-    "",
-    "**Roles & internships**",
-    ...experience.map(
-      (e) =>
-        `• **${e.role}** @ ${e.organization} (${e.dates}) — ${e.responsibilities}`,
-    ),
-    "",
-    `**Robotics skills:** ${joinList(cameronKnowledge.technicalSkills.robotics)}`,
-  ].join("\n");
+  return formatRoboticsExperienceIntent();
 }
 
 function formatPerspective(hitId?: string): string {
@@ -727,7 +700,6 @@ function formatPerspective(hitId?: string): string {
 }
 
 function formatExperienceHits(hits: ScoredHit[], forceRobotics = false): string {
-  const k = cameronKnowledge;
   const roboticsFocus =
     forceRobotics ||
     hits.some(
@@ -735,43 +707,13 @@ function formatExperienceHits(hits: ScoredHit[], forceRobotics = false): string 
         h.text.toLowerCase().includes("robot") ||
         h.title.toLowerCase().includes("robot"),
     );
-  const rows = roboticsFocus
-    ? k.experience.filter(
-        (e) =>
-          /robot/i.test(e.role) ||
-          e.technologies.some((t) => /robot/i.test(t)) ||
-          /robot/i.test(e.responsibilities),
-      )
-    : k.experience;
 
-  const list = (rows.length ? rows : k.experience).map((e) =>
-    [
-      `**${e.role}**`,
-      `Organization: ${e.organization}`,
-      `Dates: ${e.dates}`,
-      `Impact: ${e.responsibilities}`,
-      `Technologies: ${joinList(e.technologies)}`,
-    ].join("\n"),
-  );
-
-  return [
-    roboticsFocus ? "**Robotics-related experience**" : "**Professional experience**",
-    "",
-    list.join("\n\n"),
-  ].join("\n");
+  if (roboticsFocus) return formatRoboticsExperienceIntent();
+  return formatCareerInternshipsIntent();
 }
 
 function formatSkills(): string {
-  const s = cameronKnowledge.technicalSkills;
-  return [
-    "**Technical skills**",
-    "",
-    `AI / research: ${joinList(s.ai)}`,
-    `Languages: ${joinList(s.languages)}`,
-    `Frameworks: ${joinList(s.frameworks)}`,
-    `Robotics: ${joinList(s.robotics)}`,
-    `Tools: ${joinList(s.tools)}`,
-  ].join("\n");
+  return formatSkillsIntent();
 }
 
 function formatJourney(hits: ScoredHit[], query: string): string {

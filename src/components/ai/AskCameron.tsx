@@ -11,7 +11,10 @@ import {
 } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MessageSquareText, Send, Sparkles, X } from "lucide-react";
-import { cameronKnowledge } from "@/data/cameronKnowledge";
+import {
+  SUGGESTED_QUESTIONS,
+  answerFromKnowledge,
+} from "@/components/ai/askCameronRetrieval";
 import { cn } from "@/lib/cn";
 
 type ChatRole = "user" | "assistant";
@@ -22,194 +25,27 @@ type ChatMessage = {
   content: string;
 };
 
-const SUGGESTED_QUESTIONS = [
-  "What research projects has Cameron worked on?",
-  "Explain Project AEGIS.",
-  "What AI technologies does Cameron use?",
-  "Tell me about Cameron's background.",
-  "How can I contact Cameron?",
-] as const;
-
-function joinList(items: string[]): string {
-  return items.length ? items.join(", ") : "None listed";
-}
-
-/** Local Phase-2 mock answering — keyword match against cameronKnowledge. */
-export function answerFromKnowledge(question: string): string {
-  const q = question.toLowerCase().trim();
-  const k = cameronKnowledge;
-
-  if (!q) {
-    return "Ask about Cameron’s research, experience, technologies, background, or how to get in touch.";
-  }
-
-  // Project-specific matches first
-  const projectHit = k.research.find((r) => {
-    const name = r.project.toLowerCase();
-    const slug = r.slug.replace(/-/g, " ");
-    return (
-      q.includes(name) ||
-      q.includes(slug) ||
-      (r.slug === "project-aegis" && (q.includes("aegis") || q.includes("digital twin"))) ||
-      (r.slug === "ai-farms" &&
-        (q.includes("ai farms") || q.includes("precision agriculture") || q.includes("farm"))) ||
-      (r.slug === "access-ci" && (q.includes("access") || q.includes("nlp"))) ||
-      (r.slug === "prairie-view-robotics" &&
-        (q.includes("prairie") || q.includes("pvamu"))) ||
-      (r.slug === "cagi-hackathons" && (q.includes("cagi") || q.includes("hackathon")))
-    );
-  });
-
-  if (
-    projectHit &&
-    (q.includes("explain") ||
-      q.includes("about") ||
-      q.includes("what is") ||
-      q.includes("tell me") ||
-      q.includes("aegis") ||
-      q.includes("ai farms") ||
-      q.includes("access") ||
-      q.includes("prairie") ||
-      q.includes("cagi") ||
-      q.includes("hackathon") ||
-      q.includes("digital twin"))
-  ) {
-    return [
-      `**${projectHit.project}** — ${projectHit.domain}`,
-      "",
-      projectHit.description,
-      "",
-      `Role: ${projectHit.role}`,
-      `Institutions: ${joinList(projectHit.institution)}`,
-      projectHit.award ? `Award: ${projectHit.award}` : "",
-      `Technologies: ${joinList(projectHit.technologies)}`,
-      `Impact: ${joinList(projectHit.impact)}`,
-    ]
-      .filter(Boolean)
-      .join("\n");
-  }
-
-  if (
-    q.includes("research") ||
-    q.includes("projects") ||
-    q.includes("worked on") ||
-    q.includes("laboratory")
-  ) {
-    const lines = k.research.map(
-      (r) =>
-        `• **${r.project}** (${r.domain}) — ${r.role}. ${r.description.split("\n\n")[0]}`,
-    );
-    return [
-      `${k.identity.name}’s research focuses on ${joinList(k.identity.researchFocus)}.`,
-      "",
-      "Featured projects:",
-      ...lines,
-    ].join("\n");
-  }
-
-  if (
-    q.includes("technolog") ||
-    q.includes("skills") ||
-    q.includes("stack") ||
-    q.includes("tools") ||
-    (q.includes("ai") && (q.includes("use") || q.includes("technolog")))
-  ) {
-    return [
-      "Cameron’s technical toolkit includes:",
-      "",
-      `• AI / research: ${joinList(k.technicalSkills.ai)}`,
-      `• Languages: ${joinList(k.technicalSkills.languages)}`,
-      `• Frameworks: ${joinList(k.technicalSkills.frameworks)}`,
-      `• Robotics: ${joinList(k.technicalSkills.robotics)}`,
-      `• Tools: ${joinList(k.technicalSkills.tools)}`,
-    ].join("\n");
-  }
-
-  if (
-    q.includes("background") ||
-    q.includes("story") ||
-    q.includes("about cameron") ||
-    q.includes("who is") ||
-    q.includes("lego") ||
-    q.includes("builder")
-  ) {
-    return [
-      k.story.headline,
-      "",
-      k.story.legoStory,
-      "",
-      k.story.pcBuildingStory,
-      "",
-      k.identity.statement,
-    ].join("\n");
-  }
-
-  if (
-    q.includes("contact") ||
-    q.includes("email") ||
-    q.includes("reach") ||
-    q.includes("linkedin") ||
-    q.includes("github") ||
-    q.includes("connect")
-  ) {
-    return [
-      `You can reach ${k.identity.name} here:`,
-      "",
-      `• Email: ${k.contact.email}`,
-      `• LinkedIn: ${k.contact.linkedin}`,
-      `• GitHub: ${k.contact.github}`,
-    ].join("\n");
-  }
-
-  if (q.includes("robot") || q.includes("experience") || q.includes("intern")) {
-    const robotics = k.experience.filter(
-      (e) =>
-        e.role.toLowerCase().includes("robot") ||
-        e.technologies.some((t) => t.toLowerCase().includes("robot")) ||
-        e.responsibilities.toLowerCase().includes("robot"),
-    );
-    const list = (robotics.length ? robotics : k.experience).map(
-      (e) =>
-        `• **${e.role}** @ ${e.organization} (${e.dates}) — ${e.responsibilities}`,
-    );
-    return [
-      q.includes("robot")
-        ? "Cameron’s robotics-related experience:"
-        : "Selected experience:",
-      "",
-      ...list,
-    ].join("\n");
-  }
-
-  if (q.includes("award") || q.includes("scholarship") || q.includes("recognition")) {
-    return [
-      "Awards and recognition:",
-      "",
-      ...k.awardsAndRecognition.map(
-        (a) => `• **${a.name}** (${a.category}) — ${a.description}`,
-      ),
-    ].join("\n");
-  }
-
-  if (q.includes("education") || q.includes("university") || q.includes("graduate")) {
-    return `${k.identity.name} studies ${k.education.major} at ${k.education.university}. Expected graduation: ${k.education.expectedGraduation}. ${k.education.location}.`;
-  }
-
-  return [
-    "I can answer from Cameron’s portfolio knowledge base — research, Project AEGIS, AI Farms, technologies, background, experience, and contact details.",
-    "",
-    "Try one of the suggested questions, or ask something more specific like “What is AI Farms?”",
-  ].join("\n");
-}
-
 function renderMessageText(content: string) {
-  const parts = content.split(/(\*\*[^*]+\*\*)/g);
+  const parts = content.split(/(\*\*[^*]+\*\*|\/(?:research(?:\/[\w-]+)?|journey|resume|publications|experience|#connect))/g);
   return parts.map((part, i) => {
+    if (!part) return null;
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
         <strong key={i} className="font-medium text-mist">
           {part.slice(2, -2)}
         </strong>
+      );
+    }
+    if (part.startsWith("/") || part.startsWith("#")) {
+      const href = part.startsWith("#") ? `/${part}` : part;
+      return (
+        <a
+          key={i}
+          href={href}
+          className="text-tuskegee-gold underline decoration-tuskegee-gold/40 underline-offset-2 transition hover:decoration-tuskegee-gold"
+        >
+          {part}
+        </a>
       );
     }
     return <span key={i}>{part}</span>;
@@ -227,7 +63,7 @@ export function AskCameron() {
       id: "welcome",
       role: "assistant",
       content:
-        "Ask about Cameron’s research, technologies, background, or how to connect. Responses are grounded in this portfolio’s local knowledge base.",
+        "Ask about Cameron’s research, experience, skills, journey, awards, publications, or contact details. I retrieve answers locally from this portfolio’s knowledge base.",
     },
   ]);
   const [pending, setPending] = useState(false);
@@ -242,29 +78,32 @@ export function AskCameron() {
     window.setTimeout(() => openButtonRef.current?.focus(), 50);
   }, []);
 
-  const ask = useCallback((question: string) => {
-    const trimmed = question.trim();
-    if (!trimmed) return;
+  const ask = useCallback(
+    (question: string) => {
+      const trimmed = question.trim();
+      if (!trimmed) return;
 
-    const userMsg: ChatMessage = {
-      id: `u-${Date.now()}`,
-      role: "user",
-      content: trimmed,
-    };
+      const userMsg: ChatMessage = {
+        id: `u-${Date.now()}`,
+        role: "user",
+        content: trimmed,
+      };
 
-    setMessages((prev) => [...prev, userMsg]);
-    setInput("");
-    setPending(true);
+      setMessages((prev) => [...prev, userMsg]);
+      setInput("");
+      setPending(true);
 
-    window.setTimeout(() => {
-      const reply = answerFromKnowledge(trimmed);
-      setMessages((prev) => [
-        ...prev,
-        { id: `a-${Date.now()}`, role: "assistant", content: reply },
-      ]);
-      setPending(false);
-    }, reduce ? 0 : 380);
-  }, [reduce]);
+      window.setTimeout(() => {
+        const reply = answerFromKnowledge(trimmed);
+        setMessages((prev) => [
+          ...prev,
+          { id: `a-${Date.now()}`, role: "assistant", content: reply },
+        ]);
+        setPending(false);
+      }, reduce ? 0 : 380);
+    },
+    [reduce],
+  );
 
   useEffect(() => {
     if (!open) return;
@@ -391,7 +230,7 @@ export function AskCameron() {
                 <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-tuskegee-gold/70">
                   Suggested
                 </p>
-                <div className="flex flex-col gap-1.5">
+                <div className="flex max-h-40 flex-col gap-1.5 overflow-y-auto pr-0.5 sm:max-h-44">
                   {SUGGESTED_QUESTIONS.map((q) => (
                     <button
                       key={q}
@@ -422,7 +261,7 @@ export function AskCameron() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={onInputKeyDown}
-                  placeholder="Ask about research, skills, contact…"
+                  placeholder="Ask about research, skills, journey…"
                   autoComplete="off"
                   disabled={pending}
                   className="min-w-0 flex-1 bg-transparent text-sm text-mist placeholder:text-ink-500 focus:outline-none disabled:opacity-60"
@@ -437,7 +276,7 @@ export function AskCameron() {
                 </button>
               </div>
               <p className="mt-2 px-1 text-[10px] leading-snug text-ink-500">
-                Prototype — local knowledge matching only. No external AI.
+                Local multi-category retrieval — no external AI.
               </p>
             </form>
           </motion.div>
@@ -462,3 +301,6 @@ export function AskCameron() {
     </div>
   );
 }
+
+/** Re-export for tests / future tooling. */
+export { answerFromKnowledge } from "@/components/ai/askCameronRetrieval";

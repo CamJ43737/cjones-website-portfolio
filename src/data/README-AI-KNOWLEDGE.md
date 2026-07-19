@@ -4,7 +4,7 @@
 
 `cameronKnowledge.ts` is the centralized, structured source of truth for a future **Ask Cameron** AI assistant on this portfolio site.
 
-Phase 1 created **data only**. Phase 2 adds a UI prototype (`AskCameron`) that answers via **local keyword matching** against this file.
+Phase 1 created **data only**. Phase 2 added the UI. Phase 2.5 added multi-category retrieval. Phase 2.75 expands `cameronKnowledge.perspective` (why build / AI / Tuskegee, future interests, graduate direction) and improves comparisons, research timelines, and internal nav links in answers — still no external AI.
 
 Still not included:
 

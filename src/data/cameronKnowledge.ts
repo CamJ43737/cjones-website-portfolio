@@ -128,6 +128,29 @@ export type CameronJourneyChapter = {
   technologies: string[];
 };
 
+/** Personal perspective + graduate direction for Ask Cameron (Phase 2.75). */
+export type CameronPerspective = {
+  whyCameronBuilds: string;
+  whyAiAndRobotics: string;
+  whyTuskegeeMatters: string;
+  futureResearchInterests: string[];
+  graduateResearchDirection: string;
+  aiRoboticsVision: string;
+  researchInterestsSummary: string;
+};
+
+/** Internal site paths for assistant navigation hints. */
+export const portfolioNav = {
+  home: "/",
+  research: "/research",
+  journey: "/journey",
+  resume: "/resume",
+  publications: "/publications",
+  experience: "/experience",
+  connect: "/#connect",
+  researchProject: (slug: string) => `/research/${slug}`,
+} as const;
+
 /** Flat document ready for future embedding / RAG ingestion. */
 export type CameronKnowledgeDocument = {
   id: string;
@@ -150,6 +173,7 @@ export type CameronKnowledge = {
   contact: CameronContact;
   beyondTheLab: CameronBeyondEntry[];
   journey: CameronJourneyChapter[];
+  perspective: CameronPerspective;
 };
 
 // ---------------------------------------------------------------------------
@@ -306,6 +330,76 @@ export const cameronKnowledge: CameronKnowledge = {
     description: c.description,
     technologies: c.technologies,
   })),
+
+  perspective: (() => {
+    const whyAi = aboutStory.whys.find((w) => w.q.toLowerCase().includes("why ai"));
+    const whyRobotics = aboutStory.whys.find((w) =>
+      w.q.toLowerCase().includes("why robotics"),
+    );
+    const whyCs = aboutStory.whys.find((w) =>
+      w.q.toLowerCase().includes("computer science"),
+    );
+    const whyAg = aboutStory.whys.find((w) =>
+      w.q.toLowerCase().includes("agriculture"),
+    );
+    const whyHealth = aboutStory.whys.find((w) =>
+      w.q.toLowerCase().includes("healthcare"),
+    );
+    const futureChapter = timelineById("future");
+    const tuskegeeChapter = timelineById("2022-tuskegee");
+
+    return {
+      whyCameronBuilds: [
+        aboutStory.lead,
+        whyCs?.a,
+        aboutStory.homepageParagraphs[aboutStory.homepageParagraphs.length - 1],
+        site.tagline,
+      ]
+        .filter(Boolean)
+        .join("\n\n"),
+      whyAiAndRobotics: [whyAi?.a, whyRobotics?.a, whyAg?.a, whyHealth?.a]
+        .filter(Boolean)
+        .join("\n\n"),
+      whyTuskegeeMatters: [
+        tuskegeeChapter?.detail,
+        tuskegeeChapter?.description,
+        aboutStory.homepageParagraphs[2],
+      ]
+        .filter(Boolean)
+        .join("\n\n"),
+      futureResearchInterests: [
+        ...hero.domains,
+        "Physical AI — intelligence embodied in machines and environments",
+        "Precision agriculture robotics and sensing",
+        "Healthcare digital twins and aging-in-place systems",
+        "Human-centered autonomous systems",
+        "AI research infrastructure and knowledge systems",
+      ],
+      graduateResearchDirection: [
+        futureChapter?.title,
+        futureChapter?.detail,
+        futureChapter?.description,
+        `Building toward graduate research (PhD path) at the intersection of ${hero.domains.join(", ")}.`,
+      ]
+        .filter(Boolean)
+        .join("\n\n"),
+      aiRoboticsVision: [
+        hero.statement,
+        aboutStory.paragraphs[2],
+        "Cameron’s vision is AI that lives in soil, clinics, homes, and infrastructure — not only in slides.",
+      ]
+        .filter(Boolean)
+        .join("\n\n"),
+      researchInterestsSummary: [
+        `Current focus: ${hero.domains.join(", ")}.`,
+        `Active projects include ${researchProjects.map((p) => p.title).join(", ")}.`,
+        whyAg?.a,
+        whyHealth?.a,
+      ]
+        .filter(Boolean)
+        .join("\n\n"),
+    } satisfies CameronPerspective;
+  })(),
 };
 
 // ---------------------------------------------------------------------------
@@ -538,6 +632,57 @@ export function getCameronKnowledgeDocuments(): CameronKnowledgeDocument[] {
       },
     });
   }
+
+  const p = k.perspective;
+  docs.push(
+    {
+      id: "perspective-why-builds",
+      category: "perspective",
+      title: "Why Cameron builds",
+      text: p.whyCameronBuilds,
+      metadata: { topics: ["builder", "purpose", "motivation"] },
+    },
+    {
+      id: "perspective-why-ai-robotics",
+      category: "perspective",
+      title: "Why AI and robotics",
+      text: p.whyAiAndRobotics,
+      metadata: { topics: ["AI", "robotics", "vision"] },
+    },
+    {
+      id: "perspective-why-tuskegee",
+      category: "perspective",
+      title: "Why Tuskegee matters",
+      text: p.whyTuskegeeMatters,
+      metadata: { topics: ["Tuskegee", "HBCU", "legacy"] },
+    },
+    {
+      id: "perspective-future-interests",
+      category: "perspective",
+      title: "Future research interests",
+      text: [
+        p.researchInterestsSummary,
+        "",
+        "Future research interests:",
+        ...p.futureResearchInterests.map((i) => `- ${i}`),
+      ].join("\n"),
+      metadata: { topics: p.futureResearchInterests },
+    },
+    {
+      id: "perspective-graduate-direction",
+      category: "perspective",
+      title: "Graduate research direction",
+      text: [
+        p.graduateResearchDirection,
+        "",
+        "AI + robotics vision:",
+        p.aiRoboticsVision,
+      ].join("\n"),
+      metadata: {
+        topics: ["graduate school", "PhD", "future goals", "research direction"],
+      },
+    },
+  );
 
   return docs;
 }

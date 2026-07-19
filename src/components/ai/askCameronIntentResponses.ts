@@ -96,12 +96,31 @@ function roboticsTechnologies(): string[] {
   return unique([...fromSkills, ...fromProjects]);
 }
 
-function withNav(body: string, links: string[]): string {
-  const uniqueLinks = [...new Set(links.filter(Boolean))];
+/** First paragraph / block only — keeps answers from dumping multi-section knowledge. */
+function firstBlock(text: string): string {
+  return (text.split(/\n\n+/)[0] ?? text).trim();
+}
+
+function firstSentence(text: string): string {
+  const cleaned = text.replace(/\s+/g, " ").trim();
+  const match = cleaned.match(/^(.+?[.!?])(\s|$)/);
+  return match?.[1] ?? cleaned.slice(0, 160);
+}
+
+/**
+ * Optional site links — max 2, no “Explore on this site” menu.
+ * Prefer follow-up invitations over navigation dumps.
+ */
+function withLinks(body: string, links: string[] = [], max = 2): string {
+  const uniqueLinks = [...new Set(links.filter(Boolean))].slice(0, max);
   if (!uniqueLinks.length) return body;
-  return [body, "", "**Explore on this site**", ...uniqueLinks.map((l) => `• ${l}`)].join(
-    "\n",
-  );
+  return [body, "", ...uniqueLinks.map((l) => `→ ${l}`)].join("\n");
+}
+
+function withFollowUp(body: string, followUp: string): string {
+  const tip = followUp.trim();
+  if (!tip) return body;
+  return `${body}\n\n${tip}`;
 }
 
 function whyAnswer(topic: "ai" | "robotics" | "technology" | "tuskegee" | "general"): string {
@@ -109,19 +128,19 @@ function whyAnswer(topic: "ai" | "robotics" | "technology" | "tuskegee" | "gener
   const find = (needle: string) =>
     whys.find((w) => w.question.toLowerCase().includes(needle))?.answer;
 
-  if (topic === "ai") return find("why ai") ?? cameronKnowledge.perspective.whyAiAndRobotics;
+  if (topic === "ai")
+    return firstBlock(find("why ai") ?? cameronKnowledge.perspective.whyAiAndRobotics);
   if (topic === "robotics")
-    return find("why robotics") ?? cameronKnowledge.perspective.whyAiAndRobotics;
-  if (topic === "tuskegee") return cameronKnowledge.perspective.whyTuskegeeMatters;
+    return firstBlock(
+      find("why robotics") ?? cameronKnowledge.perspective.whyAiAndRobotics,
+    );
+  if (topic === "tuskegee") return firstBlock(cameronKnowledge.perspective.whyTuskegeeMatters);
   if (topic === "technology") {
-    return [
-      find("computer science"),
-      cameronKnowledge.perspective.whyCameronBuilds,
-    ]
-      .filter(Boolean)
-      .join("\n\n");
+    return firstBlock(
+      find("computer science") ?? cameronKnowledge.perspective.whyCameronBuilds,
+    );
   }
-  return cameronKnowledge.perspective.whyCameronBuilds;
+  return firstBlock(cameronKnowledge.perspective.whyCameronBuilds);
 }
 
 /**
@@ -420,50 +439,19 @@ export function categoriesForResponseIntent(
 }
 
 export function formatIdentityIntroduction(): string {
-  const k = cameronKnowledge;
-  const i = k.identity;
-  const farms = projectBySlug("ai-farms");
-  const aegis = projectBySlug("project-aegis");
-  const access = projectBySlug("access-ci");
-
-  const overview = [
-    `I'm **${i.name}** — a ${i.major} student at ${i.university} (expected graduation ${i.graduation}), AI researcher, and robotics engineer.`,
-    `I build intelligent systems where artificial intelligence meets the physical world, with focus areas in ${joinList(i.researchFocus)}.`,
-  ].join(" ");
+  const i = cameronKnowledge.identity;
+  const projects = ["AI Farms", "Project AEGIS", "ACCESS-CI"].join(", ");
 
   const body = [
-    overview,
+    `I'm ${i.name}, a ${i.major} student at ${i.university}, AI researcher, and robotics engineer focused on building intelligent systems that connect AI with the physical world.`,
     "",
-    "**My journey**",
-    "I started with LEGO — learning how small pieces become complex systems. Then I opened computer cases, rebuilt hardware, and taught myself how machines work from the inside out. That curiosity became software, robotics, and AI research.",
-    "",
-    k.story.legoStory,
-    "",
-    "**What I'm working on**",
-    farms
-      ? `• **AI Farms** — I serve as ${farms.role}, integrating robotics and sensing for precision agriculture.`
-      : null,
-    aegis
-      ? `• **Project AEGIS** — as ${aegis.role}, I help build healthcare digital twin environments for aging-in-place research.`
-      : null,
-    access
-      ? `• **ACCESS-CI** — I contributed as ${access.role}, building NLP and knowledge systems for research cyberinfrastructure.`
-      : null,
-    "",
-    "**What sets my path apart**",
-    "I don't separate building from research. I started in hardware, moved into software, and now put AI into fields, robots, and simulated homes — with a clear aim toward graduate research in physical AI.",
-    "",
-    "**Where I'm headed**",
-    "I plan to pursue graduate research (PhD path) so I can deepen AI + robotics systems for agriculture, healthcare, and autonomous environments.",
-  ]
-    .filter((line) => line !== null)
-    .join("\n");
+    `My work sits at the intersection of ${joinList(i.researchFocus)} through projects like ${projects}. I started by building computers and exploring technology hands-on, which grew into my current work developing intelligent systems for real-world environments.`,
+  ].join("\n");
 
-  return withNav(body, [
-    `Research dossiers → ${portfolioNav.research}`,
-    `Journey → ${portfolioNav.journey}`,
-    `Resume → ${portfolioNav.resume}`,
-  ]);
+  return withFollowUp(
+    body,
+    "I can also share more about my research, experience, or journey into AI.",
+  );
 }
 
 export function formatResearchOverviewIntent(): string {
@@ -472,29 +460,20 @@ export function formatResearchOverviewIntent(): string {
     .map((slug) => projectBySlug(slug))
     .filter(Boolean) as CameronResearchEntry[];
 
-  const overview = `${k.identity.name} researches ${joinList(k.identity.researchFocus)}, with flagship work in precision agriculture robotics, healthcare digital twins, and AI-powered research infrastructure.`;
+  const examples = featured
+    .map((r) => `${r.project} (${r.domain}; role: ${r.role})`)
+    .join("; ");
 
   const body = [
-    overview,
+    `${k.identity.name} researches ${joinList(k.identity.researchFocus)}, with flagship work in precision agriculture robotics, healthcare digital twins, and AI-powered research infrastructure.`,
     "",
-    "**Projects**",
-    ...featured.map(
-      (r) =>
-        `• **${r.project}** (${r.domain}) — Role: ${r.role}. ${r.description.split("\n\n")[0]} Impact: ${joinList(r.impact)}.`,
-    ),
-    "",
-    "**Relevant technologies**",
-    joinList(unique(featured.flatMap((r) => r.technologies))),
-    "",
-    "**Impact**",
-    "Field systems that conserve resources; digital twins that support aging-in-place research; NLP automation that speeds research cyberinfrastructure workflows.",
+    `Key examples include ${examples}. Impact spans resource-efficient field systems, aging-in-place digital twins, and NLP tooling that speeds research cyberinfrastructure workflows.`,
   ].join("\n");
 
-  return withNav(body, [
-    `All research → ${portfolioNav.research}`,
-    `Publications → ${portfolioNav.publications}`,
-    `Journey → ${portfolioNav.journey}`,
-  ]);
+  return withFollowUp(
+    body,
+    "I can explain any project in more detail, or walk through Cameron’s research timeline.",
+  );
 }
 
 export function formatRoboticsExperienceIntent(): string {
@@ -504,134 +483,89 @@ export function formatRoboticsExperienceIntent(): string {
   const roboticsIntern = cameronKnowledge.experience.find((e) =>
     e.role.toLowerCase().includes("robotics intern"),
   );
+  const tech = roboticsTechnologies().slice(0, 8);
 
-  const overview =
-    "Cameron’s robotics work centers on embodied AI in agriculture and healthcare contexts — drones, rovers, embedded prototypes, and assistive robotics inside digital twin environments — not classroom simulation alone.";
-
-  const experienceLines = [
+  const examples = [
     farms
-      ? `• **AI Farms** — ${farms.role}. Field robotics with drones, rovers, computer vision, and autonomous platforms for precision agriculture.`
+      ? `AI Farms (${farms.role}) — field robotics with drones, rovers, and computer vision for precision agriculture`
       : null,
     roboticsIntern
-      ? `• **Prairie View A&M Robotics Internship** (${roboticsIntern.dates}) — ${roboticsIntern.responsibilities}`
+      ? `a Prairie View A&M robotics internship (${roboticsIntern.dates}) focused on autonomous systems and embedded sensing`
       : prairie
-        ? `• **Prairie View Robotics** — ${prairie.role}: hands-on autonomous systems, embedded sensing, and prototyping.`
+        ? `Prairie View robotics work (${prairie.role}) on autonomous systems and embedded sensing`
         : null,
     aegis
-      ? `• **Project AEGIS** — ${aegis.role}. Digital twin apartment framework with assistive robotics integration (RoboDog concepts for aging-in-place research).`
+      ? `Project AEGIS (${aegis.role}) — assistive robotics concepts inside healthcare digital twin environments`
       : null,
   ].filter(Boolean);
 
   const body = [
-    overview,
+    `Cameron’s robotics experience centers on embodied AI in agriculture and healthcare — not classroom simulation alone.`,
     "",
-    "**Experience**",
-    ...experienceLines,
-    "",
-    "**Relevant technologies**",
-    joinList(roboticsTechnologies()),
-    "",
-    "**Applications**",
-    "Precision agriculture sensing and autonomy; embedded robotics prototypes; healthcare-oriented digital twin and assistive robotics research.",
+    `Notable work includes ${examples.join("; ")}. Relevant tools in this stack include ${joinList(tech)}.`,
   ].join("\n");
 
-  return withNav(body, [
-    `AI Farms → ${portfolioNav.researchProject("ai-farms")}`,
-    `Project AEGIS → ${portfolioNav.researchProject("project-aegis")}`,
-    `Experience → ${portfolioNav.experience}`,
-    `Resume → ${portfolioNav.resume}`,
-  ]);
+  return withFollowUp(
+    withLinks(body, [
+      farms ? `AI Farms → ${portfolioNav.researchProject("ai-farms")}` : "",
+      aegis ? `Project AEGIS → ${portfolioNav.researchProject("project-aegis")}` : "",
+    ]),
+    "Would you like a deeper dive into one of these robotics efforts?",
+  );
 }
 
 export function formatSkillsIntent(): string {
   const s = cameronKnowledge.technicalSkills;
-  const robotics = roboticsTechnologies();
-  const overview = `Cameron Jones works across AI research software, robotics/embedded systems, and research tooling for physical-world applications.`;
+  const robotics = roboticsTechnologies().slice(0, 8);
+  const ai = s.ai.filter((t) => t.toLowerCase() !== "ros").slice(0, 10);
 
   const body = [
-    overview,
+    `Cameron works across AI research software, robotics/embedded systems, and research tooling for physical-world applications.`,
     "",
-    "**Programming languages**",
-    joinList(s.languages),
+    `Languages include ${joinList(s.languages)}. AI methods and tools include ${joinList(ai)}. Robotics-related technologies include ${joinList(robotics)}. Frameworks and platforms include ${joinList(s.frameworks)}.`,
     "",
-    "**AI tools & methods**",
-    joinList(s.ai.filter((t) => t.toLowerCase() !== "ros")),
-    "",
-    "**Robotics & embodied systems**",
-    joinList(robotics),
-    "",
-    "**Frameworks & platforms**",
-    joinList(s.frameworks),
-    "",
-    "**Research methods & tools**",
-    joinList(
-      unique([
-        ...(s.categories.find((c) => c.name === "Research")?.skills ?? []),
-        ...s.tools,
-      ]),
-    ),
-    "",
-    "**Models & data (evidenced in his stack)**",
-    "Cameron’s public portfolio emphasizes applied AI methods — machine learning, computer vision, NLP/LLMs, and simulation (including Unity digital twins) — used across agriculture robotics and healthcare research contexts. Specific proprietary dataset names are not listed as public portfolio facts.",
+    `His public portfolio emphasizes applied methods — machine learning, computer vision, NLP/LLMs, and simulation (including Unity digital twins) — rather than listing proprietary dataset names.`,
   ].join("\n");
 
-  return withNav(body, [
-    `Resume → ${portfolioNav.resume}`,
-    `Research → ${portfolioNav.research}`,
-  ]);
+  return withFollowUp(
+    body,
+    "I can focus on AI tools, robotics tech, or skills used on a specific project.",
+  );
 }
 
 export function formatCareerInternshipsIntent(): string {
   const appointments = getInternshipAppointments();
-  const overview = `${cameronKnowledge.identity.name} has held research appointments and internships spanning precision agriculture AI, healthcare digital twins, research cyberinfrastructure, embedded robotics, and industry operations.`;
+  const highlights = appointments.slice(0, 5).map((e) => {
+    const brief = firstSentence(e.responsibilities);
+    return `• **${e.role}** — ${e.organization} (${e.dates}). ${brief}`;
+  });
 
   const body = [
-    overview,
+    `${cameronKnowledge.identity.name} has held research appointments and internships spanning precision agriculture AI, healthcare digital twins, research cyberinfrastructure, embedded robotics, and industry operations.`,
     "",
-    "**Internships & research appointments**",
-    ...appointments.map(
-      (e) =>
-        `• **${e.role}** — ${e.organization} (${e.dates}). ${e.responsibilities}`,
-    ),
-    "",
-    "**Relevant technologies**",
-    joinList(unique(appointments.flatMap((e) => e.technologies))),
+    ...highlights,
   ].join("\n");
 
-  return withNav(body, [
-    `Full experience → ${portfolioNav.experience}`,
-    `Resume → ${portfolioNav.resume}`,
-    `Research → ${portfolioNav.research}`,
-  ]);
+  return withFollowUp(
+    withLinks(body, [`Experience → ${portfolioNav.experience}`], 1),
+    "I can expand on any appointment or focus on industry vs. research roles.",
+  );
 }
 
 export function formatFutureDirectionIntent(): string {
   const p = cameronKnowledge.perspective;
-  const overview =
-    "I plan to pursue graduate research that advances AI and robotics as intelligent systems for the physical world — especially agriculture, healthcare, and autonomous environments.";
+  const interests = p.futureResearchInterests.slice(0, 5);
 
   const body = [
-    overview,
+    `I plan to pursue graduate research that advances AI and robotics as intelligent systems for the physical world — especially agriculture, healthcare, and autonomous environments.`,
     "",
-    "**Graduate research direction**",
-    "The next chapter for me is graduate school and a PhD-oriented research path. I want AI that lives in soil, clinics, homes, and infrastructure — not only in slides.",
-    "",
-    "**What I want to research**",
-    ...p.futureResearchInterests.map((i) => `• ${i}`),
-    "",
-    "**My vision**",
-    p.aiRoboticsVision,
-    "",
-    "**Career goal**",
-    "I want to grow as an AI scientist and robotics researcher who builds intelligent systems that serve people, land, and communities.",
+    `Areas I want to research include ${interests.join("; ")}. ${firstBlock(p.aiRoboticsVision)}`,
   ].join("\n");
 
-  return withNav(body, [
-    `Journey (future chapter) → ${portfolioNav.journey}`,
-    `Research → ${portfolioNav.research}`,
-    `Resume → ${portfolioNav.resume}`,
-    `Connect → ${portfolioNav.connect}`,
-  ]);
+  return withFollowUp(
+    body,
+    "I can also share more about my current research projects or why I’m drawn to this path.",
+  );
 }
 
 export function formatMotivationOriginIntent(question: string): string {
@@ -645,50 +579,52 @@ export function formatMotivationOriginIntent(question: string): string {
   else if (q.includes("technolog") || q.includes("computer science") || q.includes("tech"))
     focus = "technology";
 
-  const taglineNote =
-    q.includes("never stopped") || q.includes("building mean") || q.includes("does building mean")
-      ? [
-          "",
-          q.includes("never stopped")
-            ? '**Why I say “Never stopped building”**'
-            : "**What building means to me**",
-          "Building is how I learn and how I serve. The tools changed — LEGO, PCs, robots, AI — but the purpose stayed the same. I never stopped building; I expanded what I build.",
-        ]
-      : [];
+  const aboutBuilding =
+    q.includes("never stopped") ||
+    q.includes("building mean") ||
+    q.includes("does building mean");
+  const aboutPhilosophy = q.includes("philosophy");
 
-  const philosophyNote = q.includes("philosophy")
-    ? [
+  if (aboutBuilding) {
+    return withFollowUp(
+      [
+        q.includes("never stopped")
+          ? "I say “Never stopped building” because building is how I learn and how I serve."
+          : "Building, for me, is how I learn and how I serve.",
         "",
-        "**My research philosophy**",
-        "I believe intelligence should be embodied. Research matters when it touches soil, clinics, homes, and real constraints — when AI helps people and systems in the physical world.",
-      ]
-    : [];
+        "The tools changed — LEGO, PCs, robots, AI — but the purpose stayed the same. I never stopped building; I expanded what I build.",
+      ].join("\n"),
+      "I can also share how that path led into AI and robotics research.",
+    );
+  }
 
-  const body = [
-    "My journey started with things I could hold, then systems I could rebuild, then machines that can act in the world.",
-    "",
-    "**LEGO → computers → robotics → AI**",
-    k.story.legoStory,
-    "",
-    "I began taking computers apart and rebuilding them. That curiosity became programming, then robotics and artificial intelligence.",
-    "",
-    "**Why this path**",
-    whyAnswer(focus),
-    ...taglineNote,
-    ...philosophyNote,
-    "",
-    focus === "tuskegee" ? null : "**Why Tuskegee matters to me**",
-    focus === "tuskegee"
-      ? k.perspective.whyTuskegeeMatters
-      : k.perspective.whyTuskegeeMatters.split("\n\n")[0],
-  ]
-    .filter((line) => line !== null)
-    .join("\n");
+  if (aboutPhilosophy) {
+    return withFollowUp(
+      "I believe intelligence should be embodied. Research matters when it touches soil, clinics, homes, and real constraints — when AI helps people and systems in the physical world.",
+      "I can connect that philosophy to specific projects like AI Farms or Project AEGIS if you’d like.",
+    );
+  }
 
-  return withNav(body, [
-    `Journey → ${portfolioNav.journey}`,
-    `Research → ${portfolioNav.research}`,
-  ]);
+  if (focus === "tuskegee") {
+    return withFollowUp(
+      firstBlock(k.perspective.whyTuskegeeMatters),
+      "I can also share more about my research or journey into AI.",
+    );
+  }
+
+  const origin =
+    focus === "technology" || focus === "general"
+      ? `My journey started with hands-on building — from systems I could rebuild to machines that act in the world. ${firstSentence(k.story.legoStory)} That curiosity became programming, then robotics and AI research.`
+      : `My path into ${focus === "ai" ? "AI" : "robotics"} grew from hands-on building into research on intelligent systems in the physical world.`;
+
+  const body = [origin, "", whyAnswer(focus)].join("\n");
+
+  return withFollowUp(
+    body,
+    focus === "ai" || focus === "robotics"
+      ? "Would you like to hear about the research projects that grew from this?"
+      : "I can also share more about my research, Tuskegee story, or future goals.",
+  );
 }
 
 export function formatProjectSimpleIntent(question: string): string {
@@ -697,66 +633,40 @@ export function formatProjectSimpleIntent(question: string): string {
   const aegis = projectBySlug("project-aegis");
 
   if (q.includes("aegis")) {
-    const overview =
-      "Project AEGIS is research on helping older adults stay safer and more independent at home — using digital twins (virtual home models) and robotics ideas before those systems are used in real homes.";
     const body = [
-      overview,
+      `Project AEGIS helps older adults stay safer and more independent at home by using digital twins — virtual home models — and robotics ideas before those systems are used in real homes.`,
       "",
-      "**In plain language**",
-      "Imagine a detailed virtual apartment where researchers can test how AI and assistive robots might support aging-in-place. Cameron helps lead the apartment / simulation framework side of that work.",
-      "",
-      "**Why it matters**",
-      "It is about dignity and safety — technology that supports people living longer, more independently.",
-      "",
-      "**Relevant technologies**",
-      joinList(aegis?.technologies ?? ["Unity 6", "Digital Twins", "Robotics"]),
+      `Imagine a detailed virtual apartment where researchers can test how AI and assistive robots might support aging-in-place. Cameron helps lead the apartment / simulation framework side of that work (${aegis?.role ?? "Apartment Framework Lead"}).`,
     ].join("\n");
-    return withNav(body, [
-      `Project AEGIS → ${portfolioNav.researchProject("project-aegis")}`,
-      `All research → ${portfolioNav.research}`,
-    ]);
+    return withFollowUp(
+      withLinks(body, [
+        `Project AEGIS → ${portfolioNav.researchProject("project-aegis")}`,
+      ], 1),
+      "I can go deeper on the technology stack or Cameron’s role if you’d like.",
+    );
   }
 
-  const overview =
-    "AI Farms is research that helps farms work smarter — using AI, robots, drones, and sensors to monitor crops and use water and labor more carefully.";
   const body = [
-    overview,
+    `AI Farms helps farms work smarter — using AI, robots, drones, and sensors to monitor crops and use water and labor more carefully.`,
     "",
-    "**In plain language**",
-    "Instead of relying only on human eyes across large fields, AI Farms explores machines that can sense plant health and support precision agriculture decisions.",
-    "",
-    "**Why it matters**",
-    "Better planting efficiency and water conservation mean research that can translate into real agricultural impact.",
-    "",
-    "**Relevant technologies**",
-    joinList(farms?.technologies ?? ["Python", "Computer Vision", "Robotics", "Drones"]),
+    `Instead of relying only on human eyes across large fields, the project explores machines that can sense plant health and support precision agriculture decisions. Cameron’s role: ${farms?.role ?? "AI Robotics Engineer"}.`,
   ].join("\n");
-  return withNav(body, [
-    `AI Farms → ${portfolioNav.researchProject("ai-farms")}`,
-    `All research → ${portfolioNav.research}`,
-  ]);
+  return withFollowUp(
+    withLinks(body, [`AI Farms → ${portfolioNav.researchProject("ai-farms")}`], 1),
+    "I can explain the technical approach or impact metrics next.",
+  );
 }
 
 export function formatEducationIntent(): string {
   const e = cameronKnowledge.education;
   const i = cameronKnowledge.identity;
-  const overview = `${i.name} studies ${e.major} at ${e.university}.`;
 
-  const body = [
-    overview,
-    "",
-    "**Education**",
-    `• University: ${e.university}`,
-    `• Major: ${e.major}`,
-    `• Expected graduation: ${e.expectedGraduation}`,
-    `• Location: ${e.location}`,
-    `• Hometown: ${i.hometown}`,
-  ].join("\n");
+  const body = `${i.name} studies ${e.major} at ${e.university} (expected graduation ${e.expectedGraduation}). He is based in ${e.location}; hometown: ${i.hometown}.`;
 
-  return withNav(body, [
-    `Resume → ${portfolioNav.resume}`,
-    `Journey → ${portfolioNav.journey}`,
-  ]);
+  return withFollowUp(
+    body,
+    "I can also share Cameron’s research focus or experience.",
+  );
 }
 
 export function formatCollaborationServicesIntent(question: string): string {
@@ -766,103 +676,93 @@ export function formatCollaborationServicesIntent(question: string): string {
   const photo = beyond.find((b) => b.id === "photography");
   const pc = beyond.find((b) => b.id === "pc-building");
 
-  const overview = `${cameronKnowledge.identity.name} welcomes research collaboration, professional opportunities, creative projects, and thoughtful outreach related to AI, robotics, and building in the real world.`;
+  if (q.includes("contact") || q.includes("reach") || q.includes("email")) {
+    return withFollowUp(
+      withLinks(
+        `The best way to reach Cameron is by email at ${c.email}. You can also find him on LinkedIn (${c.linkedin}) and GitHub (${c.github}).`,
+        [`Connect → ${portfolioNav.connect}`],
+        1,
+      ),
+      "Happy to point you to research or resume details as well.",
+    );
+  }
 
-  const services: string[] = [];
   if (q.includes("website") || q.includes("web")) {
-    services.push(
-      "• **Websites / digital projects** — Cameron builds software and systems; for web or product work, the best next step is to email a short brief of what you need.",
+    return withFollowUp(
+      `Yes — Cameron builds software and systems, including web and digital projects. The best next step is to email ${c.email} with a short brief of what you need.`,
+      "I can also share relevant project examples from his portfolio.",
     );
   }
+
   if (q.includes("photo")) {
-    services.push(
-      `• **Photography** — ${photo?.description ?? "Cameron practices photography as a creative craft."} Theme: ${photo?.theme ?? "creativity and perspective"}.`,
+    return withFollowUp(
+      `Yes. ${firstSentence(photo?.description ?? "Cameron practices photography as a creative craft.")} Reach out via ${c.email} if you’d like to collaborate.`,
+      "",
     );
   }
+
   if (q.includes("pc") || q.includes("computer build") || q.includes("hardware")) {
-    services.push(
-      `• **PC building / hardware** — ${pc?.description ?? "Cameron builds systems from the hardware up."}`,
-    );
-  }
-  if (!services.length) {
-    services.push(
-      "• Research collaboration (AI, robotics, agriculture, healthcare digital twins)",
-      "• Professional / recruiting conversations",
-      "• Creative and technical projects (including photography and hardware interests)",
+    return withFollowUp(
+      `Yes. ${firstSentence(pc?.description ?? "Cameron builds systems from the hardware up.")} Contact: ${c.email}.`,
+      "",
     );
   }
 
-  const body = [
-    overview,
-    "",
-    "**Ways to work together**",
-    ...services,
-    "",
-    "**Beyond the Lab**",
-    ...beyond.map((b) => `• **${b.title}** — ${b.description}`),
-    "",
-    "**Contact**",
-    `• Email: ${c.email}`,
-    `• LinkedIn: ${c.linkedin}`,
-    `• GitHub: ${c.github}`,
-  ].join("\n");
+  if (q.includes("collaborate") || q.includes("collaboration") || q.includes("research")) {
+    return withLinks(
+      withFollowUp(
+        `Yes — Cameron welcomes research collaboration related to AI, robotics, agriculture, and healthcare digital twins. Email ${c.email} with a short note on your interest or project.`,
+        "I can also share project overviews that may be relevant.",
+      ),
+      [`Connect → ${portfolioNav.connect}`],
+      1,
+    );
+  }
 
-  return withNav(body, [
-    `Connect → ${portfolioNav.connect}`,
-    `Beyond the Lab → /beyond`,
-    `Resume → ${portfolioNav.resume}`,
-  ]);
+  return withLinks(
+    withFollowUp(
+      `${cameronKnowledge.identity.name} welcomes research collaboration, professional conversations, and thoughtful creative/technical outreach. Email ${c.email}, or connect via LinkedIn (${c.linkedin}).`,
+      "What kind of collaboration are you exploring?",
+    ),
+    [`Connect → ${portfolioNav.connect}`],
+    1,
+  );
 }
 
 export function formatResearchComparisonIntent(question: string): string {
   const q = question.toLowerCase();
   const farms = projectBySlug("ai-farms");
   const aegis = projectBySlug("project-aegis");
-  const access = projectBySlug("access-ci");
 
   const wantsThemes =
     q.includes("theme") || q.includes("connected") || q.includes("connect");
 
-  const overview = wantsThemes
-    ? "Cameron’s projects are connected by one idea: intelligent systems that act in the physical world — sensing, deciding, and supporting people and land."
-    : "AI Farms and Project AEGIS show two faces of Cameron’s research: field robotics for agriculture, and healthcare digital twins for aging-in-place.";
+  if (!farms || !aegis) {
+    return formatResearchOverviewIntent();
+  }
 
-  const body = [
-    overview,
-    "",
-    farms && aegis
-      ? [
-          "**AI Farms vs Project AEGIS**",
-          `• **AI Farms** (${farms.domain}) — Role: ${farms.role}. Focus: ${farms.problem.slice(0, 2).join("; ")}. Technologies: ${joinList(farms.technologies)}. Impact: ${joinList(farms.impact)}.`,
-          `• **Project AEGIS** (${aegis.domain}) — Role: ${aegis.role}. Focus: ${aegis.problem.slice(0, 2).join("; ")}. Technologies: ${joinList(aegis.technologies)}. Impact: ${joinList(aegis.impact)}.`,
-        ].join("\n")
-      : null,
-    "",
-    "**Connecting themes**",
-    "• Embodied / physical AI — intelligence that must work outside slides",
-    "• Sensing + autonomy — drones, robots, digital twins, and simulation",
-    "• Human impact — food systems, aging-in-place dignity, research velocity",
-    access
-      ? `• Infrastructure & knowledge systems — ACCESS-CI (${access.role}) complements the applied research stack`
-      : null,
-    "",
-    "**Relevant technologies**",
-    joinList(
-      unique([
-        ...(farms?.technologies ?? []),
-        ...(aegis?.technologies ?? []),
-        ...(access?.technologies ?? []),
-      ]),
-    ),
-  ]
-    .filter((line) => line !== null)
-    .join("\n");
+  const body = wantsThemes
+    ? [
+        `Cameron’s agriculture and healthcare AI work connects through one idea: intelligent systems that act in the physical world — sensing, deciding, and supporting people and land.`,
+        "",
+        `AI Farms applies that idea in the field (precision agriculture robotics), while Project AEGIS applies it in the home (healthcare digital twins and assistive robotics for aging-in-place). ACCESS-CI complements both with research cyberinfrastructure and knowledge systems.`,
+      ].join("\n")
+    : [
+        `AI Farms and Project AEGIS show two faces of Cameron’s research: field robotics for agriculture, and healthcare digital twins for aging-in-place.`,
+        "",
+        `**AI Farms** (${farms.domain}) — ${farms.role}. Focus: ${farms.problem.slice(0, 2).join("; ")}.`,
+        `**Project AEGIS** (${aegis.domain}) — ${aegis.role}. Focus: ${aegis.problem.slice(0, 2).join("; ")}.`,
+        "",
+        `Both emphasize embodied AI — intelligence that has to work outside slides.`,
+      ].join("\n");
 
-  return withNav(body, [
-    farms ? `AI Farms → ${portfolioNav.researchProject("ai-farms")}` : "",
-    aegis ? `Project AEGIS → ${portfolioNav.researchProject("project-aegis")}` : "",
-    `All research → ${portfolioNav.research}`,
-  ]);
+  return withFollowUp(
+    withLinks(body, [
+      `AI Farms → ${portfolioNav.researchProject("ai-farms")}`,
+      `Project AEGIS → ${portfolioNav.researchProject("project-aegis")}`,
+    ]),
+    "I can go deeper on either project’s technology or impact.",
+  );
 }
 
 export function generateIntentResponse(

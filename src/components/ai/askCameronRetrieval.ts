@@ -15,6 +15,7 @@ import {
   categoriesForResponseIntent,
   detectResponseIntent,
   formatCareerInternshipsIntent,
+  formatIdentityIntroduction,
   formatRoboticsExperienceIntent,
   formatSkillsIntent,
   generateIntentResponse,
@@ -624,23 +625,31 @@ function findResearch(slugOrTitle: string): CameronResearchEntry | undefined {
 }
 
 function withNav(body: string, links: string[]): string {
-  const unique = [...new Set(links.filter(Boolean))];
+  const unique = [...new Set(links.filter(Boolean))].slice(0, 2);
   if (!unique.length) return body;
-  return [body, "", "**Explore on this site**", ...unique.map((l) => `• ${l}`)].join("\n");
+  return [body, "", ...unique.map((l) => `→ ${l}`)].join("\n");
+}
+
+function firstBlock(text: string): string {
+  return (text.split(/\n\n+/)[0] ?? text).trim();
+}
+
+function firstSentence(text: string): string {
+  const cleaned = text.replace(/\s+/g, " ").trim();
+  const match = cleaned.match(/^(.+?[.!?])(\s|$)/);
+  return match?.[1] ?? cleaned.slice(0, 160);
 }
 
 function formatResearchBrief(r: CameronResearchEntry): string {
   return [
-    `**${r.project}**`,
-    `Domain: ${r.domain}`,
-    `Role: ${r.role}`,
-    `Institutions: ${joinList(r.institution)}`,
-    r.award ? `Award / funding: ${r.award}` : "",
-    `Technologies: ${joinList(r.technologies)}`,
-    `Impact: ${joinList(r.impact)}`,
+    `**${r.project}** (${r.domain}) — Cameron’s role: ${r.role}.`,
     "",
-    "Overview:",
-    r.description,
+    firstBlock(r.description),
+    "",
+    `Technologies: ${joinList(r.technologies)}. Impact: ${joinList(r.impact)}.`,
+    r.award ? `Recognition: ${r.award}.` : "",
+    "",
+    "I can go deeper on architecture, role details, or related projects.",
   ]
     .filter(Boolean)
     .join("\n");
@@ -648,56 +657,31 @@ function formatResearchBrief(r: CameronResearchEntry): string {
 
 function formatResearchIndex(): string {
   const k = cameronKnowledge;
+  const lines = k.research.map(
+    (r) => `• **${r.project}** (${r.domain}) — ${r.role}. ${firstSentence(r.description)}`,
+  );
   return [
-    `**Research portfolio — ${k.identity.name}**`,
-    `Focus areas: ${joinList(k.identity.researchFocus)}`,
+    `${k.identity.name}’s research focuses on ${joinList(k.identity.researchFocus)}.`,
     "",
-    ...k.research.map((r) =>
-      [
-        `**${r.project}**`,
-        `Role: ${r.role}`,
-        `Technologies: ${joinList(r.technologies)}`,
-        `Impact: ${joinList(r.impact)}`,
-        `Summary: ${r.description.split("\n\n")[0]}`,
-        `Dossier: ${portfolioNav.researchProject(r.slug)}`,
-        "",
-      ].join("\n"),
-    ),
+    ...lines,
+    "",
+    "I can explain any project in more detail if you’d like.",
   ].join("\n");
 }
 
 function formatComparison(projects: CameronResearchEntry[]): string {
-  const [a, b, ...rest] = projects;
+  const [a, b] = projects;
   if (!a || !b) return formatResearchIndex();
 
-  const pair = [a, b, ...rest.slice(0, 1)];
-  const blocks = pair.map((r) =>
-    [
-      `**${r.project}**`,
-      `Domain: ${r.domain}`,
-      `Role: ${r.role}`,
-      `Problem focus: ${r.problem.slice(0, 2).join("; ")}`,
-      `Technologies: ${joinList(r.technologies)}`,
-      `Impact: ${joinList(r.impact)}`,
-      `Institutions: ${joinList(r.institution)}`,
-      `Dossier: ${portfolioNav.researchProject(r.slug)}`,
-    ].join("\n"),
-  );
-
-  const contrast = [
-    "**How they differ**",
-    `• **${a.project}** emphasizes ${a.domain.toLowerCase()} — ${a.description.split("\n\n")[0]}`,
-    `• **${b.project}** emphasizes ${b.domain.toLowerCase()} — ${b.description.split("\n\n")[0]}`,
-    "",
-    "Together they show Cameron’s span from field robotics / physical sensing to healthcare digital twins and embodied AI.",
-  ].join("\n");
-
   return [
-    `**Comparison — ${a.project} vs ${b.project}**`,
+    `${a.project} and ${b.project} highlight complementary sides of Cameron’s research.`,
     "",
-    blocks.join("\n\n——\n\n"),
+    `**${a.project}** (${a.domain}) — ${a.role}. ${firstSentence(a.description)} Focus: ${a.problem.slice(0, 2).join("; ")}.`,
+    `**${b.project}** (${b.domain}) — ${b.role}. ${firstSentence(b.description)} Focus: ${b.problem.slice(0, 2).join("; ")}.`,
     "",
-    contrast,
+    "Together they span field robotics / physical sensing and healthcare digital twins — embodied AI in different real-world settings.",
+    "",
+    "I can go deeper on either project’s technology or impact.",
   ].join("\n");
 }
 
@@ -708,21 +692,18 @@ function formatResearchTimeline(): string {
     ),
   );
 
-  const lines = researchChapters.map(
-    (c) => `**${c.year} — ${c.title}**\n${c.summary}\n${c.description}`,
+  const lines = researchChapters.slice(0, 6).map(
+    (c) => `• **${c.year} — ${c.title}**: ${c.summary}`,
   );
 
   return [
-    "**Research timeline**",
-    "",
-    "Key chapters where research, robotics, and AI work took shape:",
+    "Here’s a concise research timeline of where Cameron’s AI and robotics work took shape:",
     "",
     ...lines,
     "",
-    "**Active research threads**",
-    ...cameronKnowledge.research.map(
-      (r) => `• ${r.project} (${r.domain}) — ${portfolioNav.researchProject(r.slug)}`,
-    ),
+    `Active threads: ${cameronKnowledge.research.map((r) => r.project).join(", ")}.`,
+    "",
+    "I can expand any chapter or project next.",
   ].join("\n");
 }
 
@@ -734,56 +715,53 @@ function formatPerspective(hitId?: string): string {
   const p = cameronKnowledge.perspective;
 
   if (hitId === "perspective-why-builds") {
-    return ["**Why I build**", "", p.whyCameronBuilds].join("\n");
+    return [
+      firstBlock(p.whyCameronBuilds),
+      "",
+      "I can also share how this led into AI, robotics, or graduate plans.",
+    ].join("\n");
   }
   if (hitId === "perspective-why-ai-robotics") {
-    return ["**Why I chose AI and robotics**", "", p.whyAiAndRobotics, "", "**My vision**", p.aiRoboticsVision].join(
-      "\n",
-    );
+    return [
+      firstBlock(p.whyAiAndRobotics),
+      "",
+      firstBlock(p.aiRoboticsVision),
+      "",
+      "Would you like to hear about the projects that grew from this?",
+    ].join("\n");
   }
   if (hitId === "perspective-why-tuskegee") {
-    return ["**Why Tuskegee matters to me**", "", p.whyTuskegeeMatters].join("\n");
+    return [
+      firstBlock(p.whyTuskegeeMatters),
+      "",
+      "I can also share more about my research or journey into AI.",
+    ].join("\n");
   }
   if (hitId === "perspective-future-interests") {
     return [
-      "**What I want to research**",
+      firstBlock(p.researchInterestsSummary),
       "",
-      p.researchInterestsSummary,
+      ...p.futureResearchInterests.slice(0, 5).map((i) => `• ${i}`),
       "",
-      ...p.futureResearchInterests.map((i) => `• ${i}`),
+      "I can connect these interests to current projects if you’d like.",
     ].join("\n");
   }
   if (hitId === "perspective-graduate-direction") {
     return [
-      "**My graduate research direction**",
+      firstBlock(p.graduateResearchDirection),
       "",
-      p.graduateResearchDirection,
+      firstBlock(p.aiRoboticsVision),
       "",
-      "**My AI + robotics vision**",
-      p.aiRoboticsVision,
-      "",
-      "**Research interests**",
-      ...p.futureResearchInterests.map((i) => `• ${i}`),
+      "I can also outline specific research problems I’m interested in pursuing.",
     ].join("\n");
   }
 
   return [
-    "**Perspective & direction**",
+    firstBlock(p.whyCameronBuilds),
     "",
-    "**Why I build**",
-    p.whyCameronBuilds,
+    firstBlock(p.whyAiAndRobotics),
     "",
-    "**Why AI and robotics**",
-    p.whyAiAndRobotics,
-    "",
-    "**Why Tuskegee matters to me**",
-    p.whyTuskegeeMatters,
-    "",
-    "**Graduate research direction**",
-    p.graduateResearchDirection,
-    "",
-    "**Future research interests**",
-    ...p.futureResearchInterests.map((i) => `• ${i}`),
+    "I can go deeper on graduate plans, Tuskegee, or specific research interests.",
   ].join("\n");
 }
 
@@ -806,75 +784,61 @@ function formatSkills(): string {
 
 function formatJourney(hits: ScoredHit[], query: string): string {
   const k = cameronKnowledge;
-  const wantsFull =
-    /journey|timeline|walk|background|story|path/i.test(query) ||
-    hits.some((h) => h.category === "story");
+  const wantsFull = /journey|timeline|walk|background|story|path/i.test(query);
 
   if (wantsFull) {
     const chapters = k.journey
-      .slice(0, 8)
-      .map(
-        (c) =>
-          `**${c.year} — ${c.title}**\n${c.summary}\n${c.description}\nThemes: ${joinList(c.technologies)}`,
-      );
+      .slice(0, 6)
+      .map((c) => `• **${c.year} — ${c.title}**: ${c.summary}`);
     return [
-      "**Background & journey**",
-      "",
-      k.story.headline,
-      "",
-      k.story.legoStory,
+      firstSentence(k.story.legoStory),
       "",
       ...chapters,
+      "",
+      "I can expand any chapter, or focus on research and robotics milestones.",
     ].join("\n");
   }
 
-  return hits
-    .filter((h) => h.category === "journey" || h.category === "story")
-    .map((h) => `**${h.title}**\n${h.text}`)
-    .join("\n\n");
+  const hit = hits.find((h) => h.category === "journey" || h.category === "story");
+  if (!hit) return firstSentence(k.story.legoStory);
+  return `${firstBlock(hit.text)}\n\nI can share more of the journey timeline if helpful.`;
 }
 
 function formatAwards(): string {
+  const top = cameronKnowledge.awardsAndRecognition.slice(0, 6);
   return [
-    "**Awards & recognition**",
+    "Cameron’s recognition includes:",
     "",
-    ...cameronKnowledge.awardsAndRecognition.map(
-      (a) => `• **${a.name}** (${a.category}) — ${a.description}`,
-    ),
+    ...top.map((a) => `• **${a.name}** (${a.category}) — ${firstSentence(a.description)}`),
+    "",
+    "I can list more awards or focus on research-related recognition.",
   ].join("\n");
 }
 
 function formatPublications(): string {
   return [
-    "**Publications & scholarship**",
+    "Selected publications and scholarship:",
     "",
     ...cameronKnowledge.publications.map(
-      (p) => `• **${p.title}** [${p.type}]\n  ${p.description}`,
+      (p) => `• **${p.title}** [${p.type}] — ${firstSentence(p.description)}`,
     ),
+    "",
+    "I can summarize any item in more detail.",
   ].join("\n");
 }
 
 function formatContact(): string {
   const c = cameronKnowledge.contact;
   return [
-    `**Contact — ${cameronKnowledge.identity.name}**`,
+    `Reach Cameron at ${c.email}. LinkedIn: ${c.linkedin}. GitHub: ${c.github}.`,
     "",
-    `Email: ${c.email}`,
-    `LinkedIn: ${c.linkedin}`,
-    `GitHub: ${c.github}`,
+    "Happy to point you to research or resume details as well.",
   ].join("\n");
 }
 
 function formatEducation(): string {
   const e = cameronKnowledge.education;
-  return [
-    "**Education**",
-    "",
-    `University: ${e.university}`,
-    `Major: ${e.major}`,
-    `Expected graduation: ${e.expectedGraduation}`,
-    `Location: ${e.location}`,
-  ].join("\n");
+  return `${cameronKnowledge.identity.name} studies ${e.major} at ${e.university} (expected graduation ${e.expectedGraduation}), based in ${e.location}.`;
 }
 
 function formatHit(hit: ScoredHit, query: string): string | null {
@@ -894,85 +858,51 @@ function formatHit(hit: ScoredHit, query: string): string | null {
   if (hit.category === "publications") return formatPublications();
   if (hit.category === "contact") return formatContact();
   if (hit.category === "education") return formatEducation();
-  if (hit.category === "beyond") return `**${hit.title}**\n${hit.text}`;
+  if (hit.category === "beyond") return `${hit.title}: ${firstBlock(hit.text)}`;
   if (hit.category === "identity") {
-    const i = cameronKnowledge.identity;
-    return [
-      `**${i.name}**`,
-      i.title,
-      `Focus: ${joinList(i.researchFocus)}`,
-      i.statement,
-    ].join("\n");
+    return formatIdentityIntroduction();
   }
-  return `**${hit.title}**\n${hit.text}`;
+  return `${hit.title}: ${firstBlock(hit.text)}`;
 }
 
-function navForAnswer(query: string, sections: string[], projects: CameronResearchEntry[]): string[] {
+/**
+ * Selective links only (max 2). Prefer specific project pages over site-wide menus.
+ * Composition layer only — does not affect retrieval.
+ */
+function navForAnswer(query: string, _sections: string[], projects: CameronResearchEntry[]): string[] {
   const q = query.toLowerCase();
   const links: string[] = [];
 
-  for (const r of projects) {
-    links.push(`${r.project} dossier → ${portfolioNav.researchProject(r.slug)}`);
+  for (const r of projects.slice(0, 2)) {
+    links.push(`${r.project} → ${portfolioNav.researchProject(r.slug)}`);
   }
 
-  if (
-    q.includes("research") ||
-    q.includes("project") ||
-    q.includes("aegis") ||
-    q.includes("farm") ||
-    sections.some((s) => s.includes("Research"))
-  ) {
-    links.push(`All research → ${portfolioNav.research}`);
-  }
-  if (
-    q.includes("journey") ||
-    q.includes("timeline") ||
-    q.includes("background") ||
-    q.includes("tuskegee") ||
-    q.includes("graduate")
-  ) {
-    links.push(`Journey timeline → ${portfolioNav.journey}`);
-  }
-  if (q.includes("resume") || q.includes("cv") || q.includes("hire") || q.includes("experience")) {
-    links.push(`Resume → ${portfolioNav.resume}`);
-  }
-  if (q.includes("publication") || q.includes("poster") || q.includes("manuscript")) {
-    links.push(`Publications archive → ${portfolioNav.publications}`);
-  }
-  if (q.includes("contact") || q.includes("email") || q.includes("connect")) {
-    links.push(`Connect → ${portfolioNav.connect}`);
-  }
-
-  // Sensible defaults when answering research-heavy content
   if (!links.length) {
-    links.push(`Research → ${portfolioNav.research}`, `Journey → ${portfolioNav.journey}`);
+    if (q.includes("aegis") || q.includes("farm") || q.includes("access")) {
+      // project names without matched entries — fall through to research hub
+      links.push(`Research → ${portfolioNav.research}`);
+    } else if (q.includes("publication") || q.includes("poster") || q.includes("manuscript")) {
+      links.push(`Publications → ${portfolioNav.publications}`);
+    } else if (q.includes("contact") || q.includes("email") || q.includes("connect")) {
+      links.push(`Connect → ${portfolioNav.connect}`);
+    } else if (q.includes("resume") || q.includes("cv")) {
+      links.push(`Resume → ${portfolioNav.resume}`);
+    } else if (q.includes("journey") || q.includes("timeline")) {
+      links.push(`Journey → ${portfolioNav.journey}`);
+    }
   }
 
-  return links;
+  return [...new Set(links)].slice(0, 2);
 }
 
 function gracefulFallback(question: string): string {
-  return withNav(
-    [
-      "I can help with Cameron’s research, projects, experience, skills, journey, awards, publications, or future goals.",
-      "",
-      "Try asking something like:",
-      "• “Who is Cameron?”",
-      "• “Explain Project AEGIS in simple terms”",
-      "• “What robotics experience does Cameron have?”",
-      "• “Where has Cameron interned?”",
-      "• “What are Cameron’s future goals?”",
-      "• “How can someone contact Cameron?”",
-      "",
-      `Your question: “${question.trim()}”`,
-    ].join("\n"),
-    [
-      `Research → ${portfolioNav.research}`,
-      `Journey → ${portfolioNav.journey}`,
-      `Resume → ${portfolioNav.resume}`,
-      `Publications → ${portfolioNav.publications}`,
-    ],
-  );
+  return [
+    "I can help with Cameron’s research, projects, experience, skills, journey, awards, publications, or future goals.",
+    "",
+    "Try asking something like “Who is Cameron?”, “Explain Project AEGIS in simple terms”, or “What robotics experience does Cameron have?”",
+    "",
+    `Your question: “${question.trim()}”`,
+  ].join("\n");
 }
 
 function emptyPromptFallback(): string {
@@ -1192,44 +1122,28 @@ export function generateLocalAskCameronAnswer(
 
   if (retrieval.mode === "comparison" && retrieval.comparisonProjects?.length) {
     const pair = retrieval.comparisonProjects;
-    return withNav(formatComparison(pair), navForAnswer(trimmed, ["Research"], pair));
+    return withNav(
+      formatComparison(pair),
+      pair.slice(0, 2).map((p) => `${p.project} → ${portfolioNav.researchProject(p.slug)}`),
+    );
   }
 
   if (retrieval.mode === "research-timeline") {
-    return withNav(
-      formatResearchTimeline(),
-      navForAnswer(trimmed, ["Research", "Journey"], cameronKnowledge.research),
-    );
+    return formatResearchTimeline();
   }
 
   if (retrieval.mode === "robotics-overview") {
-    return withNav(
-      formatRoboticsOverview(),
-      navForAnswer(trimmed, ["Research", "Experience"], retrieval.matchedProjects),
-    );
+    // Intent composer already includes selective links + follow-up
+    return formatRoboticsOverview();
   }
 
   if (retrieval.mode === "perspective") {
-    return withNav(
-      formatPerspective(retrieval.perspectiveDocId),
-      navForAnswer(trimmed, ["Journey", "Research"], []),
-    );
+    return formatPerspective(retrieval.perspectiveDocId);
   }
 
   if (retrieval.mode === "research-index") {
-    const hitsAsScored: ScoredHit[] = retrieval.documents.map((d) => ({
-      ...d,
-      metadata: d.metadata,
-    }));
-    const extras: string[] = [];
-    if (retrieval.includeExperience) {
-      extras.push(
-        formatExperienceHits(hitsAsScored.filter((h) => h.category === "experience")),
-      );
-    }
-    if (retrieval.includeSkills) extras.push(formatSkills());
-    const body = [formatResearchIndex(), ...extras.filter(Boolean)].join("\n\n——\n\n");
-    return withNav(body, navForAnswer(trimmed, ["Research"], cameronKnowledge.research));
+    // Keep the index concise — extras tend to re-dump the portfolio
+    return withNav(formatResearchIndex(), [`Research → ${portfolioNav.research}`]);
   }
 
   if (retrieval.mode === "fallback") {
@@ -1289,7 +1203,7 @@ export function generateLocalAskCameronAnswer(
 
     used.add(key);
     sections.push(formatted);
-    if (sections.length >= 4) break;
+    if (sections.length >= 2) break;
   }
 
   if (!sections.length) return gracefulFallback(trimmed);
@@ -1297,13 +1211,14 @@ export function generateLocalAskCameronAnswer(
   const body =
     sections.length === 1
       ? sections[0]
-      : [
-          "Here’s what I found across Cameron’s portfolio knowledge base:",
-          "",
-          sections.join("\n\n——\n\n"),
-        ].join("\n");
+      : sections.join("\n\n");
 
-  return withNav(body, navForAnswer(trimmed, sections, projectHits));
+  const followUp =
+    sections.length === 1
+      ? body
+      : `${body}\n\nI can go deeper on any of these if you’d like.`;
+
+  return withNav(followUp, navForAnswer(trimmed, sections, projectHits));
 }
 
 /** Back-compat — prefer `runAskCameronPipeline` from askCameronPipeline. */

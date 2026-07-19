@@ -692,7 +692,7 @@ function formatResearchTimeline(): string {
     ),
   );
 
-  const lines = researchChapters.slice(0, 6).map(
+  const lines = researchChapters.slice(0, 8).map(
     (c) => `• **${c.year} — ${c.title}**: ${c.summary}`,
   );
 
@@ -701,9 +701,7 @@ function formatResearchTimeline(): string {
     "",
     ...lines,
     "",
-    `Active threads: ${cameronKnowledge.research.map((r) => r.project).join(", ")}.`,
-    "",
-    "I can expand any chapter or project next.",
+    "I can expand any chapter if you’d like.",
   ].join("\n");
 }
 
@@ -782,20 +780,57 @@ function formatSkills(): string {
   return formatSkillsIntent();
 }
 
+/**
+ * Journey / timeline / background / origin — composition only.
+ * Do not change retrieval; used to avoid appending project dumps after timelines.
+ */
+function isStandaloneJourneyQuestion(query: string): boolean {
+  const q = query.toLowerCase();
+  // Keep robotics/experience “background” answers on their own paths
+  if (q.includes("robot") && q.includes("background")) return false;
+  if (q.includes("technical background") || q.includes("professional background")) return false;
+  // Do not treat project walkthroughs as journey-only
+  if (
+    (q.includes("project") || q.includes("aegis") || q.includes("farm") || q.includes("access")) &&
+    !q.includes("timeline") &&
+    !q.includes("journey")
+  ) {
+    return false;
+  }
+
+  return (
+    q.includes("timeline") ||
+    q.includes("journey") ||
+    q.includes("origin story") ||
+    q.includes("life story") ||
+    (q.includes("history") && q.includes("cameron")) ||
+    (q.includes("background") &&
+      !q.includes("research background") &&
+      !q.includes("skill")) ||
+    (q.includes("walk") &&
+      q.includes("through") &&
+      (q.includes("timeline") ||
+        q.includes("journey") ||
+        q.includes("history") ||
+        q.includes("background") ||
+        q.includes("story")))
+  );
+}
+
 function formatJourney(hits: ScoredHit[], query: string): string {
   const k = cameronKnowledge;
-  const wantsFull = /journey|timeline|walk|background|story|path/i.test(query);
+  const wantsFull = /journey|timeline|walk|background|history|origin|story|path/i.test(query);
 
   if (wantsFull) {
     const chapters = k.journey
-      .slice(0, 6)
+      .slice(0, 8)
       .map((c) => `• **${c.year} — ${c.title}**: ${c.summary}`);
     return [
-      firstSentence(k.story.legoStory),
+      "Here’s a concise look at Cameron’s journey:",
       "",
       ...chapters,
       "",
-      "I can expand any chapter, or focus on research and robotics milestones.",
+      "I can expand any chapter if you’d like.",
     ].join("\n");
   }
 
@@ -1115,6 +1150,36 @@ export function generateLocalAskCameronAnswer(
 
   if (retrieval.mode === "empty") return emptyPromptFallback();
 
+  // Journey / timeline questions: answer that topic only (composition override).
+  // Intent detection may still classify some timeline asks as research-overview;
+  // do not expand into project dossiers here.
+  if (isStandaloneJourneyQuestion(trimmed)) {
+    const q = trimmed.toLowerCase();
+    if (q.includes("research") && q.includes("timeline")) {
+      return formatResearchTimeline();
+    }
+    if (
+      q.includes("timeline") ||
+      q.includes("journey") ||
+      q.includes("history") ||
+      q.includes("background") ||
+      q.includes("origin") ||
+      (q.includes("walk") && q.includes("through"))
+    ) {
+      return formatJourney(
+        retrieval.documents.map((d) => ({
+          id: d.id,
+          category: d.category,
+          title: d.title,
+          text: d.text,
+          score: d.score,
+          metadata: d.metadata,
+        })),
+        trimmed,
+      );
+    }
+  }
+
   // Phase 3D/3F — composed intent responses
   if (retrieval.responseIntent) {
     return generateIntentResponse(retrieval.responseIntent, trimmed);
@@ -1129,6 +1194,7 @@ export function generateLocalAskCameronAnswer(
   }
 
   if (retrieval.mode === "research-timeline") {
+    // Timeline only — do not append project dossiers or tech lists
     return formatResearchTimeline();
   }
 
@@ -1159,6 +1225,15 @@ export function generateLocalAskCameronAnswer(
     score: d.score,
     metadata: d.metadata,
   }));
+
+  // Journey / timeline / history / background / origin: answer that topic only
+  if (!retrieval.responseIntent && isStandaloneJourneyQuestion(trimmed)) {
+    const q = trimmed.toLowerCase();
+    if (q.includes("research") && q.includes("timeline")) {
+      return formatResearchTimeline();
+    }
+    return formatJourney(hits, trimmed);
+  }
 
   const sections: string[] = [];
   const used = new Set<string>();
@@ -1191,7 +1266,7 @@ export function generateLocalAskCameronAnswer(
     }
     if (
       (key === "journey" || hit.category === "story") &&
-      sections.some((s) => s.includes("Background & journey"))
+      sections.some((s) => s.includes("Background & journey") || s.includes("concise look at Cameron"))
     ) {
       continue;
     }

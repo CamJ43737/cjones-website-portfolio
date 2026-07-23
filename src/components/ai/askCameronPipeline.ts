@@ -22,9 +22,12 @@ import {
   type AskCameronRetrievalResult,
 } from "@/components/ai/askCameronRetrieval";
 import {
+  cameronKnowledge,
+} from "@/data/cameronKnowledge";
+import {
   createEmptyConversationState,
   refineFollowUpFromAnswer,
-  resolveFollowUpQuestion,
+  resolveFollowUp,
   updateConversationState,
   type AskCameronConversationState,
 } from "@/components/ai/askCameronConversation";
@@ -158,6 +161,51 @@ export function generateAskCameronAnswer(
 }
 
 /**
+ * Clarification reply when a follow-up is ambiguous across multiple offered topics.
+ * Keeps the multi-choice offer active for the next turn.
+ */
+function buildClarifyResponse(
+  original: string,
+  answer: string,
+  prior: AskCameronConversationState,
+  offeredSlugs: string[],
+): AskCameronResponse {
+  const projects = offeredSlugs
+    .map((slug) => cameronKnowledge.research.find((r) => r.slug === slug))
+    .filter(Boolean) as NonNullable<(typeof cameronKnowledge.research)[number]>[];
+
+  const retrieval: AskCameronRetrievalResult = {
+    question: original,
+    mode: "fallback",
+    intents: ["clarify", "research"],
+    documents: [],
+    matchedProjects: projects,
+    confidence: "high",
+    answerVoice: "third-person",
+  };
+
+  const context = buildAskCameronContext(original, retrieval, {
+    originalQuestion: original,
+    resolvedFromFollowUp: true,
+  });
+
+  return {
+    answer,
+    context,
+    generator: "local",
+    confidence: "high",
+    conversation: {
+      ...prior,
+      lastIntent: "clarify-choice",
+      lastSuggestedFollowUp: { kind: "choose-project", slugs: offeredSlugs },
+      lastDiscussedTopic: "comparison",
+      lastMatchedProjectSlugs: offeredSlugs,
+      lastQuestion: original,
+    },
+  };
+}
+
+/**
  * Full pipeline entry point used by the UI.
  * Optional `conversation` enables follow-up resolution (“please do”, “tell me more”, …).
  */
@@ -167,13 +215,23 @@ export function runAskCameronPipeline(
 ): AskCameronResponse {
   const prior = options.conversation ?? createEmptyConversationState();
   const original = question.trim();
-  const resolved = resolveFollowUpQuestion(original, prior);
-  const effective = resolved ?? original;
+  const resolution = resolveFollowUp(original, prior);
+
+  if (resolution?.type === "clarify") {
+    return buildClarifyResponse(
+      original,
+      resolution.answer,
+      prior,
+      resolution.offeredSlugs,
+    );
+  }
+
+  const effective = resolution?.type === "question" ? resolution.question : original;
 
   const retrieval = retrieveForQuestion(effective);
   const context = buildAskCameronContext(effective, retrieval, {
     originalQuestion: original,
-    resolvedFromFollowUp: Boolean(resolved),
+    resolvedFromFollowUp: resolution?.type === "question",
   });
   return generateAskCameronAnswer(context, prior);
 }

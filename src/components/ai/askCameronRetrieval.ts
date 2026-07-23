@@ -37,6 +37,7 @@ export type AskCameronRetrievalMode =
   | "education"
   | "collaboration-services"
   | "project-simple"
+  | "hobby-overview"
   | "comparison"
   | "research-timeline"
   | "journey-chapter"
@@ -102,6 +103,8 @@ function modeForResponseIntent(intent: AskCameronResponseIntent): AskCameronRetr
       return "comparison";
     case "project-simple":
       return "project-simple";
+    case "hobby-interest":
+      return "hobby-overview";
     default:
       return "ranked";
   }
@@ -200,6 +203,26 @@ function contextDocsForIntent(intent: AskCameronResponseIntent): AskCameronScore
           title: doc.title,
           text: doc.text,
           score: 10,
+          metadata: doc.metadata,
+        });
+      }
+    }
+  }
+
+  if (intent === "hobby-interest") {
+    for (const id of [
+      "beyond-pc-building",
+      "beyond-photography",
+      "beyond-fishing",
+    ]) {
+      const doc = all.find((d) => d.id === id);
+      if (doc && !picked.some((p) => p.id === doc.id)) {
+        picked.push({
+          id: doc.id,
+          category: doc.category,
+          title: doc.title,
+          text: doc.text,
+          score: 12,
           metadata: doc.metadata,
         });
       }
@@ -485,7 +508,11 @@ function isResearchTimelineQuestion(query: string): boolean {
   return (
     (q.includes("timeline") && (q.includes("research") || q.includes("journey"))) ||
     q.includes("research timeline") ||
-    (q.includes("walk") && q.includes("research"))
+    q.includes("research journey") ||
+    (q.includes("walk") && q.includes("research")) ||
+    (q.includes("research") &&
+      q.includes("journey") &&
+      (q.includes("tell") || q.includes("walk") || q.includes("about") || q.includes("through")))
   );
 }
 
@@ -689,23 +716,44 @@ function formatComparison(projects: CameronResearchEntry[]): string {
   ].join("\n");
 }
 
-function formatResearchTimeline(): string {
-  const researchChapters = cameronKnowledge.journey.filter((c) =>
-    /ai farms|aegis|access|research|robot|nsf|prairie|cagi|graduate|future/i.test(
-      `${c.id} ${c.title} ${c.summary}`,
-    ),
-  );
+/** Flagship research milestones only — skip awards, civic, and early builder chapters. */
+function researchTimelineChapters(): CameronJourneyChapter[] {
+  const order = [
+    "2022-ai-farms",
+    "2024-prairie-cagi",
+    "2025-access",
+    "2026-aegis",
+  ];
+  return order
+    .map((id) => cameronKnowledge.journey.find((c) => c.id === id))
+    .filter(Boolean) as CameronJourneyChapter[];
+}
 
-  const lines = researchChapters.slice(0, 8).map(
-    (c) => `• **${c.year} — ${c.title}**: ${c.summary}`,
-  );
+function formatResearchTimelineMilestone(chapter: CameronJourneyChapter): string {
+  const title =
+    chapter.id.includes("aegis")
+      ? `${chapter.year} — Project AEGIS`
+      : `${chapter.year} — ${chapter.title}`;
 
   return [
-    "Here’s a concise research timeline of where Cameron’s AI and robotics work took shape:",
+    title,
     "",
-    ...lines,
+    chapterNarrative(chapter),
     "",
-    "I can expand any chapter if you’d like.",
+    whyChapterMattered(chapter),
+  ].join("\n");
+}
+
+function formatResearchTimeline(): string {
+  const chapters = researchTimelineChapters();
+  const milestones = chapters.map(formatResearchTimelineMilestone);
+
+  return [
+    "Cameron’s research journey moved from building systems to applying AI in real-world environments — fields, research infrastructure, and healthcare settings.",
+    "",
+    milestones.join("\n\n"),
+    "",
+    "I can expand AI Farms, ACCESS-CI, or Project AEGIS if you’d like a deeper look at any project.",
   ].join("\n");
 }
 
@@ -1006,9 +1054,10 @@ function chapterNarrative(chapter: CameronJourneyChapter): string {
 
   if (id.includes("aegis")) {
     return [
-      "This chapter centers on healthcare AI and digital twins through Project AEGIS and related research acceleration.",
-      detail,
-      role ? `Cameron served as ${role}, connecting simulation environments to aging-in-place research goals.` : "",
+      "In 2026, Cameron’s research turned toward healthcare AI through Project AEGIS — digital twin apartments and assistive robotics for aging-in-place.",
+      role
+        ? `As ${role}, he helps build simulation environments where AI and robotics ideas can be tested before they reach real homes.`
+        : firstSentence(detail),
     ]
       .filter(Boolean)
       .join(" ");
@@ -1016,9 +1065,10 @@ function chapterNarrative(chapter: CameronJourneyChapter): string {
 
   if (id.includes("prairie") || id.includes("cagi")) {
     return [
-      "This was a year of acceleration across robotics internship work, Google CSSI, and CAGI AI experiences.",
-      detail,
-      role ? `His robotics internship role (${role}) emphasized embedded systems and hands-on autonomy.` : "",
+      "In 2024, Cameron’s research training accelerated through embedded robotics at Prairie View, Google CSSI, and CAGI AI cohorts where agriculture met AI under pressure.",
+      role
+        ? `His robotics internship role (${role}) emphasized autonomous systems, sensing, and hands-on prototyping.`
+        : "",
     ]
       .filter(Boolean)
       .join(" ");
@@ -1086,6 +1136,20 @@ function whyChapterMattered(chapter: CameronJourneyChapter): string {
  */
 function isStandaloneJourneyQuestion(query: string): boolean {
   const q = query.toLowerCase();
+  // Never treat hobby / Beyond the Lab asks as journey timelines
+  if (
+    q.includes("hobby") ||
+    q.includes("hobbies") ||
+    q.includes("for fun") ||
+    q.includes("outside research") ||
+    q.includes("outside the lab") ||
+    q.includes("beyond the lab") ||
+    q.includes("fishing") ||
+    q.includes("what does he have") ||
+    q.includes("what does he like")
+  ) {
+    return false;
+  }
   // Keep robotics/experience “background” answers on their own paths
   if (q.includes("robot") && q.includes("background")) return false;
   if (q.includes("technical background") || q.includes("professional background")) return false;
@@ -1481,14 +1545,19 @@ export function generateLocalAskCameronAnswer(
     return formatJourneyChapterExpansion(chapterFromQuestion);
   }
 
+  // Research timeline / research journey — narrative research milestones (not full life timeline)
+  if (
+    retrieval.mode === "research-timeline" ||
+    isResearchTimelineQuestion(trimmed)
+  ) {
+    return formatResearchTimeline();
+  }
+
   // Journey / timeline questions: answer that topic only (composition override).
   // Intent detection may still classify some timeline asks as research-overview;
   // do not expand into project dossiers here.
   if (isStandaloneJourneyQuestion(trimmed)) {
     const q = trimmed.toLowerCase();
-    if (q.includes("research") && q.includes("timeline")) {
-      return formatResearchTimeline();
-    }
     if (
       q.includes("timeline") ||
       q.includes("journey") ||
@@ -1522,11 +1591,6 @@ export function generateLocalAskCameronAnswer(
       formatComparison(pair),
       pair.slice(0, 2).map((p) => `${p.project} → ${portfolioNav.researchProject(p.slug)}`),
     );
-  }
-
-  if (retrieval.mode === "research-timeline") {
-    // Timeline only — do not append project dossiers or tech lists
-    return formatResearchTimeline();
   }
 
   if (retrieval.mode === "journey-chapter" && retrieval.chapterId) {
@@ -1564,8 +1628,7 @@ export function generateLocalAskCameronAnswer(
 
   // Journey / timeline / history / background / origin: answer that topic only
   if (!retrieval.responseIntent && isStandaloneJourneyQuestion(trimmed)) {
-    const q = trimmed.toLowerCase();
-    if (q.includes("research") && q.includes("timeline")) {
+    if (isResearchTimelineQuestion(trimmed)) {
       return formatResearchTimeline();
     }
     return formatJourney(hits, trimmed);

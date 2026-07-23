@@ -9,6 +9,9 @@ export type AskCameronHumanTestCase = {
   question: string;
   expectedCategories: string[];
   expectedDocumentHints?: string[];
+  priorTurns?: string[];
+  expectAnswerIncludes?: string[];
+  expectAnswerExcludes?: string[];
 };
 
 /**
@@ -140,6 +143,91 @@ export const askCameronHumanTests: AskCameronHumanTestCase[] = [
     question: "what happened during ACCESS-CI",
     expectedCategories: ["journey"],
     expectedDocumentHints: ["access"],
+  },
+  // Beyond the Lab / hobbies (Phase 4A)
+  {
+    id: "human-hobbies-fun",
+    category: "hobbies",
+    question: "What does Cameron do for fun?",
+    expectedCategories: ["beyond"],
+    expectedDocumentHints: ["beyond", "fishing", "photo"],
+    expectAnswerIncludes: ["PC Building", "Photography", "Fishing"],
+    expectAnswerExcludes: ["LEGO", "research timeline", "2018 —"],
+  },
+  {
+    id: "human-hobbies-list",
+    category: "hobbies",
+    question: "What are Cameron's hobbies?",
+    expectedCategories: ["beyond"],
+    expectAnswerIncludes: ["PC Building", "Photography", "Fishing"],
+  },
+  {
+    id: "human-hobbies-outside-research",
+    category: "hobbies",
+    question: "What does he like outside research?",
+    expectedCategories: ["beyond"],
+    expectAnswerIncludes: ["PC Building", "Photography", "Fishing"],
+  },
+  {
+    id: "human-hobbies-fishing",
+    category: "hobbies",
+    question: "Does Cameron like fishing?",
+    expectedCategories: ["beyond"],
+    expectAnswerIncludes: ["Fishing", "patience", "Yes"],
+    expectAnswerExcludes: ["LEGO", "research timeline", "2018 —"],
+  },
+  {
+    id: "human-hobbies-outside-lab",
+    category: "hobbies",
+    question: "Tell me about Cameron outside the lab",
+    expectedCategories: ["beyond"],
+    expectAnswerIncludes: ["PC Building", "Photography", "Fishing"],
+  },
+  {
+    id: "human-hobbies-what-else",
+    category: "hobbies",
+    priorTurns: ["What does Cameron do for fun?"],
+    question: "what else does he do?",
+    expectedCategories: ["beyond"],
+    expectAnswerIncludes: ["PC Building", "Photography", "Fishing"],
+    expectAnswerExcludes: ["I don't have", "Try asking"],
+  },
+  // Ambiguous multi-topic follow-ups (conversation continuity)
+  {
+    id: "human-compare-please-do-clarify",
+    category: "conversation",
+    priorTurns: ["Compare AI Farms and Project AEGIS"],
+    question: "please do",
+    expectedCategories: ["clarify", "research"],
+    expectAnswerIncludes: ["AI Farms", "Project AEGIS", "Would you like"],
+    expectAnswerExcludes: ["Technologies:", "Domain:"],
+  },
+  {
+    id: "human-compare-tell-me-more-clarify",
+    category: "conversation",
+    priorTurns: ["Compare AI Farms and Project AEGIS"],
+    question: "tell me more",
+    expectedCategories: ["clarify", "research"],
+    expectAnswerIncludes: ["AI Farms", "Project AEGIS"],
+  },
+  {
+    id: "human-compare-please-do-then-pick",
+    category: "conversation",
+    priorTurns: ["Compare AI Farms and Project AEGIS", "please do"],
+    question: "Project AEGIS",
+    expectedCategories: ["research"],
+    expectedDocumentHints: ["aegis"],
+    expectAnswerIncludes: ["AEGIS"],
+  },
+  {
+    id: "human-single-farms-please-do",
+    category: "conversation",
+    priorTurns: ["Tell me about AI Farms"],
+    question: "please do",
+    expectedCategories: ["research"],
+    expectedDocumentHints: ["farms", "ai-farms"],
+    expectAnswerIncludes: ["AI Farms"],
+    expectAnswerExcludes: ["Would you like to go deeper into AI Farms or"],
   },
   // Collaboration
   {

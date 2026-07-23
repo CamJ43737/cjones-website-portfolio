@@ -17,6 +17,12 @@ export type AskCameronTestQuestion = {
   expectedCategories: string[];
   /** Optional document id / slug substrings that should appear when ranked docs exist. */
   expectedDocumentHints?: string[];
+  /** Prior turns run first with shared conversation state (multi-turn QA). */
+  priorTurns?: string[];
+  /** Substrings that must appear in the final answer. */
+  expectAnswerIncludes?: string[];
+  /** Substrings that must not appear in the final answer. */
+  expectAnswerExcludes?: string[];
 };
 
 export const askCameronTestQuestions: AskCameronTestQuestion[] = [
@@ -479,6 +485,9 @@ export function getRetrievedCategories(retrieval: AskCameronRetrievalResult): st
     case "project-simple":
       cats.add("research");
       break;
+    case "hobby-overview":
+      cats.add("beyond");
+      break;
     case "perspective":
       cats.add("perspective");
       break;
@@ -548,6 +557,7 @@ function documentHintMatched(
     "collaboration-services",
     "project-simple",
     "journey-chapter",
+    "hobby-overview",
   ]);
 
   if (structuredModes.has(retrieval.mode)) {
@@ -585,6 +595,18 @@ function documentHintMatched(
       if (retrieval.chapterId?.toLowerCase().includes(h)) return true;
       return true;
     }
+    if (retrieval.mode === "hobby-overview") {
+      if (
+        h.includes("beyond") ||
+        h.includes("fishing") ||
+        h.includes("photo") ||
+        h.includes("pc") ||
+        h.includes("hobby")
+      ) {
+        return true;
+      }
+      return inDocs;
+    }
   }
 
   return inDocs || inProjects || Boolean(inMode);
@@ -593,8 +615,26 @@ function documentHintMatched(
 export function evaluateAskCameronQuestion(
   test: AskCameronTestQuestion,
 ): AskCameronEvalCaseResult {
-  const response = runAskCameronPipeline(test.question);
+  let conversation = undefined as
+    | ReturnType<typeof runAskCameronPipeline>["conversation"]
+    | undefined;
+  let response = runAskCameronPipeline(test.question);
+
+  if (test.priorTurns?.length) {
+    conversation = undefined;
+    for (const turn of test.priorTurns) {
+      response = runAskCameronPipeline(turn, { conversation });
+      conversation = response.conversation;
+    }
+    response = runAskCameronPipeline(test.question, { conversation });
+  }
+
   const retrievedCategories = getRetrievedCategories(response.context.retrieval);
+
+  // Clarification turns are conversation continuity, not retrieval failures
+  if (response.context.retrieval.intents.includes("clarify")) {
+    retrievedCategories.push("clarify", "research");
+  }
 
   const matchedExpected = test.expectedCategories.filter((c) =>
     retrievedCategories.includes(c),
@@ -616,14 +656,30 @@ export function evaluateAskCameronQuestion(
     (hint) => !documentHintMatched(response.context.retrieval, hint),
   );
 
-  const passed = missingExpected.length === 0 && missingDocumentHints.length === 0;
+  const answer = response.answer;
+  const missingAnswerIncludes = (test.expectAnswerIncludes ?? []).filter(
+    (s) => !answer.toLowerCase().includes(s.toLowerCase()),
+  );
+  const unexpectedAnswerExcludes = (test.expectAnswerExcludes ?? []).filter((s) =>
+    answer.toLowerCase().includes(s.toLowerCase()),
+  );
+
+  const passed =
+    missingExpected.length === 0 &&
+    missingDocumentHints.length === 0 &&
+    missingAnswerIncludes.length === 0 &&
+    unexpectedAnswerExcludes.length === 0;
 
   return {
     test,
     response,
-    retrievedCategories,
+    retrievedCategories: [...new Set(retrievedCategories)].sort(),
     matchedExpected,
-    missingExpected,
+    missingExpected: [
+      ...missingExpected,
+      ...missingAnswerIncludes.map((s) => `answer-includes:${s}`),
+      ...unexpectedAnswerExcludes.map((s) => `answer-excludes:${s}`),
+    ],
     topDocuments,
     missingDocumentHints,
     passed,

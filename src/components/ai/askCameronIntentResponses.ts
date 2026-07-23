@@ -21,7 +21,8 @@ export type AskCameronResponseIntent =
   | "education"
   | "collaboration-services"
   | "research-comparison"
-  | "project-simple";
+  | "project-simple"
+  | "hobby-interest";
 
 /** Voice for composed answers (Phase 3G). Personal/story = first-person; factual = third-person. */
 export type AskCameronAnswerVoice = "first-person" | "third-person";
@@ -35,6 +36,83 @@ export function voiceForIntent(intent: AskCameronResponseIntent): AskCameronAnsw
     default:
       return "third-person";
   }
+}
+
+/** Beyond the Lab / hobbies — conversational interest questions (Phase 4A). */
+export function isHobbyInterestQuestion(question: string): boolean {
+  const q = question.toLowerCase().trim().replace(/[?.!]+$/g, "");
+  if (!q) return false;
+
+  if (
+    q.includes("hobby") ||
+    q.includes("hobbies") ||
+    q.includes("for fun") ||
+    q.includes("free time") ||
+    q.includes("passion") ||
+    q.includes("passions")
+  ) {
+    return true;
+  }
+
+  if (
+    q.includes("beyond the lab") ||
+    q.includes("outside the lab") ||
+    q.includes("outside research") ||
+    q.includes("outside of research") ||
+    q.includes("outside work") ||
+    q.includes("outside of work") ||
+    q.includes("outside ai") ||
+    q.includes("outside of ai") ||
+    q.includes("outside technology") ||
+    q.includes("outside of technology")
+  ) {
+    return true;
+  }
+
+  if (
+    q.includes("what does he like") ||
+    q.includes("what does cameron like") ||
+    q.includes("what does he enjoy") ||
+    q.includes("what does cameron enjoy") ||
+    q.includes("what does he do for fun") ||
+    q.includes("what does cameron do for fun") ||
+    q.includes("what does he have") ||
+    q.includes("what does cameron have") ||
+    /\bwhat else (does he|does cameron) do\b/.test(q)
+  ) {
+    return true;
+  }
+
+  if (
+    q.includes("interests") &&
+    (q.includes("outside") || q.includes("personal") || q.includes("cameron") || q.includes("his"))
+  ) {
+    return true;
+  }
+
+  // Specific hobby likes (not service/collaboration asks)
+  if (
+    (q.includes("like") || q.includes("enjoy") || q.includes("into")) &&
+    (q.includes("fishing") || q.includes("photography") || q.includes("pc build") || q.includes("building pcs"))
+  ) {
+    return true;
+  }
+
+  if (
+    q.includes("fishing") &&
+    (q.includes("does he") || q.includes("does cameron") || q.includes("like") || q.includes("enjoy"))
+  ) {
+    return true;
+  }
+
+  if (
+    (q.includes("tell me about cameron") || q.includes("about cameron")) &&
+    (q.includes("outside") || q.includes("beyond"))
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 function joinList(items: string[]): string {
@@ -168,6 +246,11 @@ export function detectResponseIntent(question: string): AskCameronResponseIntent
     q.includes("different from other")
   ) {
     return "identity-intro";
+  }
+
+  // Beyond the Lab / hobbies (before collaboration so interest questions stay on hobbies)
+  if (isHobbyInterestQuestion(q)) {
+    return "hobby-interest";
   }
 
   // 1) Research comparison / connecting themes
@@ -346,7 +429,7 @@ export function detectResponseIntent(question: string): AskCameronResponseIntent
     return "career-internships";
   }
 
-  // Research overview (not a single named project)
+  // Research overview (not a single named project; not timeline/journey walkthroughs)
   if (!mentionsSpecificProject(q) || q.includes("software project")) {
     if (
       (q.includes("research") &&
@@ -366,6 +449,14 @@ export function detectResponseIntent(question: string): AskCameronResponseIntent
         return "future-direction";
       }
       if (q.includes("why") || q.includes("philosophy")) return "motivation-origin";
+      // Leave research timeline / research journey to structured timeline mode
+      if (
+        q.includes("timeline") ||
+        q.includes("research journey") ||
+        (q.includes("journey") && (q.includes("walk") || q.includes("through")))
+      ) {
+        return null;
+      }
       return "research-overview";
     }
   }
@@ -433,6 +524,8 @@ export function categoriesForResponseIntent(
       return ["research"];
     case "project-simple":
       return ["research"];
+    case "hobby-interest":
+      return ["beyond"];
     default:
       return [];
   }
@@ -669,6 +762,64 @@ export function formatEducationIntent(): string {
   );
 }
 
+/**
+ * Beyond the Lab — dedicated hobby/interest formatter (Phase 4A).
+ * Returns all hobbies for overview questions; fishing-specific when asked.
+ */
+export function formatHobbyInterestIntent(question: string): string {
+  const q = question.toLowerCase();
+  const hobbies = cameronKnowledge.beyondTheLab;
+  const fishing = hobbies.find((h) => h.id === "fishing");
+  const photo = hobbies.find((h) => h.id === "photography");
+  const pc = hobbies.find((h) => h.id === "pc-building");
+
+  if (
+    fishing &&
+    q.includes("fishing") &&
+    (q.includes("like") || q.includes("enjoy") || q.includes("does he") || q.includes("does cameron"))
+  ) {
+    return withFollowUp(
+      "Yes. Fishing is one of Cameron’s ways to disconnect, practice patience, and maintain balance outside technology.",
+      "I can also share Cameron’s PC building or photography interests.",
+    );
+  }
+
+  if (
+    photo &&
+    q.includes("photography") &&
+    (q.includes("like") || q.includes("enjoy") || q.includes("hobby"))
+  ) {
+    return withFollowUp(
+      `Yes. Photography is one of Cameron’s creative outlets — ${firstSentence(photo.description)} Theme: ${photo.theme}.`,
+      "I can also share his PC building or fishing interests.",
+    );
+  }
+
+  if (
+    pc &&
+    (q.includes("pc build") || q.includes("building pcs") || q.includes("computer building")) &&
+    (q.includes("like") || q.includes("enjoy") || q.includes("hobby"))
+  ) {
+    return withFollowUp(
+      `Yes. PC building is a core interest for Cameron — ${firstSentence(pc.description)}`,
+      "I can also share his photography or fishing interests.",
+    );
+  }
+
+  const body = [
+    "Cameron’s interests outside research reflect the same curiosity that drives his engineering work. Beyond the lab, he enjoys PC building, photography, and fishing.",
+    "",
+    "• **PC Building** — Building systems from the hardware up; hardware curiosity that still informs how he engineers.",
+    "• **Photography** — Capturing technology, people, and moments through his lens.",
+    "• **Fishing** — Time outdoors for patience, perspective, and balance away from screens.",
+  ].join("\n");
+
+  return withFollowUp(
+    withLinks(body, [`Beyond the Lab → /beyond`], 1),
+    "I can tell you more about Cameron’s engineering interests, photography, or hobbies.",
+  );
+}
+
 export function formatCollaborationServicesIntent(question: string): string {
   const q = question.toLowerCase();
   const c = cameronKnowledge.contact;
@@ -792,6 +943,8 @@ export function generateIntentResponse(
       return formatResearchComparisonIntent(question);
     case "project-simple":
       return formatProjectSimpleIntent(question);
+    case "hobby-interest":
+      return formatHobbyInterestIntent(question);
     default:
       return formatIdentityIntroduction();
   }

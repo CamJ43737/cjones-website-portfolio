@@ -83,6 +83,11 @@ export function AskCameron() {
     window.setTimeout(() => openButtonRef.current?.focus(), 50);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    window.dispatchEvent(new Event("ask-cameron-open"));
+  }, [open]);
+
   const ask = useCallback(
     (question: string) => {
       const trimmed = question.trim();
@@ -152,7 +157,7 @@ export function AskCameron() {
   };
 
   return (
-    <div className="pointer-events-none fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
+    <div className="pointer-events-none fixed bottom-[max(1rem,env(safe-area-inset-bottom,0px))] right-[max(1rem,env(safe-area-inset-right,0px))] z-[60] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
       <AnimatePresence>
         {open && (
           <motion.div
@@ -166,7 +171,7 @@ export function AskCameron() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto flex max-h-[min(36rem,calc(100svh-6.5rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-[1.35rem] border border-tuskegee-gold/30 bg-obsidian/92 shadow-gold backdrop-blur-xl"
+            className="pointer-events-auto flex max-h-[min(36rem,calc(100svh-7rem-env(safe-area-inset-bottom,0px)))] w-[min(24rem,calc(100vw-2rem-env(safe-area-inset-right,0px)))] flex-col overflow-hidden rounded-[1.35rem] border border-tuskegee-gold/30 bg-obsidian/92 shadow-gold backdrop-blur-xl"
           >
             <header className="shrink-0 border-b border-white/[0.08] px-4 py-3.5 sm:px-5">
               <div className="flex items-start justify-between gap-3">
@@ -272,12 +277,12 @@ export function AskCameron() {
                   placeholder="Ask about research, skills, journey…"
                   autoComplete="off"
                   disabled={pending}
-                  className="min-w-0 flex-1 bg-transparent text-sm text-mist placeholder:text-ink-500 focus:outline-none disabled:opacity-60"
+                  className="min-w-0 flex-1 bg-transparent text-base text-mist placeholder:text-ink-500 focus:outline-none disabled:opacity-60 sm:text-sm"
                 />
                 <button
                   type="submit"
                   disabled={pending || !input.trim()}
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-tuskegee-gold/40 bg-tuskegee-gold/15 text-tuskegee-gold transition hover:bg-tuskegee-gold/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tuskegee-gold disabled:cursor-not-allowed disabled:opacity-40"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-tuskegee-gold/40 bg-tuskegee-gold/15 text-tuskegee-gold transition hover:bg-tuskegee-gold/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tuskegee-gold disabled:cursor-not-allowed disabled:opacity-40 sm:h-9 sm:w-9"
                   aria-label="Send question"
                 >
                   <Send size={15} />
@@ -297,7 +302,7 @@ export function AskCameron() {
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => (open ? close() : setOpen(true))}
-        className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-tuskegee-gold/40 bg-obsidian/90 px-4 py-3 text-sm font-medium text-mist shadow-gold backdrop-blur-xl transition hover:border-tuskegee-gold/60 hover:text-tuskegee-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tuskegee-gold"
+        className="pointer-events-auto inline-flex min-h-11 items-center gap-2 rounded-full border border-tuskegee-gold/40 bg-obsidian/90 px-4 py-3 text-sm font-medium text-mist shadow-gold backdrop-blur-xl transition hover:border-tuskegee-gold/60 hover:text-tuskegee-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tuskegee-gold"
         whileHover={reduce ? undefined : { scale: 1.02 }}
         whileTap={reduce ? undefined : { scale: 0.98 }}
       >

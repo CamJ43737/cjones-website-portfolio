@@ -4,7 +4,7 @@ import { TuskegeeSealWatermark } from "@/components/brand/TuskegeeAtmosphere";
 
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 section-pad bg-obsidian/25 py-12 backdrop-blur-sm sm:py-14">
+    <footer className="relative overflow-hidden border-t border-white/10 section-pad bg-obsidian/25 pb-28 pt-12 backdrop-blur-sm sm:py-14 sm:pb-14">
       <TuskegeeSealWatermark
         size="md"
         className="bottom-2 right-4 sm:bottom-4 sm:right-10"

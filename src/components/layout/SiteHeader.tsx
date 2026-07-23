@@ -19,6 +19,12 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const onAskOpen = () => setOpen(false);
+    window.addEventListener("ask-cameron-open", onAskOpen);
+    return () => window.removeEventListener("ask-cameron-open", onAskOpen);
+  }, []);
+
   return (
     <header
       className={cn(

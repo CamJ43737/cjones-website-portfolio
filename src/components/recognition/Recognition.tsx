@@ -38,79 +38,67 @@ const groups = [
   },
 ] as const;
 
-/** Full awards gallery — all 12 recognition stills (contain to preserve faces/certificates). */
+/** Full awards gallery — all 12 recognition stills. */
 const recognitionImages = [
   {
     src: "/images/07_Awards/nsf-stem-scholars.jpg",
     alt: "NSF S-STEM Scholars",
     caption: "NSF S-STEM Scholars cohort.",
-    fit: "contain" as const,
   },
   {
     src: "/images/07_Awards/celebrating-graduation-with-the-corrdinators-of-the-nsf-stem-scholars-scholarship-committee.jpg",
     alt: "NSF STEM Scholars celebration",
     caption: "NSF S-STEM scholarship committee celebration.",
-    fit: "contain" as const,
   },
   {
     src: "/images/07_Awards/gsd-honors-society-of-ag.jpg",
     alt: "Gamma Sigma Delta honors",
     caption: "Gamma Sigma Delta Honor Society of Agriculture.",
-    fit: "contain" as const,
   },
   {
     src: "/images/07_Awards/gsd-honors-society-of-ag-official-pin.jpeg",
     alt: "Gamma Sigma Delta pin",
     caption: "Gamma Sigma Delta honor society pin.",
-    fit: "contain" as const,
   },
   {
     src: "/images/07_Awards/hackathon-winners-for-auburn-hacks.jpg",
     alt: "Auburn Hacks winners",
     caption: "Auburn Hacks first-place team.",
-    fit: "contain" as const,
   },
   {
     src: "/images/07_Awards/hackathon-team-for-auburn-hacks-hackathon.jpeg",
     alt: "Auburn Hacks team",
     caption: "Auburn Hacks competition team.",
-    fit: "contain" as const,
   },
   {
     src: "/images/07_Awards/my-sister-and-i-presenting-our-hakcathon-for-auburn-hacks.jpeg",
     alt: "Auburn Hacks presentation",
     caption: "Presenting at Auburn Hacks.",
-    fit: "contain" as const,
   },
   {
     src: "/images/07_Awards/hackathon-winners.jpeg",
     alt: "Precision agriculture hackathon winners",
     caption: "Precision Agriculture Hackathon winners.",
-    fit: "contain" as const,
   },
   {
     src: "/images/07_Awards/uiuc-2026-cda-hackathon-winners.jpeg",
     alt: "CDA hackathon winners",
     caption: "CDA hackathon recognition.",
-    fit: "contain" as const,
   },
   {
     src: "/images/07_Awards/img-3444.jpg",
     alt: "Awards recognition moment",
     caption: "Recognition and scholarship community.",
-    fit: "contain" as const,
   },
   {
     src: "/images/07_Awards/img-6798.jpg",
     alt: "Awards ceremony moment",
     caption: "Honors and awards celebration.",
-    fit: "contain" as const,
   },
   {
     src: "/images/07_Awards/img-6842.jpg",
     alt: "Awards program recognition",
     caption: "Program recognition and community support.",
-    fit: "contain" as const,
   },
 ] as const;
 
@@ -127,15 +115,15 @@ export function Recognition() {
         <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:col-span-7">
           {recognitionImages.map((m, i) => (
             <Reveal key={m.src} delay={Math.min(i * 0.025, 0.28)} className="h-full">
-              <figure className="flex h-full flex-col">
+              <figure className="flex h-full flex-col gap-1.5 sm:gap-2">
                 <MediaImage
                   src={m.src}
                   alt={m.alt}
-                  fit={m.fit}
+                  fit="cover"
                   objectPosition="50% 50%"
-                  className="aspect-square w-full"
+                  className="aspect-square w-full rounded-lg"
                 />
-                <figcaption className="mt-1.5 line-clamp-2 min-h-[2rem] text-[10px] leading-snug text-ink-400 sm:mt-2 sm:text-[11px]">
+                <figcaption className="line-clamp-2 min-h-[2rem] px-0.5 text-[10px] leading-snug text-ink-400 sm:text-[11px]">
                   {m.caption}
                 </figcaption>
               </figure>

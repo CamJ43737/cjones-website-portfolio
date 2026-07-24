@@ -68,9 +68,10 @@ footer {
     @apply bg-gradient-to-b from-obsidian/25 via-transparent to-obsidian/30;
   }
 
-  /* Shared photo frame — gold glass glow used site-wide */
+  /* Shared photo frame — gold glass glow used site-wide.
+     Radius is applied via utilities on MediaImage so callers can override. */
   .media-frame {
-    @apply rounded-2xl border border-tuskegee-gold/25 shadow-gold-sm ring-1 ring-inset ring-tuskegee-gold/15 transition duration-500 ease-out;
+    @apply border border-tuskegee-gold/25 shadow-gold-sm ring-1 ring-inset ring-tuskegee-gold/15 transition duration-500 ease-out;
   }
 
   .media-frame:hover {

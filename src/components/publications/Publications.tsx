@@ -45,9 +45,9 @@ export function Publications() {
                 <MediaImage
                   src={m.src}
                   alt={m.alt}
-                  fit={m.fit ?? "contain"}
+                  fit="cover"
                   objectPosition={m.objectPosition}
-                  className="aspect-[3/4]"
+                  className="aspect-[3/4] w-full rounded-lg"
                 />
               </a>
             </Reveal>
@@ -75,9 +75,9 @@ export function Publications() {
                   <MediaImage
                     src={m.src}
                     alt={m.alt}
-                    fit="contain"
+                    fit="cover"
                     objectPosition="50% 50%"
-                    className="aspect-[4/5]"
+                    className="aspect-[4/5] w-full rounded-lg"
                   />
                 </a>
               </Reveal>

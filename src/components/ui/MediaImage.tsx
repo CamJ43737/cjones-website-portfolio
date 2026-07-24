@@ -31,13 +31,14 @@ export function MediaImage({
   const [ok, setOk] = useState(true);
   const resolvedFit = fitForPath(src, fit);
   const resolvedPosition = defaultObjectPosition(src, objectPosition);
+  const isCover = resolvedFit === "cover";
 
   if (!ok) {
     return (
       <div
         className={cn(
           "flex items-center justify-center bg-graphite text-xs text-ink-400",
-          !unframed && "media-frame",
+          !unframed && "media-frame rounded-xl",
           className,
         )}
       >
@@ -50,10 +51,10 @@ export function MediaImage({
     <div
       className={cn(
         "group relative overflow-hidden",
-        !unframed && "media-frame",
-        resolvedFit === "contain"
-          ? "bg-gradient-to-b from-tuskegee-gold/[0.07] via-obsidian/95 to-obsidian"
-          : "bg-charcoal/90",
+        !unframed && "media-frame rounded-xl",
+        isCover
+          ? "bg-charcoal/90"
+          : "bg-gradient-to-b from-tuskegee-gold/[0.07] via-obsidian/95 to-obsidian",
         className,
       )}
     >
@@ -64,12 +65,14 @@ export function MediaImage({
         loading={priority ? "eager" : "lazy"}
         decoding="async"
         className={cn(
-          "h-full w-full max-w-none transition duration-700 ease-out",
-          resolvedFit === "cover" ? "object-cover" : "object-contain p-1.5 sm:p-2",
+          "max-w-none transition duration-700 ease-out",
+          isCover
+            ? "absolute inset-0 h-full w-full object-cover"
+            : "h-full w-full object-contain p-1.5 sm:p-2",
           !unframed && "group-hover:scale-[1.015]",
           imgClassName,
         )}
-        style={{ objectPosition: resolvedPosition, height: "100%" }}
+        style={{ objectPosition: resolvedPosition }}
         onError={() => setOk(false)}
       />
     </div>

@@ -21,9 +21,13 @@ export function Awards() {
               <MediaImage
                 src={m.src}
                 alt={m.alt}
-                fit={m.fit}
+                fit="cover"
                 objectPosition={m.objectPosition}
-                className={i === 0 ? "col-span-2 aspect-[16/10]" : "aspect-square"}
+                className={
+                  i === 0
+                    ? "col-span-2 aspect-[16/10] w-full rounded-lg"
+                    : "aspect-square w-full rounded-lg"
+                }
               />
             </Reveal>
           ))}

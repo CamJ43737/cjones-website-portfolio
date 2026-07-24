@@ -54,7 +54,7 @@ export function MediaImage({
         !unframed && "media-frame rounded-xl",
         isCover
           ? "bg-charcoal/90"
-          : "bg-gradient-to-b from-tuskegee-gold/[0.07] via-obsidian/95 to-obsidian",
+          : "bg-obsidian/80",
         className,
       )}
     >
@@ -65,10 +65,8 @@ export function MediaImage({
         loading={priority ? "eager" : "lazy"}
         decoding="async"
         className={cn(
-          "max-w-none transition duration-700 ease-out",
-          isCover
-            ? "absolute inset-0 h-full w-full object-cover"
-            : "h-full w-full object-contain p-1.5 sm:p-2",
+          "absolute inset-0 h-full w-full max-w-none transition duration-700 ease-out",
+          isCover ? "object-cover" : "object-contain",
           !unframed && "group-hover:scale-[1.015]",
           imgClassName,
         )}

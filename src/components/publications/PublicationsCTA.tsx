@@ -27,8 +27,8 @@ export function PublicationsCTA() {
                 <MediaImage
                   src={m.src}
                   alt={m.alt}
-                  fit="cover"
-                  objectPosition={m.objectPosition}
+                  fit="contain"
+                  objectPosition={m.objectPosition ?? "50% 50%"}
                   className="aspect-[3/4] w-full rounded-lg"
                 />
                 <figcaption className="line-clamp-2 px-0.5 text-[10px] leading-snug text-ink-400">

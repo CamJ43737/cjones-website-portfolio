@@ -64,12 +64,12 @@ export function MediaImage({
         loading={priority ? "eager" : "lazy"}
         decoding="async"
         className={cn(
-          "h-full w-full max-w-full transition duration-700 ease-out",
+          "h-full w-full max-w-none transition duration-700 ease-out",
           resolvedFit === "cover" ? "object-cover" : "object-contain p-1.5 sm:p-2",
           !unframed && "group-hover:scale-[1.015]",
           imgClassName,
         )}
-        style={{ objectPosition: resolvedPosition }}
+        style={{ objectPosition: resolvedPosition, height: "100%" }}
         onError={() => setOk(false)}
       />
     </div>

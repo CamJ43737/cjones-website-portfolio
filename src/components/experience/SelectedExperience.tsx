@@ -38,22 +38,22 @@ export function SelectedExperience() {
               <article className="glass overflow-hidden rounded-[1.35rem]">
                 <div className="grid md:grid-cols-12">
                   {photo && (
-                    <figure className="flex h-full flex-col md:col-span-5">
+                    <figure className="flex h-full flex-col justify-center gap-2 p-3 sm:p-4 md:col-span-5">
                       <MediaImage
                         src={photo.src}
                         alt={photo.alt}
-                        fit={photo.fit}
+                        fit="cover"
                         objectPosition={photo.objectPosition}
-                        className="aspect-[16/11] w-full md:aspect-auto md:min-h-[240px] md:flex-1"
+                        className="aspect-[4/3] w-full rounded-xl"
                       />
                       {caption && (
-                        <figcaption className="border-t border-white/[0.06] bg-obsidian/30 px-4 py-2.5 text-[11px] leading-snug text-ink-400 sm:text-xs">
+                        <figcaption className="px-0.5 text-[11px] leading-snug text-ink-400 sm:text-xs">
                           {caption}
                         </figcaption>
                       )}
                     </figure>
                   )}
-                  <div className="flex flex-col justify-center px-6 py-7 sm:px-8 md:col-span-7">
+                  <div className="flex flex-col justify-center px-6 py-7 sm:px-8 md:col-span-7 md:pl-2">
                     <p className="font-mono text-xs tracking-wide text-tuskegee-gold">
                       {exp.timeline}
                     </p>

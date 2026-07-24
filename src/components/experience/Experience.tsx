@@ -33,31 +33,35 @@ export function Experience() {
               <article className="glass overflow-hidden rounded-[1.35rem]">
                 <div className="grid md:grid-cols-12">
                   {video ? (
-                    <div className="md:col-span-5 md:h-full">
-                      <CinematicVideo
-                        src={video.src}
-                        title={video.title}
-                        caption={video.caption}
-                        poster={video.poster}
-                        autoPlayWhenVisible={video.autoPlayWhenVisible}
-                        fit={video.fit ?? "contain"}
-                        objectPosition={video.objectPosition}
-                        coverScale={video.coverScale}
-                        embedded
-                      />
+                    <div className="flex items-center p-3 sm:p-4 md:col-span-5">
+                      <div className="w-full overflow-hidden rounded-xl border border-tuskegee-gold/25 shadow-gold-sm ring-1 ring-inset ring-tuskegee-gold/15">
+                        <CinematicVideo
+                          src={video.src}
+                          title={video.title}
+                          caption={video.caption}
+                          poster={video.poster}
+                          autoPlayWhenVisible={video.autoPlayWhenVisible}
+                          fit={video.fit ?? "contain"}
+                          objectPosition={video.objectPosition}
+                          coverScale={video.coverScale}
+                          embedded
+                        />
+                      </div>
                     </div>
                   ) : (
                     photo && (
-                      <MediaImage
-                        src={photo.src}
-                        alt={photo.alt}
-                        fit={photo.fit}
-                        objectPosition={photo.objectPosition}
-                        className="aspect-[16/11] md:col-span-5 md:aspect-auto md:min-h-[260px] md:h-full"
-                      />
+                      <div className="flex items-center p-3 sm:p-4 md:col-span-5">
+                        <MediaImage
+                          src={photo.src}
+                          alt={photo.alt}
+                          fit="cover"
+                          objectPosition={photo.objectPosition}
+                          className="aspect-[4/3] w-full rounded-xl"
+                        />
+                      </div>
                     )
                   )}
-                  <div className="flex flex-col justify-center px-6 py-7 sm:px-8 md:col-span-7">
+                  <div className="flex flex-col justify-center px-6 py-7 sm:px-8 md:col-span-7 md:pl-2">
                     <p className="font-mono text-xs tracking-wide text-tuskegee-gold">
                       {exp.timeline}
                     </p>
@@ -96,7 +100,8 @@ export function Experience() {
                             alt={m.alt}
                             fit="cover"
                             objectPosition={m.objectPosition}
-                            className="aspect-square"
+                            className="aspect-square rounded-lg"
+                            imgClassName="rounded-lg"
                           />
                         ))}
                     </div>
